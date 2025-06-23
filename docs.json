@@ -28,7 +28,7 @@
             "group": "Tổng quan",
             "pages": [
               "vi/01-bat-dau/welcome",
-              "getting-started/taikhoan-dangki",
+              "vi/01-bat-dau/tai-khoan",
               {
 					"group": "Quick Start",
 					"icon": "play",
