@@ -1,0 +1,361 @@
+---
+title: "💰 CHỨC NĂNG QUẢN LÝ THU CHI VĂN PHÒNG by Claude"
+description: "Quản lý và theo dõi toàn bộ các khoản thu nhập và chi phí phát sinh trong hoạt động văn phòng, đảm bảo minh bạch tài chính và kiểm soát dòng tiền hiệu quả."
+---
+
+
+## 🎯 TỔNG QUAN
+
+<iframe src="https://modeler.camunda.io/embed/bc0a4928-175e-40e5-9a01-5cbac41466b8" width="700" height="500" allowfullscreen="true" />
+
+**Mục đích:** Quản lý và theo dõi toàn bộ các khoản thu nhập và chi phí phát sinh trong hoạt động văn phòng, đảm bảo minh bạch tài chính và kiểm soát dòng tiền hiệu quả.
+
+**Bối cảnh nghiệp vụ:**
+
+- **Quy trình vận hành:** Đề xuất → Phê duyệt → Thực hiện → Ghi nhận → Báo cáo
+- **Logic nghiệp vụ:** Phân loại thu/chi, kiểm soát ngân sách, theo dõi công nợ, đối soát tài khoản
+- **Tác động kinh doanh:** Kiểm soát chi phí, tối ưu dòng tiền, minh bạch tài chính, hỗ trợ ra quyết định
+
+**Tổng quan Loại việc & Luồng nghiệp vụ**
+
+| Tên              | Luồng tiến trình                           | Mô tả ngắn                                              |
+| :--------------- | :----------------------------------------- | :------------------------------------------------------ |
+| Khoản Thu        | ĐỀ XUẤT → DUYỆT → THỰC HIỆN → GHI NHẬN     | Quản lý các khoản thu từ khách hàng, hợp đồng, lãi suất |
+| Khoản Chi        | ĐỀ XUẤT → DUYỆT → THỰC HIỆN → GHI NHẬN     | Quản lý chi phí vận hành, mua sắm, thanh toán           |
+| Tạm Ứng          | ĐỀ XUẤT → DUYỆT → CHI TẠM ỨNG → QUYẾT TOÁN | Quản lý việc tạm ứng và quyết toán cho nhân viên        |
+| Công Nợ Phải Thu | TẠO MỚI → THEO DÕI → THU TIỀN → THANH LÝ   | Quản lý các khoản nợ khách hàng chưa thanh toán         |
+| Công Nợ Phải Trả | TẠO MỚI → THEO DÕI → THANH TOÁN → THANH LÝ | Quản lý các khoản nợ cần trả cho nhà cung cấp           |
+| Đối Soát         | TẠO MỚI → THỰC HIỆN → HOÀN THÀNH           | Đối soát số liệu với ngân hàng, báo cáo tài chính       |
+
+**Tóm tắt kỹ thuật**
+
+- **6 loại việc chính**: Khoản Thu, Khoản Chi, Tạm Ứng, Công Nợ Phải Thu, Công Nợ Phải Trả, Đối Soát
+- **24 trạng thái** quy trình từ đề xuất đến hoàn thành
+- **32 trường dữ liệu** thu thập thông tin tài chính đầy đủ
+- **12 quy tắc tự động hóa** xử lý thông báo và cập nhật
+- **2 kết nối app ngoài**: Ngân hàng (Sepay), Kế toán
+- **6 giao diện làm việc**: Danh sách, Kanban, Lịch, Timeline, Dashboard, Công nợ
+- **8 bộ lọc thông minh** với cảnh báo tự động
+- **10 khối trình bày báo cáo**: Biểu đồ thu chi, Dòng tiền, Ngân sách, Công nợ
+- **3 vai trò** chuyên biệt: Nhân viên, Kế toán, Quản lý tài chính
+
+## 📋 LOẠI VIỆC & NGHIỆP VỤ
+
+<iframe width="100%" height="500px" style={{ boxShadow:"0 2px 8px 0 rgba(63,69,81,0.16)",borderRadius:"15px" }} allowtransparency="true" allowfullscreen="true" scrolling="no" title="Embedded DrawSQL IFrame" frameborder="0" src="https://drawsql.app/teams/a-2035/diagrams/quanlithuchi/embed" />
+
+### **1. Khoản Thu**
+
+#### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý các khoản thu nhập từ hoạt động kinh doanh, thanh toán của khách hàng, lãi suất đầu tư
+- **Ví dụ**: Thu tiền từ khách hàng ABC thanh toán hóa đơn 50 triệu VND; Thu lãi suất tiết kiệm ngân hàng 5 triệu VND
+
+#### **Luồng tiến trình**
+
+```
+ĐỀ XUẤT → DUYỆT → THỰC HIỆN → GHI NHẬN
+              ↓           ↓
+          TỪ CHỐI    TẠM DỪNG → THỰC HIỆN
+                              ↓
+                          HỦY BỎ
+```
+
+**Bảng chi tiết các Trạng thái**
+
+| Trạng thái | Nghiệp vụ                                      | Cài đặt nâng cao                                                                 |
+| :--------- | :--------------------------------------------- | :------------------------------------------------------------------------------- |
+| ĐỀ XUẤT    | Tạo đề xuất khoản thu, nhập thông tin chi tiết | **Phân quyền**: Nhân viên, Kế toán                                               |
+| DUYỆT      | Quản lý xem xét và phê duyệt khoản thu         | **Phân quyền**: Quản lý tài chính; **Điều kiện**: Có đầy đủ thông tin khách hàng |
+| TỪ CHỐI    | Khoản thu không được duyệt, ghi rõ lý do       | **Tự động hoá**: Gửi thông báo lý do từ chối                                     |
+| THỰC HIỆN  | Tiến hành thu tiền thực tế                     | **Màn hình nhập**: Số tiền thực thu, Phương thức thu                             |
+| TẠM DỪNG   | Tạm dừng việc thu do vấn đề phát sinh          | **Tự động hoá**: Tạo nhắc việc theo dõi                                          |
+| GHI NHẬN   | Ghi nhận khoản thu vào sổ sách                 | **Tự động hoá**: Cập nhật báo cáo dòng tiền                                      |
+| HỦY BỎ     | Hủy bỏ khoản thu                               | **Phân quyền**: Quản lý tài chính                                                |
+
+#### **Màn hình trường dữ liệu**
+
+| Nhóm thông tin      | Trường dữ liệu                                                      | Ghi chú                       |
+| :------------------ | :------------------------------------------------------------------ | :---------------------------- |
+| Thông tin cơ bản    | Mã khoản thu, Tiêu đề, Mô tả, Ngày đề xuất                          | Định danh và mô tả khoản thu  |
+| Thông tin tài chính | Số tiền dự kiến, Đơn vị tiền tệ, Loại thu, Danh mục thu             | Chi tiết về số liệu tài chính |
+| Thông tin đối tác   | Khách hàng/Đơn vị trả, Hợp đồng liên quan, Hóa đơn/Chứng từ         | Thông tin về nguồn thu        |
+| Thực hiện           | Ngày thu dự kiến, Phương thức thu, Tài khoản nhận, Số tiền thực thu | Chi tiết thực hiện thu tiền   |
+
+### **2. Khoản Chi**
+
+#### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý các khoản chi phí vận hành, mua sắm thiết bị, thanh toán nhà cung cấp, chi phí nhân sự
+- **Ví dụ**: Chi phí mua máy tính cho phòng IT 30 triệu VND; Thanh toán tiền điện văn phòng tháng 3 năm 2024
+
+#### **Luồng tiến trình**
+
+```
+ĐỀ XUẤT → DUYỆT → THỰC HIỆN → GHI NHẬN
+              ↓           ↓
+          TỪ CHỐI    TẠM DỪNG → THỰC HIỆN
+                              ↓
+                          HỦY BỎ
+```
+
+**Bảng chi tiết các Trạng thái**
+
+| Trạng thái | Nghiệp vụ                                   | Cài đặt nâng cao                                                             |
+| :--------- | :------------------------------------------ | :--------------------------------------------------------------------------- |
+| ĐỀ XUẤT    | Tạo đề xuất chi tiêu, justification chi phí | **Phân quyền**: Nhân viên, Trưởng phòng                                      |
+| DUYỆT      | Xem xét tính hợp lý và phê duyệt            | **Điều kiện**: Trong ngân sách được duyệt; **Phân quyền**: Quản lý tài chính |
+| TỪ CHỐI    | Không duyệt chi tiêu, có lý do rõ ràng      | **Tự động hoá**: Thông báo lý do và hướng dẫn                                |
+| THỰC HIỆN  | Tiến hành chi tiền, mua sắm                 | **Màn hình nhập**: Hóa đơn thực tế, Số tiền chi                              |
+| TẠM DỪNG   | Tạm dừng thực hiện do vấn đề                | **Tự động hoá**: Nhắc việc review định kỳ                                    |
+| GHI NHẬN   | Ghi nhận chi phí vào sổ sách                | **Tự động hoá**: Cập nhật ngân sách còn lại                                  |
+| HỦY BỎ     | Hủy khoản chi                               | **Phân quyền**: Quản lý tài chính                                            |
+
+#### **Màn hình trường dữ liệu**
+
+| Nhóm thông tin      | Trường dữ liệu                                                     | Ghi chú                       |
+| :------------------ | :----------------------------------------------------------------- | :---------------------------- |
+| Thông tin cơ bản    | Mã khoản chi, Tiêu đề, Mô tả, Ngày đề xuất                         | Định danh và mô tả khoản chi  |
+| Thông tin tài chính | Số tiền dự kiến, Đơn vị tiền tệ, Loại chi, Danh mục chi            | Chi tiết về số liệu tài chính |
+| Thông tin đối tác   | Nhà cung cấp, Hợp đồng mua, Báo giá                                | Thông tin về đối tác chi trả  |
+| Thực hiện           | Ngày chi dự kiến, Phương thức chi, Tài khoản chi, Số tiền thực chi | Chi tiết thực hiện chi trả    |
+
+### **3. Tạm Ứng**
+
+#### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý việc tạm ứng tiền cho nhân viên thực hiện công việc và quyết toán sau khi hoàn thành
+- **Ví dụ**: Tạm ứng 10 triệu cho nhân viên đi công tác; Tạm ứng 5 triệu mua văn phòng phẩm khẩn cấp
+
+#### **Luồng tiến trình**
+
+```
+ĐỀ XUẤT → DUYỆT → CHI TẠM ỨNG → QUYẾT TOÁN
+              ↓              ↓
+          TỪ CHỐI      TẠM DỪNG → CHI TẠM ỨNG
+                                    ↓
+                               HỦY BỎ
+```
+
+**Bảng chi tiết các Trạng thái**
+
+| Trạng thái  | Nghiệp vụ                            | Cài đặt nâng cao                                      |
+| :---------- | :----------------------------------- | :---------------------------------------------------- |
+| ĐỀ XUẤT     | Đề xuất tạm ứng, nêu rõ mục đích     | **Phân quyền**: Nhân viên                             |
+| DUYỆT       | Xem xét và phê duyệt tạm ứng         | **Phân quyền**: Trưởng phòng, Kế toán                 |
+| TỪ CHỐI     | Từ chối tạm ứng                      | **Tự động hoá**: Thông báo lý do từ chối              |
+| CHI TẠM ỨNG | Chi tiền tạm ứng cho nhân viên       | **Tự động hoá**: Tạo nhắc việc quyết toán             |
+| TẠM DỪNG    | Tạm dừng chi do vấn đề               | **Tự động hoá**: Cảnh báo quá hạn                     |
+| QUYẾT TOÁN  | Quyết toán chi tiết, hoàn trả nếu có | **Màn hình nhập**: Hóa đơn chứng từ, Số tiền thực chi |
+| HỦY BỎ      | Hủy tạm ứng                          | **Phân quyền**: Kế toán                               |
+
+#### **Màn hình trường dữ liệu**
+
+| Nhóm thông tin      | Trường dữ liệu                                        | Ghi chú                     |
+| :------------------ | :---------------------------------------------------- | :-------------------------- |
+| Thông tin tạm ứng   | Mã tạm ứng, Mục đích, Người đề xuất, Ngày đề xuất     | Thông tin cơ bản về tạm ứng |
+| Thông tin tài chính | Số tiền tạm ứng, Thời hạn quyết toán, Loại chi phí    | Chi tiết tài chính          |
+| Quyết toán          | Số tiền thực chi, Số tiền hoàn lại, Chứng từ đính kèm | Thông tin quyết toán        |
+
+### **4. Công Nợ Phải Thu**
+
+#### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý các khoản tiền mà khách hàng/đối tác nợ công ty, theo dõi hạn thanh toán và đòi nợ
+- **Ví dụ**: Khách hàng XYZ nợ 100 triệu từ hóa đơn tháng 2, hạn thanh toán 15/3; Công ty ABC chưa thanh toán tiền dịch vụ tư vấn 50 triệu
+
+#### **Luồng tiến trình**
+
+```
+TẠO MỚI → THEO DÕI → THU TIỀN → THANH LÝ
+              ↓           ↓
+          QUÁ HẠN    ĐIỀU CHỈNH → THEO DÕI
+              ↓
+         XỬ LÝ NỢ XẤU
+```
+
+**Bảng chi tiết các Trạng thái**
+
+| Trạng thái   | Nghiệp vụ                             | Cài đặt nâng cao                                                  |
+| :----------- | :------------------------------------ | :---------------------------------------------------------------- |
+| TẠO MỚI      | Tạo khoản công nợ từ hóa đơn/hợp đồng | **Tự động hoá**: Tự động tạo từ Khoản Thu khi chưa nhận được tiền |
+| THEO DÕI     | Theo dõi tiến độ thanh toán           | **Tự động hoá**: Nhắc việc theo dõi trước hạn 3 ngày              |
+| QUÁ HẠN      | Công nợ đã quá hạn thanh toán         | **Tự động hoá**: Gửi thông báo nhắc nở khách hàng                 |
+| ĐIỀU CHỈNH   | Điều chỉnh số tiền hoặc thời hạn      | **Phân quyền**: Kế toán, Quản lý tài chính                        |
+| THU TIỀN     | Đã thu được tiền từ khách hàng        | **Tự động hoá**: Cập nhật báo cáo dòng tiền                       |
+| XỬ LÝ NỢ XẤU | Xử lý nợ khó đòi hoặc nợ xấu          | **Phân quyền**: Quản lý tài chính                                 |
+| THANH LÝ     | Hoàn tất xử lý công nợ                | **Tự động hoá**: Cập nhật báo cáo công nợ                         |
+
+#### **Màn hình trường dữ liệu**
+
+| Nhóm thông tin      | Trường dữ liệu                                                  | Ghi chú                      |
+| :------------------ | :-------------------------------------------------------------- | :--------------------------- |
+| Thông tin nợ        | Mã công nợ, Khách hàng/Đối tác, Hóa đơn gốc, Ngày phát sinh     | Thông tin cơ bản về khoản nợ |
+| Thông tin tài chính | Số tiền gốc, Số tiền đã thu, Số tiền còn lại, Tiền phạt trễ hạn | Chi tiết về số liệu nợ       |
+| Thời hạn            | Ngày đến hạn, Số ngày quá hạn, Ghi chú xử lý                    | Thông tin về thời gian       |
+| Xử lý               | Biện pháp đòi nợ, Tình trạng xử lý, Kết quả                     | Chi tiết về việc xử lý nợ    |
+
+### **5. Công Nợ Phải Trả**
+
+#### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý các khoản tiền công ty cần trả cho nhà cung cấp, đối tác, theo dõi hạn thanh toán
+- **Ví dụ**: Nợ công ty vệ sinh ABC 20 triệu tiền dịch vụ tháng 3; Nợ nhà cung cấp văn phòng phẩm 15 triệu đã mua hàng
+
+#### **Luồng tiến trình**
+
+```
+TẠO MỚI → THEO DÕI → THANH TOÁN → THANH LÝ
+              ↓           ↓
+          QUÁ HẠN    ĐIỀU CHỈNH → THEO DÕI
+              ↓
+         THƯƠNG LƯỢNG
+```
+
+**Bảng chi tiết các Trạng thái**
+
+| Trạng thái   | Nghiệp vụ                           | Cài đặt nâng cao                                              |
+| :----------- | :---------------------------------- | :------------------------------------------------------------ |
+| TẠO MỚI      | Tạo khoản phải trả từ hóa đơn mua   | **Tự động hoá**: Tự động tạo từ Khoản Chi khi chưa thanh toán |
+| THEO DÕI     | Theo dõi đến hạn thanh toán         | **Tự động hoá**: Nhắc việc chuẩn bị thanh toán trước 5 ngày   |
+| QUÁ HẠN      | Đã quá hạn thanh toán               | **Tự động hoá**: Cảnh báo ưu tiên thanh toán                  |
+| ĐIỀU CHỈNH   | Thỏa thuận lại điều kiện thanh toán | **Phân quyền**: Quản lý tài chính                             |
+| THƯƠNG LƯỢNG | Đàm phán gia hạn hoặc giảm trừ      | **Phân quyền**: Quản lý tài chính                             |
+| THANH TOÁN   | Đã thanh toán cho nhà cung cấp      | **Tự động hoá**: Ghi nhận vào sổ chi                          |
+| THANH LÝ     | Hoàn tất nghĩa vụ thanh toán        | **Tự động hoá**: Cập nhật báo cáo công nợ                     |
+
+#### **Màn hình trường dữ liệu**
+
+| Nhóm thông tin      | Trường dữ liệu                                                      | Ghi chú                            |
+| :------------------ | :------------------------------------------------------------------ | :--------------------------------- |
+| Thông tin nợ        | Mã công nợ, Nhà cung cấp, Hóa đơn mua, Ngày phát sinh               | Thông tin cơ bản về khoản phải trả |
+| Thông tin tài chính | Số tiền gốc, Số tiền đã trả, Số tiền còn lại, Chiết khấu được hưởng | Chi tiết về số liệu nợ             |
+| Thời hạn            | Ngày đến hạn, Số ngày quá hạn, Điều kiện thanh toán                 | Thông tin về thời gian             |
+| Xử lý               | Kế hoạch thanh toán, Tình trạng thương lượng, Ghi chú               | Chi tiết về việc xử lý             |
+
+### **6. Đối Soát**
+
+#### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Đối soát số liệu thu chi với sổ sách ngân hàng, báo cáo tài chính để đảm bảo tính chính xác
+- **Ví dụ**: Đối soát thu chi tháng 3/2024 với sao kê ngân hàng; Đối soát công nợ với các nhà cung cấp
+
+#### **Luồng tiến trình**
+
+```
+TẠO MỚI → THỰC HIỆN → HOÀN THÀNH
+                ↓
+           TẠM DỪNG → THỰC HIỆN
+```
+
+#### **Màn hình trường dữ liệu**
+
+| Nhóm thông tin     | Trường dữ liệu                                         | Ghi chú                    |
+| :----------------- | :----------------------------------------------------- | :------------------------- |
+| Thông tin đối soát | Kỳ đối soát, Loại đối soát, Người thực hiện            | Thông tin về việc đối soát |
+| Kết quả            | Số liệu hệ thống, Số liệu thực tế, Chênh lệch, Ghi chú | Chi tiết kết quả đối soát  |
+
+#### **Mối quan hệ giữa các Loại việc**
+
+**Kết nối Loại việc**
+
+| 2 Loại việc kết nối          | Mô tả                                                     |
+| :--------------------------- | :-------------------------------------------------------- |
+| Khoản Thu ↔ Công Nợ Phải Thu | Khoản Thu chưa nhận tiền sẽ tự động tạo Công Nợ Phải Thu  |
+| Khoản Chi ↔ Công Nợ Phải Trả | Khoản Chi chưa thanh toán sẽ tự động tạo Công Nợ Phải Trả |
+| Tạm Ứng ↔ Khoản Chi          | Quyết toán Tạm Ứng có thể tạo ra các Khoản Chi cụ thể     |
+| Đối Soát ↔ Tất cả loại việc  | Đối Soát cần tham chiếu đến tất cả giao dịch thu chi      |
+
+**Trường chọn Đầu việc**
+
+| Tên trường           | Tham chiếu                  | Mô tả                                              |
+| :------------------- | :-------------------------- | :------------------------------------------------- |
+| Hóa đơn gốc          | Công Nợ → Khoản Thu/Chi     | Công nợ tham chiếu đến hóa đơn phát sinh ban đầu   |
+| Thanh toán liên quan | Công Nợ → Khoản Thu/Chi     | Liên kết với các lần thanh toán từng phần          |
+| Đối soát liên quan   | Đối Soát → Tất cả loại việc | Đối soát tham chiếu đến các giao dịch cần kiểm tra |
+
+**Trường bảng dữ liệu**
+
+| Loại việc & Tên trường              | Tham chiếu                                | Cột thủ công                           |
+| :---------------------------------- | :---------------------------------------- | :------------------------------------- |
+| Đối Soát - Bảng chi tiết giao dịch  | Khoản Thu/Chi → Số tiền, Ngày, Trạng thái | Ghi chú đối soát, Chênh lệch, Xác nhận |
+| Công Nợ Phải Thu - Lịch sử thu tiền | Khoản Thu → Số tiền thu, Ngày thu         | Ghi chú thu tiền, Phí ngân hàng        |
+
+## 👥 VAI TRÒ
+
+| Tên vai trò         | Mô tả                                               | Phân quyền & Thông báo                                                   |
+| :------------------ | :-------------------------------------------------- | :----------------------------------------------------------------------- |
+| Nhân viên Tài chính | Nhân viên thực hiện các nghiệp vụ thu chi hàng ngày | Tạo đề xuất, cập nhật thông tin; Nhận thông báo về trạng thái đề xuất    |
+| Kế toán             | Kiểm soát và ghi sổ các giao dịch tài chính         | Duyệt khoản chi nhỏ, ghi nhận sổ sách; Nhận thông báo tất cả giao dịch   |
+| Quản lý Tài chính   | Phê duyệt các khoản thu chi quan trọng              | Duyệt khoản lớn, xem báo cáo tổng hợp; Nhận thông báo cảnh báo ngân sách |
+
+## ⚙️ TỰ ĐỘNG HOÁ
+
+### **Quy tắc tự động trên tiến trình**
+
+| Loại việc & Trạng thái     | Hành động tự động                                           |
+| :------------------------- | :---------------------------------------------------------- |
+| Khoản Thu → GHI NHẬN       | Cập nhật dòng tiền, gửi thông báo hoàn thành                |
+| Khoản Chi → GHI NHẬN       | Trừ ngân sách, cập nhật báo cáo chi phí                     |
+| Tạm Ứng → CHI TẠM ỨNG      | Tạo nhắc việc quyết toán sau 15 ngày                        |
+| Công Nợ Phải Thu → QUÁ HẠN | Gửi email nhắc nở khách hàng, thông báo nhân viên phụ trách |
+| Công Nợ Phải Trả → QUÁ HẠN | Cảnh báo ưu tiên thanh toán, thông báo quản lý tài chính    |
+| Tất cả → TỪ CHỐI           | Gửi email thông báo lý do từ chối                           |
+
+### **Quy tắc chạy ngầm**
+
+| Tên quy tắc                 | Cách kích hoạt                   | Hành động tự động                                       |
+| :-------------------------- | :------------------------------- | :------------------------------------------------------ |
+| Tạo công nợ từ thu chi      | Khi Khoản Thu/Chi quá hạn 7 ngày | Tự động tạo Công Nợ tương ứng                           |
+| Cảnh báo công nợ quá hạn    | Lịch trình hàng ngày             | Gửi danh sách công nợ quá hạn cho Quản lý               |
+| Cảnh báo quá hạn quyết toán | Lịch trình hàng ngày             | Gửi thông báo những tạm ứng quá 30 ngày chưa quyết toán |
+| Báo cáo thu chi tuần        | Lịch trình thứ 2 hàng tuần       | Gửi báo cáo tổng hợp thu chi và công nợ tuần qua        |
+| Cảnh báo ngân sách          | Khi cập nhật khoản chi           | Cảnh báo khi chi phí vượt 80% ngân sách tháng           |
+| Nhắc thanh toán sắp đến hạn | Lịch trình hàng ngày             | Nhắc các khoản phải trả sắp đến hạn trong 5 ngày        |
+
+### **Kết nối app ngoài**
+
+| Tên quy tắc & App ngoài             | Cách kích hoạt          | Hành động tự động                                |
+| :---------------------------------- | :---------------------- | :----------------------------------------------- |
+| Đồng bộ giao dịch Ngân hàng (Sepay) | Webhook từ Sepay        | Tự động tạo khoản thu khi có tiền vào tài khoản  |
+| Xuất dữ liệu Kế toán (Excel)        | Hành động trên Đối soát | Xuất file Excel báo cáo thu chi theo mẫu kế toán |
+
+## 🖥️ GIAO DIỆN LÀM VIỆC, BỘ LỌC, BÁO CÁO
+
+### **Giao diện**
+
+| Tên giao diện \+ Loại            | Mô tả                                        | Nguồn dữ liệu                                 |
+| :------------------------------- | :------------------------------------------- | :-------------------------------------------- |
+| Thu Chi Tổng Quan \+ Danh sách   | Xem tất cả khoản thu chi theo dạng bảng      | Tất cả loại việc, sắp xếp theo ngày           |
+| Quy Trình Duyệt \+ Kanban        | Theo dõi trạng thái duyệt các khoản thu chi  | Khoản Thu và Khoản Chi ở trạng thái chờ duyệt |
+| Lịch Thu Chi \+ Lịch             | Xem lịch thu chi theo tháng                  | Khoản Thu và Chi có ngày dự kiến              |
+| Timeline Dòng Tiền \+ Timeline   | Theo dõi dòng tiền theo thời gian            | Tất cả giao dịch đã ghi nhận                  |
+| Dashboard Tài Chính \+ Dashboard | Báo cáo tổng quan tình hình tài chính        | Tất cả dữ liệu thu chi                        |
+| Quản Lý Công Nợ \+ Danh sách     | Theo dõi tất cả công nợ phải thu và phải trả | Công Nợ Phải Thu và Phải Trả                  |
+
+### **Bộ lọc**
+
+| Tên \+ mô tả             | Tiêu chí lọc                                         | Thông báo                                       |
+| :----------------------- | :--------------------------------------------------- | :---------------------------------------------- |
+| Chờ Duyệt Khẩn Cấp       | Khoản chi \> 10 triệu ở trạng thái Đề xuất \> 2 ngày | Gửi thông báo hàng ngày cho Quản lý tài chính   |
+| Tạm Ứng Quá Hạn          | Tạm ứng đã chi \> 30 ngày chưa quyết toán            | Gửi thông báo tuần cho Kế toán và người tạm ứng |
+| Ngân Sách Cảnh Báo       | Chi phí tháng hiện tại \> 80% ngân sách              | Gửi thông báo ngay cho Quản lý tài chính        |
+| Thu Lớn Chưa Về          | Khoản thu \> 50 triệu quá hạn dự kiến \> 7 ngày      | Gửi thông báo hàng ngày cho Nhân viên phụ trách |
+| Công Nợ Phải Thu Quá Hạn | Công nợ phải thu quá hạn \> 15 ngày                  | Gửi thông báo hàng ngày cho Sale và Kế toán     |
+| Công Nợ Phải Trả Ưu Tiên | Công nợ phải trả quá hạn hoặc sắp đến hạn 3 ngày     | Gửi thông báo hàng ngày cho Quản lý tài chính   |
+| Nợ Xấu Tiềm Năng         | Công nợ phải thu quá hạn \> 90 ngày                  | Gửi thông báo tuần cho Giám đốc                 |
+| Thanh Toán Khẩn Cấp      | Công nợ phải trả của nhà cung cấp quan trọng         | Gửi thông báo ngay cho Quản lý tài chính        |
+
+### **Báo cáo**
+
+| Tên Khối trình bày \+ Loại                      | Cách tổng hợp & trình bày dữ liệu                   |
+| :---------------------------------------------- | :-------------------------------------------------- |
+| Biểu Đồ Thu Chi Tháng \+ Biểu đồ cột            | So sánh thu và chi theo từng tháng trong năm        |
+| Dòng Tiền Tích Lũy \+ Biểu đồ đường             | Hiển thị xu hướng dòng tiền tích lũy theo thời gian |
+| Phân Bổ Chi Phí \+ Biểu đồ tròn                 | Tỷ lệ các danh mục chi phí trong tổng chi           |
+| Bảng Ngân Sách \+ Bộ đếm                        | So sánh chi phí thực tế với ngân sách đã duyệt      |
+| Top Nhà Cung Cấp \+ Thống kê 1 chiều            | Danh sách nhà cung cấp theo số tiền thanh toán      |
+| Thu Chi Theo Phòng Ban \+ Thống kê 2 chiều      | Ma trận thu chi theo phòng ban và danh mục          |
+| Giao Dịch Gần Đây \+ Danh sách                  | 20 giao dịch thu chi mới nhất                       |
+| Cập Nhật Tài Chính \+ Updates                   | Hoạt động cập nhật mới nhất trên các khoản thu chi  |
+| Tổng Quan Công Nợ \+ Bộ đếm                     | Tổng công nợ phải thu, phải trả và tỷ lệ quá hạn    |
+| Bảng Xếp Hạng Khách Hàng Nợ \+ Thống kê 1 chiều | Top khách hàng có công nợ cao nhất                  |

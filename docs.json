@@ -76,11 +76,8 @@
           {
             "group": "Chức năng mẫu",
             "pages": [
-              "function-design/quanlythuchi",
-              "function-design/crmbygemini",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "vi/05-templates/quan-li-thu-chi"
+    
             ]
           }
         ]
@@ -91,7 +88,7 @@
           {
             "group": "API Documentation",
             "pages": [
-              "api-reference/introduction"
+              "vi/04-su-dung/su-dung-lam-viec"
             ]
           },
           {
@@ -111,7 +108,7 @@
           {
             "group": "API Documentation",
             "pages": [
-              "api-reference/introduction"
+              "vi/05-templates/quan-li-thu-chi"
             ]
           },
           {

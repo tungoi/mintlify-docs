@@ -1,0 +1,451 @@
+---
+title: "Sử dụng chức năng để làm việc"
+---
+
+## **INTERFACE OVERVIEW / TỔNG QUAN GIAO DIỆN**
+
+### 
+
+### **Main Menu & Structure Column / Menu Chính & Cột Cấu Trúc**
+
+- Cấu trúc tổ chức chính thức của Doanh nghiệp.
+- Chứa các Khu vực & Mảng việc thường tương ứng với các bộ phận, phòng ban và phần việc bên trong.
+
+#### **Personal Home / Cá Nhân**
+
+- Dữ liệu liên quan tới Cá nhân một người đang nằm phân tán ở nhiều nơi trong Tổ chức sẽ được kéo tập trung về một nơi.
+- Bao gồm: các Cập nhật, Đầu việc, Mảng việc, Tin chat, Bộ lọc, Báo cáo mà Cá nhân đó làm hoặc Gắn sao.
+
+#### **Workspace / Phòng Làm Việc**
+
+- Tự tạo nhiều cách sắp xếp đáp ứng các nhu cầu, tính chất công việc khác nhau.
+- Kéo các Mảng việc, Báo cáo, Bộ lọc... liên quan về một nơi, chia sẻ làm việc với người khác.
+
+#### **Notifications / Thông Báo**
+
+Xem nhanh các Thông báo, Cập nhật.
+
+#### **Utilities / Tiện Ích**
+
+Nơi quản lý và cài đặt các tính năng hỗ trợ công việc như Chức năng, Tự động hoá, Bộ lọc, Báo cáo.
+
+#### **Private Chat / Chat Riêng**
+
+Chat cá nhân 1-1 hoặc chat nhóm mà không liên quan tới Mảng việc, Đầu việc.
+
+### **Workview / Giao Diện Làm Việc**
+
+Khi đã chọn một phần trong Menu chính/ Cột cấu trúc thì dữ liệu của phần đó sẽ hiện ở Giao diện Làm việc ở bên phải.
+
+#### **Workviews / Giao Diện Làm Việc**
+
+Giao diện làm việc tổng hợp dữ liệu công việc & trình bày trực quan với nhiều chế độ đáp ứng các nhu cầu khác nhau: Danh sách, Cập nhật, Kanban, Lịch, Dòng thời gian, Báo cáo.
+
+#### **Working with Objects / Làm Việc Với Đầu Việc**
+
+Chọn một việc từ Giao diện thì sẽ mở ra màn hình làm việc chi tiết với Đầu việc: giao việc, chuyển trạng thái, cập nhật thông tin, chat trao đổi...
+
+#### **Quick Filter Bar / Thanh Lọc Nhanh**
+
+Tìm kiếm & tinh lọc các đầu việc đang hiện trên Giao diện Làm việc.
+
+#### **Bottom Bar / Thanh Dưới Cùng**
+
+- **Thành phần Mảng việc:** khi Cột cấu trúc đang chọn Mảng việc thì bên trái Thanh Dưới cùng sẽ hiện các Thành phần của Mảng việc, để phân loại Đầu việc nhanh chóng.
+- **Ghim chat:** có thể ghim các cuộc chat Đầu việc, Mảng việc & Chat riêng xuống đây để vẫn luôn chat được khi di chuyển màn hình khác nhau.
+
+#### **Quick Action Button / Nút Hành Động Nhanh**
+
+Tạo hoặc cập nhật Đầu việc qua phím tắt.
+
+### **Settings & Admin / Cài Đặt & Hỗ Trợ**
+
+#### **Personal Settings / Cài Đặt Cá Nhân**
+
+Trạng thái, Ngôn ngữ, Tài khoản.
+
+#### **Business Settings / Cài Đặt Doanh Nghiệp**
+
+- Chuyển Doanh nghiệp: một tài khoản có thể.
+- Dữ liệu Toàn cục: Loại việc, Trạng thái, Trường dữ liệu, Kết nối.
+- Vai trò, Phân quyền, Thông báo.
+- Thư mục: Tài khoản, Nhóm.
+- Cài đặt khác.
+
+#### **Support Chat / Chat Hỗ Trợ**
+
+Chat ngay trong app Luklak khi cần hỗ trợ.
+
+## **AREA & SPACE / KHU VỰC & MẢNG VIỆC**
+
+### 
+
+### **Organization Structure / Cấu Trúc Tổ Chức**
+
+- **Mảng việc:** được tạo ra từ Chức năng, là nơi nhân viên thực tế làm việc với các Đầu việc hoạt động theo logic đã định nghĩa trong Chức năng nguồn.
+- **Khu vực:** mỗi Mảng việc nằm trong một Khu vực và kế thừa các Vai trò được gán tại Khu vực đó.
+- **Tổ chức:** tất cả các Khu vực và Mảng việc sẽ tạo nên cấu trúc Tổ chức công việc chính thức.
+
+### **Object & Daily Work / Đầu Việc & Làm Việc**
+
+- Các Đầu việc được tạo ra trong Mảng việc tương ứng với các Loại việc đã được cấu hình trong Chức năng, và cũng tuân theo các logic khác như Luồng tiến trình, Trường dữ liệu, Tự động hoá… trong Chức năng.
+- Người dùng sẽ thực tế làm việc hàng ngày với các Đầu việc bên trong Mảng việc.
+
+### **Workview / Giao Diện Làm Việc**
+
+- **Từ Chức năng:** Mảng việc sẽ thừa kế và sử dụng các Giao diện được định nghĩa trong Chức năng.
+- **Từ Khu vực & Mảng việc:** Có thể tạo thêm các Giao diện riêng ở cấp Mảng việc và Khu vực.
+- **Các loại Giao diện:** Danh sách, Kanban, Lịch, Dòng thời gian, Báo cáo.
+
+### **Automation / Tự Động Hoá**
+
+- **Từ Chức năng:** Các Đầu việc trong Mảng việc sẽ tự động áp dụng mọi Quy tắc tự động được tạo ở Chức năng.
+- **Từ Khu vực & Mảng việc:** Có thể tạo thêm các Quy tắc tự động riêng ở cấp Mảng việc và Khu vực.
+- **Các loại tự động hoá:**
+  - Quy tắc chạy ngầm.
+  - Quy tắc trong menu hành động.
+  - Tự động trên tiến trình.
+
+### **Permission, Notification & Role / Phân Quyền, Thông Báo & Vai Trò**
+
+Phương án Phân quyền & Thông báo cài ở Chức năng sẽ quyết định ai sẽ nhận được quyền hành động nào và thông báo nào với các Đầu việc trong Mảng việc.
+
+- **Hành Động bao gồm:** Xem, Tạo, Sửa, Xoá, Chuyển Trạng Thái, Đính Kèm File, Chat...
+- **Người Nhận có thể là:** Vai trò, Tài khoản, Nhóm, Trường Người/ Nhóm trên Đầu việc.
+
+#### **Assign People to Roles in Space / Gán Người Vào Vai Trò Ở Mảng Việc**
+
+- Vai trò tạo ở Toàn cục và Chức năng là khung khái niệm, chưa có người cụ thể.
+- Khi tạo Mảng việc & Khu vực, người dùng được gán vào Vai trò sẽ tự động nhận quyền và thông báo tương ứng.
+- Mảng việc kế thừa Vai trò và người từ Khu vực chứa nó.
+
+### **Space Component / Thành Phần Mảng Việc**
+
+#### **Overview / Tính Chất Chung**
+
+- Tất cả Trường dữ liệu của Đầu việc đều được cấu hình sẵn tại Chức năng và sẽ tự động áp dụng cho mọi Mảng việc được tạo từ Chức năng đó.
+- Riêng Thành phần là một loại dữ liệu đặc thù, được định nghĩa và dùng riêng cho từng Mảng việc.
+
+#### **Usage / Ứng Dụng**
+
+- Phân loại đầu việc theo từng nhóm xử lý, tương tự loại trường Tuỳ chọn một.
+- Thành phần hiện trực quan ở thanh dưới màn hình giúp nhận biết và thao tác nhanh hơn hẳn các Trường bình thường.
+- Cung cấp khả năng tuỳ biến ở mức Mảng việc, độc lập với cấu hình ở Chức năng.
+- Gán người làm Trưởng phần và Thành viên phần, từ đó có thể kích hoạt Tự động hoá để giao việc hoặc các thao tác khác.
+
+### **Space Chat Channel / Kênh Chat Mảng Việc**
+
+Kênh chat được tổ chức theo từng Mảng việc tương tự các nền tảng chat doanh nghiệp như Slack.
+
+- Trao đổi theo cấu trúc rõ ràng, không lộn xộn lụt lội như các nhóm chat cá nhân.
+- Kết nối xuyên suốt giao tiếp trao đổi chung trong kênh chat với các Đầu việc cần làm trong cùng một Mảng việc.
+- Dễ dàng chuyển các nội dung chat dễ trôi thành Đầu việc cụ thể để triển khai, theo dõi.
+- Thêm Live Chat trực tiếp ngay trên từng Đầu việc, giúp các công việc không bị lẫn lộn vào nhau.
+
+### **Space Settings / Cài Đặt Mảng Việc**
+
+Các tính năng ở trên là phần Mảng việc kế thừa tự động từ Chức năng nguồn. Ngoài ra, mỗi Mảng việc còn có thể được cấu hình thêm những thiết lập riêng như sau:
+
+**Kế thừa và mở rộng từ Chức năng:**
+
+- Giao diện làm việc
+- Tự động hoá
+
+**Cài đặt riêng của Mảng việc:**
+
+- Gán người vào vai trò
+- Tạo thành phần Mảng việc
+- Truy cập các tiện ích của Mảng việc
+
+## **WORKING WITH OBJECT / LÀM VIỆC VỚI ĐẦU VIỆC**
+
+Đầu việc là dữ liệu công việc thực tế mà người dùng thao tác hàng ngày. Đầu việc được tạo trong Mảng việc và vận hành theo logic về đã được cấu hình trong Loại việc tương ứng thuộc Chức năng về: Loại việc, Luồng tiến trình, Trường Dữ Liệu, Tự động hoá, Giao diện Làm Việc, Phân quyền, Thông báo.
+
+### **Basic / Cơ Bản**
+
+- **Tạo việc** với 3 cách: Dấu \+ ở Mảng việc, Nút hành động nhanh, Phím tắt N / A.
+- **Giao việc** những người phụ trách tham gia xử lý. Họ sẽ nhận Phân quyền & Thông báo như cài đặt của Phương án trong Chức năng.
+- **Chạy luồng tiến trình** và cập nhật trạng thái.
+- **Cập nhật trường thông tin dữ liệu.**
+- **Đính kèm tài liệu, ảnh.**
+- **Live photo** chụp ảnh trực tiếp và tự động điền dữ liệu về thời gian, địa chỉ, toạ độ để xác thực.
+
+### **Object Extension / Mở Rộng Công Việc**
+
+Khả năng mở rộng công việc linh hoạt và mạnh mẽ giúp dễ dàng quản từ việc lớn đến nhỏ.
+
+- **Mục kiểm:** cụ thể hoá công việc thành các bước nhỏ cần làm và đánh dấu hoàn thành.
+- **Việc con:** công việc lớn có thể chia thành các Đầu việc nhỏ để dễ quản lý tiến khai.
+- **Kết nối:** các Đầu việc có liên quan để tạo ra bức tranh tổng thể hơn.
+
+### **Toolbar / Thanh Công Cụ**
+
+- **Hành động trên Đầu việc**: kích hoạt các Quy tắc Tự Động thuộc loại Hành động trên Đầu việc đã cài sẵn cho Đầu việc này
+- **Hướng Dẫn Luồng:** hướng dẫn cụ thể cách làm trực tiếp trên Đầu việc.
+- **Chuyển Tin Chat** thành Đầu việc để làm tiếp theo.
+- **Gắn Sao Đầu việc** để kéo đầu việc về trang Cá Nhân tiện truy cập & làm việc.
+- **Ghim** cửa sổ chat Đầu việc xuống thanh dưới màn hình để vẫn tiếp tục chat được dù đã chuyển đi chỗ khác.
+- **Theo dõi:** chủ động kích hoạt việc nhận thông báo.
+- **Chức năng:** mở Chức năng nguồn của Mảng việc ra để xem và cập nhật cấu hình nghiệp vụ.
+- **Mở rộng:** diện tích để xem Đầu việc.
+
+### **Live Chat / Live Chat**
+
+- **Livechat** trao đổi trực tiếp trên đầu việc, không cần lội qua nhóm chat lẫn lộn.
+- **Gắn Sao** một tin chat để kéo lưu về Trang Cá Nhân, dễ dàng tìm xem lại sau đó.
+- **Chuyển Tin Chat thành Đầu việc,** biến các đoạn trao đổi rời rạc, thiếu cấu trúc thành công việc cụ thể có thể theo dõi và xử lý.
+
+### **More Actions with Object / Thêm Hành Động Với Đầu Việc**
+
+- **Mã QR:** dùng mobile app Luklak quét mã mở ra đúng Đầu việc này, hoặc thực hiện hành Động Tự Động đã được cài sẵn cho Đầu việc. Thường dùng cho quản lý tài sản, trang thiết bị, xuất nhập hàng trong kho...
+- **Mã Đầu việc:** mã số định danh duy nhất trên hệ thống.
+- **Đường Dẫn tới Đầu việc:** copy và gửi cho người khác để mở Đầu việc.
+- **Lịch sử Hoạt động:** thẻ bên dưới mỗi Đầu việc lưu vết lại toàn bộ lịch sử ai đã thực hiện hành động gì vào thời gian nào, và không ai có thể xoá đi.
+
+### **Quick Action Button / Nút Hành Động Nhanh**
+
+#### **Keyboard Shortcut / Phím Tắt**
+
+- **Q:** mở hộp thoại Hành Động Nhanh.
+- **N:** tạo mới một Đầu việc bằng hộp thoại đầy đủ.
+- **A:** tạo nhanh một Đầu việc bằng hộp thoại vút gọn.
+
+#### **Quick Action Dialog / Hộp Thoại Hành Động Nhanh**
+
+- **Tác vụ Đầu việc** các thao tác thủ công có thể thực hiện trên Đầu việc như: chỉnh sửa, thay đổi trạng thái, cập nhật, gắn sao, theo dõi, liên kết, thêm tệp đính kèm.
+- **Menu Hành Động** gọi các Quy tắc Tự Động đã được cấu hình sẵn cho Đầu việc này.
+
+## **WORKVIEW, DASHBOARD, FILTER / GIAO DIỆN LÀM VIỆC, BÁO CÁO, BỘ LỌC**
+
+Tổng hợp dữ liệu sâu rộng và trình bày trực quan theo nhiều cách đa dạng phù hợp với nhu cầu làm việc.
+
+### **Unified & Universal / Hợp Nhất & Phổ Quát**
+
+- Mọi Chức năng nghiệp vụ, Loại việc khác nhau đều được tạo ra từ Đối tượng Phổ quát, từ đó tạo nên hệ thống có tính Hợp nhất & Phổ quát, không bị rời rạc như các phần mềm đóng gói.
+- Universal Query Language (UQL) cho phép truy vấn, lọc và tổng hợp mọi dữ liệu xuyên bộ phận dễ dàng bằng kéo thả.
+- Trình bày trực quan với các loại Biểu đồ Báo cáo & Giao diện làm việc.
+
+### **Workviews / Giao Diện Làm Việc**
+
+Trực quan đa dạng đáp ứng nhu cầu khác nhau:
+
+- **Danh sách:** danh sách Đầu việc dạng bảng.
+- **Cập nhật:** các hoạt động cập nhật Đầu việc.
+- **Kanban:** phân cột trực quan, kéo thả dễ dàng.
+- **Lịch:** xem Đầu việc theo lịch ngày tháng.
+- **Dòng thời gian:** tiến trình theo thời gian.
+
+### **Dashboard / Báo Cáo Tổng Hợp**
+
+#### **Dashboard Data / Dữ Liệu Báo Cáo**
+
+- Xác định nguồn dữ liệu tổng cho báo cáo.
+- Tinh lọc thêm & xử lý tính toán dữ liệu trong từng khối trình bày.
+
+#### **Types of Visual Gadgets / Các Khối Trình Bày**
+
+- **Biểu đồ:** tròn, cột, chồng.
+- **Bộ đếm & công thức**
+- **Thống kê:** 1 chiều, 2 chiều.
+- **Danh sách Đầu việc**
+- **Dòng cập nhật hoạt động**
+- Bố trí các khối vào các trang để trình bày tốt hơn.
+
+#### **Interactive Working on Dashboard / Làm Việc Tương Tác Trên Báo Cáo**
+
+- Báo cáo không chỉ để nhìn số liệu, mà còn có thể làm việc trực tiếp.
+- Nhấn vào bất kì điểm dữ liệu nào để mở ra các Đầu việc tương ứng để tương tác làm việc, hoặc truy xét sâu về dữ liệu.
+
+### **Saved Filter & Quick Filter Bar / Bộ Lọc & Thanh Lọc Nhanh**
+
+#### **Quick Filter Bar / Lọc Nhanh**
+
+- Thanh lọc trên cùng màn hình.
+- Lọc thu hẹp dữ liệu đang hiển thị.
+
+#### **Saved Filters / Bộ Lọc**
+
+- Các tiêu chí lọc được lưu lại, lọc ra các Đầu việc theo một tính chất, tình huống làm việc nhất định.
+- Tiện mở dùng lại & chia sẻ với người khác.
+- Định kỳ bắn thông bắn thông báo, cảnh báo về tình hình công việc.
+
+### **Additional Settings / Cài Đặt Thêm**
+
+Mọi Giao diện làm việc & Báo cáo ở trên đều có thể cài đặt thêm như sau:
+
+**Lọc nhanh:** tuỳ chỉnh Thanh lọc nhanh để đáp ứng các nhu cầu khác nhau.
+
+**Vị trí:**
+
+- **Chức năng:** tạo ở đây và tự động gán vào các Mảng việc được tạo ra từ Chức năng này.
+- **Khu vực, Mảng việc:** tạo và dùng riêng ở đây.
+
+## **UNIFIED LIVE CHAT / LIVE CHAT HỢP NHẤT**
+
+Luklak live chat đa tầng hợp nhất giữa dữ liệu có cấu trúc là nghiệp vụ & dữ liệu công việc với dữ liệu phi cấu trúc trao đổi tức thì, mang lại hiệu quả công việc vượt trội và trải nghiệm người dùng mịn mượt.
+
+### **Level 1: Personal Chat / Mức 1: Chat Riêng Cá Nhân**
+
+#### **Found In / Có Ở**
+
+- Các app chat miễn phí như Zalo, Messenger, Telegram.
+- Các module chat riêng trong các phần mềm doanh nghiệp.
+
+#### **Features / Tính Chất**
+
+- Chat 1-1 và chat nhóm.
+- Tách rời không nằm trong bối cảnh các công việc, phải chuyển qua lại.
+- Không có khả năng quản lý rõ ràng, nên dễ bị lụt trong nhóm chat, lội tìm tin nhắn.
+
+#### **Luklak Compared / So Sánh Luklak Với Phần Mềm Đóng Gói Tính Năng**
+
+- Phần mềm đóng gói: công việc nằm ở các phần mềm chức năng riêng, thường là có trao đổi dạng comment rời rạc, không trực tính nên người dùng vẫn thường chuyển qua phần mềm live chat ngoài để trao đổi, dẫn tới không tin không thông suốt.
+- Luklak cũng có phần chat riêng này, hợp nhất luôn với bối cảnh và nghiệp vụ công việc, không phải chuyển qua lại giữa các app để chat.
+
+### **Level 2: Team Chat in Structured Tools / Mức 2: Chat Có Cấu Trúc Doanh Nghiệp**
+
+#### **Other Apps / App Ngoài**
+
+- Các phần mềm chat doanh nghiệp như Slack, Microsoft Teams.
+- Có cấu trúc tổ chức các kênh chat theo mạnh mẽ, theo cấu trúc bộ phận phòng ban, mảng việc.
+- Vẫn rời rạc công việc ở phần mềm chức năng riêng, chat trao đổi ở app khác.
+
+#### **Luklak Space Chat / Luklak & Kênh Chat Mảng Việc**
+
+Cấu trúc tổ chức Mảng việc vừa là kênh chat trao đổi chung theo đúng bối cảnh, bên trong lại có luôn các Đầu việc nghiệp vụ để quản lý & triển khai.
+
+### **Level 3: Live Chat on Objects, at Every Data Point / Mức 3: Live Chat Trên Từng Đầu Việc, Mọi Điểm Dữ Liệu**
+
+- Trong thế giới phần mềm quản trị vận hành doanh nghiệp mạnh mẽ, duy nhất Luklak cung cấp khả năng kì diệu là Livechat trao đổi trực tiếp được trên mọi Đầu việc - Nghiệp vụ, trên mọi điểm dữ liệu và tính năng do người dùng tạo ra trên toàn hệ thống.
+- Live chat trao đổi trực tiếp trên Đầu việc, hợp nhất thông tin có cấu trúc và phi cấu trúc một nơi, làm việc liền mạch.
+
+### **Advanced features / Tính năng nâng cao**
+
+#### **Unified Inbox / Hộp tin hợp nhất**
+
+- Mọi nội dung chat mới và cập nhật từ mọi Mảng việc, Đầu việc ở các chức năng khác nhau đều được bắn về Hộp tin hợp nhất, liền mạch cả trên máy tính và điện thoại
+- Một nơi duy nhất, nắm suốt mọi sự, không còn phải lội trong nhóm chat, lục tìm tin nhắn, không phải chuyển qua lại giữa các app công việc và app chat.
+
+#### **Smart utilities / Tiện ích tiện lợi**
+
+- **Gắn sao** tin nhắn kéo về trang Cá nhân, dễ xem lại sau.
+- **Chuyển chat thành Đầu việc,** thông suốt từ trao đổi chung đến chốt việc triển khai.
+- **Ghim chat** xuống dưới cùng, vẫn chat được khi chuyển qua làm việc ở các màn hình khác.
+
+#### **Filter Tabs / Các Thẻ Lọc**
+
+- **Tất cả:** mọi cập nhật liên quan đến mọi thứ bạn có quyền truy cập.
+- **Thông báo:** chỉ những cập nhật liên quan đến những thứ bạn có cài đặt nhận được Thông báo.
+- **Nhắn đến tôi:** những nơi nhắc trực tiếp tới bạn, cần tập trung xử lý, phản hồi.
+- **Tôi tương tác:** những nơi bạn có tương tác gần đây, dễ dàng quay lại làm việc tiếp.
+
+#### **Nocode Integrations & Automation / Tích Hợp & Nocode Automation**
+
+Livechat là một phần cơ hữu trong nền tảng Luklak Nocode & Lowcode nên được thừa hưởng rất nhiều khả năng mạnh mẽ:
+
+- Tích hợp, kết nối với các App ngoài để nhận thông báo, dữ liệu bắn về các kênh chat, biến Luklak thành trung tâm vận hành.
+- Xử lý dữ liệu sâu rộng với Nocode & Lowcode Automation khi gửi/ nhận tin nhắn chat.
+
+### **Structured & Unstructured Data / Dữ Liệu Có Cấu Trúc & Phi Cấu Trúc**
+
+**Tiếng Việt:**
+
+80% giá trị thông tin nằm ở dữ liệu phi cấu trúc, 20% ở dữ liệu có cấu trúc. Phần lớn các phần mềm nghiệp vụ hiện tại chỉ quản lý dữ liệu có cấu trúc, không quản lý được các thông tin trao đổi, cập nhật liên tục phi cấu trúc.
+
+- **Dữ liệu có cấu trúc:** là các trường dữ liệu định nghĩa cố định sẵn để nhập liệu, có khả năng lọc & làm báo cáo. Phần lớn phần mềm đều quản lý dữ liệu dạng này.
+- **Dữ liệu phi cấu trúc:** là thông tin trao đổi, cập nhật tự do, đọc hiểu để nắm bắt. Phần lớn phần mềm quản lý nghiệp vụ công việc có cấu trúc thì không quản lý được thông tin này.
+
+Luklak quản lý cả dữ liệu có cấu trúc và phi cấu trúc hợp nhất trên một hệ thống, ở mọi điểm dữ liệu giúp cho trải nghiệm làm việc được liền mạch, và thông tin dữ liệu của doanh nghiệp được toàn vẹn, ít mất mát hao hụt.
+
+- **Dữ liệu có cấu trúc gồm:** Trường dữ liệu, Luồng tiến trình.
+- **Dữ liệu phi cấu trúc là:** Cập nhật Hoạt động, Chat trao đổi...
+
+## **UNIFIED INBOX UPDATES & NOTIFICATIONS / HỘP TIN HỢP NHẤT CẬP NHẬT & THÔNG BÁO**
+
+**Tiếng Việt:**
+
+Thông tin cập nhật mọi nơi, từ Đầu việc, Kênh chat Mảng việc khác nhau đổ về một nơi tập trung, giúp bạn nắm bắt kịp thời mọi diễn biến.
+
+### **Activity Updates / Cập Nhật Hoạt Động**
+
+Cập nhật phát sinh ở mọi nơi có hoạt động:
+
+- **Đầu việc:** chuyển trạng thái, cập nhật thông tin, chat trao đổi.
+- **Mảng việc:** chat trao đổi.
+- **Hệ thống:** các cập nhật đặc thù từ hệ thống, ví dụ Cảnh báo công việc qua Bộ lọc.
+
+### **Multi-Channel Update System / Các Kênh Cập Nhật Linh Hoạt**
+
+Đa dạng cách xem, dễ dàng nắm bắt:
+
+- **Giao diện Cập nhật:** nắm bắt cập nhật nổi lên khi đang ở Vùng làm việc.
+- **Hộp tin Hợp nhất:** tập trung ở một chỗ, nắm cập nhật từ mọi nơi.
+- **Quả chuông Thông báo** ở thanh menu, xem nhanh thông tin mà không phải chuyển màn hình.
+- **Thông báo nổi** tức thời trên màn hình, liếc mắt là thấy, rồi tự ẩn đi, không cần thao tác.
+- **Thông báo đẩy** từ hệ điều hành ngay cả khi không mở Luklak, cả trên máy tính và điện thoại.
+
+### **Utilities / Tiện Ích**
+
+#### **Filter Tabs / Các Thẻ Lọc**
+
+- **Tất cả:** mọi cập nhật liên quan đến mọi thứ bạn có quyền truy cập.
+- **Thông báo:** chỉ những cập nhật liên quan đến những thứ bạn có cài đặt nhận được Thông báo.
+- **Nhắc đến tôi:** những nơi nhắc trực tiếp tới bạn, cần tập trung xử lý, phản hồi.
+- **Tôi tương tác:** những nơi bạn có tương tác gần đây, dễ dàng quay lại làm việc tiếp.
+
+#### **Display Mode / Chế Độ Hiển Thị**
+
+- **Mới nhất:** mỗi đối tượng chỉ hiện hoạt động cuối cùng, dễ nhìn tổng thể.
+- **Chi tiết:** hiện tất cả các hoạt động của mỗi đối tượng, không bỏ sót điều gì nhưng có thể hơi lụt thông tin.
+
+#### **Quick Filter to Narrow Updates by Object / Thanh Lọc Nhanh**
+
+Thanh lọc nhanh lọc tìm các Cập nhật thuộc về Đầu việc nhất định.
+
+#### **Work Without Switching Screen / Làm Việc Trực Tiếp**
+
+Làm việc trực tiếp mà không cần chuyển màn hình:
+
+- Trả lời ngay trong thông báo.
+- Mở Đầu việc ra tương tác nhanh gọn.
+
+### **Structured & Unstructured Data / Dữ Liệu Có Cấu Trúc & Phi Cấu Trúc**
+
+80% giá trị thông tin nằm ở dữ liệu phi cấu trúc, 20% ở dữ liệu có cấu trúc. Phần lớn các phần mềm nghiệp vụ hiện tại chỉ quản lý dữ liệu có cấu trúc, không quản lý được các thông tin trao đổi, cập nhật liên tục phi cấu trúc.
+
+- **Dữ liệu có cấu trúc:** là các trường dữ liệu định nghĩa cố định sẵn để nhập liệu, có khả năng lọc & làm báo cáo. Phần lớn phần mềm đều quản lý dữ liệu dạng này.
+- **Dữ liệu phi cấu trúc:** là thông tin trao đổi, cập nhật tự do, đọc hiểu để nắm bắt. Phần lớn phần mềm quản lý nghiệp vụ công việc có cấu trúc thì không quản lý được thông tin này.
+
+Luklak quản lý cả dữ liệu có cấu trúc và phi cấu trúc hợp nhất trên một hệ thống, ở mọi điểm dữ liệu giúp cho trải nghiệm làm việc được liền mạch, và thông tin dữ liệu của doanh nghiệp được toàn vẹn, ít mất mát hao hụt.
+
+- **Dữ liệu có cấu trúc gồm:** Trường dữ liệu, Luồng tiến trình.
+- **Dữ liệu phi cấu trúc là:** Cập nhật Hoạt động, Chat trao đổi...
+
+## **WORK ORGANIZATION STRUCTURE / CẤU TRÚC TỔ CHỨC CÔNG VIỆC**
+
+Luklak có thể tổ chức sắp xếp đa dạng & linh hoạt đáp ứng các tính chất công việc khác nhau.
+
+### **Function / Chức Năng**
+
+- Chức năng là bản thiết kế định hình logic vận hành của một phạm trù nghiệp vụ công việc nhất định trong nền tảng Luklak Nocode & Lowcode.
+- Từ mỗi Chức năng sẽ tạo ra các Mảng việc để triển khai thực tế, vận hành đúng theo logic đã được thiết kế sẵn.
+
+### **Space / Mảng Việc**
+
+- Mảng việc được tạo ra từ Chức năng, là nơi triển khai các nghiệp vụ công việc theo thiết kế ở Chức năng.
+- Mỗi Mảng việc có vị trí nằm trong một Khu vực, kế thừa giá trị gán vào Vai trò và Truy cập Tiện ích từ đó.
+
+### **Area & Organization / Khu Vực & Tổ Chức**
+
+- Khu vực là vị trí nơi chứa nhiều Mảng việc bên trong.
+- Tất cả Khu vực và Mảng việc tạo nên cấu trúc Tổ chức công việc tổng thể, nhất quán, dùng chung cho cả Doanh nghiệp.
+
+### **Workspace / Phòng Làm Việc**
+
+- Cấp quản lý có thể tự tạo các Phòng làm việc để kéo linh hoạt Mảng việc, Báo cáo, Bộ lọc đang phân tán ở nhiều nơi tập trung về một nơi để tiện làm việc.
+- Thường dùng để tổ chức nhiều Mảng việc cùng liên quan đến một tính chất làm việc nhất định, chia sẻ với những người liên quan cùng làm.
+
+### **Personal Home / Trang Cá Nhân**
+
+- Tập hợp các công việc & cập nhật liên quan đến mỗi cá nhân, được tổng hợp tự động từ các Mảng việc khác nhau trong Tổ chức.
+- Người dùng Gắn sao các Đầu việc, Mảng việc, Tin chat... quan trọng để kéo về đây.
