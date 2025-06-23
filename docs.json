@@ -27,7 +27,7 @@
           {
             "group": "Tổng quan",
             "pages": [
-              "getting-started/index",
+              "vi/01-bat-dau/welcome",
               "getting-started/taikhoan-dangki",
               {
 					"group": "Quick Start",
