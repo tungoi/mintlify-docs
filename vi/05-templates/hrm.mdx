@@ -1,0 +1,551 @@
+---
+title: "CHỨC NĂNG HRM"
+description: "Description of your new file."
+---
+
+## CẢNH BÁO
+
+**_Nội dung này được tạo ra từ AI đã được đào tạo bởi dữ liệu từ Luklak_**
+
+- _Có giá trị tham khảo định hình sơ bộ ban đầu về cách thiết kế Chức năng ở Luklak để đáp ứng nhu cầu nghiệp vụ của Doanh nghiệp. Có thể dùng làm thông tin ban đầu để 2 bên trao đổi, điều chỉnh hoàn thiện tiếp_.
+- _Nội dung do AI tạo ra có thể sai sót, nên cần kiểm tra xác nhận lại trước khi chốt. Thường 70% nội dung do AI sinh ra ở đây là phù hợp, 30% có thể phải kiểm tra lại_.
+
+## TỔNG QUAN
+
+### Mô tả chung
+
+**Mục đích:** Quản lý toàn bộ vòng đời nhân sự từ lập kế hoạch tuyển dụng, tuyển dụng, hội nhập, quản lý hồ sơ, phát triển nghề nghiệp đến offboarding cho hệ thống Nha khoa Parkway đa chi nhánh.
+
+**Logic nghiệp vụ:** Hệ thống quản lý phân quyền phê duyệt theo cấp bậc (nhân viên - quản lý - thẩm định - tài chính - giám đốc), tích hợp đa nền tảng tuyển dụng, tự động hóa các quy trình chuyển đổi trạng thái nhân sự và đồng bộ dữ liệu từ các hệ thống ngoài.
+
+**Tác động kinh doanh:** Tối ưu hóa quy trình tuyển dụng, giảm thời gian xử lý hồ sơ, nâng cao hiệu quả quản lý nhân sự đa chi nhánh, đảm bảo tuân thủ quy định lao động và tạo trải nghiệm tốt cho ứng viên và nhân viên.
+
+### Chức năng
+
+**Loại việc & Luồng nghiệp vụ**
+
+| Tên              | Mô tả ngắn                                                           |
+| :--------------- | :------------------------------------------------------------------- |
+| Order Tuyển Dụng | Yêu cầu tuyển dụng từ các phòng ban với quy trình phê duyệt phân cấp |
+| Ứng Viên         | Quản lý hồ sơ ứng viên từ nhiều nguồn và quy trình phỏng vấn         |
+| Hội Nhập         | Quản lý quá trình onboarding và đào tạo nhân viên mới                |
+| Hồ Sơ Nhân Sự    | Quản lý thông tin nhân sự và lịch sử thay đổi                        |
+| Hợp Đồng         | Quản lý các loại hợp đồng lao động và gia hạn                        |
+| Điều Chuyển      | Quản lý chuyển đổi vị trí công tác                                   |
+| Thăng Tiến       | Quản lý quy trình thăng chức, nâng bậc                               |
+| Tăng Lương       | Quản lý quy trình điều chỉnh lương                                   |
+| Đánh Giá         | Quản lý đánh giá hiệu suất nhân viên                                 |
+| Offboarding      | Quản lý quy trình nghỉ việc và bàn giao                              |
+
+**Mối quan hệ giữa các Loại việc**
+
+| Tên                 | Quan hệ                                           | Mô tả                                                             |
+| :------------------ | :------------------------------------------------ | :---------------------------------------------------------------- |
+| Order-Ứng viên      | Order Tuyển Dụng → Ứng Viên                       | Liên kết ứng viên với order cụ thể để theo dõi tiến độ tuyển dụng |
+| Ứng viên-Hội nhập   | Ứng Viên → Hội Nhập                               | Tự động tạo quy trình hội nhập khi ứng viên được tuyển            |
+| Hội nhập-Hồ sơ      | Hội Nhập → Hồ Sơ Nhân Sự                          | Tạo hồ sơ nhân sự chính thức sau khi hoàn thành hội nhập          |
+| Hồ sơ-Hợp đồng      | Hồ Sơ Nhân Sự → Hợp Đồng                          | Quản lý các hợp đồng của từng nhân viên                           |
+| Nhân sự-Nghề nghiệp | Hồ Sơ Nhân Sự → Điều Chuyển/Thăng Tiến/Tăng Lương | Lịch sử phát triển nghề nghiệp                                    |
+
+**Kết nối liên Chức năng**
+
+- Tích hợp với hệ thống elearning bên ngoài qua API để đồng bộ kết quả đào tạo
+- Kết nối với các nền tảng tuyển dụng (VietnamWorks, TopCV, LinkedIn) để đồng bộ ứng viên
+- Liên kết với Chức năng Payroll để đồng bộ thông tin lương
+
+**Tóm tắt kỹ thuật**
+
+- **10 loại việc chính**: Order Tuyển Dụng, Ứng Viên, Hội Nhập, Hồ Sơ Nhân Sự, Hợp Đồng, Điều Chuyển, Thăng Tiến, Tăng Lương, Đánh Giá, Offboarding
+- **43 trạng thái** quy trình từ tạo đến hoàn thành
+- **83 trường dữ liệu** thu thập thông tin đầy đủ
+- **12 quy tắc tự động hóa** xử lý thông minh
+- **3 Kết nối app ngoài**: elearning, nền tảng tuyển dụng, Excel import
+- **5 giao diện làm việc**: List, Kanban, Calendar, Timeline, Updates
+- **8 bộ lọc thông minh** với cảnh báo tự động
+- **6 khối trình bày báo cáo**: Biểu đồ tuyển dụng, Bộ đếm nhân sự, Thống kê hiệu suất
+- **4 vai trò** chuyên biệt cho chức năng này
+
+## LOẠI VIỆC & NGHIỆP VỤ
+
+### Danh sách Loại việc
+
+#### 1. **Order Tuyển Dụng**
+
+**Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Yêu cầu tuyển dụng từ các phòng ban với quy trình phê duyệt phân cấp theo cấp bậc người đề xuất
+- **Ví dụ**: Phòng khám chi nhánh Hà Nội cần tuyển 2 nha sĩ; Phòng marketing cần tuyển 1 chuyên viên content
+
+**Luồng tiến trình**
+
+TẠO YÊU CẦU → TRƯỞNG PHÒNG DUYỆT → THẨM ĐỊNH → TÀI CHÍNH → GIÁM ĐỐC DUYỆT → THỰC HIỆN ↓ ↓ ↓ ↓ TỪ CHỐI TỪ CHỐI TỪ CHỐI TỪ CHỐI HOÀN THÀNH
+
+**Chi tiết các Trạng thái**
+
+| Trạng thái                  | Nghiệp vụ                                                                 | Cài đặt nâng cao                                                                                                                                      |
+| :-------------------------- | :------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1 \\ TẠO YÊU CẦU**        | Phòng ban tạo yêu cầu tuyển dụng với thông tin vị trí, số lượng, yêu cầu. | **Phân quyền:** Mọi nhân viên có thể tạo.\<br\>**Màn hình:** Thông tin cơ bản về vị trí tuyển dụng.                                                   |
+| **2 \\ TRƯỞNG PHÒNG DUYỆT** | Trưởng phòng xem xét và phê duyệt yêu cầu.                                | **Phân quyền:** Chỉ Trưởng phòng liên quan.\<br\>**Điều kiện:** Kiểm tra ngân sách phòng ban.\<br\>**Tự động hoá:** Gửi thông báo khi có yêu cầu mới. |
+| **3 \\ THẨM ĐỊNH**          | Phòng thẩm định kiểm tra tính hợp lý của yêu cầu.                         | **Phân quyền:** Vai trò Chuyên viên thẩm định.\<br\>**Màn hình:** Form đánh giá tính cần thiết.                                                       |
+| **4 \\ TÀI CHÍNH**          | Phòng tài chính xác nhận ngân sách và chi phí.                            | **Phân quyền:** Vai trò Kế toán trưởng.\<br\>**Tự động hoá:** Tính toán chi phí tuyển dụng dự kiến.                                                   |
+| **5 \\ GIÁM ĐỐC DUYỆT**     | Giám đốc phê duyệt cuối cùng cho order.                                   | **Phân quyền:** Chỉ Giám đốc.\<br\>**Điều kiện:** Chỉ áp dụng với cấp quản lý trở lên.                                                                |
+| **6 \\ THỰC HIỆN**          | Bắt đầu thực hiện tuyển dụng.                                             | **Tự động hoá:** Tạo Mảng việc tuyển dụng, gửi thông báo HR.                                                                                          |
+| **7 \\ TỪ CHỐI**            | Order bị từ chối ở bất kỳ khâu nào.                                       | **Màn hình:** Ghi rõ lý do từ chối.                                                                                                                   |
+| **8 \\ HOÀN THÀNH**         | Đã tuyển đủ nhân sự theo yêu cầu.                                         | **Tự động hoá:** Cập nhật báo cáo tuyển dụng.                                                                                                         |
+
+**Màn hình trường dữ liệu**
+
+| Nhóm thông tin             | Trường dữ liệu                                                                                                           | Ghi chú                                |
+| :------------------------- | :----------------------------------------------------------------------------------------------------------------------- | :------------------------------------- |
+| Thông tin Order (8 trường) | Vị trí tuyển dụng, Số lượng, Phòng ban, Chi nhánh, Lương dự kiến, Yêu cầu kinh nghiệm, Yêu cầu bằng cấp, Mô tả công việc | Thông tin cơ bản về nhu cầu tuyển dụng |
+| Phê duyệt (4 trường)       | Trưởng phòng duyệt, Ngày duyệt cấp 1, Ghi chú phê duyệt, Lý do từ chối                                                   | Quản lý luồng phê duyệt                |
+| Thực hiện (3 trường)       | Ngày bắt đầu tuyển, Deadline hoàn thành, Số lượng đã tuyển                                                               | Theo dõi tiến độ thực hiện             |
+| **Tổng cộng: 15 trường**   |                                                                                                                          |                                        |
+
+#### 2. **Ứng Viên**
+
+**Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý hồ sơ ứng viên từ nhiều kênh tuyển dụng và theo dõi quy trình phỏng vấn
+- **Ví dụ**: Nguyễn Văn A ứng tuyển vị trí nha sĩ từ VietnamWorks; Trần Thị B walk-in ứng tuyển trực tiếp
+
+**Luồng tiến trình**
+
+HỒ SƠ MỚI → SÀNG LỌC → HẸN PHỎNG VẤN → PHỎNG VẤN → OFFER → NHẬN VIỆC ↓ ↓ ↓ ↓ ↓ ↓ LOẠI BỎ LOẠI BỎ HOÃN LẠI LOẠI BỎ TỪ CHỐI NHẬN VIỆC
+
+**Chi tiết các Trạng thái**
+
+| Trạng thái               | Nghiệp vụ                                          | Cài đặt nâng cao                                                                                                                                         |
+| :----------------------- | :------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1 \\ HỒ SƠ MỚI**       | Ứng viên nộp hồ sơ qua các kênh khác nhau.         | **Tự động hoá:** Import từ các nền tảng tuyển dụng.\<br\>**Màn hình:** Form thông tin ứng viên cơ bản.                                                   |
+| **2 \\ SÀNG LỌC**        | HR review hồ sơ và sàng lọc ứng viên phù hợp.      | **Phân quyền:** Vai trò HR Recruiter.\<br\>**Điều kiện:** Kiểm tra yêu cầu cơ bản của order.                                                             |
+| **3 \\ HẸN PHỎNG VẤN**   | Liên hệ ứng viên để sắp xếp lịch phỏng vấn.        | **Tự động hoá:** Gửi email/SMS thông báo lịch hẹn.\<br\>**Màn hình:** Chọn thời gian và người phỏng vấn.                                                 |
+| **4 \\ PHỎNG VẤN**       | Thực hiện phỏng vấn với HR và chuyên môn.          | **Phân quyền:** HR Manager và panel phỏng vấn.\<br\>**Màn hình:** Form đánh giá kết quả phỏng vấn.\<br\>**Tự động hoá:** Thông báo kết quả cho ứng viên. |
+| **5 \\ OFFER**           | Gửi thư mời làm việc cho ứng viên.                 | **Màn hình:** Thông tin offer salary, benefit.\<br\>**Tự động hoá:** Generate contract template.                                                         |
+| **6 \\ NHẬN VIỆC**       | Ứng viên chấp nhận offer và xác nhận ngày bắt đầu. | **Tự động hoá:** Tạo Hội nhập, cập nhật Order.                                                                                                           |
+| **7 \\ TỪ CHỐI/LOẠI BỎ** | Ứng viên từ chối offer hoặc bị loại bỏ.            | **Màn hình:** Ghi chú lý do để tham khảo sau.                                                                                                            |
+
+**Màn hình trường dữ liệu**
+
+| Nhóm thông tin                | Trường dữ liệu                                                                                                               | Ghi chú               |
+| :---------------------------- | :--------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
+| Thông tin cá nhân (12 trường) | Họ tên, Email, Điện thoại, CCCD, Ngày sinh, Giới tính, Địa chỉ, Trình độ học vấn, Kinh nghiệm, CV file, Ảnh, Nguồn ứng tuyển | Hồ sơ ứng viên cơ bản |
+| Ứng tuyển (5 trường)          | Vị trí ứng tuyển, Order liên quan, Mức lương mong muốn, Ngày có thể bắt đầu, Ghi chú HR                                      | Thông tin ứng tuyển   |
+| Phỏng vấn (4 trường)          | Lịch phỏng vấn, Kết quả phỏng vấn, Điểm tổng hợp, Nhận xét chung                                                             | Đánh giá phỏng vấn    |
+| **Tổng cộng: 21 trường**      |                                                                                                                              |                       |
+
+#### 3. **Hội Nhập**
+
+**Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý quy trình onboarding cho nhân viên mới từ ngày đầu tiên đến khi hoàn thành thử việc
+- **Ví dụ**: Onboarding nha sĩ mới với khóa đào tạo quy trình khám 2 tuần; Onboarding nhân viên lễ tân với training customer service
+
+**Luồng tiến trình**
+
+CHUẨN BỊ → BẮT ĐẦU LÀM VIỆC → ĐÀO TẠO → ĐÁNH GIÁ → HOÀN THÀNH ↓ ↓ ↓ ↓ ↓ HOÃN TẠM DỪNG KÉO DÀI CẦN HỖ TRỢ THẤT BẠI
+
+**Chi tiết các Trạng thái**
+
+| Trạng thái                | Nghiệp vụ                                            | Cài đặt nâng cao                                                                                               |
+| :------------------------ | :--------------------------------------------------- | :------------------------------------------------------------------------------------------------------------- |
+| **1 \\ CHUẨN BỊ**         | HR chuẩn bị tài liệu và lịch trình hội nhập.         | **Tự động hoá:** Tạo checklist onboarding theo vị trí.\<br\>**Phân quyền:** HR Coordinator.                    |
+| **2 \\ BẮT ĐẦU LÀM VIỆC** | Nhân viên chính thức bắt đầu ngày làm việc đầu tiên. | **Màn hình:** Checklist ngày đầu (badge, tài khoản, workspace).\<br\>**Tự động hoá:** Gửi welcome email.       |
+| **3 \\ ĐÀO TẠO**          | Thực hiện các khóa đào tạo theo chương trình.        | **Tự động hoá:** Đồng bộ kết quả từ hệ thống elearning.\<br\>**Điều kiện:** Hoàn thành tối thiểu 80% khóa học. |
+| **4 \\ ĐÁNH GIÁ**         | Đánh giá hiệu quả hội nhập và khả năng làm việc.     | **Phân quyền:** Direct manager và HR.\<br\>**Màn hình:** Form đánh giá 360 độ.                                 |
+| **5 \\ HOÀN THÀNH**       | Hoàn thành thành công quy trình hội nhập.            | **Tự động hoá:** Cập nhật trạng thái trong Hồ sơ nhân sự.                                                      |
+| **6 \\ THẤT BẠI**         | Không đạt yêu cầu và kết thúc hợp đồng thử việc.     | **Màn hình:** Ghi rõ lý do và kế hoạch cải thiện.                                                              |
+
+**Màn hình trường dữ liệu**
+
+| Nhóm thông tin             | Trường dữ liệu                                                                          | Ghi chú                    |
+| :------------------------- | :-------------------------------------------------------------------------------------- | :------------------------- |
+| Thông tin chung (6 trường) | Nhân viên, Vị trí, Ngày bắt đầu, Mentor, Thời gian thử việc, Phòng ban                  | Thông tin cơ bản hội nhập  |
+| Đào tạo (5 trường)         | Chương trình đào tạo, Tiến độ hoàn thành, Điểm elearning, Link kết quả, Ghi chú đào tạo | Theo dõi quá trình học tập |
+| Đánh giá (4 trường)        | Điểm kỹ năng, Điểm thái độ, Nhận xét mentor, Kết quả cuối kỳ                            | Đánh giá hiệu quả hội nhập |
+| **Tổng cộng: 15 trường**   |                                                                                         |                            |
+
+#### 4. **Hồ Sơ Nhân Sự**
+
+**Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý thông tin nhân sự chính thức và lịch sử thay đổi trong quá trình làm việc
+- **Ví dụ**: Hồ sơ Dr. Nguyễn Văn A - Nha sĩ trưởng chi nhánh Hà Nội; Hồ sơ Ms. Trần Thị B - Chuyên viên Marketing
+
+**Luồng tiến trình**
+
+TẠO HỒ SƠ → HOẠT ĐỘNG → CẬP NHẬT → LƯU TRỮ ↓ ↓ ↓ ↓ TẠM DỪNG TẠM NGHỈ ĐIỀU CHỈNH ARCHIV
+
+**Chi tiết các Trạng thái**
+
+| Trạng thái         | Nghiệp vụ                                                 | Cài đặt nâng cao                                                                                           |
+| :----------------- | :-------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
+| **1 \\ TẠO HỒ SƠ** | Tạo hồ sơ nhân sự chính thức sau khi hoàn thành hội nhập. | **Tự động hoá:** Kế thừa từ Ứng viên và Hội nhập.\<br\>**Phân quyền:** HR Specialist.                      |
+| **2 \\ HOẠT ĐỘNG** | Nhân viên đang làm việc bình thường.                      | **Tự động hoá:** Cập nhật lịch sử từ các quy trình khác.\<br\>**Màn hình:** Dashboard tổng quan nhân viên. |
+| **3 \\ CẬP NHẬT**  | Đang cập nhật thông tin hoặc thay đổi.                    | **Phân quyền:** Nhân viên có thể tự cập nhật một phần.\<br\>**Điều kiện:** Một số trường cần HR approval.  |
+| **4 \\ TẠM NGHỈ**  | Nhân viên tạm nghỉ việc (thai sản, ốm dài hạn).           | **Màn hình:** Thời gian và lý do tạm nghỉ.                                                                 |
+| **5 \\ LƯU TRỮ**   | Hồ sơ được lưu trữ khi nhân viên nghỉ việc.               | **Tự động hoá:** Archive sau khi hoàn thành offboarding.                                                   |
+
+**Màn hình trường dữ liệu**
+
+| Nhóm thông tin                 | Trường dữ liệu                                                                                                                                        | Ghi chú                           |
+| :----------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------- |
+| Thông tin cơ bản (15 trường)   | Mã NV, Họ tên, Email, Điện thoại, CCCD, Ngày sinh, Giới tính, Địa chỉ, Trình độ, Chuyên môn, Ảnh, Ngày vào làm, Vị trí hiện tại, Phòng ban, Chi nhánh | Thông tin nhân sự cơ bản          |
+| Lịch sử nghề nghiệp (6 trường) | Lịch sử điều chuyển, Lịch sử thăng tiến, Lịch sử tăng lương, Lịch sử đào tạo, Lịch sử đánh giá, Ghi chú đặc biệt                                      | Tự động cập nhật từ các quy trình |
+| Liên hệ khẩn cấp (4 trường)    | Người liên hệ, Mối quan hệ, Điện thoại khẩn cấp, Địa chỉ khẩn cấp                                                                                     | Thông tin hỗ trợ                  |
+| **Tổng cộng: 25 trường**       |                                                                                                                                                       |                                   |
+
+#### 5. **Hợp Đồng**
+
+**Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý các loại hợp đồng lao động và thời hạn gia hạn
+- **Ví dụ**: Hợp đồng thử việc 2 tháng cho nha sĩ mới; Hợp đồng chính thức 3 năm cho chuyên viên có kinh nghiệm
+
+**Luồng tiến trình**
+
+SOẠN THẢO → PHÊ DUYỆT → KÝ KẾT → HIỆU LỰC → SẮP HẾT HẠN → GIA HẠN/KẾT THÚC ↓ ↓ ↓ ↓ ↓ ↓ CHỈNH SỬA TỪ CHỐI HOÃN KÝ TẠM DỪNG NHẮC VIỆC THANH LÝ
+
+**Chi tiết các Trạng thái**
+
+| Trạng thái           | Nghiệp vụ                                | Cài đặt nâng cao                                                                                            |
+| :------------------- | :--------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
+| **1 \\ SOẠN THẢO**   | HR soạn thảo hợp đồng dựa trên template. | **Màn hình:** Chọn loại hợp đồng và điền thông tin.\<br\>**Tự động hoá:** Generate từ template theo vị trí. |
+| **2 \\ PHÊ DUYỆT**   | Trưởng phòng nhân sự phê duyệt nội dung. | **Phân quyền:** HR Manager.\<br\>**Điều kiện:** Kiểm tra thông tin lương và benefit.                        |
+| **3 \\ KÝ KẾT**      | Cả hai bên ký kết hợp đồng.              | **Màn hình:** Upload file hợp đồng đã ký.\<br\>**Tự động hoá:** Gửi copy cho nhân viên.                     |
+| **4 \\ HIỆU LỰC**    | Hợp đồng đang có hiệu lực.               | **Tự động hoá:** Tính toán ngày hết hạn và setup nhắc việc.                                                 |
+| **5 \\ SẮP HẾT HẠN** | Hợp đồng sắp hết hạn (trước 30 ngày).    | **Tự động hoá:** Gửi thông báo nhắc việc gia hạn.\<br\>**Phân quyền:** HR và Direct manager.                |
+| **6 \\ GIA HẠN**     | Gia hạn hợp đồng thêm thời gian.         | **Màn hình:** Thời hạn mới và điều kiện thay đổi.                                                           |
+| **7 \\ KẾT THÚC**    | Hợp đồng kết thúc theo đúng thời hạn.    | **Tự động hoá:** Trigger quy trình offboarding.                                                             |
+
+**Màn hình trường dữ liệu**
+
+| Nhóm thông tin                | Trường dữ liệu                                                                                         | Ghi chú                       |
+| :---------------------------- | :----------------------------------------------------------------------------------------------------- | :---------------------------- |
+| Thông tin hợp đồng (8 trường) | Loại hợp đồng, Số hợp đồng, Ngày ký, Ngày bắt đầu, Ngày kết thúc, Lương cơ bản, Phụ cấp, File hợp đồng | Thông tin cơ bản hợp đồng     |
+| Điều khoản (4 trường)         | Thời gian thử việc, Chế độ nghỉ phép, Quyền lợi khác, Điều khoản đặc biệt                              | Các điều khoản trong hợp đồng |
+| **Tổng cộng: 12 trường**      |                                                                                                        |                               |
+
+#### 6. **Điều Chuyển**
+
+**Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý quy trình thay đổi vị trí, phòng ban hoặc chi nhánh của nhân viên
+- **Ví dụ**: Điều chuyển nha sĩ từ chi nhánh Hà Nội sang Hồ Chí Minh; Chuyển chuyên viên marketing thành trưởng nhóm
+
+**Luồng tiến trình**
+
+ĐỀ XUẤT → PHÊ DUYỆT → CHUẨN BỊ → THỰC HIỆN → HOÀN THÀNH ↓ ↓ ↓ ↓ ↓ TỪ CHỐI TỪ CHỐI HOÃN LẠI TẠM DỪNG CẬP NHẬT HỒ SƠ
+
+**Chi tiết các Trạng thái**
+
+| Trạng thái          | Nghiệp vụ                                        | Cài đặt nâng cao                                                                                     |
+| :------------------ | :----------------------------------------------- | :--------------------------------------------------------------------------------------------------- |
+| **1 \\ ĐỀ XUẤT**    | Trưởng phòng hoặc nhân viên đề xuất điều chuyển. | **Phân quyền:** Manager và nhân viên liên quan.\<br\>**Màn hình:** Lý do và vị trí mới đề xuất.      |
+| **2 \\ PHÊ DUYỆT**  | Cấp quản lý cao hơn phê duyệt đề xuất.           | **Phân quyền:** Director và HR Manager.\<br\>**Điều kiện:** Kiểm tra capacity và budget.             |
+| **3 \\ CHUẨN BỊ**   | HR chuẩn bị thủ tục và lịch trình chuyển đổi.    | **Màn hình:** Checklist chuẩn bị điều chuyển.\<br\>**Tự động hoá:** Thông báo các bộ phận liên quan. |
+| **4 \\ THỰC HIỆN**  | Nhân viên bắt đầu làm việc ở vị trí mới.         | **Tự động hoá:** Cập nhật quyền truy cập hệ thống.\<br\>**Màn hình:** Xác nhận ngày chuyển.          |
+| **5 \\ HOÀN THÀNH** | Hoàn tất quá trình điều chuyển.                  | **Tự động hoá:** Cập nhật Hồ sơ nhân sự, ghi lịch sử.                                                |
+
+**Màn hình trường dữ liệu**
+
+| Nhóm thông tin                   | Trường dữ liệu                                                                                                              | Ghi chú            |
+| :------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- | :----------------- |
+| Thông tin điều chuyển (8 trường) | Nhân viên, Vị trí hiện tại, Vị trí mới, Phòng ban hiện tại, Phòng ban mới, Chi nhánh hiện tại, Chi nhánh mới, Ngày hiệu lực | Thông tin thay đổi |
+| Quy trình (4 trường)             | Lý do điều chuyển, Người đề xuất, Ngày phê duyệt, Ghi chú                                                                   | Theo dõi quy trình |
+| **Tổng cộng: 12 trường**         |                                                                                                                             |                    |
+
+#### 7. **Thăng Tiến**
+
+**Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý quy trình thăng chức, nâng bậc cho nhân viên
+- **Ví dụ**: Thăng chức từ nha sĩ thành nha sĩ trưởng; Thăng từ chuyên viên thành trưởng nhóm marketing
+
+**Luồng tiến trình**
+
+ĐỀ CỬ → ĐÁNH GIÁ → PHÊ DUYỆT → THÔNG BÁO → HIỆU LỰC ↓ ↓ ↓ ↓ ↓ TỪCHỐI CHƯA ĐẠT TỪ CHỐI HOÃN LẠI CẬP NHẬT
+
+**Chi tiết các Trạng thái**
+
+| Trạng thái         | Nghiệp vụ                                | Cài đặt nâng cao                                                                                              |
+| :----------------- | :--------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
+| **1 \\ ĐỀ CỬ**     | Trưởng phòng đề cử nhân viên thăng tiến. | **Phân quyền:** Manager level trở lên.\<br\>**Màn hình:** Lý do đề cử và vị trí mới.                          |
+| **2 \\ ĐÁNH GIÁ**  | Hội đồng đánh giá năng lực nhân viên.    | **Phân quyền:** Panel đánh giá.\<br\>**Màn hình:** Form đánh giá năng lực toàn diện.                          |
+| **3 \\ PHÊ DUYỆT** | Ban lãnh đạo phê duyệt thăng tiến.       | **Phân quyền:** Director và CEO.\<br\>**Điều kiện:** Điểm đánh giá \>= 85%.                                   |
+| **4 \\ THÔNG BÁO** | Thông báo kết quả cho nhân viên.         | **Tự động hoá:** Gửi thư chúc mừng và thông tin mới.\<br\>**Màn hình:** Chi tiết thay đổi lương và quyền lợi. |
+| **5 \\ HIỆU LỰC**  | Thăng tiến có hiệu lực.                  | **Tự động hoá:** Cập nhật Hồ sơ nhân sự và hệ thống.                                                          |
+
+**Màn hình trường dữ liệu**
+
+| Nhóm thông tin                  | Trường dữ liệu                                                                                              | Ghi chú            |
+| :------------------------------ | :---------------------------------------------------------------------------------------------------------- | :----------------- |
+| Thông tin thăng tiến (8 trường) | Nhân viên, Vị trí hiện tại, Vị trí mới, Level hiện tại, Level mới, Lương hiện tại, Lương mới, Ngày hiệu lực | Thông tin thay đổi |
+| Đánh giá (5 trường)             | Điểm hiệu suất, Điểm năng lực, Điểm thái độ, Nhận xét tổng hợp, Kết quả cuối                                | Kết quả đánh giá   |
+| **Tổng cộng: 13 trường**        |                                                                                                             |                    |
+
+#### 8. **Tăng Lương**
+
+**Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý quy trình điều chỉnh lương định kỳ và đột xuất
+- **Ví dụ**: Tăng lương thường niên 8% cho toàn bộ nhân viên; Tăng lương đột xuất cho nhân viên có thành tích xuất sắc
+
+**Luồng tiến trình**
+
+ĐỀ XUẤT → THẨM ĐỊNH → PHÊ DUYỆT → THÔNG BÁO → HIỆU LỰC ↓ ↓ ↓ ↓ ↓ TỪ CHỐI ĐIỀU CHỈNH TỪ CHỐI HOÃN LẠI CẬP NHẬT
+
+**Chi tiết các Trạng thái**
+
+| Trạng thái         | Nghiệp vụ                                      | Cài đặt nâng cao                                                                                        |
+| :----------------- | :--------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+| **1 \\ ĐỀ XUẤT**   | Trưởng phòng đề xuất tăng lương cho nhân viên. | **Phân quyền:** Manager trở lên.\<br\>**Màn hình:** Mức tăng và lý do đề xuất.                          |
+| **2 \\ THẨM ĐỊNH** | HR thẩm định tính hợp lý của mức tăng.         | **Phân quyền:** HR Manager.\<br\>**Điều kiện:** So sánh với market rate và budget.                      |
+| **3 \\ PHÊ DUYỆT** | Tài chính và ban lãnh đạo phê duyệt.           | **Phân quyền:** CFO và CEO.\<br\>**Tự động hoá:** Tính toán impact lên tổng chi phí.                    |
+| **4 \\ THÔNG BÁO** | Thông báo kết quả cho nhân viên.               | **Tự động hoá:** Gửi notification và cập nhật payslip.\<br\>**Màn hình:** Thông tin lương mới chi tiết. |
+| **5 \\ HIỆU LỰC**  | Mức lương mới có hiệu lực.                     | **Tự động hoá:** Cập nhật hệ thống payroll và Hồ sơ.                                                    |
+
+**Màn hình trường dữ liệu**
+
+| Nhóm thông tin                  | Trường dữ liệu                                                                               | Ghi chú              |
+| :------------------------------ | :------------------------------------------------------------------------------------------- | :------------------- |
+| Thông tin tăng lương (7 trường) | Nhân viên, Lương hiện tại, Lương mới, Tỷ lệ tăng, Loại tăng lương, Ngày hiệu lực, Lý do tăng | Thông tin điều chỉnh |
+| Phê duyệt (4 trường)            | Người đề xuất, Ngày thẩm định, Ngày phê duyệt, Ghi chú                                       | Theo dõi quy trình   |
+| **Tổng cộng: 11 trường**        |                                                                                              |                      |
+
+#### 9. **Đánh Giá**
+
+**Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý quy trình đánh giá hiệu suất nhân viên định kỳ và kết quả từ Excel
+- **Ví dụ**: Đánh giá hiệu suất quý 3 cho tất cả nha sĩ; Đánh giá năng lực leadership cho team lead
+
+**Luồng tiến trình**
+
+LÊN KẾ HOẠCH → TỰ ĐÁNH GIÁ → ĐÁNH GIÁ QUẢN LÝ → TỔNG HỢP → HOÀN THÀNH ↓ ↓ ↓ ↓ ↓ HOÃN LẠI NHẮC VIỆC ĐIỀU CHỈNH XEM LẠI PHẢN HỒI
+
+**Chi tiết các Trạng thái**
+
+| Trạng thái                | Nghiệp vụ                               | Cài đặt nâng cao                                                                                                 |
+| :------------------------ | :-------------------------------------- | :--------------------------------------------------------------------------------------------------------------- |
+| **1 \\ LÊN KẾ HOẠCH**     | HR lên kế hoạch đánh giá cho kỳ mới.    | **Màn hình:** Chọn nhóm nhân viên và tiêu chí đánh giá.\<br\>**Tự động hoá:** Tạo form đánh giá cho từng vị trí. |
+| **2 \\ TỰ ĐÁNH GIÁ**      | Nhân viên thực hiện tự đánh giá.        | **Phân quyền:** Nhân viên được đánh giá.\<br\>**Màn hình:** Form tự đánh giá theo KPI.                           |
+| **3 \\ ĐÁNH GIÁ QUẢN LÝ** | Trưởng phòng đánh giá nhân viên.        | **Phân quyền:** Direct manager.\<br\>**Màn hình:** So sánh tự đánh giá và đánh giá quản lý.                      |
+| **4 \\ TỔNG HỢP**         | HR tổng hợp kết quả và import từ Excel. | **Tự động hoá:** Import file Excel kết quả đánh giá.\<br\>**Màn hình:** Upload file và mapping dữ liệu.          |
+| **5 \\ HOÀN THÀNH**       | Hoàn thành chu kỳ đánh giá.             | **Tự động hoá:** Cập nhật lịch sử vào Hồ sơ nhân sự.\<br\>**Thông báo:** Gửi kết quả cho nhân viên.              |
+
+**Màn hình trường dữ liệu**
+
+| Nhóm thông tin                | Trường dữ liệu                                                                                           | Ghi chú          |
+| :---------------------------- | :------------------------------------------------------------------------------------------------------- | :--------------- |
+| Thông tin đánh giá (6 trường) | Nhân viên, Chu kỳ đánh giá, Loại đánh giá, Người đánh giá, Ngày đánh giá, File Excel kết quả             | Thông tin chung  |
+| Kết quả (8 trường)            | Điểm tự đánh giá, Điểm quản lý, Điểm KPI, Điểm năng lực, Điểm thái độ, Điểm tổng hợp, Xếp loại, Nhận xét | Kết quả chi tiết |
+| **Tổng cộng: 14 trường**      |                                                                                                          |                  |
+
+#### 10. **Offboarding**
+
+**Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý quy trình nghỉ việc và bàn giao công việc của nhân viên
+- **Ví dụ**: Offboarding nha sĩ về hưu với bàn giao bệnh nhân; Offboarding nhân viên marketing nghỉ việc với bàn giao dự án
+
+**Luồng tiến trình**
+
+ĐƠN XIN NGHỈ → PHÊ DUYỆT → BÀN GIAO → THANH TOÁN → HOÀN TẤT ↓ ↓ ↓ ↓ ↓ TỪ CHỐI THƯƠNG LƯỢNG ĐANG BG ĐANG TT LƯU TRỮ
+
+**Chi tiết các Trạng thái**
+
+| Trạng thái            | Nghiệp vụ                                  | Cài đặt nâng cao                                                                                       |
+| :-------------------- | :----------------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| **1 \\ ĐƠN XIN NGHỈ** | Nhân viên nộp đơn xin nghỉ việc.           | **Màn hình:** Lý do nghỉ việc và ngày cuối làm việc.\<br\>**Phân quyền:** Tất cả nhân viên.            |
+| **2 \\ PHÊ DUYỆT**    | Trưởng phòng xem xét và phê duyệt.         | **Phân quyền:** Direct manager và HR.\<br\>**Điều kiện:** Kiểm tra thời gian báo trước.                |
+| **3 \\ BÀN GIAO**     | Thực hiện bàn giao công việc và tài sản.   | **Màn hình:** Checklist bàn giao chi tiết.\<br\>**Tự động hoá:** Tạo task bàn giao cho người thay thế. |
+| **4 \\ THANH TOÁN**   | Tính toán và thanh toán các khoản cuối kỳ. | **Phân quyền:** Accounting team.\<br\>**Tự động hoá:** Tính lương, phép, bồi thường.                   |
+| **5 \\ HOÀN TẤT**     | Hoàn tất toàn bộ thủ tục nghỉ việc.        | **Tự động hoá:** Vô hiệu hóa tài khoản, cập nhật Hồ sơ.\<br\>**Thông báo:** Gửi thư cảm ơn.            |
+
+**Màn hình trường dữ liệu**
+
+| Nhóm thông tin                 | Trường dữ liệu                                                                                          | Ghi chú            |
+| :----------------------------- | :------------------------------------------------------------------------------------------------------ | :----------------- |
+| Thông tin nghỉ việc (7 trường) | Nhân viên, Loại nghỉ việc, Lý do, Ngày nộp đơn, Ngày cuối làm việc, Thời gian báo trước, Người thay thế | Thông tin cơ bản   |
+| Bàn giao (5 trường)            | Danh sách bàn giao, Tình trạng bàn giao, Người nhận bàn giao, Tài sản công ty, Exit interview           | Quy trình bàn giao |
+| **Tổng cộng: 12 trường**       |                                                                                                         |                    |
+
+### Mối quan hệ & tham chiếu giữa các Loại việc
+
+**Loại việc Cha - con**
+
+| Quan hệ Cha - Con                 | Mô tả                                                 |
+| :-------------------------------- | :---------------------------------------------------- |
+| **Hồ Sơ Nhân Sự** =\> Hợp Đồng    | Một nhân viên có thể có nhiều hợp đồng theo thời gian |
+| **Hồ Sơ Nhân Sự** =\> Điều Chuyển | Lịch sử các lần điều chuyển của nhân viên             |
+| **Hồ Sơ Nhân Sự** =\> Thăng Tiến  | Lịch sử thăng tiến trong sự nghiệp                    |
+| **Hồ Sơ Nhân Sự** =\> Tăng Lương  | Lịch sử các lần điều chỉnh lương                      |
+| **Hồ Sơ Nhân Sự** =\> Đánh Giá    | Các kỳ đánh giá hiệu suất của nhân viên               |
+
+**Kết nối Loại việc**
+
+| Loại Kết nối                                           | Mô tả                                          |
+| :----------------------------------------------------- | :--------------------------------------------- |
+| **[Order-Candidate]**: Order Tuyển Dụng \<=\> Ứng Viên | Liên kết ứng viên với order cụ thể để theo dõi |
+| **[Recruit-Onboard]**: Ứng Viên \<=\> Hội Nhập         | Chuyển đổi từ ứng viên thành nhân viên         |
+| **[Employee-HR]**: Hồ Sơ Nhân Sự \<=\> Offboarding     | Kết nối hồ sơ với quy trình nghỉ việc          |
+
+**Trường chọn Đầu việc**
+
+| Trường                                 | Tham chiếu                                                                                   | Mô tả                     |
+| :------------------------------------- | :------------------------------------------------------------------------------------------- | :------------------------ |
+| Order Tuyển Dụng / **Order liên quan** | **Ứng Viên** / Tên, Vị trí ứng tuyển. **Điều kiện lọc**: Order đang thực hiện                | Chọn order cho ứng viên   |
+| Hội Nhập / **Nhân viên**               | **Hồ Sơ Nhân Sự** / Họ tên, Mã NV, Vị trí. **Điều kiện lọc**: Trạng thái hoạt động           | Chọn nhân viên để onboard |
+| Đánh Giá / **Nhân viên được đánh giá** | **Hồ Sơ Nhân Sự** / Họ tên, Phòng ban, Vị trí. **Điều kiện lọc**: Không trong thời gian nghỉ | Chọn nhân viên đánh giá   |
+
+**Trường bảng dữ liệu**
+
+| Trường                                    | Tham chiếu đến                                                                                         | Cột thủ công                                                |
+| :---------------------------------------- | :----------------------------------------------------------------------------------------------------- | :---------------------------------------------------------- |
+| Order Tuyển Dụng / **Danh sách ứng viên** | **Ứng Viên** / Họ tên, Email, Điện thoại, Trạng thái phỏng vấn. **Điều kiện lọc**: Ứng tuyển order này | Ghi chú đánh giá (Đoạn văn bản), Độ ưu tiên (Số nguyên)     |
+| Hồ Sơ Nhân Sự / **Lịch sử đào tạo**       | **Hội Nhập** / Chương trình, Kết quả, Ngày hoàn thành. **Điều kiện lọc**: Cùng nhân viên               | Chứng chỉ đạt được (Dòng chữ), Điểm đánh giá (Số thập phân) |
+
+## TỰ ĐỘNG HOÁ
+
+**Quy tắc trên Luồng tiến trình**
+
+| Kích hoạt                               | Hành động                                                                                                          |
+| :-------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| **1.** **Order Tuyển Dụng** / THỰC HIỆN | **Hành động**: Tạo Mảng việc tuyển dụng, gửi thông báo đến HR team, cập nhật dashboard tuyển dụng                  |
+| **2.** **Ứng Viên** / NHẬN VIỆC         | **Hành động**: Tự động tạo Hội nhập, cập nhật số lượng đã tuyển trong Order, gửi welcome package                   |
+| **3.** **Hội Nhập** / HOÀN THÀNH        | **Hành động**: Tạo Hồ sơ nhân sự chính thức, tạo Hợp đồng thử việc, cập nhật org chart                             |
+| **4.** **Hợp Đồng** / SẮP HẾT HẠN       | **Màn hình nhập liệu**: Quyết định gia hạn, Điều kiện mới; **Hành động**: Gửi thông báo nhắc việc, tạo task review |
+| **5.** **Thăng Tiến** / HIỆU LỰC        | **Hành động**: Cập nhật Hồ sơ nhân sự, tạo Hợp đồng mới, thông báo thay đổi org chart                              |
+
+**Hành động trên Đầu việc**
+
+| Quy tắc                            | Kích hoạt                                    | Hành động                                                          |
+| :--------------------------------- | :------------------------------------------- | :----------------------------------------------------------------- |
+| **6.** Import ứng viên từ nền tảng | **Ứng Viên** / Menu: Đồng bộ từ VietnamWorks | Gọi API VietnamWorks, tạo ứng viên mới, gửi thông báo có hồ sơ mới |
+| **7.** Đồng bộ kết quả elearning   | **Hội Nhập** / Menu: Cập nhật điểm đào tạo   | Gọi API hệ thống elearning, cập nhật tiến độ và điểm số            |
+| **8.** Import kết quả đánh giá     | **Đánh Giá** / Menu: Upload Excel            | Parse file Excel, mapping dữ liệu, cập nhật kết quả đánh giá       |
+
+**Quy tắc chạy ngầm**
+
+| Quy tắc                               | Kích hoạt                                                             | Hành động                                                                 |
+| :------------------------------------ | :-------------------------------------------------------------------- | :------------------------------------------------------------------------ |
+| **9.** Nhắc việc hợp đồng sắp hết hạn | **Lịch trình**: Hàng ngày 9:00 AM                                     | Tìm hợp đồng hết hạn trong 30 ngày, gửi email nhắc việc cho HR và manager |
+| **10.** Cập nhật lịch sử nhân sự      | **Khi**: Thăng Tiến/Tăng Lương/Điều Chuyển chuyển trạng thái HIỆU LỰC | Tự động ghi lịch sử vào Hồ sơ nhân sự với format: [Ngày] \+ [Tên tiêu đề] |
+| **11.** Thống kê tuyển dụng           | **Lịch trình**: Cuối mỗi tuần                                         | Tổng hợp số liệu tuyển dụng, gửi báo cáo cho ban lãnh đạo                 |
+
+**Kết nối app ngoài**
+
+| Quy tắc                               | Kích hoạt                               | Hành động                                                                |
+| :------------------------------------ | :-------------------------------------- | :----------------------------------------------------------------------- |
+| **12.** Webhook từ hệ thống elearning | **Webhook**: Khi có kết quả đào tạo mới | Nhận dữ liệu học tập, cập nhật vào Hội nhập tương ứng, thông báo tiến độ |
+
+## GIAO DIỆN LÀM VIỆC, BÁO CÁO, BỘ LỌC
+
+### Giao diện
+
+| Giao diện                             | Mô tả                                                       | Nguồn dữ liệu                                 |
+| :------------------------------------ | :---------------------------------------------------------- | :-------------------------------------------- |
+| **1. Dashboard Tuyển Dụng** [Báo cáo] | Tổng quan tình hình tuyển dụng theo thời gian và vị trí     | Tất cả Order và Ứng viên đang active          |
+| **2. Danh sách Ứng viên** [Danh sách] | Quản lý hồ sơ ứng viên với filter theo trạng thái và vị trí | Ứng viên với trạng thái không phải "Loại bỏ"  |
+| **3. Pipeline Phỏng vấn** [Kanban]    | Theo dõi tiến trình phỏng vấn theo từng bước                | Ứng viên từ trạng thái "Sàng lọc" đến "Offer" |
+| **4. Lịch Hội nhập** [Lịch]           | Xem lịch trình onboarding và đào tạo                        | Hội nhập với ngày bắt đầu trong 3 tháng tới   |
+| **5. Org Chart** [Timeline]           | Sơ đồ tổ chức và lịch sử thay đổi nhân sự                   | Tất cả Hồ sơ nhân sự đang hoạt động           |
+
+### Báo cáo
+
+| Khối trình bày                               | Dữ liệu                                          | Mô tả                                               |
+| :------------------------------------------- | :----------------------------------------------- | :-------------------------------------------------- |
+| **1. Biểu đồ Tuyển dụng** [Biểu đồ cột]      | Số lượng ứng viên và tỷ lệ chuyển đổi theo tháng | Theo dõi hiệu quả tuyển dụng và identify bottleneck |
+| **2. Bộ đếm Nhân sự** [Bộ đếm]               | Tổng nhân sự, nhân sự mới, nhân sự nghỉ việc     | Nắm bắt tình hình biến động nhân sự                 |
+| **3. Thống kê Hiệu suất** [Thống kê 2 chiều] | Kết quả đánh giá theo phòng ban và level         | Phân tích hiệu suất làm việc toàn tổ chức           |
+| **4. Chi phí Tuyển dụng** [Biểu đồ tròn]     | Phân bổ chi phí theo kênh tuyển dụng             | Tối ưu hóa ngân sách tuyển dụng                     |
+| **5. Retention Rate** [Biểu đồ đường]        | Tỷ lệ giữ chân nhân viên theo thời gian          | Đánh giá hiệu quả chính sách nhân sự                |
+| **6. Danh sách Deadline** [Danh sách]        | Hợp đồng, đánh giá, đào tạo sắp đến hạn          | Nhắc việc và quản lý deadline                       |
+
+### Bộ lọc
+
+| Bộ lọc                           | Tiêu chí lọc                                                       | Nhắc việc                                     |
+| :------------------------------- | :----------------------------------------------------------------- | :-------------------------------------------- |
+| **1. Hợp đồng sắp hết hạn**      | Hợp đồng có ngày kết thúc trong 30 ngày tới                        | [Hàng tuần - Thứ 2] [HR Team, Direct Manager] |
+| **2. Ứng viên cần follow-up**    | Ứng viên ở trạng thái "Hẹn phỏng vấn" hoặc "Chờ kết quả" \> 7 ngày | [Hàng ngày - 9:00 AM] [HR Recruiter]          |
+| **3. Nhân viên sinh nhật**       | Nhân viên có sinh nhật trong tuần                                  | [Hàng tuần - Thứ 2] [HR Team, Direct Manager] |
+| **4. Đánh giá quá hạn**          | Chu kỳ đánh giá đã quá deadline nhưng chưa hoàn thành              | [Hàng ngày] [HR Manager, Manager liên quan]   |
+| **5. Onboarding cần hỗ trợ**     | Hội nhập có tiến độ đào tạo \< 50% sau 2 tuần                      | [Hàng tuần - Thứ 4] [HR Team, Mentor]         |
+| **6. Nhân sự có hiệu suất thấp** | Đánh giá gần nhất \< 60 điểm                                       | [Hàng tháng] [HR Manager, Direct Manager]     |
+| **7. Order tuyển dụng trễ**      | Order đã quá deadline nhưng chưa tuyển đủ nhân sự                  | [Hàng tuần] [HR Team, Trưởng phòng đề xuất]   |
+| **8. Thử việc sắp hết hạn**      | Hợp đồng thử việc hết hạn trong 1 tuần                             | [Hàng ngày] [HR Team, Direct Manager]         |
+
+## VAI TRÒ, PHÂN QUYỂN, THÔNG BÁO
+
+### Vai trò
+
+| Vai trò                | Mô tả                  | Phân quyền & Thông báo                                                            |
+| :--------------------- | :--------------------- | :-------------------------------------------------------------------------------- |
+| **1. HR Recruiter**    | Chuyên viên tuyển dụng | Toàn quyền Order và Ứng viên, nhận thông báo mọi hoạt động tuyển dụng             |
+| **2. HR Specialist**   | Chuyên viên nhân sự    | Toàn quyền Hồ sơ nhân sự, Hội nhập, Hợp đồng, nhận thông báo các thay đổi nhân sự |
+| **3. HR Manager**      | Trưởng phòng nhân sự   | Toàn quyền tất cả module, phê duyệt các quy trình quan trọng                      |
+| **4. Department Head** | Trưởng phòng ban       | Quyền với nhân sự trong phòng, phê duyệt đề xuất từ phòng ban                     |
+
+### Phân quyền
+
+Sử dụng **Phương án 3: Phân quyền vừa phải** với các điều chỉnh sau:
+
+- **Xem Mảng việc**: Tất cả vai trò có thể xem
+- **Xem & Cập nhật Đầu việc**:
+  - Order: Người tạo, HR team, Manager liên quan
+  - Ứng viên: HR team, Panel phỏng vấn
+  - Hồ sơ nhân sự: HR team, Direct manager, Bản thân nhân viên (chỉ một số trường)
+  - Đánh giá: HR team, Manager, Nhân viên được đánh giá
+- **Phê duyệt**: Theo cấp bậc được định nghĩa trong luồng tiến trình
+
+### Thông báo
+
+Sử dụng **Phương án 2: Thông báo mọi thứ tới người liên quan** với bổ sung:
+
+- **Thông báo đặc biệt**:
+  - Order được phê duyệt → HR team
+  - Ứng viên nhận việc → HR team, Manager tuyển dụng
+  - Hợp đồng sắp hết hạn → HR team, Direct manager, Nhân viên
+  - Hoàn thành đánh giá → HR team, Manager, Nhân viên được đánh giá
+  - Offboarding → HR team, Manager, IT team (để xử lý tài khoản)
+
+## KẾT NỐI LIÊN CHỨC NĂNG
+
+**Kết nối Chức năng Payroll**
+
+- **Nghiệp vụ 1**: Đồng bộ thông tin lương từ Tăng lương và Thăng tiến sang hệ thống tính lương
+- **Nghiệp vụ 2**: Cập nhật status nhân viên khi offboarding để ngừng tính lương
+
+**Kết nối Chức năng Asset Management**
+
+- **Nghiệp vụ 1**: Tự động tạo yêu cầu cấp phát tài sản khi có nhân viên mới onboarding
+- **Nghiệp vụ 2**: Tạo checklist thu hồi tài sản khi nhân viên offboarding
+
+**Kết nối Chức năng Attendance**
+
+- **Nghiệp vụ 1**: Kích hoạt/vô hiệu hóa chấm công khi nhân viên bắt đầu/nghỉ việc
+- **Nghiệp vụ 2**: Liên kết dữ liệu chấm công với đánh giá hiệu suất
+
+## THỐNG KÊ KHỐI LƯỢNG CÀI ĐẶT
+
+| Yếu tố                         | Số lượng | Điểm đơn vị | Tổng điểm |
+| :----------------------------- | :------- | :---------- | :-------- |
+| Loại việc                      | 10       | 0,3         | 3,0       |
+| Trạng thái                     | 43       | 0,2         | 8,6       |
+| Trường dữ liệu                 | 160      | 0,09        | 14,4      |
+| Quy tắc tự động hoá            | 12       | 0,6         | 7,2       |
+| Kết nối với app ngoài          | 3        | 3           | 9,0       |
+| Giao diện làm việc             | 5        | 0,4         | 2,0       |
+| Bộ lọc                         | 8        | 0,35        | 2,8       |
+| Khối trình bày trong dashboard | 6        | 0,5         | 3,0       |
+| **TỔNG CỘNG**                  |          |             | **50,0**  |
+
+## GỢI Ý THẢO LUẬN
+
+1. **Quy trình phê duyệt phân cấp**: Hiện tại thiết kế order từ cấp quản lý cần 4 bước phê duyệt (Thẩm định → Tài chính → Giám đốc). Anh/chị có muốn điều chỉnh số bước hoặc điều kiện kích hoạt các bước này không?
+2. **Tích hợp đa nền tảng tuyển dụng**: Đã thiết kế webhook và API để đồng bộ từ VietnamWorks, TopCV. Anh/chị có muốn bổ sung thêm nền tảng nào khác như LinkedIn, Indeed không? Và cách thức đồng bộ tự động hay thủ công?
+3. **Quy trình đánh giá và import Excel**: Hiện thiết kế cho phép import kết quả đánh giá từ Excel. Anh/chị có thể chia sẻ cấu trúc file Excel hiện tại để tôi thiết kế mapping dữ liệu chính xác hơn không?
+4. **Lịch sử tự động cho Hồ sơ nhân sự**: Đã thiết kế tự động ghi lịch sử với format "[Ngày duyệt] \+ [Tên tiêu đề]" cho Điều chuyển, Thăng tiến, Tăng lương. Anh/chị có muốn tuỳ chỉnh format này hoặc bổ sung thêm thông tin nào không?
+5. **Kết nối hệ thống elearning**: Chưa rõ API và cấu trúc dữ liệu của hệ thống elearning hiện tại. Anh/chị có thể cung cấp thông tin này để thiết kế webhook chính xác hơn không?
+6. **Mở rộng quản lý Performance**: Hiện chỉ có module Đánh giá cơ bản. Anh/chị có muốn mở rộng thêm tính năng 360-degree feedback, goal setting, hoặc performance improvement plan không?
