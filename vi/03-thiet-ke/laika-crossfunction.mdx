@@ -331,3 +331,105 @@ _Cài đặt tại: Admin Toàn cục \> Phương án Phân quyền & Thông bá
 | Groups                     | 8        | Danh bạ \> Nhóm           |
 
 **Tài liệu này hoàn chỉnh và sẵn sàng để triển khai cấu hình toàn cục Luklak cho LAIKA.**
+
+![Untitled diagram \_ Mermaid Chart-2025-07-21-102227.png](/images/Untitleddiagram_MermaidChart-2025-07-21-102227.png)
+
+```
+sequenceDiagram
+    actor User as Khách hàng
+    participant Marketing as Marketing Function
+    participant CRM as CRM & Sales Function
+    participant G_Calendar as Google Calendar
+    participant Contract as Contract & Invoice Function
+    participant G_Docs as Google Docs
+    participant Sepay as Sepay Gateway
+    participant Delivery as Product Delivery Function
+    participant CS as Customer Success Function
+
+    title LAIKA - Luồng Tự động hóa Xuyên Chức năng
+
+    %% === Chuỗi 1: Từ Quảng cáo đến Tư vấn ===
+    par
+        User->>Marketing: 1. Click quảng cáo & điền Form
+    and
+        activate Marketing
+        Marketing->>CRM: 2. [Webhook] Tạo Lead & bàn giao
+        deactivate Marketing
+    end
+    
+    activate CRM
+    note right of CRM: Lead mới được tạo tự động
+    CRM-->>CRM: 3. [Auto] Phân bổ Lead cho Sales
+    note right of CRM: Sales nhận được thông báo
+    CRM->>User: 4. Sales gọi điện, tư vấn
+    User-->>CRM: 5. Đồng ý đặt lịch
+    
+    CRM->>G_Calendar: 6. [API] Yêu cầu tạo sự kiện
+    activate G_Calendar
+    G_Calendar-->>CRM: 7. Trả về link sự kiện
+    deactivate G_Calendar
+    note left of G_Calendar: Event được tạo cho Sales, Design & Khách
+    deactivate CRM
+
+    %% === Chuỗi 2: Từ Chốt Deal đến Ký Hợp đồng ===
+    activate CRM
+    CRM->>Contract: 8. [Auto] Yêu cầu tạo Hợp đồng
+    note left of Contract: Khi Khách hàng chuyển sang "SOẠN HỢP ĐỒNG"
+    deactivate CRM
+    
+    activate Delivery
+    CRM->>Delivery: 9. [Auto] Tạo phiếu Khảo sát
+    deactivate Delivery
+    
+    activate Contract
+    Contract->>G_Docs: 10. [API] Yêu cầu tạo file HĐ
+    activate G_Docs
+    G_Docs-->>Contract: 11. Trả về link Hợp đồng (Docs)
+    deactivate G_Docs
+    
+    Contract->>User: 12. Gửi Hợp đồng cho Khách
+    User-->>Contract: 13. Ký Hợp đồng
+    
+    Contract-->>Contract: 14. [Auto] Tạo 3 Phiếu thu con
+    deactivate Contract
+    
+    %% === Chuỗi 3: Từ Thanh toán đến Thi công ===
+    activate Contract
+    Contract->>Sepay: 15. [API] Tạo QR Code cho Phiếu thu Đợt 1
+    activate Sepay
+    Sepay-->>Contract: 16. Trả về link QR
+    deactivate Contract
+    
+    User->>Sepay: 17. Quét mã QR & thanh toán
+    Sepay-->>Contract: 18. [Webhook] Báo thanh toán thành công
+    deactivate Sepay
+    
+    activate Contract
+    note right of Contract: Phiếu thu tự động cập nhật "ĐÃ THU"
+    Contract->>Delivery: 19. [Auto] Kích hoạt Dự án
+    deactivate Contract
+    
+    activate Delivery
+    note right of Delivery: Dự án được tạo & Team được thông báo
+    Delivery-->>Delivery: 20. Team Khảo sát & Thiết kế bắt đầu làm việc
+    Delivery->>User: 21. Gửi Concept & chờ phê duyệt
+    User-->>Delivery: 22. Phê duyệt Thiết kế
+    note right of Delivery: Dự án chuyển sang "ĐANG THI CÔNG"
+    deactivate Delivery
+    
+    %% === Chuỗi 4: Từ Hoàn thành đến Chăm sóc ===
+    activate Delivery
+    note over Delivery: ...Quá trình thi công diễn ra...
+    Delivery-->>Delivery: 23. [Auto] Cập nhật Dự án sang "HOÀN TẤT"
+    deactivate Delivery
+    
+    activate CS
+    Delivery->>CS: 24. [Auto] Bàn giao, tạo lịch Chăm sóc
+    deactivate CS
+    
+    activate CRM
+    Delivery->>CRM: 25. [Auto] Cập nhật Voucher & CLV
+    deactivate CRM
+    
+    note over User: Khách hàng được chăm sóc định kỳ
+```
