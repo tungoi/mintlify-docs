@@ -432,4 +432,86 @@ SequenceDiagram
     deactivate CRM
     
     note over User: Khách hàng được chăm sóc định kỳ
-      ```
+```
+
+```mermaid
+---
+config:
+  theme: redux-color
+---
+sequenceDiagram
+    autonumber
+    actor NV as Nhân viên
+    participant YCT as 🧊 Yêu cầu
+    participant WF as ⚙️ Workflow Engine
+    participant VAL as ✓ Validator
+    actor TP as Trưởng phòng
+    actor BGD as Ban GĐ
+    participant EMS as 📧 Email
+    rect rgb(250, 250, 250)
+        Note over NV,EMS: QUY TRÌNH XỬ LÝ YÊU CẦU CHI TIỀN VỚI ĐẦY ĐỦ AUTOMATION
+        NV->>+YCT: Tạo yêu cầu chi 15M
+        activate WF
+        YCT->>+VAL: Validate request data
+        critical Data Validation
+            VAL->>VAL: Check required fields
+        option Missing tiêu đề
+            VAL--xYCT: Error: Title required
+            break
+                YCT--xNV: Return error
+            end
+        option Invalid amount  
+            VAL--xYCT: Error: Amount must be > 0
+        option Valid
+            VAL-->>YCT: Validation passed ✓
+        end
+        deactivate VAL
+        YCT->>WF: Trigger workflow rules
+        par Process rules in parallel
+            WF->>WF: Rule 1: Check amount threshold
+            Note right of WF: IF amount > 10M<br/>THEN require L2
+        and
+            WF->>WF: Rule 2: Check department budget  
+            Note right of WF: Validate against<br/>monthly limit
+        and
+            WF->>WF: Rule 3: Set approvers
+            Note right of WF: Based on org<br/>hierarchy
+        end
+        rect rgb(255, 245, 235)
+            Note over TP,BGD: Approval Chain
+            WF-->>TP: Assign to Trưởng phòng
+            WF-->>EMS: Email notification L1
+            TP->>+YCT: Review request
+            alt Approve L1
+                TP->>YCT: Approve ✓
+                YCT->>YCT: Status = PHÊ DUYỆT CẤP 1
+                opt Amount > 10M (this case: 15M)
+                    YCT->>WF: Trigger L2 approval
+                    WF-->>BGD: Assign to BGĐ
+                    WF-->>EMS: Email notification L2
+                    BGD->>YCT: Review L2
+                    alt Approve L2
+                        BGD->>YCT: Approve ✓
+                        YCT->>-YCT: Status = ĐÃ PHÊ DUYỆT
+                    else Reject L2
+                        BGD->>YCT: Reject ✗
+                        YCT->>YCT: Status = TỪ CHỐI CẤP 2
+                    end
+                end
+            else Reject L1
+                TP->>YCT: Reject ✗
+                YCT->>YCT: Status = TỪ CHỐI CẤP 1
+                YCT-->>NV: Notification: Rejected
+            end
+        end
+        deactivate WF
+        deactivate YCT
+        opt If approved
+            create participant GIN as 🧊 Giải ngân
+            YCT->>GIN: Auto-create payment
+            destroy GIN
+            GIN->>YCT: Payment created
+        end
+    end
+    Note over NV,EMS: Sequence shows: validation → workflow → approval → automation
+```
