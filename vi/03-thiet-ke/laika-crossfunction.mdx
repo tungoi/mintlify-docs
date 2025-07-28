@@ -436,102 +436,103 @@ SequenceDiagram
     note over User: Khách hàng được chăm sóc định kỳ
 ```
 
-```mermaid expandable
+```mermaid Customer Success Function View expandable
 ---
 config:
-  theme: redux-color
+  theme: redux
+  themeVariables:
+    primaryColor: '#358AFF'
+    primaryTextColor: '#213459'
+    primaryBorderColor: '#73BDFF'
+    lineColor: '#358AFF'
+    secondaryColor: '#C7DFF4'
+    tertiaryColor: '#F4F5F7'
+    background: '#FFFFFF'
+    mainBkg: '#FFFFFF'
+    secondBkg: '#F4F5F7'
+    noteTextColor: '#213459'
+    noteBkgColor: '#EBFAFE'
+    noteBorderColor: '#33CCFF'
+    actorBkg: '#FFFFFF'
+    actorBorder: '#33CCFF'
+    actorTextColor: '#213459'
+    actorLineColor: '#E2EEF9'
+    sequenceNumberColor: '#FFFFFF'
+    activationBorderColor: '#33CCFF'
+    activationBkgColor: '#EBFAFE'
+    loopTextColor: '#213459'
+    labelBoxBkgColor: '#E2EEF9'
+    labelBoxBorderColor: '#73BDFF'
+    labelTextColor: '#213459'
+    signalColor: '#64718B'
+    signalTextColor: '#213459'
 ---
 sequenceDiagram
-    %% LEVEL 1 CONDENSED: Cross-System View với Function Info
+    title LAIKA - Level 3.8: Customer Success Function View
     autonumber
     
-    %% Actors
-    actor KH as Khách hàng
     actor NV as Nhân viên LAIKA
     
-    %% Systems
-    participant LUK as Hệ thống Luklak LAIKA
-    participant EXT as Hệ thống Bên ngoài<br/>(Website/Email/Google/Sepay/VOIP)
+    box rgba(255, 255, 255, 0.5) CSKH Function
+        participant CSK as 🧊 Chăm sóc
+        participant TKT as 🧊 Ticket
+        participant VDE as 🧊 Vấn đề chung
+    end
     
-    %% Marketing Flow
-    KH->>+EXT: Điền form đăng ký
-    EXT->>+LUK: [Webhook] → Tạo [Marketing/🧊 Lead]
-    LUK-->>+EXT: [Marketing/🧊 Lead/CHUYỂN CRM] → Gửi email chào mừng
-    EXT-->>KH: Email chào mừng
-    deactivate EXT
-    deactivate LUK
-    deactivate EXT
+    box rgba(255, 255, 255, 0.5) Chức năng khác
+        participant OTH as Chức năng khác
+    end
     
-    %% Sales Flow
-    activate NV
-    NV->>+LUK: Tạo lịch hẹn với khách
-    LUK-->>+EXT: [CRM/🧊 Lịch hẹn/ĐẶT LỊCH] → Tạo Google Calendar
-    EXT-->>KH: Lời mời họp
-    deactivate EXT
-    deactivate LUK
-    deactivate NV
+    box rgba(255, 255, 255, 0.5) External Systems
+        participant EML as Email System
+        participant TIM as ⏰ Timer
+    end
     
-    KH->>+EXT: Gọi hotline
-    EXT-->>+LUK: [Webhook] → Log vào [CRM/🧊 Khách hàng]
-    deactivate LUK
-    deactivate EXT
+    Note over OTH,CSK: LUỒNG 1 - Khởi tạo chăm sóc sau bán
+    OTH->>+CSK: [Project/🧊 Dự án | HOÀN TẤT]<br/>→ Tạo 🧊 Chăm sóc
+    Note right of CSK: Lịch chăm sóc:<br/>- Check-in 2 tháng/lần<br/>- Nhắc trước 3 ngày<br/>- Voucher từ CRM<br/>- Project completion date
     
-    activate NV
-    NV->>+LUK: Click gọi khách
-    LUK-->>+EXT: [CRM/🧊 Khách hàng/Menu: Gọi] → VOIP call
-    EXT-->>KH: Cuộc gọi đến
-    deactivate EXT
-    deactivate LUK
-    deactivate NV
+    CSK-->>CSK: Space chat thông báo
+    Note right of CSK: Chat space:<br/>"CSKH Team"<br/>Message: "Khách hàng mới<br/>cần chăm sóc sau bán"
+    deactivate CSK
     
-    %% Contract & Payment Flow
-    activate NV
-    NV->>+LUK: Soạn hợp đồng
-    LUK-->>+EXT: [Contract/🧊 Hợp đồng/GỬI KHÁCH] → Tạo Google Docs
-    EXT-->>LUK: Link hợp đồng
-    deactivate EXT
-    LUK-->>KH: Link hợp đồng
+    Note over TIM,CSK: LUỒNG 2 - Chăm sóc định kỳ
+    loop Mỗi 2 tháng
+        TIM-->>+CSK: [Background Rule] Đến kỳ kiểm tra
+        
+        alt Trước 3 ngày đến hạn
+            CSK-->>CSK: Reminder notification
+            Note right of CSK: Thông báo nhắc nhở:<br/>Tới: CSKH team<br/>Message: "Sắp đến kỳ<br/>check-in khách hàng"
+        end
+        
+        CSK-->>CSK: In-app notification
+        Note right of CSK: Thông báo ứng dụng:<br/>Tới: Role.CSKH<br/>Ưu tiên: NORMAL<br/>Nội dung: "Check-in lần {{count}}"
+        
+        NV->>+CSK: Thực hiện check-in
+        CSK->>+EML: [Action Menu: Gửi email CSKH]<br/>→ Email kiểm tra định kỳ
+        Note right of EML: Email content:<br/>- Hỏi thăm tình hình sử dụng<br/>- Tips bảo trì nội thất<br/>- Voucher ưu đãi từ CLV<br/>- Contact support info
+        deactivate EML
+        
+        CSK-->>CSK: Chat 🧊 Chăm sóc
+        Note right of CSK: Chat đối tượng:<br/>- Lịch sử thao tác<br/>- Feedback khách hàng<br/>- Follow-up actions
+        deactivate CSK
+    end
     
-    LUK-->>+EXT: [Contract/🧊︎ Phiếu thu/CẦN THU] → Tạo QR Sepay
-    EXT-->>LUK: Mã QR
-    deactivate EXT
-    LUK-->>KH: Mã QR thanh toán
-    deactivate LUK
-    deactivate NV
-    
-    KH->>+EXT: Thanh toán QR
-    EXT-->>+LUK: [Webhook] → Update [Contract/🧊︎ Phiếu thu/ĐÃ THU]
-    deactivate LUK
-    deactivate EXT
-    
-    %% Project Flow
-    activate NV
-    NV->>+LUK: Khởi động dự án
-    LUK-->>+EXT: [Product Delivery/🧊 Dự án/KICK OFF] → Tạo Google Drive folder
-    deactivate EXT
-    deactivate LUK
-    deactivate NV
-    
-    activate NV
-    NV->>+LUK: Gửi thiết kế
-    LUK-->>+EXT: [Product Delivery/🧊 Thiết kế/SEND CUSTOMER] → Email concept
-    EXT-->>KH: Email thiết kế
-    deactivate EXT
-    deactivate LUK
-    deactivate NV
-    
-    %% Customer Care Flow
-    activate LUK
-    LUK-->>+EXT: [Customer Success/🧊 CSKH/sau 60 ngày] → Email khảo sát
-    EXT-->>KH: Email survey
-    deactivate EXT
-    deactivate LUK
-    
-    KH->>+EXT: Điền feedback
-    EXT-->>+LUK: [Webhook] → Update [Customer Success/🧊 CSKH]
-    deactivate LUK
-    deactivate EXT
-
-%% Format: [Function/Object/Status or Trigger]
-%% Marketing, CRM & Sales, Contract & Invoice, Product Delivery, Customer Success
+    Note over CSK,TKT: LUỒNG 3 - Xử lý phản hồi
+    alt Khách có vấn đề
+        activate CSK
+        CSK->>+TKT: [Action Menu: Tạo ticket]<br/>→ Tạo 🧊 Ticket hỗ trợ
+        Note right of TKT: Ticket information:<br/>- Issue category<br/>- Severity level<br/>- Assigned technician<br/>- Expected resolution time
+        
+        TKT-->>+OTH: [🧊 Ticket | CẦN XỬ LÝ]<br/>→ Notify [Technical/Support team]
+        deactivate OTH
+        deactivate TKT
+        deactivate CSK
+    else Khách hài lòng
+        activate CSK
+        CSK->>+VDE: [Action Menu: Ghi nhận feedback]<br/>→ Positive review
+        Note right of VDE: Review data:<br/>- Satisfaction score<br/>- Testimonial content<br/>- Permission to use<br/>- Referral potential
+        deactivate VDE
+        deactivate CSK
+    end
 ```
