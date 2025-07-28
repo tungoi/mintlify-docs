@@ -18,7 +18,7 @@ title: "LAIKA - BẢN THIẾT KẾ CẤU HÌNH TOÀN CỤC LUKLAK"
 
 #### Sơ đồ tổ chức (Organization Tree)
 
-```
+``` expandable
 LAIKA (Doanh nghiệp/Organization)
 │
 ├── 🏢 KINH DOANH (Khu vực/Area)
@@ -436,103 +436,107 @@ SequenceDiagram
     note over User: Khách hàng được chăm sóc định kỳ
 ```
 
-```mermaid Customer Success Function View expandable
----
-config:
-  theme: redux
-  themeVariables:
-    primaryColor: '#358AFF'
-    primaryTextColor: '#213459'
-    primaryBorderColor: '#73BDFF'
-    lineColor: '#358AFF'
-    secondaryColor: '#C7DFF4'
-    tertiaryColor: '#F4F5F7'
-    background: '#FFFFFF'
-    mainBkg: '#FFFFFF'
-    secondBkg: '#F4F5F7'
-    noteTextColor: '#213459'
-    noteBkgColor: '#EBFAFE'
-    noteBorderColor: '#33CCFF'
-    actorBkg: '#FFFFFF'
-    actorBorder: '#33CCFF'
-    actorTextColor: '#213459'
-    actorLineColor: '#E2EEF9'
-    sequenceNumberColor: '#FFFFFF'
-    activationBorderColor: '#33CCFF'
-    activationBkgColor: '#EBFAFE'
-    loopTextColor: '#213459'
-    labelBoxBkgColor: '#E2EEF9'
-    labelBoxBorderColor: '#73BDFF'
-    labelTextColor: '#213459'
-    signalColor: '#64718B'
-    signalTextColor: '#213459'
----
-sequenceDiagram
-    title LAIKA - Level 3.8: Customer Success Function View
-    autonumber
-    
-    actor NV as Nhân viên LAIKA
-    
-    box rgba(255, 255, 255, 0.5) CSKH Function
-        participant CSK as 🧊 Chăm sóc
-        participant TKT as 🧊 Ticket
-        participant VDE as 🧊 Vấn đề chung
-    end
-    
-    box rgba(255, 255, 255, 0.5) Chức năng khác
-        participant OTH as Chức năng khác
-    end
-    
-    box rgba(255, 255, 255, 0.5) External Systems
-        participant EML as Email System
-        participant TIM as ⏰ Timer
-    end
-    
-    Note over OTH,CSK: LUỒNG 1 - Khởi tạo chăm sóc sau bán
-    OTH->>+CSK: [Project/🧊 Dự án | HOÀN TẤT]<br/>→ Tạo 🧊 Chăm sóc
-    Note right of CSK: Lịch chăm sóc:<br/>- Check-in 2 tháng/lần<br/>- Nhắc trước 3 ngày<br/>- Voucher từ CRM<br/>- Project completion date
-    
-    CSK-->>CSK: Space chat thông báo
-    Note right of CSK: Chat space:<br/>"CSKH Team"<br/>Message: "Khách hàng mới<br/>cần chăm sóc sau bán"
-    deactivate CSK
-    
-    Note over TIM,CSK: LUỒNG 2 - Chăm sóc định kỳ
-    loop Mỗi 2 tháng
-        TIM-->>+CSK: [Background Rule] Đến kỳ kiểm tra
-        
-        alt Trước 3 ngày đến hạn
-            CSK-->>CSK: Reminder notification
-            Note right of CSK: Thông báo nhắc nhở:<br/>Tới: CSKH team<br/>Message: "Sắp đến kỳ<br/>check-in khách hàng"
-        end
-        
-        CSK-->>CSK: In-app notification
-        Note right of CSK: Thông báo ứng dụng:<br/>Tới: Role.CSKH<br/>Ưu tiên: NORMAL<br/>Nội dung: "Check-in lần {{count}}"
-        
-        NV->>+CSK: Thực hiện check-in
-        CSK->>+EML: [Action Menu: Gửi email CSKH]<br/>→ Email kiểm tra định kỳ
-        Note right of EML: Email content:<br/>- Hỏi thăm tình hình sử dụng<br/>- Tips bảo trì nội thất<br/>- Voucher ưu đãi từ CLV<br/>- Contact support info
-        deactivate EML
-        
-        CSK-->>CSK: Chat 🧊 Chăm sóc
-        Note right of CSK: Chat đối tượng:<br/>- Lịch sử thao tác<br/>- Feedback khách hàng<br/>- Follow-up actions
-        deactivate CSK
-    end
-    
-    Note over CSK,TKT: LUỒNG 3 - Xử lý phản hồi
-    alt Khách có vấn đề
-        activate CSK
-        CSK->>+TKT: [Action Menu: Tạo ticket]<br/>→ Tạo 🧊 Ticket hỗ trợ
-        Note right of TKT: Ticket information:<br/>- Issue category<br/>- Severity level<br/>- Assigned technician<br/>- Expected resolution time
-        
-        TKT-->>+OTH: [🧊 Ticket | CẦN XỬ LÝ]<br/>→ Notify [Technical/Support team]
-        deactivate OTH
-        deactivate TKT
-        deactivate CSK
-    else Khách hài lòng
-        activate CSK
-        CSK->>+VDE: [Action Menu: Ghi nhận feedback]<br/>→ Positive review
-        Note right of VDE: Review data:<br/>- Satisfaction score<br/>- Testimonial content<br/>- Permission to use<br/>- Referral potential
-        deactivate VDE
-        deactivate CSK
-    end
-```
+<Frame>
+  ```mermaid Customer Success Function View expandable
+  ---
+  config:
+    theme: redux
+    themeVariables:
+      primaryColor: '#358AFF'
+      primaryTextColor: '#213459'
+      primaryBorderColor: '#73BDFF'
+      lineColor: '#358AFF'
+      secondaryColor: '#C7DFF4'
+      tertiaryColor: '#F4F5F7'
+      background: '#FFFFFF'
+      mainBkg: '#FFFFFF'
+      secondBkg: '#F4F5F7'
+      noteTextColor: '#213459'
+      noteBkgColor: '#EBFAFE'
+      noteBorderColor: '#33CCFF'
+      actorBkg: '#FFFFFF'
+      actorBorder: '#33CCFF'
+      actorTextColor: '#213459'
+      actorLineColor: '#E2EEF9'
+      sequenceNumberColor: '#FFFFFF'
+      activationBorderColor: '#33CCFF'
+      activationBkgColor: '#EBFAFE'
+      loopTextColor: '#213459'
+      labelBoxBkgColor: '#E2EEF9'
+      labelBoxBorderColor: '#73BDFF'
+      labelTextColor: '#213459'
+      signalColor: '#64718B'
+      signalTextColor: '#213459'
+  ---
+  sequenceDiagram
+      title LAIKA - Level 3.8: Customer Success Function View
+      autonumber
+      
+      actor NV as Nhân viên LAIKA
+      
+      box rgba(255, 255, 255, 0.5) CSKH Function
+          participant CSK as 🧊 Chăm sóc
+          participant TKT as 🧊 Ticket
+          participant VDE as 🧊 Vấn đề chung
+      end
+      
+      box rgba(255, 255, 255, 0.5) Chức năng khác
+          participant OTH as Chức năng khác
+      end
+      
+      box rgba(255, 255, 255, 0.5) External Systems
+          participant EML as Email System
+          participant TIM as ⏰ Timer
+      end
+      
+      Note over OTH,CSK: LUỒNG 1 - Khởi tạo chăm sóc sau bán
+      OTH->>+CSK: [Project/🧊 Dự án | HOÀN TẤT]<br/>→ Tạo 🧊 Chăm sóc
+      Note right of CSK: Lịch chăm sóc:<br/>- Check-in 2 tháng/lần<br/>- Nhắc trước 3 ngày<br/>- Voucher từ CRM<br/>- Project completion date
+      
+      CSK-->>CSK: Space chat thông báo
+      Note right of CSK: Chat space:<br/>"CSKH Team"<br/>Message: "Khách hàng mới<br/>cần chăm sóc sau bán"
+      deactivate CSK
+      
+      Note over TIM,CSK: LUỒNG 2 - Chăm sóc định kỳ
+      loop Mỗi 2 tháng
+          TIM-->>+CSK: [Background Rule] Đến kỳ kiểm tra
+          
+          alt Trước 3 ngày đến hạn
+              CSK-->>CSK: Reminder notification
+              Note right of CSK: Thông báo nhắc nhở:<br/>Tới: CSKH team<br/>Message: "Sắp đến kỳ<br/>check-in khách hàng"
+          end
+          
+          CSK-->>CSK: In-app notification
+          Note right of CSK: Thông báo ứng dụng:<br/>Tới: Role.CSKH<br/>Ưu tiên: NORMAL<br/>Nội dung: "Check-in lần {{count}}"
+          
+          NV->>+CSK: Thực hiện check-in
+          CSK->>+EML: [Action Menu: Gửi email CSKH]<br/>→ Email kiểm tra định kỳ
+          Note right of EML: Email content:<br/>- Hỏi thăm tình hình sử dụng<br/>- Tips bảo trì nội thất<br/>- Voucher ưu đãi từ CLV<br/>- Contact support info
+          deactivate EML
+          
+          CSK-->>CSK: Chat 🧊 Chăm sóc
+          Note right of CSK: Chat đối tượng:<br/>- Lịch sử thao tác<br/>- Feedback khách hàng<br/>- Follow-up actions
+          deactivate CSK
+      end
+      
+      Note over CSK,TKT: LUỒNG 3 - Xử lý phản hồi
+      alt Khách có vấn đề
+          activate CSK
+          CSK->>+TKT: [Action Menu: Tạo ticket]<br/>→ Tạo 🧊 Ticket hỗ trợ
+          Note right of TKT: Ticket information:<br/>- Issue category<br/>- Severity level<br/>- Assigned technician<br/>- Expected resolution time
+          
+          TKT-->>+OTH: [🧊 Ticket | CẦN XỬ LÝ]<br/>→ Notify [Technical/Support team]
+          deactivate OTH
+          deactivate TKT
+          deactivate CSK
+      else Khách hài lòng
+          activate CSK
+          CSK->>+VDE: [Action Menu: Ghi nhận feedback]<br/>→ Positive review
+          Note right of VDE: Review data:<br/>- Satisfaction score<br/>- Testimonial content<br/>- Permission to use<br/>- Referral potential
+          deactivate VDE
+          deactivate CSK
+      end
+  ```
+
+  Adjust the caption and image of your Frame component here.
+</Frame>
