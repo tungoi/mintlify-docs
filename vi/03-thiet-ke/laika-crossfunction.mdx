@@ -18,7 +18,7 @@ title: "LAIKA - BẢN THIẾT KẾ CẤU HÌNH TOÀN CỤC LUKLAK"
 
 #### Sơ đồ tổ chức (Organization Tree)
 
-``` expandable
+```expandable
 LAIKA (Doanh nghiệp/Organization)
 │
 ├── 🏢 KINH DOANH (Khu vực/Area)
@@ -334,209 +334,103 @@ _Cài đặt tại: Admin Toàn cục \> Phương án Phân quyền & Thông bá
 
 **Tài liệu này hoàn chỉnh và sẵn sàng để triển khai cấu hình toàn cục Luklak cho LAIKA.**
 
-![Untitled diagram \_ Mermaid Chart-2025-07-21-102227.png](/images/Untitleddiagram_MermaidChart-2025-07-21-102227.png)
-
 ```mermaid expandable
-SequenceDiagram
-    actor User as Khách hàng
-    participant Marketing as Marketing Function
-    participant CRM as CRM & Sales Function
-    participant G_Calendar as Google Calendar
-    participant Contract as Contract & Invoice Function
-    participant G_Docs as Google Docs
-    participant Sepay as Sepay Gateway
-    participant Delivery as Product Delivery Function
-    participant CS as Customer Success Function
-
-    title LAIKA - Luồng Tự động hóa Xuyên Chức năng
-
-    %% === Chuỗi 1: Từ Quảng cáo đến Tư vấn ===
-    par
-        User->>Marketing: 1. Click quảng cáo & điền Form
-    and
-        activate Marketing
-        Marketing->>CRM: 2. [Webhook] Tạo Lead & bàn giao
-        deactivate Marketing
+---
+config:
+  theme: redux
+  themeVariables:
+    primaryColor: '#358AFF'
+    primaryTextColor: '#213459'
+    primaryBorderColor: '#73BDFF'
+    lineColor: '#358AFF'
+    secondaryColor: '#C7DFF4'
+    tertiaryColor: '#F4F5F7'
+    background: '#FFFFFF'
+    mainBkg: '#FFFFFF'
+    secondBkg: '#F4F5F7'
+    noteTextColor: '#213459'
+    noteBkgColor: '#EBFAFE'
+    noteBorderColor: '#33CCFF'
+    actorBkg: '#FFFFFF'
+    actorBorder: '#33CCFF'
+    actorTextColor: '#213459'
+    actorLineColor: '#E2EEF9'
+    sequenceNumberColor: '#FFFFFF'
+    activationBorderColor: '#33CCFF'
+    activationBkgColor: '#EBFAFE'
+    loopTextColor: '#213459'
+    labelBoxBkgColor: '#E2EEF9'
+    labelBoxBorderColor: '#73BDFF'
+    labelTextColor: '#213459'
+    signalColor: '#64718B'
+    signalTextColor: '#213459'
+---
+sequenceDiagram
+    title LAIKA - Level 3.8: Customer Success Function View
+    autonumber
+    
+    actor NV as Nhân viên LAIKA
+    
+    box rgba(255, 255, 255, 0.5) CSKH Function
+        participant CSK as 🧊 Chăm sóc
+        participant TKT as 🧊 Ticket
+        participant VDE as 🧊 Vấn đề chung
     end
     
-    activate CRM
-    note right of CRM: Lead mới được tạo tự động
-    CRM-->>CRM: 3. [Auto] Phân bổ Lead cho Sales
-    note right of CRM: Sales nhận được thông báo
-    CRM->>User: 4. Sales gọi điện, tư vấn
-    User-->>CRM: 5. Đồng ý đặt lịch
+    box rgba(255, 255, 255, 0.5) Chức năng khác
+        participant OTH as Chức năng khác
+    end
     
-    CRM->>G_Calendar: 6. [API] Yêu cầu tạo sự kiện
-    activate G_Calendar
-    G_Calendar-->>CRM: 7. Trả về link sự kiện
-    deactivate G_Calendar
-    note left of G_Calendar: Event được tạo cho Sales, Design & Khách
-    deactivate CRM
-
-    %% === Chuỗi 2: Từ Chốt Deal đến Ký Hợp đồng ===
-    activate CRM
-    CRM->>Contract: 8. [Auto] Yêu cầu tạo Hợp đồng
-    note left of Contract: Khi Khách hàng chuyển sang "SOẠN HỢP ĐỒNG"
-    deactivate CRM
+    box rgba(255, 255, 255, 0.5) External Systems
+        participant EML as Email System
+        participant TIM as ⏰ Timer
+    end
     
-    activate Delivery
-    CRM->>Delivery: 9. [Auto] Tạo phiếu Khảo sát
-    deactivate Delivery
+    Note over OTH,CSK: LUỒNG 1 - Khởi tạo chăm sóc sau bán
+    OTH->>+CSK: [Project/🧊 Dự án | HOÀN TẤT]<br/>→ Tạo 🧊 Chăm sóc
+    Note right of CSK: Lịch chăm sóc:<br/>- Check-in 2 tháng/lần<br/>- Nhắc trước 3 ngày<br/>- Voucher từ CRM<br/>- Project completion date
     
-    activate Contract
-    Contract->>G_Docs: 10. [API] Yêu cầu tạo file HĐ
-    activate G_Docs
-    G_Docs-->>Contract: 11. Trả về link Hợp đồng (Docs)
-    deactivate G_Docs
+    CSK-->>CSK: Space chat thông báo
+    Note right of CSK: Chat space:<br/>"CSKH Team"<br/>Message: "Khách hàng mới<br/>cần chăm sóc sau bán"
+    deactivate CSK
     
-    Contract->>User: 12. Gửi Hợp đồng cho Khách
-    User-->>Contract: 13. Ký Hợp đồng
+    Note over TIM,CSK: LUỒNG 2 - Chăm sóc định kỳ
+    loop Mỗi 2 tháng
+        TIM-->>+CSK: [Background Rule] Đến kỳ kiểm tra
+        
+        alt Trước 3 ngày đến hạn
+            CSK-->>CSK: Reminder notification
+            Note right of CSK: Thông báo nhắc nhở:<br/>Tới: CSKH team<br/>Message: "Sắp đến kỳ<br/>check-in khách hàng"
+        end
+        
+        CSK-->>CSK: In-app notification
+        Note right of CSK: Thông báo ứng dụng:<br/>Tới: Role.CSKH<br/>Ưu tiên: NORMAL<br/>Nội dung: "Check-in lần {{count}}"
+        
+        NV->>+CSK: Thực hiện check-in
+        CSK->>+EML: [Action Menu: Gửi email CSKH]<br/>→ Email kiểm tra định kỳ
+        Note right of EML: Email content:<br/>- Hỏi thăm tình hình sử dụng<br/>- Tips bảo trì nội thất<br/>- Voucher ưu đãi từ CLV<br/>- Contact support info
+        deactivate EML
+        
+        CSK-->>CSK: Chat 🧊 Chăm sóc
+        Note right of CSK: Chat đối tượng:<br/>- Lịch sử thao tác<br/>- Feedback khách hàng<br/>- Follow-up actions
+        deactivate CSK
+    end
     
-    Contract-->>Contract: 14. [Auto] Tạo 3 Phiếu thu con
-    deactivate Contract
-    
-    %% === Chuỗi 3: Từ Thanh toán đến Thi công ===
-    activate Contract
-    Contract->>Sepay: 15. [API] Tạo QR Code cho Phiếu thu Đợt 1
-    activate Sepay
-    Sepay-->>Contract: 16. Trả về link QR
-    deactivate Contract
-    
-    User->>Sepay: 17. Quét mã QR & thanh toán
-    Sepay-->>Contract: 18. [Webhook] Báo thanh toán thành công
-    deactivate Sepay
-    
-    activate Contract
-    note right of Contract: Phiếu thu tự động cập nhật "ĐÃ THU"
-    Contract->>Delivery: 19. [Auto] Kích hoạt Dự án
-    deactivate Contract
-    
-    activate Delivery
-    note right of Delivery: Dự án được tạo & Team được thông báo
-    Delivery-->>Delivery: 20. Team Khảo sát & Thiết kế bắt đầu làm việc
-    Delivery->>User: 21. Gửi Concept & chờ phê duyệt
-    User-->>Delivery: 22. Phê duyệt Thiết kế
-    note right of Delivery: Dự án chuyển sang "ĐANG THI CÔNG"
-    deactivate Delivery
-    
-    %% === Chuỗi 4: Từ Hoàn thành đến Chăm sóc ===
-    activate Delivery
-    note over Delivery: ...Quá trình thi công diễn ra...
-    Delivery-->>Delivery: 23. [Auto] Cập nhật Dự án sang "HOÀN TẤT"
-    deactivate Delivery
-    
-    activate CS
-    Delivery->>CS: 24. [Auto] Bàn giao, tạo lịch Chăm sóc
-    deactivate CS
-    
-    activate CRM
-    Delivery->>CRM: 25. [Auto] Cập nhật Voucher & CLV
-    deactivate CRM
-    
-    note over User: Khách hàng được chăm sóc định kỳ
+    Note over CSK,TKT: LUỒNG 3 - Xử lý phản hồi
+    alt Khách có vấn đề
+        activate CSK
+        CSK->>+TKT: [Action Menu: Tạo ticket]<br/>→ Tạo 🧊 Ticket hỗ trợ
+        Note right of TKT: Ticket information:<br/>- Issue category<br/>- Severity level<br/>- Assigned technician<br/>- Expected resolution time
+        
+        TKT-->>+OTH: [🧊 Ticket | CẦN XỬ LÝ]<br/>→ Notify [Technical/Support team]
+        deactivate OTH
+        deactivate TKT
+        deactivate CSK
+    else Khách hài lòng
+        activate CSK
+        CSK->>+VDE: [Action Menu: Ghi nhận feedback]<br/>→ Positive review
+        Note right of VDE: Review data:<br/>- Satisfaction score<br/>- Testimonial content<br/>- Permission to use<br/>- Referral potential
+        deactivate VDE
+        deactivate CSK
+    end
 ```
-
-<Frame>
-  ```mermaid Customer Success Function View expandable
-  ---
-  config:
-    theme: redux
-    themeVariables:
-      primaryColor: '#358AFF'
-      primaryTextColor: '#213459'
-      primaryBorderColor: '#73BDFF'
-      lineColor: '#358AFF'
-      secondaryColor: '#C7DFF4'
-      tertiaryColor: '#F4F5F7'
-      background: '#FFFFFF'
-      mainBkg: '#FFFFFF'
-      secondBkg: '#F4F5F7'
-      noteTextColor: '#213459'
-      noteBkgColor: '#EBFAFE'
-      noteBorderColor: '#33CCFF'
-      actorBkg: '#FFFFFF'
-      actorBorder: '#33CCFF'
-      actorTextColor: '#213459'
-      actorLineColor: '#E2EEF9'
-      sequenceNumberColor: '#FFFFFF'
-      activationBorderColor: '#33CCFF'
-      activationBkgColor: '#EBFAFE'
-      loopTextColor: '#213459'
-      labelBoxBkgColor: '#E2EEF9'
-      labelBoxBorderColor: '#73BDFF'
-      labelTextColor: '#213459'
-      signalColor: '#64718B'
-      signalTextColor: '#213459'
-  ---
-  sequenceDiagram
-      title LAIKA - Level 3.8: Customer Success Function View
-      autonumber
-      
-      actor NV as Nhân viên LAIKA
-      
-      box rgba(255, 255, 255, 0.5) CSKH Function
-          participant CSK as 🧊 Chăm sóc
-          participant TKT as 🧊 Ticket
-          participant VDE as 🧊 Vấn đề chung
-      end
-      
-      box rgba(255, 255, 255, 0.5) Chức năng khác
-          participant OTH as Chức năng khác
-      end
-      
-      box rgba(255, 255, 255, 0.5) External Systems
-          participant EML as Email System
-          participant TIM as ⏰ Timer
-      end
-      
-      Note over OTH,CSK: LUỒNG 1 - Khởi tạo chăm sóc sau bán
-      OTH->>+CSK: [Project/🧊 Dự án | HOÀN TẤT]<br/>→ Tạo 🧊 Chăm sóc
-      Note right of CSK: Lịch chăm sóc:<br/>- Check-in 2 tháng/lần<br/>- Nhắc trước 3 ngày<br/>- Voucher từ CRM<br/>- Project completion date
-      
-      CSK-->>CSK: Space chat thông báo
-      Note right of CSK: Chat space:<br/>"CSKH Team"<br/>Message: "Khách hàng mới<br/>cần chăm sóc sau bán"
-      deactivate CSK
-      
-      Note over TIM,CSK: LUỒNG 2 - Chăm sóc định kỳ
-      loop Mỗi 2 tháng
-          TIM-->>+CSK: [Background Rule] Đến kỳ kiểm tra
-          
-          alt Trước 3 ngày đến hạn
-              CSK-->>CSK: Reminder notification
-              Note right of CSK: Thông báo nhắc nhở:<br/>Tới: CSKH team<br/>Message: "Sắp đến kỳ<br/>check-in khách hàng"
-          end
-          
-          CSK-->>CSK: In-app notification
-          Note right of CSK: Thông báo ứng dụng:<br/>Tới: Role.CSKH<br/>Ưu tiên: NORMAL<br/>Nội dung: "Check-in lần {{count}}"
-          
-          NV->>+CSK: Thực hiện check-in
-          CSK->>+EML: [Action Menu: Gửi email CSKH]<br/>→ Email kiểm tra định kỳ
-          Note right of EML: Email content:<br/>- Hỏi thăm tình hình sử dụng<br/>- Tips bảo trì nội thất<br/>- Voucher ưu đãi từ CLV<br/>- Contact support info
-          deactivate EML
-          
-          CSK-->>CSK: Chat 🧊 Chăm sóc
-          Note right of CSK: Chat đối tượng:<br/>- Lịch sử thao tác<br/>- Feedback khách hàng<br/>- Follow-up actions
-          deactivate CSK
-      end
-      
-      Note over CSK,TKT: LUỒNG 3 - Xử lý phản hồi
-      alt Khách có vấn đề
-          activate CSK
-          CSK->>+TKT: [Action Menu: Tạo ticket]<br/>→ Tạo 🧊 Ticket hỗ trợ
-          Note right of TKT: Ticket information:<br/>- Issue category<br/>- Severity level<br/>- Assigned technician<br/>- Expected resolution time
-          
-          TKT-->>+OTH: [🧊 Ticket | CẦN XỬ LÝ]<br/>→ Notify [Technical/Support team]
-          deactivate OTH
-          deactivate TKT
-          deactivate CSK
-      else Khách hài lòng
-          activate CSK
-          CSK->>+VDE: [Action Menu: Ghi nhận feedback]<br/>→ Positive review
-          Note right of VDE: Review data:<br/>- Satisfaction score<br/>- Testimonial content<br/>- Permission to use<br/>- Referral potential
-          deactivate VDE
-          deactivate CSK
-      end
-  ```
-
-  Adjust the caption and image of your Frame component here.
-</Frame>
