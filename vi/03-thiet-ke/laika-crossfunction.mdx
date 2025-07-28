@@ -8,6 +8,8 @@ title: "LAIKA - BẢN THIẾT KẾ CẤU HÌNH TOÀN CỤC LUKLAK"
 **Mã Doanh nghiệp (Business Key):** LAIKA\
 **Phạm vi tài liệu:** Cấu hình cấp Toàn cục (Global) và Khu vực (Area) trong nền tảng Luklak
 
+![laikav8-l1.png](/images/laikav8-l1.png)
+
 ---
 
 ## PHẦN 1: CẤU TRÚC & ĐIỀU HƯỚNG TOÀN CỤC
@@ -440,78 +442,96 @@ config:
   theme: redux-color
 ---
 sequenceDiagram
+    %% LEVEL 1 CONDENSED: Cross-System View với Function Info
     autonumber
-    actor NV as Nhân viên
-    participant YCT as 🧊 Yêu cầu
-    participant WF as ⚙️ Workflow Engine
-    participant VAL as ✓ Validator
-    actor TP as Trưởng phòng
-    actor BGD as Ban GĐ
-    participant EMS as 📧 Email
-    rect rgb(250, 250, 250)
-        Note over NV,EMS: QUY TRÌNH XỬ LÝ YÊU CẦU CHI TIỀN VỚI ĐẦY ĐỦ AUTOMATION
-        NV->>+YCT: Tạo yêu cầu chi 15M
-        activate WF
-        YCT->>+VAL: Validate request data
-        critical Data Validation
-            VAL->>VAL: Check required fields
-        option Missing tiêu đề
-            VAL--xYCT: Error: Title required
-            break
-                YCT--xNV: Return error
-            end
-        option Invalid amount  
-            VAL--xYCT: Error: Amount must be > 0
-        option Valid
-            VAL-->>YCT: Validation passed ✓
-        end
-        deactivate VAL
-        YCT->>WF: Trigger workflow rules
-        par Process rules in parallel
-            WF->>WF: Rule 1: Check amount threshold
-            Note right of WF: IF amount > 10M<br/>THEN require L2
-        and
-            WF->>WF: Rule 2: Check department budget  
-            Note right of WF: Validate against<br/>monthly limit
-        and
-            WF->>WF: Rule 3: Set approvers
-            Note right of WF: Based on org<br/>hierarchy
-        end
-        rect rgb(255, 245, 235)
-            Note over TP,BGD: Approval Chain
-            WF-->>TP: Assign to Trưởng phòng
-            WF-->>EMS: Email notification L1
-            TP->>+YCT: Review request
-            alt Approve L1
-                TP->>YCT: Approve ✓
-                YCT->>YCT: Status = PHÊ DUYỆT CẤP 1
-                opt Amount > 10M (this case: 15M)
-                    YCT->>WF: Trigger L2 approval
-                    WF-->>BGD: Assign to BGĐ
-                    WF-->>EMS: Email notification L2
-                    BGD->>YCT: Review L2
-                    alt Approve L2
-                        BGD->>YCT: Approve ✓
-                        YCT->>-YCT: Status = ĐÃ PHÊ DUYỆT
-                    else Reject L2
-                        BGD->>YCT: Reject ✗
-                        YCT->>YCT: Status = TỪ CHỐI CẤP 2
-                    end
-                end
-            else Reject L1
-                TP->>YCT: Reject ✗
-                YCT->>YCT: Status = TỪ CHỐI CẤP 1
-                YCT-->>NV: Notification: Rejected
-            end
-        end
-        deactivate WF
-        deactivate YCT
-        opt If approved
-            create participant GIN as 🧊 Giải ngân
-            YCT->>GIN: Auto-create payment
-            destroy GIN
-            GIN->>YCT: Payment created
-        end
-    end
-    Note over NV,EMS: Sequence shows: validation → workflow → approval → automation
+    
+    %% Actors
+    actor KH as Khách hàng
+    actor NV as Nhân viên LAIKA
+    
+    %% Systems
+    participant LUK as Hệ thống Luklak LAIKA
+    participant EXT as Hệ thống Bên ngoài<br/>(Website/Email/Google/Sepay/VOIP)
+    
+    %% Marketing Flow
+    KH->>+EXT: Điền form đăng ký
+    EXT->>+LUK: [Webhook] → Tạo [Marketing/🧊 Lead]
+    LUK-->>+EXT: [Marketing/🧊 Lead/CHUYỂN CRM] → Gửi email chào mừng
+    EXT-->>KH: Email chào mừng
+    deactivate EXT
+    deactivate LUK
+    deactivate EXT
+    
+    %% Sales Flow
+    activate NV
+    NV->>+LUK: Tạo lịch hẹn với khách
+    LUK-->>+EXT: [CRM/🧊 Lịch hẹn/ĐẶT LỊCH] → Tạo Google Calendar
+    EXT-->>KH: Lời mời họp
+    deactivate EXT
+    deactivate LUK
+    deactivate NV
+    
+    KH->>+EXT: Gọi hotline
+    EXT-->>+LUK: [Webhook] → Log vào [CRM/🧊 Khách hàng]
+    deactivate LUK
+    deactivate EXT
+    
+    activate NV
+    NV->>+LUK: Click gọi khách
+    LUK-->>+EXT: [CRM/🧊 Khách hàng/Menu: Gọi] → VOIP call
+    EXT-->>KH: Cuộc gọi đến
+    deactivate EXT
+    deactivate LUK
+    deactivate NV
+    
+    %% Contract & Payment Flow
+    activate NV
+    NV->>+LUK: Soạn hợp đồng
+    LUK-->>+EXT: [Contract/🧊 Hợp đồng/GỬI KHÁCH] → Tạo Google Docs
+    EXT-->>LUK: Link hợp đồng
+    deactivate EXT
+    LUK-->>KH: Link hợp đồng
+    
+    LUK-->>+EXT: [Contract/🧊︎ Phiếu thu/CẦN THU] → Tạo QR Sepay
+    EXT-->>LUK: Mã QR
+    deactivate EXT
+    LUK-->>KH: Mã QR thanh toán
+    deactivate LUK
+    deactivate NV
+    
+    KH->>+EXT: Thanh toán QR
+    EXT-->>+LUK: [Webhook] → Update [Contract/🧊︎ Phiếu thu/ĐÃ THU]
+    deactivate LUK
+    deactivate EXT
+    
+    %% Project Flow
+    activate NV
+    NV->>+LUK: Khởi động dự án
+    LUK-->>+EXT: [Product Delivery/🧊 Dự án/KICK OFF] → Tạo Google Drive folder
+    deactivate EXT
+    deactivate LUK
+    deactivate NV
+    
+    activate NV
+    NV->>+LUK: Gửi thiết kế
+    LUK-->>+EXT: [Product Delivery/🧊 Thiết kế/SEND CUSTOMER] → Email concept
+    EXT-->>KH: Email thiết kế
+    deactivate EXT
+    deactivate LUK
+    deactivate NV
+    
+    %% Customer Care Flow
+    activate LUK
+    LUK-->>+EXT: [Customer Success/🧊 CSKH/sau 60 ngày] → Email khảo sát
+    EXT-->>KH: Email survey
+    deactivate EXT
+    deactivate LUK
+    
+    KH->>+EXT: Điền feedback
+    EXT-->>+LUK: [Webhook] → Update [Customer Success/🧊 CSKH]
+    deactivate LUK
+    deactivate EXT
+
+%% Format: [Function/Object/Status or Trigger]
+%% Marketing, CRM & Sales, Contract & Invoice, Product Delivery, Customer Success
 ```
