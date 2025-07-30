@@ -1,0 +1,214 @@
+---
+title: "New file"
+description: "Description of your new file."
+---
+
+# LAIKA - MARKETING FUNCTION DESIGN
+
+## TỔNG QUAN
+
+### Mô tả chung
+
+#### Mục đích
+
+Quản lý các chiến dịch quảng cáo, chạy ads để thu hút khách hàng tiềm năng và chuyển giao lead cho phòng Kinh doanh.
+
+#### Logic nghiệp vụ
+
+Marketing chạy quảng cáo Facebook, khách hàng click vào ad và điền form trên landing page, hệ thống tự động tạo khách hàng mới trong CRM và phân công cho sales.
+
+#### Tác động kinh doanh
+
+Tạo nguồn lead chất lượng, theo dõi hiệu quả quảng cáo, đo lường ROI của các chiến dịch marketing.
+
+### Chức năng
+
+#### Loại việc & Luồng nghiệp vụ
+
+| Cấp độ                        | Tên                      | Mô tả ngắn                                     |
+| :---------------------------- | :----------------------- | :--------------------------------------------- |
+| Tiêu chuẩn                    | **Chiến dịch Marketing** | Quản lý và theo dõi các chiến dịch quảng cáo   |
+| Con của: Chiến dịch Marketing | **Ad**                   | Quản lý từng quảng cáo cụ thể trong chiến dịch |
+
+#### Mối quan hệ giữa các Loại việc
+
+| Quan hệ                   | Loại quan hệ      | Mô tả                                            |
+| :------------------------ | :---------------- | :----------------------------------------------- |
+| Chiến dịch Marketing - Ad | Kết nối Loại việc | Mối quan hệ cha-con, mỗi chiến dịch có nhiều ads |
+
+#### Vai trò
+
+| Vai trò             | Mô tả                                     | Phân Quyền & Thông báo                                                                                                 |
+| :------------------ | :---------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| Marketing Manager   | Quản lý chiến dịch và ngân sách quảng cáo | **Phân quyền**: Full quyền tạo, sửa, xóa chiến dịch và ads. **Thông báo**: Nhận thông báo về hiệu suất ads và lead mới |
+| Marketing Executive | Thực hiện và theo dõi quảng cáo hàng ngày | **Phân quyền**: Tạo và cập nhật ads, xem báo cáo. **Thông báo**: Nhận thông báo khi có lead mới từ ads                 |
+
+## LOẠI VIỆC & NGHIỆP VỤ
+
+### Chiến dịch Marketing
+
+#### Mô tả nghiệp vụ
+
+- **Mô tả nghiệp vụ**: Quản lý các chiến dịch quảng cáo trên Facebook để thu hút khách hàng tiềm năng về thiết kế nội thất
+- **Ví dụ**: Chiến dịch "Phong cách Bắc Âu gian đi" targeting khách hàng quan tâm thiết kế nội thất. Chiến dịch "Thiết kế hiện đại 2025" cho phân khúc cao cấp.
+
+#### Luồng tiến trình
+
+![marketing_chiếndich.png](/images/marketing_chiếndich.png)
+
+ĐANG CHUẨN BỊ → ĐANG CHẠY → TẠM DỪNG → HOÀN THÀNH ↓ THẤT BẠI
+
+#### Chi tiết các Trạng thái
+
+| Trạng thái       | Nghiệp vụ                                                    | Cài đặt nâng cao                                                                                 |
+| :--------------- | :----------------------------------------------------------- | :----------------------------------------------------------------------------------------------- |
+| 1. ĐANG CHUẨN BỊ | Marketing Manager lên kế hoạch chiến dịch, chuẩn bị creative | **Phân quyền**: Marketing Manager. **Nhập liệu**: Tên chiến dịch, ngân sách, thời gian, mục tiêu |
+| 2. ĐANG CHẠY     | Chiến dịch đang chạy, theo dõi hiệu suất thủ công            | Không có tự động hoá                                                                             |
+| 3. TẠM DỪNG      | Tạm dừng chiến dịch để điều chỉnh                            | **Phân quyền**: Marketing Manager                                                                |
+| 4. HOÀN THÀNH    | Chiến dịch kết thúc, tổng kết kết quả                        | Không có tự động hoá                                                                             |
+| 5. THẤT BẠI      | Chiến dịch không đạt mục tiêu, dừng sớm                      | **Phân quyền**: Marketing Manager                                                                |
+
+#### Màn hình trường dữ liệu
+
+| Nhóm thông tin                | Trường dữ liệu                                                                                                              | Ghi chú                          |
+| :---------------------------- | :-------------------------------------------------------------------------------------------------------------------------- | :------------------------------- |
+| Thông tin cơ bản _(5 trường)_ | Tên chiến dịch _(Dòng chữ)_, Mô tả _(Đoạn văn bản)_, Ngân sách _(Số nguyên)_, Ngày bắt đầu _(Ngày)_, Ngày kết thúc _(Ngày)_ | Thông tin định danh và thời gian |
+| Mục tiêu _(3 trường)_         | Mục tiêu lead _(Số nguyên)_, Chi phí mục tiêu/lead _(Số nguyên)_, Đối tượng mục tiêu _(Sổ xuống chọn một)_                  | KPI và targeting                 |
+| Kết quả _(2 trường)_          | Số lead thực tế _(Số nguyên)_, Chi phí thực tế _(Số nguyên)_                                                                | Theo dõi hiệu suất thủ công      |
+
+**Tổng số trường dữ liệu: 10**
+
+### Ad
+
+#### Mô tả nghiệp vụ
+
+- **Mô tả nghiệp vụ**: Quản lý từng quảng cáo cụ thể trong chiến dịch, với UTM tracking để theo dõi nguồn lead
+- **Ví dụ**: Ad "Phong cách Bắc Âu gian đi" với hình ảnh phòng khách hiện đại, link đến laika.com/?utm_source=facebook&laika_adname=bac_au_gian_di&laika_ad_key=MKT-236. Ad video "Mang đến sự ấm áp và tiện nghi cho không gian sống của bạn".
+
+#### Luồng tiến trình
+
+MỚI TẠO → ĐANG CHẠY → HOÀN THÀNH ↓ ↓ TỪ CHỐI TẠM DỪNG
+
+#### Chi tiết các Trạng thái
+
+| Trạng thái    | Nghiệp vụ                                  | Cài đặt nâng cao                                                                             |
+| :------------ | :----------------------------------------- | :------------------------------------------------------------------------------------------- |
+| 1. MỚI TẠO    | Tạo quảng cáo mới, tạo UTM link với ad key | **Nhập liệu**: Tên ad, creative, targeting, **Tự động hoá**: Tạo UTM link với ad key tự động |
+| 2. ĐANG CHẠY  | Ad đang chạy trên Facebook với UTM link    | Không có tự động hoá                                                                         |
+| 3. TẠM DỪNG   | Tạm dừng để tối ưu hóa                     | **Phân quyền**: Marketing Executive                                                          |
+| 4. HOÀN THÀNH | Ad đã chạy xong                            | Không có tự động hoá                                                                         |
+| 5. TỪ CHỐI    | Ad bị Facebook từ chối                     | **Thông báo**: Gửi thông báo urgent cho team                                                 |
+
+#### Màn hình trường dữ liệu
+
+| Nhóm thông tin            | Trường dữ liệu                                                                                                                         | Ghi chú                                                                                     |
+| :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------ |
+| Thông tin Ad _(5 trường)_ | Tên Ad _(Dòng chữ)_, Creative type _(Sổ xuống chọn một)_, Ad copy _(Đoạn văn bản)_, Landing page URL _(Dòng chữ)_, Ad Key _(Dòng chữ)_ | URL format: laika.com/?utm_source=facebook&laika_adname=bac_au_gian_di&laika_ad_key=MKT-236 |
+| Targeting _(3 trường)_    | Độ tuổi _(Dòng chữ)_, Giới tính _(Sổ xuống chọn một)_, Sở thích _(Đoạn văn bản)_                                                       | Targeting khách quan tâm thiết kế nội thất                                                  |
+| Số liệu _(2 trường)_      | Chi phí _(Số nguyên)_, Lead generated _(Số nguyên)_                                                                                    | Hiệu suất quảng cáo (nhập thủ công)                                                         |
+
+**Tổng số trường dữ liệu: 10**
+
+## MỐI QUAN HỆ & THAM CHIẾU GIỮA CÁC LOẠI VIỆC
+
+### Loại việc Cha - con
+
+| Quan hệ Cha - Con               | Mô tả                                             |
+| :------------------------------ | :------------------------------------------------ |
+| _Chiến dịch Marketing_ =\> _Ad_ | Mỗi chiến dịch có nhiều ads để test và tối ưu hóa |
+
+### Kết nối Loại việc
+
+Không có kết nối đặc biệt ngoài quan hệ cha-con.
+
+### Trường chọn Đầu việc
+
+Không có trường tham chiếu đến loại việc khác.
+
+### Trường bảng dữ liệu
+
+Không sử dụng trường bảng dữ liệu phức tạp.
+
+## TỰ ĐỘNG HOÁ
+
+### Quy tắc trên Luồng tiến trình
+
+| Kích hoạt         | Tự động hoá                                                                                                                      |
+| :---------------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| 1. _Ad_ / MỚI TẠO | Tạo Ad Key tự động (format: MKT-XXX) \+ Tạo UTM link: laika.com/?utm_source=facebook&laika_adname=[tên_ad]&laika_ad_key=[ad_key] |
+
+### Hành động trên Đầu việc
+
+Không có hành động đặc biệt trên đầu việc.
+
+### Quy tắc chạy ngầm
+
+Không có quy tắc chạy ngầm nội bộ.
+
+### Kết nối app ngoài
+
+| Quy tắc                              | Kích hoạt                                                                           | Hành động                                                                                                                                                        |
+| :----------------------------------- | :---------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. _Landing Page_ / Nhận lead từ UTM | Webhook từ landing page với URL parameter ?utm_source=facebook&laika_ad_key=MKT-236 | Phân tích UTM parameter laika_ad_key, tìm Ad tương ứng \+ cập nhật số lead \+ chuyển dữ liệu form (Họ tên, Email, SĐT, Ngân sách, Loại dự án, Diện tích) cho CRM |
+
+## GIAO DIỆN LÀM VIỆC, BÁO CÁO, BỘ LỌC
+
+### Giao diện
+
+| Giao diện                        | Mô tả                           | Dữ liệu                          |
+| :------------------------------- | :------------------------------ | :------------------------------- |
+| 1. Danh sách chiến dịch _(List)_ | Xem tất cả chiến dịch đang chạy | Tất cả Chiến dịch Marketing      |
+| 2. Kanban quảng cáo _(Kanban)_   | Quản lý ads theo trạng thái     | Tất cả Ad, group theo trạng thái |
+
+### Báo cáo
+
+| Khối trình bày                                    | Dữ liệu                                 | Mô tả                           |
+| :------------------------------------------------ | :-------------------------------------- | :------------------------------ |
+| 1. Tổng quan hiệu suất _(Counter & Calculation)_  | Tổng chi phí, tổng lead, ROI trung bình | Số liệu tổng thể marketing      |
+| 2. Hiệu suất theo chiến dịch _(Biểu đồ cột)_      | Lead generated theo chiến dịch          | So sánh hiệu quả các chiến dịch |
+| 3. Xu hướng lead theo thời gian _(Biểu đồ đường)_ | Lead generated theo ngày                | Theo dõi xu hướng lead          |
+
+### Bộ lọc
+
+| Bộ lọc                       | Dữ liệu                          | Nhắc việc                            |
+| :--------------------------- | :------------------------------- | :----------------------------------- |
+| 1. Chiến dịch hiệu suất thấp | ROI \< 200%, đang chạy \> 7 ngày | Hàng ngày 9:00 → Marketing Manager   |
+| 2. Ad chờ duyệt              | Trạng thái = "Mới tạo" \> 24h    | Hàng ngày 8:00 → Marketing Executive |
+
+## VAI TRÒ, PHÂN QUYỀN, THÔNG BÁO
+
+### Vai trò
+
+| Vai trò                | Mô tả                               | Phân quyền & Thông báo                                                                                 |
+| :--------------------- | :---------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| 1. Marketing Manager   | Quản lý toàn bộ hoạt động marketing | **Phân quyền**: Full quyền mọi hành động. **Thông báo**: Nhận mọi thông báo về chiến dịch và hiệu suất |
+| 2. Marketing Executive | Thực hiện marketing hàng ngày       | **Phân quyền**: Tạo và cập nhật ads, xem báo cáo. **Thông báo**: Nhận thông báo về ads và lead mới     |
+
+### Phân quyền
+
+**Sử dụng:** Phân quyền vừa phải
+
+- Marketing Manager: Full quyền
+- Marketing Executive: Quyền cập nhật ads và xem báo cáo
+
+### Thông báo
+
+**Sử dụng:** Thông báo mọi thứ tới người liên quan
+
+- Mọi hành động gửi thông báo tới người được gán vào đầu việc tương ứng
+
+## THỐNG KÊ KHỐI LƯỢNG CÀI ĐẶT
+
+### Tổng khối lượng cài đặt
+
+| Yếu tố                            | Số lượng | Điểm đơn vị | Tổng điểm |
+| :-------------------------------- | :------- | :---------- | :-------- |
+| Loại việc                         | 2        | 0,3         | 0,6       |
+| Trạng thái                        | 10       | 0,2         | 2,0       |
+| Trường dữ liệu                    | 20       | 0,09        | 1,8       |
+| Quy tắc tự động hoá nội bộ Luklak | 1        | 0,6         | 0,6       |
+| Quy tắc Kết nối với app ngoài     | 1        | 3           | 3         |
+| Giao diện làm việc                | 2        | 0,4         | 0,8       |
+| Bộ lọc                            | 2        | 0,35        | 0,7       |
+| Khối trình bày trong dashboard    | 3        | 0,5         | 1,5       |
+| **TỔNG CỘNG**                     |          |             | **11,0**  |
