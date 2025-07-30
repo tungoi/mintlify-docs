@@ -65,6 +65,83 @@ LAIKA (Tổ chức)
             └── 🧊 Vấn đề chung
 ```
 
+<Accordion title="LAIKA - before" icon="sparkles">
+  ### **Phân tích Quy trình Vận hành Hiện tại & Các Vấn đề Tồn đọng - Công ty LAIKA**
+
+  **Bối cảnh chung:** LAIKA là một công ty thiết kế & thi công nội thất uy tín, đang trên đà phát triển mạnh. Tuy nhiên, khi quy mô tăng lên, các quy trình vận hành thủ công, dựa trên nhiều công cụ rời rạc, đang bộc lộ nhiều bất cập, ảnh hưởng đến hiệu suất và trải nghiệm của cả nhân viên lẫn khách hàng.
+
+  #### **1. Giai đoạn: Marketing & Thu hút Khách hàng**
+
+  - **Quy trình hiện tại:**
+    1. Team Marketing chạy các chiến dịch quảng cáo trên Facebook.
+    2. Quảng cáo dẫn khách hàng đến một trang web (landing page) để điền form đăng ký tư vấn.
+    3. Thông tin từ form được tự động gửi về một email chung của công ty hoặc một file Google Sheet.
+    4. Nhân viên marketing phải kiểm tra email/sheet này thường xuyên, sau đó copy thông tin khách hàng và dán vào một nhóm chat Zalo chung của team Kinh doanh để thông báo "có lead mới".
+  - **Điểm nóng / Vấn đề:**
+    - **Trễ nải trong việc nhận và bàn giao lead:** Có độ trễ giữa lúc khách hàng đăng ký và lúc team Kinh doanh nhận được thông tin. Khách hàng có thể bị "nguội" đi nếu phải chờ đợi lâu.
+    - **Thao tác thủ công, dễ bỏ sót:** Việc copy-paste thủ công có nguy cơ sai sót thông tin hoặc bỏ quên khách hàng nếu có nhiều người đăng ký cùng lúc.
+    - **Khó đo lường hiệu quả quảng cáo:** Rất khó để biết chính xác 100% khách hàng nào đến từ quảng cáo nào nếu không làm các bước đối chiếu thủ công phức tạp trên file Excel.
+
+  #### **2. Giai đoạn: Kinh doanh & Tư vấn**
+
+  - **Quy trình hiện tại:**
+    1. Trưởng nhóm Kinh doanh thấy thông báo lead mới trên Zalo, sau đó "giao" lead cho một nhân viên kinh doanh bằng cách tag tên hoặc nhắn tin riêng, thường dựa trên cảm tính ai đang rảnh.
+    2. Nhân viên kinh doanh nhận thông tin, gọi điện cho khách và ghi chú lại các thông tin trao đổi vào sổ tay cá nhân hoặc một file Word/Excel riêng của mình.
+    3. Khi cần đặt lịch hẹn có cả nhà thiết kế đi cùng, nhân viên kinh doanh phải chat qua lại trên Zalo để hỏi lịch trống của nhà thiết kế, sau đó mới chốt lịch với khách.
+    4. Sau khi chốt, nhân viên kinh doanh phải tự tạo một sự kiện trên Google Calendar và gửi lời mời thủ công cho khách hàng và nhà thiết kế.
+  - **Điểm nóng / Vấn đề:**
+    - **Phân công lead cảm tính, không tối ưu:** Việc chia lead thủ công có thể gây ra tình trạng người làm quá nhiều, người lại quá ít việc, không dựa trên chuyên môn hay hiệu suất của từng người.
+    - **Thông tin khách hàng phân mảnh:** Mỗi nhân viên kinh doanh lưu trữ thông tin một nơi. Khi nhân viên đó nghỉ phép hoặc nghỉ việc, thông tin về khách hàng có thể bị thất lạc. Cấp quản lý không có một nơi chung để xem toàn bộ pipeline.
+    - **Tốn thời gian sắp xếp cuộc hẹn:** Việc hỏi lịch và đặt hẹn thủ công rất mất thời gian và dễ xảy ra sai sót (trùng lịch, quên mời, sai email).
+
+  #### **3. Giai đoạn: Hợp đồng & Thanh toán**
+
+  - **Quy trình hiện tại:**
+    1. Sau buổi tư vấn thành công, nhân viên kinh doanh chat với bộ phận Kế toán: "Chị ơi làm hợp đồng cho khách Hoài An nhé".
+    2. Kế toán phải hỏi lại các thông tin chi tiết (tên, địa chỉ, số tiền, các đợt thanh toán...), sau đó mở một file hợp đồng mẫu trên máy tính.
+    3. Kế toán tự tay điền lại thông tin của khách hàng vào hợp đồng, lưu file PDF rồi gửi email cho khách.
+    4. Việc theo dõi công nợ được thực hiện trên một file Excel riêng.
+    5. Khi khách hàng thanh toán, họ thường chụp lại màn hình giao dịch và gửi qua Zalo. Kế toán phải kiểm tra sao kê tài khoản ngân hàng thủ công để xác nhận, sau đó cập nhật lại file Excel và báo cho các bộ phận liên quan "Tiền về rồi nhé".
+  - **Điểm nóng / Vấn đề:**
+    - **Soạn hợp đồng thủ công, rủi ro sai sót cao:** Việc nhập liệu bằng tay dễ gây ra sai sót về thông tin khách hàng, số tiền, hoặc các điều khoản.
+    - **Theo dõi công nợ rời rạc:** File Excel dễ bị lỗi, khó chia sẻ và không cập nhật theo thời gian thực. Dễ bị quên hoặc bỏ sót các khoản thu quan trọng.
+    - **Quy trình xác nhận thanh toán chậm trễ:** Các bộ phận khác phải chờ đợi kế toán xác nhận thủ công mới có thể bắt đầu công việc, gây ra những khoảng "thời gian chết" không đáng có trong toàn bộ quy trình.
+
+  #### **4. Giai đoạn: Triển khai (Khảo sát, Thiết kế, Thi công)**
+
+  - **Quy trình hiện tại:**
+    1. Sau khi nhận được thông báo "đã thanh toán" từ kế toán, Quản lý dự án mới bắt đầu công việc.
+    2. Thông tin về yêu cầu của khách, các ghi chú tư vấn... được gửi qua lại dưới dạng các tin nhắn Zalo hoặc email rời rạc.
+    3. Nhân viên đi khảo sát hiện trạng, chụp ảnh bằng điện thoại cá nhân. Tối về văn phòng, họ tải ảnh lên một folder trên Google Drive hoặc một nhóm Zalo, sau đó gõ các ghi chú vào một file Word.
+    4. Team Thiết kế phải tự vào các nơi lưu trữ khác nhau để tìm và tổng hợp thông tin. Mọi trao đổi, góp ý, duyệt bản vẽ đều diễn ra trong một nhóm chat Zalo lớn, khiến thông tin rất dễ bị trôi.
+  - **Điểm nóng / Vấn đề:**
+    - **Bàn giao công việc đứt gãy:** Việc bắt đầu dự án phụ thuộc vào các tin nhắn thông báo thủ công, không có sự chuyển giao thông tin một cách hệ thống.
+    - **Thông tin dự án phân mảnh, thiếu "nguồn chân lý" duy nhất:** Dữ liệu bị phân tán trên Zalo, Google Drive, email, file cá nhân... gây khó khăn cực lớn khi cần tìm lại, đặc biệt là các quyết định quan trọng.
+    - **Giao tiếp hỗn loạn, khó truy vết:** Chat nhóm Zalo bị trôi tin, không gắn với một bối cảnh công việc cụ thể. Việc tìm lại một file bản vẽ đúng phiên bản hay một lời xác nhận của khách hàng trở thành "cơn ác mộng".
+
+  #### **5. Giai đoạn: Bàn giao & Chăm sóc sau bán hàng**
+
+  - **Quy trình hiện tại:**
+    1. Dự án hoàn thành, Quản lý dự án báo cáo trong nhóm chat.
+    2. Nếu có chính sách chăm sóc khách hàng, một nhân viên (có thể là admin hoặc CSKH) sẽ tự thêm một dòng vào file Excel theo dõi và đặt lịch nhắc trên Google Calendar cá nhân của họ: "2 tháng nữa gọi lại cho chị Hoài An".
+    3. Không có quy trình chuẩn để tính toán và gửi các chương trình ưu đãi (voucher) cho khách hàng cũ.
+  - **Điểm nóng / Vấn đề:**
+    - **Quy trình chăm sóc không nhất quán:** Việc chăm sóc phụ thuộc vào sự chủ động và trí nhớ của cá nhân, rất dễ bị bỏ quên.
+    - **Rủi ro mất dữ liệu khách hàng:** Nếu nhân viên đó nghỉ việc, toàn bộ lịch sử và kế hoạch chăm sóc có thể bị mất theo.
+    - **Bỏ lỡ cơ hội bán hàng lại (Up-sell/Cross-sell):** Không có một hệ thống tự động để khuyến khích khách hàng quay lại, làm lãng phí nguồn khách hàng trung thành quý giá.
+
+  #### **6. Giai đoạn: Quản lý Cấp cao & Báo cáo**
+
+  - **Quy trình hiện tại:**
+    1. Khi CEO muốn xem báo cáo tình hình kinh doanh, anh/chị phải yêu cầu trưởng các bộ phận gửi báo cáo.
+    2. Trưởng phòng Kinh doanh tổng hợp file Excel của các nhân viên. Trưởng phòng Kế toán xuất file theo dõi công nợ. Trưởng phòng Dự án gửi danh sách tiến độ các dự án.
+    3. CEO hoặc trợ lý phải tự tổng hợp các file này lại với nhau để có một bức tranh chung.
+  - **Điểm nóng / Vấn đề:**
+    - **Báo cáo rời rạc, tốn thời gian tổng hợp:** Việc làm báo cáo là một gánh nặng thủ công, lặp đi lặp lại hàng tuần, hàng tháng.
+    - **Số liệu có độ trễ và không đồng nhất:** Tại thời điểm CEO nhận được báo cáo, các con số có thể đã lỗi thời. Dữ liệu từ các file khác nhau có thể không khớp nhau.
+    - **Thiếu tầm nhìn toàn cảnh theo thời gian thực:** Ban lãnh đạo không thể nắm bắt tình hình ngay lập tức để ra các quyết định kịp thời, mà luôn phải hoạt động dựa trên dữ liệu của "ngày hôm qua".
+</Accordion>
+
 ## HỆ THỐNG BÊN NGOÀI
 
 | Hệ thống        | Mục đích kết nối                   | Loại kết nối              |
