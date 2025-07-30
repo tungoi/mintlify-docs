@@ -1,0 +1,141 @@
+---
+title: "LAIKA - CROSS-FUNCTIONAL SYSTEM BLUEPRINT"
+description: "Description of your new file."
+---
+
+# LAIKA - CROSS-FUNCTIONAL SYSTEM BLUEPRINT
+
+## CẤU TRÚC TỔ CHỨC HỢP NHẤT
+
+```
+LAIKA (Tổ chức)
+│
+├── 📂 MARKETING (Khu vực/Area)
+│   └── ⏹️ Marketing Campaigns (Mảng việc/Space)
+│       └── 📋 Chức năng: MKT Campaigns
+│           ├── 🧊 Chiến dịch
+│           │   └── 🧊︎ Ad (Loại việc con)
+│           ├── 🧊 Event
+│           └── 🧊 Content Production
+│
+├── 📂 KINH DOANH (Khu vực/Area)
+│   └── ⏹️ Sales & CRM (Mảng việc/Space)
+│       └── 📋 Chức năng: CRM
+│           ├── 🧊 Khách hàng
+│           │   └── 🧊︎ Demo (Loại việc con)
+│           └── 🧊 Deal
+│               └── 🧊︎ Đề xuất (Loại việc con)
+│
+├── 📂 KẾ TOÁN (Khu vực/Area)
+│   └── ⏹️ Hợp đồng & Phiếu thu (Mảng việc/Space)
+│       └── 📋 Chức năng: Contract & Invoice
+│           ├── 🧊 Hợp đồng
+│           │   └── 🧊︎ Phiếu thu (Loại việc con)
+│           └── 🧊 Thanh toán thầu phụ
+│
+├── 📂 THIẾT KẾ & THI CÔNG (Khu vực/Area)
+│   ├── ⏹️ Quản lý dự án (Mảng việc/Space)
+│   │   └── 📋 Chức năng: Project Management
+│   │       └── 🧊 Dự án
+│   │           └── 🧊︎ Roadmap (Loại việc con)
+│   │
+│   ├── ⏹️ Thiết kế (Mảng việc/Space)
+│   │   └── 📋 Chức năng: Interior Design
+│   │       └── 🧊 Thiết kế
+│   │           ├── 🧊︎ Bố trí công năng (Loại việc con)
+│   │           ├── 🧊︎ Concept (Loại việc con)
+│   │           ├── 🧊︎ 3D (Loại việc con)
+│   │           ├── 🧊︎ 2D (Loại việc con)
+│   │           └── 🧊︎ Chỉnh sửa (Loại việc con)
+│   │
+│   └── ⏹️ Thi công Nội thất (Mảng việc/Space)
+│       └── 📋 Chức năng: Site Survey & Construction
+│           ├── 🧊 Khảo sát
+│           │   └── 🧊︎ Hạn chế (Loại việc con)
+│           ├── 🧊 Thi công
+│           └── 🧊 Lắp đặt
+│
+└── 📂 CSKH (Khu vực/Area)
+    └── ⏹️ Chăm sóc khách hàng (Mảng việc/Space)
+        └── 📋 Chức năng: Customer Success
+            ├── 🧊 Chăm sóc
+            ├── 🧊 Ticket
+            └── 🧊 Vấn đề chung
+```
+
+## HỆ THỐNG BÊN NGOÀI
+
+| Hệ thống        | Mục đích kết nối                   | Loại kết nối              |
+| --------------- | ---------------------------------- | ------------------------- |
+| Facebook        | Thu hút khách hàng tiềm năng       | Landing Page \+ Webhook   |
+| Landing Page    | Form đăng ký tư vấn                | Webhook                   |
+| Google Calendar | Đặt lịch tư vấn tự động            | API Integration           |
+| Google Docs     | Tạo hợp đồng theo template         | API Integration (qua N8N) |
+| Sepay           | Thanh toán & xác nhận chuyển khoản | Webhook                   |
+| N8N             | Trung gian kết nối các hệ thống    | HTTP Request/Webhook      |
+
+## TỰ ĐỘNG HÓA LIÊN CHỨC NĂNG
+
+| STT | Kích hoạt                         | Nguồn → Đích                        | Hành động tự động                             | Mô tả nghiệp vụ                                            |
+| --- | --------------------------------- | ----------------------------------- | --------------------------------------------- | ---------------------------------------------------------- |
+| 1   | Webhook từ Landing Page           | External → CRM                      | Tạo 🧊 Khách hàng mới \+ Phân công tự động    | Khách điền form → tạo lead \+ chia cho sales theo trọng số |
+| 2   | Action Menu "Đặt lịch"            | CRM → Google Calendar               | Tạo sự kiện Google Calendar                   | Sales đặt lịch tư vấn → mời cả nhà thiết kế                |
+| 3   | Chuyển trạng thái "SOẠN HỢP ĐỒNG" | CRM → Multiple                      | Tạo 🧊 Khảo sát \+ 🧊 Hợp đồng                | Khách đồng ý → tạo 2 đầu việc song song                    |
+| 4   | Chuyển trạng thái "HOÀN THÀNH"    | Site Survey → Interior Design       | Chat thông báo \+ Cập nhật dữ liệu            | Khảo sát xong → thiết kế nhận thông báo                    |
+| 5   | Action Menu "Tạo hợp đồng"        | Contract → Google Docs              | Tạo Google Docs từ template                   | Tạo file hợp đồng với smart values                         |
+| 6   | Background Rule                   | Contract → Contract                 | Tạo 3 🧊︎ Phiếu thu                           | Hợp đồng có 3 đợt → tạo 3 phiếu tự động                    |
+| 7   | Webhook từ Sepay                  | External → Contract                 | Cập nhật trạng thái phiếu thu                 | Khách chuyển khoản → xác nhận thanh toán                   |
+| 8   | Chuyển trạng thái "ĐÃ THU"        | Contract → Multiple                 | Tạo 🧊 Dự án \+ 🧊 Thiết kế \+ Chat chúc mừng | Đợt 1 thanh toán → khởi động dự án                         |
+| 9   | Chuyển trạng thái "SALES REVIEW"  | Interior Design → CRM               | Chat mention kinh doanh                       | Thiết kế xong → tag sales review                           |
+| 10  | Action Menu "Gửi concept"         | Interior Design → External          | Gửi email với smart values                    | Gửi bản phác thảo cho khách                                |
+| 11  | Chuyển trạng thái "HOÀN TẤT"      | Project → Customer Success          | Tạo 🧊 Chăm sóc \+ Tính voucher               | Dự án hoàn thành → chăm sóc định kỳ                        |
+| 12  | Scheduled Rule (2 tháng)          | Customer Success → Customer Success | Gửi email check-in                            | Nhắc định kỳ kiểm tra tình hình                            |
+
+## BÁO CÁO TỔNG HỢP
+
+### Dashboard CEO - Tình hình kinh doanh tổng thể
+
+| Khối trình bày                  | Loại                  | Dữ liệu nguồn                     | Mô tả                                      |
+| ------------------------------- | --------------------- | --------------------------------- | ------------------------------------------ |
+| 1. Doanh thu tháng              | Counter & Calculation | Hợp đồng (Đã thu)                 | d115M doanh thu tháng                      |
+| 2. Đơn hàng chưa thu            | Counter & Calculation | Phiếu thu (Chưa thu)              | d120M công nợ                              |
+| 3. Tỷ lệ thành công             | Counter & Calculation | Khách hàng (Tỷ lệ chuyển đổi)     | 89.5% tỷ lệ thành công                     |
+| 4. Phân bổ dự án theo giai đoạn | 2D Statistics         | Dự án (Theo trạng thái)           | 27% Thiết kế, 43% Thi công, 17% Hoàn thành |
+| 5. Timeline dự án               | Timeline Chart        | Dự án (Theo thời gian)            | Xem tiến độ các dự án                      |
+| 6. Khách hàng theo nguồn        | Pie Chart             | Khách hàng (Theo nguồn Marketing) | Facebook, Google, Giới thiệu               |
+| 7. Hoạt động gần đây            | Activity Feed         | Tất cả đối tượng                  | Cập nhật mới nhất từ mọi phòng ban         |
+
+### Bộ lọc thông minh
+
+| Bộ lọc                      | Tiêu chí                             | Nhắc việc                       |
+| --------------------------- | ------------------------------------ | ------------------------------- |
+| Dự án sắp deadline          | Ngày kết thúc \< 7 ngày              | Hàng ngày 9:00 → PM, Thiết kế   |
+| Thanh toán quá hạn          | Ngày đến hạn \+ 3 ngày               | Hàng ngày 8:00 → Kế toán, Sales |
+| Khách chưa phản hồi concept | Concept gửi \> 5 ngày, chưa feedback | Hàng ngày 10:00 → Sales         |
+| Chăm sóc định kỳ            | Ngày check-in hôm nay                | Hàng ngày 9:00 → CSKH           |
+
+## VAI TRÒ & PHÂN QUYỀN
+
+### Vai trò chính
+
+| Vai trò          | Phạm vi trách nhiệm          | Quyền chính                     |
+| ---------------- | ---------------------------- | ------------------------------- |
+| Sales Manager    | Quản lý khách hàng, hợp đồng | Full quyền CRM, Contract        |
+| Project Manager  | Quản lý dự án, tiến độ       | Full quyền Project, view Design |
+| Design Lead      | Quản lý thiết kế, concept    | Full quyền Design, view Project |
+| Site Supervisor  | Quản lý thi công, khảo sát   | Full quyền Construction, Survey |
+| Customer Success | Chăm sóc sau bán             | Full quyền CSKH, view Customer  |
+
+### Phương án phân quyền
+
+**Sử dụng:** Phân quyền vừa phải
+
+- Xem Mảng việc: mọi Vai trò
+- Xem & Cập nhật Đầu việc: chỉ người được gán trực tiếp
+- Chat trao đổi: mọi người xem được Đầu việc
+
+### Phương án thông báo
+
+**Sử dụng:** Thông báo mọi thứ tới người liên quan
+
+- Mọi hành động gửi thông báo tới người được gán vào Đầu việc đó
