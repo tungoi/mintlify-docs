@@ -1,0 +1,238 @@
+---
+title: "New file"
+description: "Description of your new file."
+---
+
+# CHỨC NĂNG CRM (KINH DOANH) - LAIKA
+
+## TỔNG QUAN
+
+### Mô tả chung
+
+#### Mục đích
+
+Quản lý khách hàng tiềm năng từ khi nhận lead từ Marketing qua webhook landing page đến khi chốt deal và bàn giao cho Contract & Invoice.
+
+#### Logic nghiệp vụ
+
+Hệ thống nhận thông tin khách hàng từ form landing page qua webhook, tự động phân công cho sales rep theo trọng số năng lực và chuyên môn, hỗ trợ tư vấn và tạo lịch hẹn Demo tích hợp Google Calendar, theo dõi tiến trình từ lead mới đến soạn hợp đồng.
+
+#### Tác động kinh doanh
+
+Tăng tỷ lệ chuyển đổi lead thành khách hàng thực tế thông qua quy trình tư vấn chuyên nghiệp, phân công tự động và theo dõi sát sao với tích hợp Google Calendar.
+
+### Chức năng
+
+#### **Loại việc & Luồng nghiệp vụ**
+
+| Cấp độ                | Tên        | Mô tả ngắn                                                                    |
+| --------------------- | ---------- | ----------------------------------------------------------------------------- |
+| Tiêu chuẩn            | Khách hàng | Quản lý thông tin và tiến trình chăm sóc khách hàng tiềm năng từ landing page |
+| Con của: _Khách hàng_ | Demo       | Quản lý lịch hẹn tư vấn trực tiếp với khách hàng tích hợp Google Calendar     |
+
+#### **Mối quan hệ giữa các Loại việc**
+
+| Quan hệ           | Loại quan hệ    | Mô tả                                                  |
+| ----------------- | --------------- | ------------------------------------------------------ |
+| Khách hàng - Demo | Quan hệ cha-con | Mỗi khách hàng có thể có nhiều lịch hẹn tư vấn và demo |
+
+#### **Vai trò**
+
+| Vai trò              | Mô tả                                        | Phân Quyền & Thông báo                                                                                                                       |
+| -------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Nhân viên Kinh doanh | Chăm sóc và tư vấn khách hàng được phân công | **Phân quyền**: Toàn quyền trên khách hàng được gán. **Thông báo**: Nhận thông báo khi có khách hàng mới từ Marketing và cập nhật quan trọng |
+
+## LOẠI VIỆC & NGHIỆP VỤ
+
+![Untitled diagram \_ Mermaid Chart-2025-08-05-091626.png](/images/Untitleddiagram_MermaidChart-2025-08-05-091626.png)
+
+### **1. Khách hàng**
+
+#### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý khách hàng tiềm năng từ khi được tạo từ webhook landing page đến khi chuyển thành hợp đồng, bao gồm phân công tự động và theo dõi tiến trình tư vấn
+- **Ví dụ**: Khách hàng "Hoài An - 0384188881" với nguồn từ Ad "MKT-236" phong cách Bắc Âu gian đi; Khách hàng khác từ campaign Modern Luxury với ngân sách 600M
+
+#### **Luồng tiến trình**
+
+TRIỂN KHAI → LEAD MỚI → LIÊN HỆ → LÊN LỊCH → SOẠN HỢP ĐỒNG → THÀNH CÔNG ↓ ↓ ↓ ↓ THẤT BẠI THẤT BẠI THẤT BẠI THẤT BẠI
+
+#### **Chi tiết các Trạng thái**
+
+| Trạng thái       | Nghiệp vụ                                                             | Cài đặt nâng cao                                                                                                                                 |
+| ---------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1. TRIỂN KHAI    | Khách hàng mới được tạo từ webhook landing page, chờ phân công        | **Tự động hoá**: Phân công tự động cho nhân viên kinh doanh theo round-robin và chuyên môn. **Thông báo**: Chat thông báo team Sales có lead mới |
+| 2. LEAD MỚI      | Khách hàng đã được phân công cho sales rep, chuẩn bị liên hệ          | **Phân quyền**: Nhân viên Kinh doanh được gán. **Nhập liệu**: Ghi chú đánh giá sơ bộ về khách hàng                                               |
+| 3. LIÊN HỆ       | Nhân viên Kinh doanh đã liên hệ và tư vấn sơ bộ cho khách hàng        | **Phân quyền**: Nhân viên Kinh doanh được gán. **Nhập liệu**: Ghi chú cuộc gọi, nhu cầu cụ thể và mức độ quan tâm                                |
+| 4. LÊN LỊCH      | Khách hàng đồng ý đặt lịch hẹn tư vấn trực tiếp                       | **Tự động hoá**: Hỗ trợ tạo lịch hẹn Demo và Google Calendar event. **Điều kiện**: Khách có nhu cầu rõ ràng và đồng ý gặp mặt                    |
+| 5. SOẠN HỢP ĐỒNG | Khách hàng đồng ý tiến triển và chuẩn bị ký hợp đồng                  | **Tự động hoá**: Tạo Hợp đồng và Khảo sát mặt bằng. **Điều kiện**: Demo thành công và khách có nhu cầu rõ ràng                                   |
+| 6. THÀNH CÔNG    | Khách hàng đã ký hợp đồng thành công                                  | **Phân quyền**: Chỉ đọc. **Tracking**: Lưu lại toàn bộ journey từ Ad đến ký hợp đồng                                                             |
+| 7. THẤT BẠI      | Khách hàng không có nhu cầu hoặc không phù hợp ở bất kỳ giai đoạn nào | **Phân quyền**: Nhân viên Kinh doanh. **Nhập liệu**: Lý do thất bại để phân tích và cải thiện                                                    |
+
+#### **Màn hình trường dữ liệu**
+
+| Nhóm thông tin                     | Trường dữ liệu                                                                                                                                              | Ghi chú                         |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| Thông tin cơ bản _(6 trường)_      | Họ tên _(Văn bản)_, Số điện thoại _(Số điện thoại)_, Email _(Email)_, Địa chỉ _(Văn bản)_, Phong cách yêu thích _(Sổ xuống)_, Ngân sách dự kiến _(Số tiền)_ | Thông tin từ form landing page  |
+| Tracking & Assignment _(4 trường)_ | Nguồn Ad _(Trường đầu việc)_, UTM Tracking _(Văn bản)_, Nhân viên phụ trách _(Người dùng)_, Ngày tiếp nhận _(Ngày giờ)_                                     | Theo dõi nguồn gốc và phân công |
+| Tư vấn & Đánh giá _(4 trường)_     | Mức độ quan tâm _(Sổ xuống)_, Ghi chú tư vấn _(Đoạn văn bản)_, Lý do thất bại _(Sổ xuống)_, Ngày liên hệ cuối _(Ngày giờ)_                                  | Theo dõi quá trình tư vấn       |
+| Voucher & Ưu đãi _(3 trường)_      | Voucher cho lần sau _(Số tiền)_, Phần trăm voucher _(Phần trăm)_, Ngày hết hạn voucher _(Ngày)_                                                             | Ưu đãi khách hàng quay lại      |
+| **Tổng số: 17 trường**             |                                                                                                                                                             |                                 |
+
+### **2. Demo**
+
+#### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý lịch hẹn tư vấn trực tiếp với khách hàng, tích hợp hoàn toàn với Google Calendar để đồng bộ lịch và mời tham gia
+- **Ví dụ**: Demo "LAIKA x Hoài An - Demo Cải tạo Nội thất" vào 2 PM ngày 18/6 với nhà thiết kế Đức Minh và sales Manh Khôi
+
+#### **Luồng tiến trình**
+
+LỊCH HẸN → THỰC HIỆN → HOÀN THÀNH ↓ ↓ HỦY BỎ HOÃN → LỊCH HẸN
+
+#### **Chi tiết các Trạng thái**
+
+| Trạng thái    | Nghiệp vụ                                                  | Cài đặt nâng cao                                                                                                                                     |
+| ------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. LỊCH HẸN   | Đã đặt lịch hẹn tư vấn cho khách hàng với thời gian cụ thể | **Tự động hoá**: Tạo Google Calendar event và mời khách hàng, nhân viên kinh doanh, nhà thiết kế. **Nhập liệu**: Thời gian, địa điểm, người tham gia |
+| 2. THỰC HIỆN  | Đang diễn ra cuộc hẹn tư vấn trực tiếp                     | **Phân quyền**: Nhân viên Kinh doanh và Nhà thiết kế. **Nhập liệu**: Ghi chú trong quá trình tư vấn                                                  |
+| 3. HOÀN THÀNH | Cuộc hẹn kết thúc với kết quả rõ ràng                      | **Nhập liệu**: Kết quả tư vấn, mức độ quan tâm của khách, next steps. **Tự động hoá**: Cập nhật trạng thái khách hàng tương ứng                      |
+| 4. HỦY BỎ     | Hủy lịch hẹn vì lý do bất khả kháng                        | **Tự động hoá**: Cập nhật Google Calendar và thông báo các bên liên quan                                                                             |
+| 5. HOÃN       | Hoãn lịch hẹn để đặt lại thời gian khác                    | **Tự động hoá**: Cập nhật Google Calendar. **Điều kiện**: Phải đặt lại lịch mới trong vòng 7 ngày                                                    |
+
+#### **Màn hình trường dữ liệu**
+
+| Nhóm thông tin                  | Trường dữ liệu                                                                                                                                                              | Ghi chú                          |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| Thông tin lịch hẹn _(6 trường)_ | Tiêu đề Demo _(Văn bản)_, Thời gian _(Ngày giờ)_, Địa điểm _(Văn bản)_, Nhà thiết kế đi cùng _(Người dùng)_, Google Calendar Event ID _(Văn bản)_, Loại tư vấn _(Sổ xuống)_ | Thông tin cơ bản về cuộc hẹn     |
+| Kết quả & Theo dõi _(4 trường)_ | Mức độ quan tâm _(Sổ xuống)_, Ghi chú tư vấn _(Đoạn văn bản)_, Next steps _(Văn bản)_, Thời gian thực tế _(Số thập phân)_                                                   | Kết quả và hướng xử lý tiếp theo |
+| **Tổng số: 10 trường**          |                                                                                                                                                                             |                                  |
+
+## MỐI QUAN HỆ & THAM CHIẾU GIỮA CÁC LOẠI VIỆC
+
+### **Loại việc Cha - con**
+
+| Quan hệ Cha - Con       | Mô tả                                                             |
+| ----------------------- | ----------------------------------------------------------------- |
+| _Khách hàng_ =\> _Demo_ | Mối quan hệ cha-con, mỗi khách hàng có thể có nhiều lịch hẹn demo |
+
+### **Trường chọn Đầu việc**
+
+| Trường                      | Tham chiếu                                                                                                         | Mô tả                                              |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------- |
+| _Khách hàng_ / **Nguồn Ad** | **Chiến dịch Marketing** / _Tên chiến dịch, UTM tracking, Ngân sách_ . **Điều kiện lọc**: Trạng thái = "ĐANG CHẠY" | Kết nối với Ad cụ thể từ Marketing để tracking ROI |
+
+## TỰ ĐỘNG HOÁ
+
+### **Quy tắc chạy ngầm**
+
+| Quy tắc                      | Kích hoạt                                   | Hành động                                                                                                                                                        |
+| ---------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. Nhận lead từ Landing Page | Webhook từ Landing Page khi khách điền form | **Tự động**: Tạo Khách hàng với thông tin từ form \+ gắn UTM tracking source từ Ad \+ tự động chuyển sang "TRIỂN KHAI"                                           |
+| 2. Phân công Sales tự động   | Khách hàng chuyển trạng thái "TRIỂN KHAI"   | **Tự động**: Chia khách cho nhân viên kinh doanh theo round-robin và chuyên môn (phong cách thiết kế) \+ chuyển sang "LEAD MỚI" \+ gửi chat thông báo team Sales |
+
+### **Hành động trên Đầu việc**
+
+| Kích hoạt                                | Hành động                                                                                                           |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| 3. _Khách hàng_ / Menu "Đặt lịch tư vấn" | Hiển thị popup nhập thông tin cuộc hẹn → tạo Demo \+ Google Calendar event với mời 3 người (khách, sales, thiết kế) |
+
+### **Quy tắc trên Luồng tiến trình**
+
+| Kích hoạt                                | Tự động hoá                                                                                           |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| 4. _Khách hàng_ / CHUYỂN "SOẠN HỢP ĐỒNG" | **Tự động**: Tạo Contract/Hợp đồng với thông tin khách hàng \+ Tạo Survey/Khảo sát mặt bằng song song |
+| 5. _Demo_ / CHUYỂN "HOÀN THÀNH"          | **Tự động**: Cập nhật trạng thái Khách hàng tương ứng (thành công/thất bại) dựa trên kết quả Demo     |
+
+### **Kết nối app ngoài**
+
+| Quy tắc                            | Kích hoạt                       | Hành động                                                                                                                                  |
+| ---------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| 6. _Google Calendar_ / Tạo sự kiện | _Demo_ / Action Menu "Đặt lịch" | **HTTP Request**: Gửi request qua N8N để tạo Google Calendar event với thông tin từ Demo và mời participants (khách hàng, sales, thiết kế) |
+| 7. _Landing Page_ / Webhook        | Form submit từ Landing Page     | **Webhook**: Nhận dữ liệu form và UTM parameters để trigger tạo Khách hàng mới                                                             |
+
+## GIAO DIỆN LÀM VIỆC, BÁO CÁO, BỘ LỌC
+
+### Giao diện
+
+| Giao diện                                     | Mô tả                                                                | Dữ liệu                                                             |
+| --------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| 1. Kanban Khách hàng theo pipeline _(Kanban)_ | Hiển thị khách hàng theo từng giai đoạn từ TRIỂN KHAI đến THÀNH CÔNG | Tất cả Khách hàng nhóm theo trạng thái, sắp xếp theo ngày tiếp nhận |
+| 2. Calendar view Demo _(Lịch)_                | Hiển thị lịch hẹn tư vấn theo timeline tháng                         | Tất cả Demo với thời gian xác định, tích hợp Google Calendar        |
+| 3. List view Khách hàng _(Danh sách)_         | Danh sách chi tiết khách hàng với thông tin đầy đủ                   | Tất cả Khách hàng với filter theo sales rep, nguồn Ad, trạng thái   |
+
+### Báo cáo
+
+| Khối trình bày                                        | Dữ liệu                                                             | Mô tả                                                         |
+| ----------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------- |
+| 1. Biểu đồ phễu Conversion _(Charts)_                 | Tỷ lệ chuyển đổi từ Ad → Khách hàng → Hợp đồng                      | Phân tích hiệu quả conversion pipeline từ Marketing đến Sales |
+| 2. Bộ đếm Performance Sales _(Counter & Calculation)_ | Số lượng Khách hàng được gán, số Demo thực hiện và tỷ lệ close deal | Đánh giá hiệu quả từng nhân viên kinh doanh                   |
+| 3. Thống kê 2 chiều Nguồn Ad _(2D Statistics)_        | Phân bổ Khách hàng theo UTM tracking từ các Ad campaigns            | Phân tích ROI của từng campaign marketing                     |
+
+### Bộ lọc
+
+| Bộ lọc                                 | Dữ liệu                                                     | Nhắc việc                                                  |
+| -------------------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
+| 1. Khách hàng chưa liên hệ             | Trạng thái = "LEAD MỚI" AND Ngày tiếp nhận \> 24 giờ        | Hàng ngày 9:00 AM =\> Nhân viên Kinh doanh được gán        |
+| 2. Demo sắp diễn ra                    | Trạng thái = "LỊCH HẸN" AND Thời gian trong 24 giờ tới      | Hàng ngày 8:00 AM =\> Nhân viên Kinh doanh và Nhà thiết kế |
+| 3. Khách hàng quá lâu không tiến triển | Trạng thái IN ("LIÊN HỆ", "LÊN LỊCH") AND updated \> 7 ngày | Hàng tuần Thứ 2 9:00 AM =\> Quản lý Kinh doanh             |
+
+## VAI TRÒ, PHÂN QUYỀN, THÔNG BÁO
+
+### Vai trò
+
+| Vai trò                 | Mô tả                                 | Phân quyền & Thông báo                                                                                                                                                 |
+| ----------------------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. Nhân viên Kinh doanh | Chăm sóc Khách hàng và thực hiện Demo | **Phân quyền**: Toàn quyền trên Khách hàng được gán \+ tạo/sửa Demo. **Thông báo**: Nhận thông báo khi có Khách hàng mới được phân công và reminder trước Demo 15 phút |
+
+### Phân quyền
+
+**Sử dụng**: Phương án 3 - Phân quyền vừa phải
+
+- **Xem Mảng việc**: mọi Vai trò Mảng việc
+- **Xem & Cập nhật Đầu việc**: chỉ những Người được gán trực tiếp vào Đầu việc
+- **Chat trao đổi**: mọi người xem được Đầu việc
+
+### Thông báo
+
+**Sử dụng**: Phương án 2 - Thông báo mọi thứ chỉ gửi tới người liên quan
+
+Mọi hành động thực hiện với Đầu việc sẽ gửi thông báo tới những người được gán trực tiếp vào Đầu việc đó.
+
+### Thống kê khối lượng cài đặt
+
+| Yếu tố                            | Số lượng | Điểm đơn vị | Tổng điểm |
+| --------------------------------- | -------- | ----------- | --------- |
+| Loại việc                         | 2        | 0.3         | 0.6       |
+| Trạng thái                        | 12       | 0.2         | 2.4       |
+| Trường dữ liệu                    | 27       | 0.09        | 2.43      |
+| Quy tắc tự động hoá nội bộ Luklak | 3        | 0.6         | 1.8       |
+| Kết nối app ngoài khác            | 2        | 3           | 6.0       |
+| Giao diện làm việc                | 3        | 0.4         | 1.2       |
+| Bộ lọc                            | 3        | 0.35        | 1.05      |
+| Khối trình bày trong dashboard    | 3        | 0.5         | 1.5       |
+| **TỔNG CỘNG**                     |          |             | **16.98** |
+
+## KẾT NỐI LIÊN CHỨC NĂNG
+
+_Lưu ý: Đây là nội dung mang tính gợi ý thêm về việc kết nối với các Chức năng khác nhau, chứ chưa bao gồm trong công việc cài đặt cho Chức năng ở trên_
+
+**Kết nối Chức năng Marketing Campaigns**
+
+- **Nhận lead từ Landing Page**: Webhook tự động tạo Khách hàng từ form landing page với UTM tracking (Quy tắc 1)
+- **Tracking ROI campaigns**: Trường "Nguồn Ad" kết nối với Chiến dịch Marketing để theo dõi hiệu quả chuyển đổi
+
+**Kết nối Chức năng Contract & Invoice**
+
+- **Tạo Hợp đồng từ Sales**: Tự động tạo Hợp đồng khi Khách hàng chuyển trạng thái "SOẠN HỢP ĐỒNG" (Quy tắc 4)
+- **Chuyển giao thông tin khách hàng**: Dữ liệu khách hàng, nhu cầu, ngân sách được chuyển sang Contract
+
+**Kết nối Chức năng Site Survey & Construction**
+
+- **Khảo sát mặt bằng**: Tự động tạo Khảo sát khi khách hàng chuyển "SOẠN HỢP ĐỒNG" (Quy tắc 4)
+- **Thông tin dự án**: Chuyển giao thông tin khách hàng, địa chỉ, phong cách thiết kế cho team khảo sát
+
+**Kết nối External Systems**
+
+- **Google Calendar Integration**: Tự động tạo sự kiện lịch cho Demo và mời participants (Quy tắc 6)
+- **Landing Page Webhook**: Nhận dữ liệu form từ website để tạo lead tự động (Quy tắc 7)
