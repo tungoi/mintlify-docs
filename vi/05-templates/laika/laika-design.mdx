@@ -1,0 +1,153 @@
+---
+title: "CHỨC NĂNG THIẾT KẾ NỘI THẤT - LAIKA"
+---
+
+# CHỨC NĂNG THIẾT KẾ NỘI THẤT - LAIKA
+
+## TỔNG QUAN
+
+### Mô tả chung
+
+#### Mục đích
+
+Quản lý quy trình thiết kế nội thất từ tiếp nhận thông tin khảo sát đến hoàn thành và bàn giao thiết kế cuối cùng cho khách hàng, đảm bảo chất lượng và tiến độ theo yêu cầu dự án.
+
+#### Logic nghiệp vụ
+
+Hệ thống thiết kế được kích hoạt từ kết quả khảo sát thực địa, thông qua quy trình Kanban trực quan với các giai đoạn: Concept → 3D → 2D → Chỉnh sửa. Mỗi giai đoạn có review chất lượng trước khi chuyển tiếp, đặc biệt có Sales Review để đảm bảo phù hợp với yêu cầu khách hàng trước khi gửi.
+
+#### Tác động kinh doanh
+
+Đảm bảo chất lượng thiết kế nhất quán, giảm thời gian phản hồi khách hàng, tăng tỷ lệ chấp nhận thiết kế thông qua quy trình review kỹ lưỡng và giao tiếp tự động với khách hàng.
+
+### Chức năng
+
+#### **Loại việc & Luồng nghiệp vụ**
+
+| Cấp độ              | Tên           | Mô tả ngắn                                                       |
+| ------------------- | ------------- | ---------------------------------------------------------------- |
+| Tiêu chuẩn          | **Thiết kế**  | Quản lý toàn bộ quy trình thiết kế nội thất cho một dự án cụ thể |
+| Con của: _Thiết kế_ | **Concept**   | Phát triển ý tưởng và phác thảo thiết kế ban đầu                 |
+| Con của: _Thiết kế_ | **3D**        | Tạo mô hình không gian ba chiều chi tiết                         |
+| Con của: _Thiết kế_ | **2D**        | Hoàn thiện bản vẽ kỹ thuật và chi tiết thi công                  |
+| Con của: _Thiết kế_ | **Chỉnh sửa** | Điều chỉnh thiết kế theo phản hồi của khách hàng                 |
+
+#### Mối quan hệ giữa các Loại việc
+
+| Quan hệ            | Loại quan hệ      | Mô tả                                                |
+| ------------------ | ----------------- | ---------------------------------------------------- |
+| Thiết kế - Concept | Kết nối Loại việc | Concept là giai đoạn đầu tiên của quy trình thiết kế |
+| Thiết kế - 3D      | Kết nối Loại việc | 3D development từ concept đã được duyệt              |
+| Thiết kế - 2D      | Kết nối Loại việc | 2D technical drawings từ 3D model hoàn thiện         |
+
+#### **Vai trò**
+
+| Vai trò              | Mô tả                                                | Phân Quyền & Thông báo                                                                                                                             |
+| -------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Nhà thiết kế**     | Thiết kế trưởng, phụ trách concept và điều phối team | **Phân quyền**: Toàn quyền quản lý thiết kế, tạo và cập nhật mọi giai đoạn. **Thông báo**: Nhận thông báo khảo sát hoàn thành, phản hồi khách hàng |
+| **Thiết kế viên 3D** | Chuyên viên tạo mô hình 3D visualization             | **Phân quyền**: Cập nhật giai đoạn 3D, xem thông tin concept. **Thông báo**: Nhận thông báo khi concept hoàn thành                                 |
+| **Thiết kế viên 2D** | Chuyên viên hoàn thiện bản vẽ kỹ thuật               | **Phân quyền**: Cập nhật giai đoạn 2D, xem thông tin 3D. **Thông báo**: Nhận thông báo khi 3D hoàn thành                                           |
+| **Sales Reviewer**   | Kinh doanh review chất lượng trước khi gửi khách     | **Phân quyền**: Xem và duyệt thiết kế ở mọi giai đoạn. **Thông báo**: Được tag khi cần review                                                      |
+
+## LOẠI VIỆC & NGHIỆP VỤ
+
+### Danh sách Loại việc
+
+#### **Thiết kế**
+
+##### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Đầu việc chính quản lý toàn bộ quy trình thiết kế nội thất cho một khách hàng, từ tiếp nhận thông tin khảo sát đến hoàn thành thiết kế cuối cùng và bàn giao
+- **Ví dụ**: "Thiết kế - Hoài An - Bắc Âu gian đi" với đầy đủ thông tin khách hàng, phong cách và 4 đầu việc con chuyên môn tiêu chuẩn. "Thiết kế - Chị Riviera - Thiên nhiên hiện đại" cho dự án biệt thự với concept xanh.
+
+##### **Luồng tiến trình**
+
+MỚI → PHÁC THẢO → SALES REVIEW → GỬI KHÁCH → HOÀN THÀNH ↓ CHỈNH SỬA → SALES REVIEW
+
+##### **Chi tiết các Trạng thái**
+
+| Trạng thái          | Nghiệp vụ                                                                     | Cài đặt nâng cao                                                                                                  |
+| ------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| 1. **MỚI**          | Nhà thiết kế tiếp nhận thông tin từ khảo sát và bắt đầu lên kế hoạch thiết kế | **Phân quyền**: Nhà thiết kế. **Điều kiện**: Có thông tin khảo sát hoàn tất                                       |
+| 2. **PHÁC THẢO**    | Hoàn thành concept ban đầu với mô tả tầm nhìn và phong cách                   | **Nhập liệu**: Tầm nhìn thiết kế, phong cách, concept description. **Tự động hoá**: Tạo 4 đầu việc con chuyên môn |
+| 3. **SALES REVIEW** | Sales kiểm tra và góp ý thiết kế trước khi gửi khách hàng                     | **Phân quyền**: Sales Reviewer. **Tự động hoá**: Chat mention kinh doanh để review                                |
+| 4. **GỬI KHÁCH**    | Tự động gửi email thiết kế cho khách hàng với smart values                    | **Tự động hoá**: Gửi email concept với thông tin cá nhân hóa                                                      |
+| 5. **HOÀN THÀNH**   | Khách hàng chấp nhận thiết kế và quy trình kết thúc                           | **Điều kiện**: Có phản hồi tích cực từ khách hàng                                                                 |
+| 6. **CHỈNH SỬA**    | Điều chỉnh thiết kế theo yêu cầu của khách hàng                               | **Nhập liệu**: Nội dung chỉnh sửa theo phản hồi khách                                                             |
+
+##### **Màn hình trường dữ liệu**
+
+| Nhóm thông tin                      | Trường dữ liệu                                                                                                                                                                                            | Ghi chú                                        |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| **Thông tin dự án** _(5 trường)_    | Tên khách hàng _(Dòng chữ)_, Số điện thoại _(Số điện thoại)_, Địa chỉ dự án _(Đoạn văn bản)_, Ngày bắt đầu thiết kế _(Ngày)_, Deadline hoàn thành _(Ngày)_                                                | Thông tin cơ bản về dự án và timeline          |
+| **Thông tin thiết kế** _(6 trường)_ | Phong cách thiết kế _(Dòng chữ)_, Tầm nhìn thiết kế _(Đoạn văn bản)_, Material chính _(Đoạn văn bản)_, Màu sắc chủ đạo _(Dòng chữ)_, Lighting concept _(Đoạn văn bản)_, Ghi chú đặc biệt _(Đoạn văn bản)_ | Chi tiết về concept và yêu cầu thiết kế        |
+| **Liên kết dự án** _(3 trường)_     | Khảo sát liên quan _(Trường chọn Đầu việc)_, Dự án chính _(Trường chọn Đầu việc)_, Nhà thiết kế phụ trách _(Trường chọn Người dùng)_                                                                      | Tham chiếu đến các đầu việc và người liên quan |
+
+**Tổng số trường**: 14 trường
+
+#### **Concept**
+
+##### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Phát triển ý tưởng thiết kế ban đầu, tạo phác thảo và mô tả concept tổng thể cho dự án, là bước đầu tiên trong quy trình thiết kế
+- **Ví dụ**: "Concept - Hoài An - Bắc Âu gian đi" với mô tả material gỗ sồi tự nhiên, cotton linen và tranh lụa. "Concept - Chị Riviera - Thiên nhiên" với concept xanh và ánh sáng tự nhiên.
+
+##### **Luồng tiến trình**
+
+CHUẨN BỊ → PHÁT TRIỂN → HOÀN THÀNH
+
+##### **Chi tiết các Trạng thái**
+
+| Trạng thái        | Nghiệp vụ                                                         | Cài đặt nâng cao                                                |
+| ----------------- | ----------------------------------------------------------------- | --------------------------------------------------------------- |
+| 1. **CHUẨN BỊ**   | Thiết kế viên nghiên cứu thông tin khảo sát và yêu cầu khách hàng | **Phân quyền**: Nhà thiết kế                                    |
+| 2. **PHÁT TRIỂN** | Tạo concept chi tiết với mô tả material, màu sắc, lighting        | **Nhập liệu**: Concept description, material list, color scheme |
+| 3. **HOÀN THÀNH** | Concept hoàn thiện, sẵn sàng chuyển sang 3D development           | **Tự động hoá**: Thông báo team 3D bắt đầu làm việc             |
+
+##### **Màn hình trường dữ liệu**
+
+Concept description _(Đoạn văn bản)_, Material details _(Đoạn văn bản)_, Color palette _(Dòng chữ)_, Style references _(Đoạn văn bản)_, Special notes _(Đoạn văn bản)_
+
+#### **3D**
+
+##### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Tạo mô hình không gian ba chiều chi tiết từ concept đã được duyệt, visualization để khách hàng dễ dàng hình dung không gian thực tế
+- **Ví dụ**: Mô hình 3D phòng khách Bắc Âu với gỗ sồi và ánh sáng tự nhiên từ cửa sổ lớn. Render chi tiết nội thất và bố trí đồ đạc theo phong cách hiện đại.
+
+##### **Luồng tiến trình**
+
+MODELING → TEXTURING → RENDERING → HOÀN THÀNH
+
+##### **Chi tiết các Trạng thái**
+
+| Trạng thái        | Nghiệp vụ                                              | Cài đặt nâng cao                                           |
+| ----------------- | ------------------------------------------------------ | ---------------------------------------------------------- |
+| 1. **MODELING**   | Tạo mô hình 3D không gian và nội thất cơ bản           | **Phân quyền**: Thiết kế viên 3D                           |
+| 2. **TEXTURING**  | Apply materials và textures theo concept               | **Nhập liệu**: Texture details, material specifications    |
+| 3. **RENDERING**  | Tạo hình ảnh render chất lượng cao cho presentation    | **Nhập liệu**: Render settings, camera angles              |
+| 4. **HOÀN THÀNH** | 3D model hoàn thiện, sẵn sàng chuyển sang 2D technical | **Tự động hoá**: Thông báo team 2D bắt đầu bản vẽ kỹ thuật |
+
+##### **Màn hình trường dữ liệu**
+
+Model details _(Đoạn văn bản)_, Render quality _(Sổ xuống chọn một)_, Camera views _(Đoạn văn bản)_, Lighting setup _(Đoạn văn bản)_
+
+#### **2D**
+
+##### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Hoàn thiện bản vẽ kỹ thuật 2D chi tiết từ mô hình 3D, tạo technical drawings cho thi công với kích thước và specifications chính xác
+- **Ví dụ**: Bản vẽ mặt bằng, mặt cắt và chi tiết kỹ thuật cho phòng khách Bắc Âu với kích thước chính xác. Specification của materials và hướng dẫn thi công.
+
+##### **Luồng tiến trình**
+
+LAYOUT → TECHNICAL DRAWING → FINALIZATION → HOÀN THÀNH
+
+##### **Chi tiết các Trạng thái**
+
+| Trạng thái               | Nghiệp vụ                                       | Cài đặt nâng cao                                      |
+| ------------------------ | ----------------------------------------------- | ----------------------------------------------------- |
+| 1. **LAYOUT**            | Tạo layout tổng thể và sơ đồ bố trí             | **Phân quyền**: Thiết kế viên 2D                      |
+| 2. **TECHNICAL DRAWING** | Chi tiết kỹ thuật, kích thước và specifications | **Nhập liệu**: Technical specifications, measurements |
+| 3. **FINALIZATION**      | Hoàn thiện và kiểm tra quality bản vẽ           | **Nhập liệu**: Quality check notes                    |
+| 4. **HOÀN THÀNH**        | Bản vẽ 2D hoàn thiện, sẵn sàng cho thi công     | **Điều kiện**: Đã có approval                         |

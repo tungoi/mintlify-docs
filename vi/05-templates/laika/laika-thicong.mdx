@@ -1,0 +1,324 @@
+# CHỨC NĂNG SITE SURVEY & CONSTRUCTION
+
+## Khảo sát & Thi công Nội thất - LAIKA
+
+### TỔNG QUAN
+
+#### Mô tả chung
+
+##### Mục đích
+
+Quản lý toàn bộ quy trình khảo sát hiện trạng và thi công nội thất từ khi có hợp đồng đến khi bàn giao hoàn thiện, đảm bảo chất lượng thi công và tiến độ dự án.
+
+##### Logic nghiệp vụ
+
+Khảo sát hiện trạng để nắm bắt điều kiện thực tế, hạn chế kỹ thuật, từ đó thiết kế và thi công phù hợp. Quy trình được quản lý chặt chẽ qua các giai đoạn với công nghệ QR code mobile và Live photo có GPS tracking để đảm bảo tính chính xác và minh bạch.
+
+##### Tác động kinh doanh
+
+Giảm thiểu sai sót trong thiết kế do không khảo sát kỹ, tối ưu hóa tiến độ thi công, đảm bảo chất lượng bàn giao và tạo niềm tin với khách hàng thông qua quy trình minh bạch có ảnh GPS thực tế.
+
+#### Chức năng
+
+##### **Loại việc & Luồng nghiệp vụ**
+
+|Cấp độ|Tên|Mô tả ngắn|
+|---|---|---|
+|Tiêu chuẩn|**Khảo sát**|Khảo sát hiện trạng mặt bằng, đo đạc kỹ thuật và ghi nhận hạn chế|
+|Con của: _Khảo sát_|**Hạn chế**|Ghi nhận các hạn chế kỹ thuật, vấn đề cần lưu ý trong thiết kế|
+|Tiêu chuẩn|**Thi công**|Quản lý tiến độ và chất lượng thi công nội thất|
+|Tiêu chuẩn|**Lắp đặt**|Lắp đặt thiết bị, nội thất và hoàn thiện cuối cùng|
+
+##### Mối quan hệ giữa các Loại việc
+
+|Quan hệ|Loại quan hệ|Mô tả|
+|---|---|---|
+|Khảo sát - Hạn chế|Kết nối Loại việc|Mối quan hệ cha-con, mỗi khảo sát có thể có nhiều hạn chế được ghi nhận|
+|Khảo sát - Thi công|Trường chọn Đầu việc|Thi công tham chiếu đến khảo sát để nắm thông tin thực tế|
+
+##### **Vai trò**
+
+|Vai trò|Mô tả|Phân Quyền & Thông báo|
+|---|---|---|
+|**Nhân viên Khảo sát**|Thực hiện khảo sát hiện trạng, đo đạc và ghi nhận thông tin thực tế|**Phân quyền**: Cập nhật đầu việc khảo sát, upload ảnh GPS. **Thông báo**: Nhận thông báo có việc khảo sát mới|
+|**Trưởng nhóm Thi công**|Quản lý tiến độ và chất lượng thi công, phân công nhân lực|**Phân quyền**: Quản lý toàn bộ quy trình thi công. **Thông báo**: Nhận thông báo khảo sát hoàn thành, cập nhật tiến độ thi công|
+|**Thợ thi công**|Thực hiện thi công theo thiết kế và chỉ dẫn kỹ thuật|**Phân quyền**: Cập nhật tiến độ công việc được gán. **Thông báo**: Nhận phân công công việc và thay đổi thiết kế|
+
+### LOẠI VIỆC & NGHIỆP VỤ
+
+#### Danh sách Loại việc
+
+##### **Khảo sát**
+
+##### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Nhân viên khảo sát đến thực địa để đo đạc kích thước, ghi nhận hiện trạng, chụp ảnh có GPS và thời gian để phục vụ thiết kế chính xác
+- **Ví dụ**: Khảo sát - Hoài An - 0384188881 với ảnh GPS tại 192 Eco Park, chụp lúc 10.06 AM với tọa độ 21.018557. Khảo sát căn hộ 3PN tại Vinhomes Smart City ghi nhận hạn chế về điện nước
+
+##### **Luồng tiến trình**
+
+CẦN LÀM → ĐANG XU LÝ → HOÀN THÀNH ↓ HẠN CHẾ
+
+##### **Chi tiết các Trạng thái**
+
+|Trạng thái|Nghiệp vụ|Cài đặt nâng cao|
+|---|---|---|
+|1. **CẦN LÀM**|Đầu việc khảo sát vừa được tạo, cần phân công nhân viên|**Phân quyền**: Trưởng nhóm khảo sát. **Nhập liệu**: Gán nhân viên khảo sát, ngày hẹn khảo sát|
+|2. **ĐANG XU LÝ**|Nhân viên đang thực hiện khảo sát tại hiện trường|**Tự động hoá**: Tạo đầu việc Hạn chế nếu phát hiện vấn đề kỹ thuật|
+|3. **HOÀN THÀNH**|Khảo sát hoàn tất với đầy đủ thông tin và ảnh GPS|**Tự động hoá**: Gửi chat thông báo đến team Thiết kế, cập nhật thông tin vào đầu việc Thiết kế liên quan|
+|4. **HẠN CHẾ**|Ghi nhận hạn chế kỹ thuật cần lưu ý trong thiết kế|**Nhập liệu**: Mô tả chi tiết hạn chế, mức độ ảnh hưởng, giải pháp đề xuất|
+
+##### **Màn hình trường dữ liệu**
+
+|Nhóm thông tin|Trường dữ liệu|Ghi chú|
+|---|---|---|
+|**Thông tin cơ bản** _(4 trường)_|Khách hàng _(Trường chọn Đầu việc)_, Địa điểm _(Dòng chữ)_, Ngày khảo sát _(Ngày)_, Nhân viên khảo sát _(Người đơn)_|Liên kết với CRM và phân công thực hiện|
+|**Thông tin kỹ thuật** _(6 trường)_|Diện tích thực tế _(Số thập phân)_, Chiều cao trần _(Số thập phân)_, Kết cấu hiện tại _(Đoạn văn bản)_, Hệ thống điện _(Sổ xuống chọn một)_, Hệ thống nước _(Sổ xuống chọn một)_, Ghi chú đặc biệt _(Đoạn văn bản)_|Thông tin kỹ thuật chi tiết để thiết kế|
+|**Live photo GPS** _(2 trường)_|Tọa độ GPS _(Dòng chữ)_, Thời gian chụp _(Ngày giờ)_|Tự động cập nhật từ mobile app|
+
+**Tổng số trường**: 12 trường
+
+##### **Hạn chế**
+
+##### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Ghi nhận các hạn chế kỹ thuật, vấn đề cần lưu ý đặc biệt để team thiết kế có thể điều chỉnh phương án cho phù hợp
+- **Ví dụ**: Hạn chế về vị trí cột chính không thể di chuyển tại căn 3PN Eco Park. Hạn chế về áp lực nước yếu tầng cao tại Vinhomes cần bơm tăng áp
+
+##### **Luồng tiến trình**
+
+MỚI → ĐÃ XÁC NHẬN → GIẢI QUYẾT ↓ TẠM DỪNG
+
+##### **Chi tiết các Trạng thái**
+
+|Trạng thái|Nghiệp vụ|Cài đặt nâng cao|
+|---|---|---|
+|1. **MỚI**|Phát hiện hạn chế mới trong quá trình khảo sát|**Nhập liệu**: Mô tả hạn chế, mức độ nghiêm trọng, ảnh minh họa|
+|2. **ĐÃ XÁC NHẬN**|Team thiết kế đã xem và xác nhận hạn chế này|**Phân quyền**: Vai trò Thiết kế|
+|3. **GIẢI QUYẾT**|Đã có phương án giải quyết trong thiết kế|**Tự động hoá**: Cập nhật ghi chú vào đầu việc Thiết kế chính|
+|4. **TẠM DỪNG**|Hạn chế nghiêm trọng cần tạm dừng để tìm giải pháp|**Thông báo**: Gửi thông báo khẩn cấp đến Quản lý dự án|
+
+##### **Màn hình trường dữ liệu**
+
+|Nhóm thông tin|Trường dữ liệu|Ghi chú|
+|---|---|---|
+|**Thông tin hạn chế** _(5 trường)_|Loại hạn chế _(Sổ xuống chọn một)_, Mô tả chi tiết _(Đoạn văn bản)_, Mức độ nghiêm trọng _(Sổ xuống chọn một)_, Vị trí cụ thể _(Dòng chữ)_, Ảnh minh họa _(Live photo)_|Mô tả đầy đủ về hạn chế phát hiện|
+|**Giải pháp** _(3 trường)_|Phương án đề xuất _(Đoạn văn bản)_, Chi phí phát sinh _(Số nguyên)_, Thời gian ảnh hưởng _(Số nguyên)_|Giải pháp và tác động đến dự án|
+
+**Tổng số trường**: 8 trường
+
+##### **Thi công**
+
+##### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý tiến độ thi công nội thất theo thiết kế, đảm bảo chất lượng và an toàn lao động trong quá trình thực hiện
+- **Ví dụ**: Thi công nội thất căn hộ Hoài An theo concept Bắc Âu với tiến độ 45 ngày. Thi công văn phòng 200m2 tại tòa nhà Keangnam theo thiết kế hiện đại
+
+##### **Luồng tiến trình**
+
+CHUẨN BỊ → THI CÔNG → KIỂM TRA → HOÀN THÀNH ↓ ↓ CHỜ VẬT LIỆU TẠM DỪNG
+
+##### **Chi tiết các Trạng thái**
+
+|Trạng thái|Nghiệp vụ|Cài đặt nâng cao|
+|---|---|---|
+|1. **CHUẨN BỊ**|Chuẩn bị vật liệu, nhân lực và phương án thi công|**Nhập liệu**: Danh sách vật liệu, nhân công phân công, ngày khởi công dự kiến|
+|2. **THI CÔNG**|Đang trong quá trình thi công theo thiết kế|**Tự động hoá**: Cập nhật tiến độ hàng ngày vào báo cáo dự án|
+|3. **KIỂM TRA**|Kiểm tra chất lượng trước khi chuyển sang lắp đặt|**Phân quyền**: Trưởng nhóm thi công, Quản lý dự án|
+|4. **HOÀN THÀNH**|Thi công hoàn tất, sẵn sàng cho giai đoạn lắp đặt|**Tự động hoá**: Tạo đầu việc Lắp đặt, thông báo team hoàn thiện|
+|5. **CHỜ VẬT LIỆU**|Tạm dừng do chờ vật liệu về hoặc thay đổi thiết kế|**Điều kiện**: Khi có vấn đề về nguồn vật liệu|
+|6. **TẠM DỪNG**|Tạm dừng do vấn đề kỹ thuật hoặc yêu cầu thay đổi|**Nhập liệu**: Lý do tạm dừng, thời gian dự kiến tiếp tục|
+
+##### **Màn hình trường dữ liệu**
+
+|Nhóm thông tin|Trường dữ liệu|Ghi chú|
+|---|---|---|
+|**Thông tin thi công** _(6 trường)_|Thiết kế tham chiếu _(Trường chọn Đầu việc)_, Khảo sát tham chiếu _(Trường chọn Đầu việc)_, Ngày khởi công _(Ngày)_, Ngày hoàn thành dự kiến _(Ngày)_, Trưởng nhóm _(Người đơn)_, Thợ chính _(Người nhiều)_|Liên kết với thiết kế và phân công nhân lực|
+|**Tiến độ & Chất lượng** _(4 trường)_|Tiến độ hoàn thành _(Số nguyên)_, Chất lượng đánh giá _(Sổ xuống chọn một)_, Vấn đề phát sinh _(Đoạn văn bản)_, Ghi chú thi công _(Đoạn văn bản)_|Theo dõi tiến độ và chất lượng|
+
+**Tổng số trường**: 10 trường
+
+##### **Lắp đặt**
+
+##### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Lắp đặt thiết bị, nội thất và hoàn thiện cuối cùng, kiểm tra bàn giao để khách hàng có thể sử dụng ngay
+- **Ví dụ**: Lắp đặt tủ bếp, thiết bị điện và hoàn thiện cho căn hộ Hoài An. Lắp đặt hệ thống âm thanh ánh sáng cho văn phòng 200m2
+
+##### **Luồng tiến trình**
+
+CHUẨN BỊ → LẮP ĐẶT → KIỂM TRA → BÀN GIAO ↓ CHỜ THIẾT BỊ
+
+##### **Chi tiết các Trạng thái**
+
+|Trạng thái|Nghiệp vụ|Cài đặt nâng cao|
+|---|---|---|
+|1. **CHUẨN BỊ**|Chuẩn bị thiết bị và lên kế hoạch lắp đặt|**Điều kiện**: Thi công đã hoàn thành|
+|2. **LẮP ĐẶT**|Đang lắp đặt thiết bị và nội thất|**Nhập liệu**: Tiến độ lắp đặt, vấn đề phát sinh|
+|3. **KIỂM TRA**|Kiểm tra hoạt động và chất lượng lắp đặt|**Phân quyền**: Trưởng nhóm lắp đặt|
+|4. **BÀN GIAO**|Bàn giao hoàn chỉnh cho khách hàng|**Tự động hoá**: Tạo đầu việc Chăm sóc, cập nhật trạng thái Dự án thành HOÀN TẤT|
+|5. **CHỜ THIẾT BỊ**|Chờ thiết bị về hoặc sản xuất theo yêu cầu|**Nhập liệu**: Danh sách thiết bị chờ, thời gian dự kiến|
+
+##### **Màn hình trường dữ liệu**
+
+|Nhóm thông tin|Trường dữ liệu|Ghi chú|
+|---|---|---|
+|**Thông tin lắp đặt** _(5 trường)_|Thi công tham chiếu _(Trường chọn Đầu việc)_, Ngày bắt đầu _(Ngày)_, Ngày hoàn thành _(Ngày)_, Kỹ thuật viên _(Người đơn)_, Thợ lắp đặt _(Người nhiều)_|Liên kết và phân công lắp đặt|
+|**Thiết bị & Bàn giao** _(4 trường)_|Danh sách thiết bị _(Trường bảng dữ liệu)_, Tình trạng hoạt động _(Sổ xuống chọn một)_, Hướng dẫn sử dụng _(Hộp kiểm nhiều)_, Ghi chú bàn giao _(Đoạn văn bản)_|Chi tiết về thiết bị và bàn giao|
+
+**Tổng số trường**: 9 trường
+
+#### Mối quan hệ & tham chiếu giữa các Loại việc
+
+##### **Loại việc Cha - con**
+
+|Quan hệ Cha - Con|Mô tả|
+|---|---|
+|_Khảo sát_ => _Hạn chế_|Mối quan hệ cha-con, mỗi khảo sát có thể phát hiện nhiều hạn chế kỹ thuật|
+
+##### **Kết nối Loại việc**
+
+|Loại Kết nối|Mô tả|
+|---|---|
+|**Khảo sát - Thi công**: _Khảo sát_ - _Thi công_|Thi công tham chiếu thông tin khảo sát để thực hiện đúng hiện trạng|
+|**Thi công - Lắp đặt**: _Thi công_ - _Lắp đặt_|Lắp đặt được thực hiện sau khi thi công hoàn tất|
+
+##### **Trường chọn Đầu việc**
+
+|Trường|Tham chiếu|Mô tả|
+|---|---|---|
+|_Khảo sát_ / **Khách hàng**|**CRM.Khách hàng** / _Tên khách hàng, Số điện thoại, Địa chỉ_|Liên kết với thông tin khách hàng từ CRM|
+|_Thi công_ / **Thiết kế tham chiếu**|**Interior Design.Thiết kế** / _Tên thiết kế, Phong cách, Trạng thái_|Thi công theo thiết kế đã được duyệt|
+|_Thi công_ / **Khảo sát tham chiếu**|**Site Survey.Khảo sát** / _Diện tích thực tế, Hạn chế, Ghi chú_|Tham chiếu thông tin khảo sát thực tế|
+|_Lắp đặt_ / **Thi công tham chiếu**|**Site Survey.Thi công** / _Tiến độ, Chất lượng, Trạng thái_|Lắp đặt dựa trên kết quả thi công|
+
+##### **Trường bảng dữ liệu**
+
+|Trường|Tham chiếu đến|Cột thủ công|
+|---|---|---|
+|_Lắp đặt_ / **Danh sách thiết bị**|**Thiết bị Master Data** / _Tên thiết bị, Model, Nhà sản xuất_ **Điều kiện lọc**: Thiết bị cho dự án này|Số lượng _(Số nguyên)_, Vị trí lắp _(Dòng chữ)_, Ghi chú _(Dòng chữ)_|
+
+### TỰ ĐỘNG HOÁ
+
+#### **Quy tắc trên Luồng tiến trình**
+
+|Kích hoạt|Tự động hoá|
+|---|---|
+|8. _Khảo sát_ / **HOÀN THÀNH**|Gửi tin chat đầu việc thông báo "@Manh Khoi đã hoàn thành khảo sát, tuồng gạch cũ bong trộc..." vào đầu việc Thiết kế liên quan|
+|9. _Thi công_ / **HOÀN THÀNH**|Tạo đầu việc Lắp đặt với thông tin từ Thi công. Gửi chat thông báo đến team Lắp đặt|
+|10. _Lắp đặt_ / **BÀN GIAO**|Cập nhật trạng thái Dự án thành "HOÀN TẤT". Tạo đầu việc Chăm sóc trong Customer Success function|
+
+#### **Hành động trên Đầu việc**
+
+|Kích hoạt|Hành động|
+|---|---|
+|11. _Khảo sát_ / **Quét QR code tại hiện trường**|Mở màn hình mobile nhập thông tin khảo sát, tự động lấy GPS coordinates và thời gian. Cập nhật Live photo với watermark vị trí|
+
+#### **Quy tắc chạy ngầm**
+
+|Quy tắc|Kích hoạt|Hành động|
+|---|---|---|
+|12. **Phát hiện hạn chế nghiêm trọng**|Khi tạo đầu việc Hạn chế với mức độ "Nghiêm trọng"|Gửi tin chat khẩn cấp đến Quản lý dự án và team Thiết kế với mention trực tiếp|
+
+### GIAO DIỆN LÀM VIỆC, BÁO CÁO, BỘ LỌC
+
+#### Giao diện
+
+|Giao diện|Mô tả|Dữ liệu|
+|---|---|---|
+|1. **Khảo sát theo tiến độ** _(Kanban)_|Theo dõi tiến độ khảo sát theo các trạng thái|Tất cả đầu việc Khảo sát, phân cột theo trạng thái|
+|2. **Thi công Timeline** _(Dòng thời gian)_|Xem tiến độ thi công theo thời gian dự án|Đầu việc Thi công và Lắp đặt theo ngày bắt đầu|
+|3. **Mobile Khảo sát** _(Mobile view)_|Giao diện mobile để nhân viên khảo sát nhập liệu|Đầu việc Khảo sát được gán cho nhân viên đang đăng nhập|
+
+#### Báo cáo
+
+|Khối trình bày|Dữ liệu|Mô tả|
+|---|---|---|
+|1. **Tiến độ khảo sát** _(Biểu đồ cột)_|Số lượng khảo sát theo trạng thái|Theo dõi hiệu suất team khảo sát|
+|2. **Thống kê hạn chế** _(Biểu đồ tròn)_|Hạn chế theo loại (Kết cấu, Điện, Nước, Khác)|Phân tích xu hướng hạn chế để cải thiện|
+|3. **Tiến độ thi công** _(Thống kê 2 chiều)_|Dự án theo trạng thái thi công và thời gian|Ma trận tiến độ các dự án|
+|4. **Dự án sắp deadline** _(Danh sách đầu việc)_|Thi công và Lắp đặt có ngày hoàn thành < 7 ngày|Cảnh báo tiến độ|
+
+#### Bộ lọc
+
+|Bộ lọc|Dữ liệu|Nhắc việc|
+|---|---|---|
+|1. **Khảo sát quá hạn**|Khảo sát có ngày hẹn + 2 ngày mà vẫn ở trạng thái "CẦN LÀM"|Hàng ngày 8:00 => Trưởng nhóm khảo sát|
+|2. **Hạn chế chưa giải quyết**|Hạn chế ở trạng thái "MỚI" hoặc "ĐÃ XÁC NHẬN" > 3 ngày|Hàng ngày 9:00 => Team thiết kế, Quản lý dự án|
+|3. **Thi công cần kiểm tra**|Thi công ở trạng thái "KIỂM TRA" > 2 ngày|Hàng ngày 10:00 => Trưởng nhóm thi công|
+
+### VAI TRÒ, PHÂN QUYỀN, THÔNG BÁO
+
+#### Vai trò
+
+|Vai trò|Mô tả|Phân quyền & Thông báo|
+|---|---|---|
+|1. **Nhân viên Khảo sát**|Thực hiện khảo sát hiện trạng tại công trường|**Phân quyền**: Cập nhật đầu việc được gán, upload Live photo. **Thông báo**: Nhận thông báo có việc khảo sát mới được gán|
+|2. **Trưởng nhóm Thi công**|Quản lý và giám sát toàn bộ quá trình thi công|**Phân quyền**: Quản lý tất cả đầu việc thi công, phân công nhân lực. **Thông báo**: Nhận mọi thông báo về tiến độ và vấn đề thi công|
+|3. **Kỹ thuật viên Lắp đặt**|Chuyên trách lắp đặt thiết bị và hoàn thiện|**Phân quyền**: Cập nhật tiến độ lắp đặt, báo cáo thiết bị. **Thông báo**: Nhận thông báo thi công hoàn thành, sẵn sàng lắp đặt|
+
+#### Phân quyền
+
+**Sử dụng:** Phân quyền vừa phải
+
+- Xem Mảng việc: mọi Vai trò
+- Xem & Cập nhật Đầu việc: chỉ người được gán trực tiếp và quản lý
+- Chat trao đổi: mọi người xem được Đầu việc
+
+#### Thông báo
+
+**Sử dụng:** Thông báo mọi thứ tới người liên quan
+
+- Mọi hành động quan trọng (hoàn thành khảo sát, phát hiện hạn chế nghiêm trọng, hoàn thành thi công) gửi thông báo tới người được gán và người giám sát.
+
+### THỐNG KÊ KHỐI LƯỢNG CÀI ĐẶT
+
+#### Tổng khối lượng cài đặt
+
+|Yếu tố|Số lượng|Điểm đơn vị|Tổng điểm|
+|---|---|---|---|
+|Loại việc|4|0,3|1,2|
+|Trạng thái|20|0,2|4,0|
+|Trường dữ liệu|39|0,09|3,51|
+|Quy tắc tự động hoá nội bộ Luklak|5|0,6|3,0|
+|Giao diện làm việc|3|0,4|1,2|
+|Bộ lọc|3|0,35|1,05|
+|Khối trình bày trong dashboard|4|0,5|2,0|
+|**TỔNG CỘNG**|**78**|**-**|**15,96**|
+
+**Chi tiết thống kê:**
+
+- **Loại việc**: Khảo sát (1) + Hạn chế (1) + Thi công (1) + Lắp đặt (1) = 4
+- **Trạng thái**: Khảo sát (4) + Hạn chế (4) + Thi công (6) + Lắp đặt (5) = 19 + Hẹn chế (1) = 20
+- **Trường dữ liệu**: Khảo sát (12) + Hạn chế (8) + Thi công (10) + Lắp đặt (9) = 39
+- **Tự động hoá**: Luồng tiến trình (3) + Hành động (1) + Chạy ngầm (1) = 5
+
+### KẾT NỐI LIÊN CHỨC NĂNG
+
+_Lưu ý: Đây là nội dung mang tính gợi ý thêm về việc kết nối với các Chức năng khác nhau, chứ chưa bao gồm trong công việc cài đặt cho Chức năng ở trên_
+
+**Kết nối Chức năng CRM**
+
+- **Nhận trigger từ CRM**: Khi Khách hàng chuyển sang trạng thái "SOẠN HỢP ĐỒNG", tự động tạo đầu việc Khảo sát (Automation #3 từ CRM)
+- **Đồng bộ thông tin khách hàng**: Tự động gắp thông tin khách hàng từ CRM vào đầu việc Khảo sát
+
+**Kết nối Chức năng Contract & Invoice**
+
+- **Chạy song song**: Cả hai chức năng đều được kích hoạt từ CRM trạng thái "SOẠN HỢP ĐỒNG"
+- **Chia sẻ thông tin dự án**: Thông tin từ Khảo sát có thể ảnh hưởng đến giá trị hợp đồng nếu phát hiện hạn chế nghiêm trọng
+
+**Kết nối Chức năng Interior Design**
+
+- **Cung cấp dữ liệu thiết kế**: Kết quả khảo sát (kích thước thực tế, hạn chế kỹ thuật) làm đầu vào cho thiết kế
+- **Nhận thông báo hoàn thành khảo sát**: Team thiết kế được thông báo tức thì khi khảo sát hoàn thành (Automation #8)
+- **Tham chiếu thiết kế trong thi công**: Đầu việc Thi công tham chiếu đến thiết kế đã duyệt
+
+**Kết nối Chức năng Project Management**
+
+- **Cập nhật tiến độ dự án**: Các cột mốc quan trọng (hoàn thành khảo sát, bắt đầu thi công, bàn giao) được đồng bộ vào timeline dự án
+- **Báo cáo tình hình thực hiện**: Tiến độ thi công và vấn đề phát sinh được cập nhật vào báo cáo dự án tổng thể
+
+**Kết nối Chức năng Customer Success**
+
+- **Kích hoạt chăm sóc sau bán**: Khi Lắp đặt chuyển sang "BÀN GIAO", tự động tạo đầu việc Chăm sóc (Automation #10)
+- **Lưu trữ thông tin bàn giao**: Thông tin bàn giao và hướng dẫn sử dụng được chuyển sang Customer Success để hỗ trợ khách hàng

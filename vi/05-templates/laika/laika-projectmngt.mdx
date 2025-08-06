@@ -1,0 +1,234 @@
+---
+title: "CHỨC NĂNG QUẢN LÝ DỰ ÁN - LAIKA"
+description: "Description of your new file."
+---
+
+# CHỨC NĂNG QUẢN LÝ DỰ ÁN - LAIKA
+
+## TỔNG QUAN
+
+### Mô tả chung
+
+#### Mục đích
+
+Quản lý toàn bộ tiến trình thực hiện dự án thiết kế và thi công nội thất từ khởi tạo đến hoàn thành, đảm bảo phối hợp chặt chẽ giữa các bộ phận và theo dõi tiến độ chi tiết.
+
+#### Logic nghiệp vụ
+
+Dự án được tự động khởi tạo khi khách hàng thanh toán đợt 1, bao gồm các mốc quan trọng từ thiết kế, sản xuất đến thi công. Hệ thống theo dõi tiến độ từng giai đoạn, phối hợp giữa team thiết kế và thi công, đảm bảo chất lượng và deadline. Khi hoàn tất sẽ tự động chuyển giao cho team chăm sóc khách hàng.
+
+#### Tác động kinh doanh
+
+Tối ưu hóa quy trình quản lý dự án, giảm thiểu rủi ro chậm tiến độ, nâng cao chất lượng giao hàng và sự hài lòng của khách hàng. Đảm bảo phối hợp hiệu quả giữa các bộ phận, tăng tính minh bạch trong thực hiện dự án.
+
+### Chức năng
+
+#### **Loại việc & Luồng nghiệp vụ**
+
+| Cấp độ           | Tên         | Mô tả ngắn                                                      |
+| ---------------- | ----------- | --------------------------------------------------------------- |
+| Tiêu chuẩn       | **Dự án**   | Quản lý tổng thể tiến trình dự án thiết kế và thi công nội thất |
+| Con của: _Dự án_ | **Roadmap** | Theo dõi chi tiết các mốc quan trọng và tiến độ từng giai đoạn  |
+
+#### Mối quan hệ giữa các Loại việc
+
+| Quan hệ         | Loại quan hệ    | Mô tả                                                     |
+| --------------- | --------------- | --------------------------------------------------------- |
+| Dự án - Roadmap | Quan hệ cha-con | Mỗi dự án có roadmap chi tiết theo dõi các mốc quan trọng |
+
+#### **Vai trò**
+
+| Vai trò                  | Mô tả                                                                        | Phân Quyền & Thông báo                                                                                           |
+| ------------------------ | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **Project Manager**      | Quản lý tổng thể dự án, phối hợp các bộ phận, theo dõi tiến độ và chất lượng | **Phân quyền**: Toàn quyền quản lý dự án, phối hợp team. **Thông báo**: Nhận mọi cập nhật về tiến độ dự án       |
+| **Design Lead**          | Chịu trách nhiệm giai đoạn thiết kế, đảm bảo chất lượng thiết kế             | **Phân quyền**: Cập nhật tiến độ thiết kế, phê duyệt concept. **Thông báo**: Nhận thông báo về yêu cầu thiết kế  |
+| **Construction Manager** | Quản lý giai đoạn thi công, đảm bảo chất lượng và an toàn                    | **Phân quyền**: Cập nhật tiến độ thi công, quản lý nhân lực. **Thông báo**: Nhận thông báo khi thiết kế hoàn tất |
+
+## LOẠI VIỆC & NGHIỆP VỤ
+
+### Danh sách Loại việc
+
+#### **Dự án**
+
+##### **Mô tả nghiệp vụ**
+
+Quản lý toàn bộ vòng đời dự án thiết kế và thi công nội thất, từ khởi tạo đến bàn giao hoàn thành. Theo dõi tiến độ, phối hợp các bộ phận, đảm bảo chất lượng và deadline.
+
+**Ví dụ**: Dự án - Hoài An - Bắc Âu gian đi với tổng giá trị ₫460,000,000, Dự án - Văn phòng Oakridge với thiết kế hiện đại
+
+##### **Luồng tiến trình**
+
+KICK OFF → ĐANG THI CÔNG → HOÀN TẤT ↓ TẠM DỪNG → ĐANG THI CÔNG
+
+##### **Chi tiết các Trạng thái**
+
+| Trạng thái           | Nghiệp vụ                                                                           | Cài đặt nâng cao                                                                                                                                                                                         |
+| -------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. **KICK OFF**      | Project Manager nhận dự án từ hệ thống, lập kế hoạch chi tiết và phân công nhiệm vụ | **Phân quyền**: Project Manager, Design Lead. **Nhập liệu**: Deadline dự án, Team thiết kế, Team thi công, Ghi chú đặc biệt. **Tự động hoá**: Tạo Roadmap chi tiết, gửi thông báo khởi động cho các team |
+| 2. **ĐANG THI CÔNG** | Thực hiện dự án theo roadmap, phối hợp giữa thiết kế và thi công                    | **Phân quyền**: Project Manager, Construction Manager. **Điều kiện**: Thiết kế đã hoàn thành concept. **Tự động hoá**: Cập nhật tiến độ định kỳ, thông báo milestone                                     |
+| 3. **TẠM DỪNG**      | Tạm dừng dự án do các vấn đề phát sinh hoặc yêu cầu khách hàng                      | **Phân quyền**: Project Manager, Quản lý. **Nhập liệu**: Lý do tạm dừng, Thời gian dự kiến tiếp tục. **Tự động hoá**: Thông báo tạm dừng cho tất cả team                                                 |
+| 4. **HOÀN TẤT**      | Dự án hoàn thành, bàn giao khách hàng và chuyển giao chăm sóc                       | **Phân quyền**: Project Manager, Quản lý. **Điều kiện**: Tất cả hạng mục hoàn thành. **Tự động hoá**: Ghi nhận ngày hoàn thành, tạo Chăm sóc khách hàng, tính voucher                                    |
+
+##### **Màn hình trường dữ liệu**
+
+| Nhóm thông tin                    | Trường dữ liệu                                                                                                                                                   | Ghi chú                                 |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| **Thông tin cơ bản** _(5 trường)_ | Tên dự án _(Dòng chữ)_, Khách hàng _(Trường chọn Đầu việc)_, Loại dự án _(Sổ xuống chọn một)_, Tổng giá trị _(Số thập phân)_, Địa điểm thi công _(Đoạn văn bản)_ | Thông tin cơ bản về dự án và khách hàng |
+| **Tiến độ** _(4 trường)_          | Ngày khởi động _(Ngày)_, Deadline dự án _(Ngày)_, Tiến độ thực tế _(Số nguyên)_, Ghi chú tiến độ _(Đoạn văn bản)_                                                | Theo dõi timeline và tiến độ thực hiện  |
+| **Team thực hiện** _(3 trường)_   | Project Manager _(Người đơn)_, Team thiết kế _(Người nhiều)_, Team thi công _(Người nhiều)_                                                                      | Phân công nhân sự cho dự án             |
+| **Tổng số trường**: 12 trường     |                                                                                                                                                                  |                                         |
+
+#### **Roadmap**
+
+##### **Mô tả nghiệp vụ**
+
+Theo dõi chi tiết các mốc quan trọng và tiến độ từng giai đoạn của dự án, bao gồm thiết kế, sản xuất, thi công và nghiệm thu.
+
+**Ví dụ**: Roadmap - Thiết kế concept Bắc Âu hoàn thành, Roadmap - Thi công phòng khách hoàn tất 80%
+
+##### **Luồng tiến trình**
+
+MỚI → ĐANG THỰC HIỆN → HOÀN THÀNH ↓ TRỄ DEADLINE
+
+##### **Chi tiết các Trạng thái**
+
+| Trạng thái            | Nghiệp vụ                                          | Cài đặt nâng cao                                                                                                   |
+| --------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| 1. **MỚI**            | Milestone mới được tạo, chuẩn bị bắt đầu thực hiện | **Phân quyền**: Project Manager, Team leader. **Nhập liệu**: Mô tả công việc, Deadline, Người thực hiện            |
+| 2. **ĐANG THỰC HIỆN** | Đang thực hiện milestone theo kế hoạch             | **Phân quyền**: Người thực hiện, Project Manager. **Tự động hoá**: Cập nhật tiến độ dự án cha                      |
+| 3. **TRỄ DEADLINE**   | Milestone bị trễ so với kế hoạch ban đầu           | **Phân quyền**: Project Manager. **Nhập liệu**: Lý do trễ, Deadline mới. **Tự động hoá**: Cảnh báo Project Manager |
+| 4. **HOÀN THÀNH**     | Milestone hoàn thành đúng hạn hoặc sớm hơn         | **Tự động hoá**: Cập nhật tiến độ tổng thể, thông báo hoàn thành                                                   |
+
+##### **Màn hình trường dữ liệu**
+
+| Nhóm thông tin                      | Trường dữ liệu                                                                                                                  | Ghi chú                         |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| **Chi tiết milestone** _(4 trường)_ | Tên milestone _(Dòng chữ)_, Mô tả công việc _(Đoạn văn bản)_, Giai đoạn _(Sổ xuống chọn một)_, Độ ưu tiên _(Sổ xuống chọn một)_ | Thông tin chi tiết về milestone |
+| **Timeline** _(3 trường)_           | Ngày bắt đầu _(Ngày)_, Deadline _(Ngày)_, Ngày hoàn thành _(Ngày)_                                                              | Quản lý thời gian thực hiện     |
+| **Thực hiện** _(3 trường)_          | Người thực hiện _(Người nhiều)_, Tiến độ (%) _(Số nguyên)_, Ghi chú _(Đoạn văn bản)_                                            | Theo dõi việc thực hiện         |
+| **Tổng số trường**: 10 trường       |                                                                                                                                 |                                 |
+
+### Mối quan hệ & tham chiếu giữa các Loại việc
+
+#### **Loại việc Cha - con**
+
+| Quan hệ Cha - Con     | Mô tả                                                          |
+| --------------------- | -------------------------------------------------------------- |
+| _Dự án_ =\> _Roadmap_ | Mỗi dự án có nhiều milestone roadmap theo dõi tiến độ chi tiết |
+
+#### **Trường chọn Đầu việc**
+
+| Trường                           | Tham chiếu                                                                                                                   | Mô tả                                                  |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| _Dự án_ / **Khách hàng**         | **CRM.Khách hàng** / _Tên khách hàng, Số điện thoại, Phong cách thiết kế_ . **Điều kiện lọc**: Trạng thái = "THÀNH CÔNG"     | Liên kết với thông tin khách hàng đã ký hợp đồng       |
+| _Dự án_ / **Hợp đồng liên quan** | **Contract.Hợp đồng** / _Số hợp đồng, Tổng giá trị, Tiến độ thanh toán_ . **Điều kiện lọc**: Trạng thái = "THÀNH TOÁN ĐỢT 1" | Liên kết với hợp đồng đã thanh toán để khởi động dự án |
+| _Dự án_ / **Thiết kế liên quan** | **Design.Thiết kế** / _Tên thiết kế, Phong cách, Trạng thái_ . **Điều kiện lọc**: Cùng khách hàng                            | Theo dõi tiến độ thiết kế của dự án                    |
+
+## TỰ ĐỘNG HOÁ
+
+### **Quy tắc trên Luồng tiến trình**
+
+| Kích hoạt                  | Tự động hoá                                                                                                                                                                            |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 19. _Dự án_ / **KICK OFF** | Tạo Roadmap chi tiết với các milestone: "Thiết kế concept", "Sản xuất nội thất", "Thi công lắp đặt", "Nghiệm thu hoàn tất". Gửi chat thông báo khởi động đến team thiết kế và thi công |
+| 20. _Dự án_ / **HOÀN TẤT** | Cập nhật ngày hoàn thành thực tế. Gửi chat chúc mừng vào kênh Project. Tạo Đầu việc "Chăm sóc sau bán giao" trong Customer Success                                                     |
+
+### **Quy tắc chạy ngầm**
+
+| Quy tắc                          | Kích hoạt                                                    | Hành động                                                                                                                                                      |
+| -------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 21. **Tự động khởi tạo dự án**   | Webhook từ Contract khi Phiếu thu đợt 1 chuyển sang "ĐÃ THU" | Tạo Dự án mới với thông tin từ Hợp đồng: tên khách hàng, giá trị dự án, địa chỉ thi công. Gán Project Manager theo trọng số. Chuyển trạng thái sang "KICK OFF" |
+| 22. **Cập nhật tiến độ tự động** | Khi Roadmap con chuyển sang "HOÀN THÀNH"                     | Tính toán lại tiến độ tổng thể của Dự án cha. Nếu tất cả Roadmap hoàn thành thì tự động chuyển Dự án sang "HOÀN TẤT"                                           |
+
+## GIAO DIỆN LÀM VIỆC, BÁO CÁO, BỘ LỌC
+
+### Giao diện
+
+| Giao diện                          | Mô tả                                                 | Dữ liệu                                               |
+| ---------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| 1. **Danh sách dự án** _(List)_    | Hiển thị tất cả dự án với thông tin cơ bản và tiến độ | Tất cả Dự án, sắp xếp theo deadline                   |
+| 2. **Kanban dự án** _(Kanban)_     | Quản lý dự án theo trạng thái, kéo thả dễ dàng        | Tất cả Dự án, phân cột theo trạng thái                |
+| 3. **Timeline dự án** _(Timeline)_ | Xem tiến độ dự án theo thời gian, phát hiện xung đột  | Dự án đang thực hiện, theo ngày khởi động và deadline |
+
+### Báo cáo
+
+| Khối trình bày                                             | Dữ liệu                                                       | Mô tả                              |
+| ---------------------------------------------------------- | ------------------------------------------------------------- | ---------------------------------- |
+| 1. **Tổng dự án đang thực hiện** _(Counter & Calculation)_ | Dự án với trạng thái "ĐANG THI CÔNG"                          | Đếm số lượng dự án đang active     |
+| 2. **Tỷ lệ hoàn thành đúng hạn** _(Counter & Calculation)_ | Dự án hoàn thành, so sánh deadline vs ngày hoàn thành thực tế | Tính % dự án hoàn thành đúng hạn   |
+| 3. **Phân bổ dự án theo giai đoạn** _(Pie Chart)_          | Tất cả Dự án active theo trạng thái                           | Visualize phân bổ công việc        |
+| 4. **Tiến độ dự án** _(2D Statistics)_                     | Dự án theo tháng vs tỷ lệ hoàn thành                          | Phân tích hiệu suất theo thời gian |
+| 5. **Danh sách dự án sắp deadline** _(Object list)_        | Dự án có deadline \< 7 ngày                                   | Danh sách cần ưu tiên              |
+
+### Bộ lọc
+
+| Bộ lọc                    | Dữ liệu                                                         | Nhắc việc                                             |
+| ------------------------- | --------------------------------------------------------------- | ----------------------------------------------------- |
+| 1. **Dự án sắp deadline** | Dự án có deadline trong 7 ngày tới, trạng thái "ĐANG THI CÔNG"  | Hàng ngày 9:00 AM → Project Manager, Team lead        |
+| 2. **Dự án quá hạn**      | Dự án có deadline \< hôm nay, chưa hoàn thành                   | Hàng ngày 8:00 AM → Project Manager, Quản lý          |
+| 3. **Roadmap trễ hạn**    | Roadmap con có deadline \< hôm nay, trạng thái "ĐANG THỰC HIỆN" | Hàng ngày 10:00 AM → Người thực hiện, Project Manager |
+
+## VAI TRÒ, PHÂN QUYỀN, THÔNG BÁO
+
+### Vai trò
+
+| Vai trò                     | Mô tả                                      | Phân quyền & Thông báo                                             |
+| --------------------------- | ------------------------------------------ | ------------------------------------------------------------------ |
+| 1. **Project Manager**      | Quản lý tổng thể dự án, điều phối các team | Toàn quyền quản lý dự án và roadmap, nhận mọi thông báo về tiến độ |
+| 2. **Design Lead**          | Chịu trách nhiệm giai đoạn thiết kế        | Cập nhật roadmap thiết kế, nhận thông báo yêu cầu thiết kế         |
+| 3. **Construction Manager** | Quản lý thi công và lắp đặt                | Cập nhật roadmap thi công, nhận thông báo khi thiết kế hoàn tất    |
+
+### Phân quyền
+
+Sử dụng **Phân quyền vừa phải**:
+
+- Xem Mảng việc: tất cả vai trò trong dự án
+- Xem & Cập nhật Đầu việc: chỉ người được gán vào dự án cụ thể
+- Chat trao đổi: mọi người xem được Đầu việc
+
+### Thông báo
+
+Sử dụng **Thông báo mọi thứ tới người liên quan**:
+
+- Mọi hành động trên Dự án sẽ gửi thông báo tới Project Manager và team được gán
+- Cập nhật Roadmap gửi thông báo tới người thực hiện và Project Manager
+- Milestone hoàn thành gửi thông báo tới toàn bộ team dự án
+
+## THỐNG KÊ KHỐI LƯỢNG CÀI ĐẶT
+
+### Tổng khối lượng cài đặt
+
+| Yếu tố                            | Số lượng | Điểm đơn vị | Tổng điểm |
+| --------------------------------- | -------- | ----------- | --------- |
+| Loại việc                         | 2        | 0.3         | 0.6       |
+| Trạng thái                        | 8        | 0.2         | 1.6       |
+| Trường dữ liệu                    | 22       | 0.09        | 1.98      |
+| Quy tắc tự động hoá nội bộ Luklak | 4        | 0.6         | 2.4       |
+| Giao diện làm việc                | 3        | 0.4         | 1.2       |
+| Bộ lọc                            | 3        | 0.35        | 1.05      |
+| Khối trình bày trong dashboard    | 5        | 0.5         | 2.5       |
+| **TỔNG CỘNG**                     |          |             | **11.33** |
+
+## KẾT NỐI LIÊN CHỨC NĂNG
+
+_Lưu ý: Đây là nội dung mang tính gợi ý thêm về việc kết nối với các Chức năng khác nhau, chứ chưa bao gồm trong công việc cài đặt cho Chức năng ở trên_
+
+**Kết nối Chức năng Contract & Invoice**
+
+- **Khởi tạo dự án tự động**: Khi khách hàng thanh toán đợt 1, hệ thống tự động tạo dự án với đầy đủ thông tin từ hợp đồng
+- **Theo dõi thanh toán theo tiến độ**: Liên kết tiến độ dự án với lịch thanh toán các đợt tiếp theo
+
+**Kết nối Chức năng Interior Design**
+
+- **Phối hợp thiết kế**: Theo dõi tiến độ thiết kế concept, 3D, 2D trong roadmap dự án
+- **Handover thiết kế sang thi công**: Tự động thông báo khi thiết kế hoàn tất để team thi công chuẩn bị
+
+**Kết nối Chức năng Site Survey & Construction**
+
+- **Quản lý tiến độ thi công**: Theo dõi các giai đoạn khảo sát, thi công, lắp đặt trong roadmap
+- **Báo cáo tiến độ thực tế**: Cập nhật tiến độ từ hiện trường về roadmap dự án
+
+**Kết nối Chức năng Customer Success**
+
+- **Chuyển giao sau hoàn thành**: Tự động tạo chăm sóc khách hàng khi dự án hoàn tất
+- **Tính toán voucher**: Dựa trên giá trị dự án để tính voucher cho lần mua tiếp theo
