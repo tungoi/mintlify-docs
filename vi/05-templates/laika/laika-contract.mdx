@@ -1,0 +1,224 @@
+---
+title: 'New file'
+description: 'Description of your new file.'
+---
+
+# CHỨC NĂNG CONTRACT & INVOICE - LAIKA
+
+## TỔNG QUAN
+
+### Mô tả chung
+
+#### Mục đích
+
+Quản lý hợp đồng và thanh toán từ khách hàng, từ việc soạn hợp đồng đến theo dõi các kỳ thanh toán qua QR code và Sepay.
+
+#### Logic nghiệp vụ
+
+Theo video: Nhận khách hàng từ CRM khi sẵn sàng ký hợp đồng, tạo Google Docs hợp đồng từ template, tạo các phiếu thu với QR code thanh toán, nhận webhook từ Sepay khi khách chuyển khoản, và kích hoạt các luồng tiếp theo.
+
+#### Tác động kinh doanh
+
+Tự động hóa quy trình hợp đồng và thanh toán, giảm sai sót, tăng tốc độ xử lý và đảm bảo cash flow ổn định thông qua tracking thanh toán real-time.
+
+### Chức năng
+
+#### **Loại việc & Luồng nghiệp vụ**
+
+|Cấp độ|Tên|Mô tả ngắn|
+|---|---|---|
+|Tiêu chuẩn|**Hợp đồng**|Quản lý hợp đồng với khách hàng từ soạn thảo đến ký kết|
+|Con của: _Hợp đồng_|**Phiếu thu**|Quản lý các kỳ thanh toán trong hợp đồng với QR code|
+
+##### Mối quan hệ giữa các Loại việc
+
+|Quan hệ|Loại quan hệ|Mô tả|
+|---|---|---|
+|Hợp đồng - Phiếu thu|Quan hệ cha-con|Mỗi hợp đồng chứa 3 phiếu thu tương ứng 3 đợt thanh toán|
+
+##### **Vai trò**
+
+|Vai trò|Mô tả|Phân Quyền & Thông báo|
+|---|---|---|
+|Kế toán|Soạn hợp đồng và quản lý thanh toán|**Phân quyền**: Toàn quyền tạo, sửa hợp đồng và phiếu thu. **Thông báo**: Nhận thông báo khi có thanh toán mới từ Sepay và khi hợp đồng cần xử lý|
+
+## LOẠI VIỆC & NGHIỆP VỤ
+
+### **1. Hợp đồng**
+
+#### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý hợp đồng thiết kế nội thất với khách hàng, từ soạn thảo bằng Google Docs đến theo dõi thanh toán
+- **Ví dụ**: Hợp đồng "LAIKA x Chị Hoài An - 0384188881" trị giá 460M với 3 đợt thanh toán; Hợp đồng phòng cách Bắc Âu giản dị cho khách VIP
+
+#### **Luồng tiến trình**
+
+ĐẢM PHÁN → SOẠN THẢO → CẦN THU → ĐÃ THU → HOÀN TẤT ↓ ↓ ĐIỀU CHỈNH QUÁ HẠN → ĐÃ THU
+
+#### **Chi tiết các Trạng thái**
+
+|Trạng thái|Nghiệp vụ|Cài đặt nâng cao|
+|---|---|---|
+|1. ĐẢM PHÁN|Nhận thông tin từ CRM và thảo luận điều khoản với khách hàng|**Phân quyền**: Kế toán + Kinh doanh. **Nhập liệu**: Thông tin dự án, giá trị, điều khoản đặc biệt|
+|2. SOẠN THẢO|Tạo hợp đồng Google Docs từ template và tạo các phiếu thu|**Tự động hoá**: Tạo Google Docs qua N8N với smart values từ khách hàng + Tạo 3 Phiếu thu với QR code|
+|3. CẦN THU|Hợp đồng đã ký, chờ thanh toán từ khách hàng|**Phân quyền**: Kế toán. **Điều kiện**: Google Docs link phải có|
+|4. ĐÃ THU|Đã nhận được thanh toán đợt 1 từ khách hàng|**Tự động hoá**: Cập nhật công nợ + Chuyển khách hàng sang SẴN SÀNG + Kích hoạt tạo Dự án|
+|5. QUÁ HẠN|Thanh toán bị chậm quá hạn định|**Thông báo**: Alert cho Kế toán và Sales follow up khách hàng|
+|6. ĐIỀU CHỈNH|Cần thay đổi điều khoản hoặc giá trị hợp đồng|**Phân quyền**: Kế toán + CEO|
+|7. HOÀN TẤT|Tất cả các đợt thanh toán đã hoàn thành|**Phân quyền**: Chỉ đọc. **Tự động hoá**: Tạo voucher cho khách hàng và khởi tạo CSKH|
+
+#### **Màn hình trường dữ liệu**
+
+|Nhóm thông tin|Trường dữ liệu|Ghi chú|
+|---|---|---|
+|Thông tin hợp đồng _(7 trường)_|Số hợp đồng _(Văn bản)_, Khách hàng _(Trường đầu việc)_, Tổng giá trị _(Số tiền)_, Ngày ký _(Ngày)_, Thời hạn hoàn thành _(Ngày)_, Google Docs link _(Liên kết)_, Trạng thái ký _(Sổ xuống)_|Thông tin cơ bản và định danh hợp đồng|
+|Chi tiết thanh toán _(6 trường)_|Đợt 1 - Ký hợp đồng _(Số tiền)_, Đợt 2 - Duyệt concept _(Số tiền)_, Đợt 3 - Hoàn thành thi công _(Số tiền)_, Đã thanh toán _(Số tiền)_, Công nợ còn lại _(Số tiền)_, Phần trăm hoàn thành _(Phần trăm)_|Theo dõi tiến độ thanh toán chi tiết|
+|**Tổng số: 13 trường**|||
+
+### **2. Phiếu thu**
+
+#### **Mô tả nghiệp vụ**
+
+- **Mô tả nghiệp vụ**: Quản lý từng kỳ thanh toán cụ thể với QR code và tracking Sepay
+- **Ví dụ**: Phiếu thu "TT Đợt 1 - Hoài An - 0384188881" trị giá 115M với QR code IN-852; Phiếu thu đợt 2 sau khi duyệt concept
+
+#### **Luồng tiến trình**
+
+CẦN THU → ĐÃ THU ↓ QUÁ HẠN → ĐÃ THU
+
+#### **Chi tiết các Trạng thái**
+
+|Trạng thái|Nghiệp vụ|Cài đặt nâng cao|
+|---|---|---|
+|1. CẦN THU|Phiếu thu được tạo với QR code thanh toán|**Tự động hoá**: Tạo QR code qua Payment Gateway với mã định danh duy nhất. **Điều kiện**: Số tiền > 0|
+|2. ĐÃ THU|Đã nhận được thanh toán qua Sepay|**Tự động hoá**: Cập nhật từ Sepay webhook + Tính toán công nợ trên Hợp đồng + Gửi chat chúc mừng|
+|3. QUÁ HẠN|Phiếu thu chưa được thanh toán sau deadline|**Thông báo**: Alert cho Kế toán và Sales follow up khách hàng|
+
+#### **Màn hình trường dữ liệu**
+
+|Nhóm thông tin|Trường dữ liệu|Ghi chú|
+|---|---|---|
+|Thông tin phiếu thu _(6 trường)_|Mã phiếu thu _(Văn bản)_, Đợt thanh toán _(Sổ xuống)_, Số tiền _(Số tiền)_, Hạn thanh toán _(Ngày)_, QR code link _(Liên kết)_, Payment Gateway ID _(Văn bản)_|Định danh và thông tin thanh toán|
+|Sepay tracking _(4 trường)_|Sepay transaction ID _(Văn bản)_, Ngày nhận tiền _(Ngày giờ)_, Số tiền thực nhận _(Số tiền)_, Ghi chú chuyển khoản _(Văn bản)_|Tracking từ hệ thống ngân hàng|
+|**Tổng số: 10 trường**|||
+
+#### Mối quan hệ & tham chiếu giữa các Loại việc
+
+##### **Loại việc Cha - con**
+
+|Quan hệ Cha - Con|Mô tả|
+|---|---|
+|_Hợp đồng_ => _Phiếu thu_|Mỗi hợp đồng có 3 phiếu thu theo đợt thanh toán|
+
+##### **Trường chọn Đầu việc**
+
+|Trường|Tham chiếu|Mô tả|
+|---|---|---|
+|_Hợp đồng_ / **Khách hàng**|**CRM Khách hàng** / _Tên khách hàng, Số điện thoại, Email, Địa chỉ_. **Điều kiện lọc**: Trạng thái = "SOẠN HỢP ĐỒNG"|Kết nối với khách hàng từ CRM đã sẵn sàng ký hợp đồng|
+
+## TỰ ĐỘNG HOÁ
+
+### **Quy tắc trên Luồng tiến trình**
+
+|Kích hoạt|Tự động hoá|
+|---|---|
+|1. _Hợp đồng_ / SOẠN THẢO|Tạo Google Docs hợp đồng qua N8N với template + smart values từ khách hàng + Tạo 3 _Phiếu thu_ tương ứng 3 đợt|
+|2. _Phiếu thu_ / ĐÃ THU|Cập nhật công nợ trên _Hợp đồng_ + Gửi chat chúc mừng team + Trigger các actions tiếp theo nếu là đợt 1|
+
+### **Hành động trên Đầu việc**
+
+|Kích hoạt|Hành động|
+|---|---|
+|3. _Hợp đồng_ / Tạo hợp đồng|Popup nhập thông tin cơ bản và trigger tạo Google Docs với template có sẵn qua N8N|
+
+### **Quy tắc chạy ngầm**
+
+|Quy tắc|Kích hoạt|Hành động|
+|---|---|---|
+|4. Sepay webhook thanh toán|Webhook từ Sepay khi có giao dịch|Tìm _Phiếu thu_ tương ứng theo mã định danh + Cập nhật trạng thái "ĐÃ THU" + Trigger cascade actions|
+|5. Kích hoạt Dự án khi đợt 1|_Phiếu thu_ đợt 1 / ĐÃ THU|Tạo Project Management _Dự án_ + Cập nhật CRM _Khách hàng_ thành SẴN SÀNG + Tính voucher|
+
+### **Kết nối app ngoài**
+
+|Quy tắc|Kích hoạt|Hành động|
+|---|---|---|
+|6. _Google Docs Integration_ / Tạo hợp đồng từ template|_Hợp đồng_ / Action "Tạo hợp đồng"|Tạo Google Docs từ template qua N8N với smart values: tên khách hàng, giá trị, điều khoản|
+|7. _Sepay Payment Gateway_ / Tạo QR thanh toán|_Phiếu thu_ / TẠO MỚI|Tạo QR code thanh toán với mã định danh unique để tracking Sepay|
+
+## GIAO DIỆN LÀM VIỆC, BÁO CÁO, BỘ LỌC
+
+#### Giao diện
+
+|Giao diện|Mô tả|Dữ liệu|
+|---|---|---|
+|1. List view Hợp đồng theo trạng thái _(List)_|Danh sách hợp đồng với tiến độ thanh toán và công nợ|Tất cả _Hợp đồng_ và tổng hợp từ _Phiếu thu_|
+|2. Kanban Phiếu thu theo đợt _(Kanban)_|Hiển thị các phiếu thu theo đợt thanh toán và trạng thái|Tất cả _Phiếu thu_ nhóm theo đợt và trạng thái|
+
+#### Báo cáo
+
+|Khối trình bày|Dữ liệu|Mô tả|
+|---|---|---|
+|1. Biểu đồ cột Doanh thu theo tháng _(Charts)_|Tổng hợp số tiền từ _Phiếu thu_ đã thu theo thời gian|Theo dõi cash flow và xu hướng doanh thu|
+|2. Bộ đếm & Tính toán Công nợ theo khách hàng _(Counter & Calculation)_|Tính toán công nợ còn lại của từng _Hợp đồng_|Quản lý debt và follow up thanh toán|
+|3. Biểu đồ tròn Tỷ lệ thanh toán đúng hạn _(Charts)_|Phân tích _Phiếu thu_ thanh toán đúng hạn vs quá hạn|Đánh giá tính kỷ luật thanh toán của khách hàng|
+|4. Thống kê 2 chiều Cash Flow Timeline _(2D Statistics)_|Dự báo dòng tiền dựa trên _Phiếu thu_ chưa thu|Planning tài chính và dự báo thanh khoản|
+
+#### Bộ lọc
+
+|Bộ lọc|Dữ liệu|Nhắc việc|
+|---|---|---|
+|1. Hợp đồng cần follow up|_Hợp đồng_ có trạng thái CẦN THU + _Phiếu thu_ đợt 1 chưa thu|Hàng ngày 9:00 → Kế toán, Sales|
+|2. Thanh toán quá hạn|_Phiếu thu_ có hạn thanh toán < hôm nay và trạng thái CẦN THU|Hàng ngày 8:00 → Kế toán|
+|3. Hợp đồng sắp hoàn thành|_Hợp đồng_ có > 90% đã thanh toán|Hàng tuần Thứ 2 → Kế toán, CSKH|
+
+### VAI TRÒ, PHÂN QUYỀN, THÔNG BÁO
+
+#### Vai trò
+
+|Vai trò|Mô tả|Phân quyền & Thông báo|
+|---|---|---|
+|1. Kế toán|Quản lý toàn bộ _Hợp đồng_ và _Phiếu thu_|**Phân quyền**: Toàn quyền tạo, sửa hợp đồng và phiếu thu + Xem báo cáo tài chính. **Thông báo**: Nhận thông báo real-time khi có thanh toán từ Sepay và khi phiếu thu quá hạn|
+
+#### Phân quyền
+
+Sử dụng **Phương án 3: Phân quyền vừa phải** - phù hợp với tính chất công việc tài chính cần kiểm soát chặt chẽ nhưng vẫn cho phép các bộ phận liên quan theo dõi được.
+
+#### Thông báo
+
+Sử dụng **Phương án 2: Thông báo mọi thứ chỉ gửi tới người liên quan** - đảm bảo những người làm việc trực tiếp với hợp đồng và thanh toán nhận được thông báo kịp thời.
+
+### THỐNG KÊ KHỐI LƯỢNG CÀI ĐẶT
+
+#### Tổng khối lượng cài đặt
+
+|Yếu tố|Số lượng|Điểm đơn vị|Tổng điểm|
+|---|---|---|---|
+|Loại việc|2|0,3|0,6|
+|Trạng thái|10|0,2|2,0|
+|Trường dữ liệu|23|0,09|2,07|
+|Quy tắc tự động hoá nội bộ Luklak|3|0,6|1,8|
+|Kết nối app ngoài Google Docs|1|3|3,0|
+|Kết nối app ngoài Sepay|1|3|3,0|
+|Giao diện làm việc|2|0,4|0,8|
+|Khối trình bày trong dashboard|4|0,5|2,0|
+|Bộ lọc|3|0,35|1,05|
+|**TỔNG CỘNG**|||**16,32**|
+
+### KẾT NỐI LIÊN CHỨC NĂNG
+
+_Lưu ý: Đây là nội dung mang tính gợi ý thêm về việc kết nối với các Chức năng khác nhau, chứ chưa bao gồm trong công việc cài đặt cho Chức năng ở trên_
+
+**Kết nối Chức năng CRM**
+
+- **Nhận khách hàng từ CRM**: Khi CRM chuyển trạng thái "SOẠN HỢP ĐỒNG" thì tự động tạo _Hợp đồng_ mới
+- **Cập nhật trạng thái khách hàng**: Khi đợt 1 thanh toán thành công thì chuyển khách hàng sang "SẴN SÀNG" ở CRM
+
+**Kết nối Chức năng Project Management**
+
+- **Kích hoạt dự án**: Khi phiếu thu đợt 1 chuyển "ĐÃ THU" thì tự động tạo _Dự án_ trong Project Management
+- **Đồng bộ timeline**: Thời hạn hoàn thành hợp đồng đồng bộ với deadline dự án
+
+**Kết nối Chức năng Customer Success**
+
+- **Chăm sóc sau bán**: Khi hợp đồng "HOÀN TẤT" thì tự động tạo _Chăm sóc_ trong Customer Success
+- **Tính voucher khách hàng**: Dựa trên giá trị hợp đồng để tự động tính voucher cho lần mua tiếp theo
