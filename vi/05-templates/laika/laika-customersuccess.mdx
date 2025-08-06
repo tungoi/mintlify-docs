@@ -1,8 +1,7 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "CHỨC NĂNG CUSTOMER SUCCESS - LAIKA"
+description: "Description of your new file."
 ---
-
 
 # CHỨC NĂNG CUSTOMER SUCCESS - LAIKA
 
@@ -26,26 +25,26 @@ Tăng customer lifetime value, giảm churn rate, tạo nguồn doanh thu lặp 
 
 #### **Loại việc & Luồng nghiệp vụ**
 
-|Cấp độ|Tên|Mô tả ngắn|
-|---|---|---|
-|Tiêu chuẩn|**Chăm sóc**|Quản lý tổng thể việc chăm sóc khách hàng sau bán hàng|
-|Tiêu chuẩn|**Ticket**|Xử lý các yêu cầu hỗ trợ và khiếu nại của khách hàng|
-|Tiêu chuẩn|**Lịch trình**|Lên lịch các hoạt động chăm sóc định kỳ và follow-up|
+| Cấp độ     | Tên            | Mô tả ngắn                                             |
+| ---------- | -------------- | ------------------------------------------------------ |
+| Tiêu chuẩn | **Chăm sóc**   | Quản lý tổng thể việc chăm sóc khách hàng sau bán hàng |
+| Tiêu chuẩn | **Ticket**     | Xử lý các yêu cầu hỗ trợ và khiếu nại của khách hàng   |
+| Tiêu chuẩn | **Lịch trình** | Lên lịch các hoạt động chăm sóc định kỳ và follow-up   |
 
 #### Mối quan hệ giữa các Loại việc
 
-|Quan hệ|Loại quan hệ|Mô tả|
-|---|---|---|
-|Chăm sóc - Ticket|Kết nối Loại việc|Mỗi chăm sóc có thể có nhiều ticket hỗ trợ|
-|Chăm sóc - Lịch trình|Kết nối Loại việc|Lịch trình check-in định kỳ cho từng khách hàng|
+| Quan hệ               | Loại quan hệ      | Mô tả                                           |
+| --------------------- | ----------------- | ----------------------------------------------- |
+| Chăm sóc - Ticket     | Kết nối Loại việc | Mỗi chăm sóc có thể có nhiều ticket hỗ trợ      |
+| Chăm sóc - Lịch trình | Kết nối Loại việc | Lịch trình check-in định kỳ cho từng khách hàng |
 
 #### **Vai trò**
 
-|Vai trò|Mô tả|Phân Quyền & Thông báo|
-|---|---|---|
-|**Customer Success Manager**|Quản lý tổng thể chăm sóc khách hàng, lập kế hoạch retention|**Phân quyền**: Toàn quyền quản lý chăm sóc và lịch trình. **Thông báo**: Nhận mọi cập nhật về tình hình khách hàng|
-|**Support Specialist**|Xử lý ticket hỗ trợ kỹ thuật và khiếu nại|**Phân quyền**: Xử lý và cập nhật ticket. **Thông báo**: Nhận thông báo ticket mới và urgent|
-|**Account Manager**|Phát triển business từ khách hàng cũ, upsell/cross-sell|**Phân quyền**: Cập nhật cơ hội kinh doanh. **Thông báo**: Nhận thông báo khách hàng có nhu cầu mua thêm|
+| Vai trò                      | Mô tả                                                        | Phân Quyền & Thông báo                                                                                              |
+| ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| **Customer Success Manager** | Quản lý tổng thể chăm sóc khách hàng, lập kế hoạch retention | **Phân quyền**: Toàn quyền quản lý chăm sóc và lịch trình. **Thông báo**: Nhận mọi cập nhật về tình hình khách hàng |
+| **Support Specialist**       | Xử lý ticket hỗ trợ kỹ thuật và khiếu nại                    | **Phân quyền**: Xử lý và cập nhật ticket. **Thông báo**: Nhận thông báo ticket mới và urgent                        |
+| **Account Manager**          | Phát triển business từ khách hàng cũ, upsell/cross-sell      | **Phân quyền**: Cập nhật cơ hội kinh doanh. **Thông báo**: Nhận thông báo khách hàng có nhu cầu mua thêm            |
 
 ## LOẠI VIỆC & NGHIỆP VỤ
 
@@ -65,22 +64,22 @@ CẦN LÀM → ĐANG CHĂM SÓC → HOÀN THÀNH ↓ ↓ UPSELL TẠM DỪNG →
 
 ##### **Chi tiết các Trạng thái**
 
-|Trạng thái|Nghiệp vụ|Cài đặt nâng cao|
-|---|---|---|
-|1. **CẦN LÀM**|Khách hàng mới chuyển vào chăm sóc, cần lập kế hoạch check-in|**Phân quyền**: Customer Success Manager. **Nhập liệu**: Loại chăm sóc, Tần suất check-in, Ghi chú đặc biệt. **Tự động hoá**: Tính voucher theo giá trị dự án, lập lịch check-in đầu tiên|
-|2. **ĐANG CHĂM SÓC**|Đang trong chu kỳ chăm sóc định kỳ theo lịch trình|**Phân quyền**: Customer Success Manager, Support Specialist. **Tự động hoá**: Nhắc nhở check-in định kỳ, gửi email chăm sóc|
-|3. **UPSELL**|Phát hiện cơ hội bán thêm dịch vụ cho khách hàng|**Phân quyền**: Account Manager, Customer Success Manager. **Nhập liệu**: Loại dịch vụ quan tâm, Ngân sách dự kiến. **Tự động hoá**: Chuyển lead về CRM, gửi voucher đặc biệt|
-|4. **TẠM DỪNG**|Tạm dừng chăm sóc theo yêu cầu khách hàng|**Phân quyền**: Customer Success Manager. **Nhập liệu**: Lý do tạm dừng, Thời gian dự kiến tiếp tục|
-|5. **HOÀN THÀNH**|Kết thúc chu kỳ chăm sóc hoặc khách hàng không còn nhu cầu|**Phân quyền**: Customer Success Manager. **Tự động hoá**: Lưu trữ lịch sử chăm sóc, báo cáo hiệu quả|
+| Trạng thái           | Nghiệp vụ                                                     | Cài đặt nâng cao                                                                                                                                                                          |
+| -------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. **CẦN LÀM**       | Khách hàng mới chuyển vào chăm sóc, cần lập kế hoạch check-in | **Phân quyền**: Customer Success Manager. **Nhập liệu**: Loại chăm sóc, Tần suất check-in, Ghi chú đặc biệt. **Tự động hoá**: Tính voucher theo giá trị dự án, lập lịch check-in đầu tiên |
+| 2. **ĐANG CHĂM SÓC** | Đang trong chu kỳ chăm sóc định kỳ theo lịch trình            | **Phân quyền**: Customer Success Manager, Support Specialist. **Tự động hoá**: Nhắc nhở check-in định kỳ, gửi email chăm sóc                                                              |
+| 3. **UPSELL**        | Phát hiện cơ hội bán thêm dịch vụ cho khách hàng              | **Phân quyền**: Account Manager, Customer Success Manager. **Nhập liệu**: Loại dịch vụ quan tâm, Ngân sách dự kiến. **Tự động hoá**: Chuyển lead về CRM, gửi voucher đặc biệt             |
+| 4. **TẠM DỪNG**      | Tạm dừng chăm sóc theo yêu cầu khách hàng                     | **Phân quyền**: Customer Success Manager. **Nhập liệu**: Lý do tạm dừng, Thời gian dự kiến tiếp tục                                                                                       |
+| 5. **HOÀN THÀNH**    | Kết thúc chu kỳ chăm sóc hoặc khách hàng không còn nhu cầu    | **Phân quyền**: Customer Success Manager. **Tự động hoá**: Lưu trữ lịch sử chăm sóc, báo cáo hiệu quả                                                                                     |
 
 ##### **Màn hình trường dữ liệu**
 
-|Nhóm thông tin|Trường dữ liệu|Ghi chú|
-|---|---|---|
-|**Thông tin khách hàng** _(4 trường)_|Khách hàng _(Trường chọn Đầu việc)_, Dự án gốc _(Trường chọn Đầu việc)_, Giá trị dự án _(Số thập phân)_, Loại chăm sóc _(Sổ xuống chọn một)_|Liên kết với thông tin dự án đã hoàn thành|
-|**Voucher & Ưu đãi** _(3 trường)_|Voucher hiện tại _(Số thập phân)_, Ngày hết hạn voucher _(Ngày)_, Lịch sử sử dụng voucher _(Đoạn văn bản)_|Quản lý ưu đãi cho khách hàng|
-|**Lịch trình chăm sóc** _(4 trường)_|Tần suất check-in _(Sổ xuống chọn một)_, Lần check-in cuối _(Ngày)_, Lần check-in tiếp theo _(Ngày)_, Ghi chú chăm sóc _(Đoạn văn bản)_|Theo dõi lịch trình chăm sóc|
-|**Tổng số trường**: 11 trường|||
+| Nhóm thông tin                        | Trường dữ liệu                                                                                                                               | Ghi chú                                    |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| **Thông tin khách hàng** _(4 trường)_ | Khách hàng _(Trường chọn Đầu việc)_, Dự án gốc _(Trường chọn Đầu việc)_, Giá trị dự án _(Số thập phân)_, Loại chăm sóc _(Sổ xuống chọn một)_ | Liên kết với thông tin dự án đã hoàn thành |
+| **Voucher & Ưu đãi** _(3 trường)_     | Voucher hiện tại _(Số thập phân)_, Ngày hết hạn voucher _(Ngày)_, Lịch sử sử dụng voucher _(Đoạn văn bản)_                                   | Quản lý ưu đãi cho khách hàng              |
+| **Lịch trình chăm sóc** _(4 trường)_  | Tần suất check-in _(Sổ xuống chọn một)_, Lần check-in cuối _(Ngày)_, Lần check-in tiếp theo _(Ngày)_, Ghi chú chăm sóc _(Đoạn văn bản)_      | Theo dõi lịch trình chăm sóc               |
+| **Tổng số trường**: 11 trường         |                                                                                                                                              |                                            |
 
 #### **Ticket**
 
@@ -96,22 +95,22 @@ MỚI → ĐANG XỬ LÝ → GIẢI QUYẾT → ĐÓNG ↓ ↓ URGENT CHỜ KHÁ
 
 ##### **Chi tiết các Trạng thái**
 
-|Trạng thái|Nghiệp vụ|Cài đặt nâng cao|
-|---|---|---|
-|1. **MỚI**|Ticket mới từ khách hàng cần được phân loại và gán người xử lý|**Phân quyền**: Support Specialist, Customer Success Manager. **Nhập liệu**: Loại vấn đề, Độ ưu tiên, Người xử lý|
-|2. **URGENT**|Ticket cần xử lý gấp trong 4 giờ|**Phân quyền**: Support Specialist, Customer Success Manager. **Tự động hoá**: Thông báo ngay cho manager, gửi SMS cho khách|
-|3. **ĐANG XỬ LÝ**|Đang trong quá trình giải quyết vấn đề|**Phân quyền**: Người được gán xử lý. **Tự động hoá**: Cập nhật tiến độ cho khách hàng|
-|4. **CHỜ KHÁCH**|Chờ phản hồi hoặc xác nhận từ khách hàng|**Tự động hoá**: Nhắc nhở khách hàng sau 2 ngày không phản hồi|
-|5. **GIẢI QUYẾT**|Vấn đề đã được giải quyết, chờ xác nhận cuối|**Tự động hoá**: Gửi email khảo sát hài lòng|
-|6. **ĐÓNG**|Ticket hoàn tất, khách hàng hài lòng với giải pháp|**Tự động hoá**: Cập nhật chỉ số hài lòng, lưu knowledge base|
+| Trạng thái        | Nghiệp vụ                                                      | Cài đặt nâng cao                                                                                                             |
+| ----------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| 1. **MỚI**        | Ticket mới từ khách hàng cần được phân loại và gán người xử lý | **Phân quyền**: Support Specialist, Customer Success Manager. **Nhập liệu**: Loại vấn đề, Độ ưu tiên, Người xử lý            |
+| 2. **URGENT**     | Ticket cần xử lý gấp trong 4 giờ                               | **Phân quyền**: Support Specialist, Customer Success Manager. **Tự động hoá**: Thông báo ngay cho manager, gửi SMS cho khách |
+| 3. **ĐANG XỬ LÝ** | Đang trong quá trình giải quyết vấn đề                         | **Phân quyền**: Người được gán xử lý. **Tự động hoá**: Cập nhật tiến độ cho khách hàng                                       |
+| 4. **CHỜ KHÁCH**  | Chờ phản hồi hoặc xác nhận từ khách hàng                       | **Tự động hoá**: Nhắc nhở khách hàng sau 2 ngày không phản hồi                                                               |
+| 5. **GIẢI QUYẾT** | Vấn đề đã được giải quyết, chờ xác nhận cuối                   | **Tự động hoá**: Gửi email khảo sát hài lòng                                                                                 |
+| 6. **ĐÓNG**       | Ticket hoàn tất, khách hàng hài lòng với giải pháp             | **Tự động hoá**: Cập nhật chỉ số hài lòng, lưu knowledge base                                                                |
 
 ##### **Màn hình trường dữ liệu**
 
-|Nhóm thông tin|Trường dữ liệu|Ghi chú|
-|---|---|---|
-|**Thông tin ticket** _(5 trường)_|Tiêu đề vấn đề _(Dòng chữ)_, Mô tả chi tiết _(Đoạn văn bản)_, Loại vấn đề _(Sổ xuống chọn một)_, Độ ưu tiên _(Sổ xuống chọn một)_, Nguồn phản ánh _(Sổ xuống chọn một)_|Thông tin cơ bản về vấn đề|
-|**Xử lý** _(3 trường)_|Người xử lý _(Người đơn)_, Thời gian SLA _(Số nguyên)_, Giải pháp áp dụng _(Đoạn văn bản)_|Quản lý việc xử lý ticket|
-|**Tổng số trường**: 8 trường|||
+| Nhóm thông tin                    | Trường dữ liệu                                                                                                                                                          | Ghi chú                    |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| **Thông tin ticket** _(5 trường)_ | Tiêu đề vấn đề _(Dòng chữ)_, Mô tả chi tiết _(Đoạn văn bản)_, Loại vấn đề _(Sổ xuống chọn một)_, Độ ưu tiên _(Sổ xuống chọn một)_, Nguồn phản ánh _(Sổ xuống chọn một)_ | Thông tin cơ bản về vấn đề |
+| **Xử lý** _(3 trường)_            | Người xử lý _(Người đơn)_, Thời gian SLA _(Số nguyên)_, Giải pháp áp dụng _(Đoạn văn bản)_                                                                              | Quản lý việc xử lý ticket  |
+| **Tổng số trường**: 8 trường      |                                                                                                                                                                         |                            |
 
 #### **Lịch trình**
 
@@ -127,100 +126,100 @@ LÊNLỊCH → SẮPTỚI → THỰCHIỆN → HOÀNTHÀNH ↓ DELAY
 
 ##### **Chi tiết các Trạng thái**
 
-|Trạng thái|Nghiệp vụ|Cài đặt nâng cao|
-|---|---|---|
-|1. **LÊN LỊCH**|Tạo lịch trình chăm sóc mới cho khách hàng|**Phân quyền**: Customer Success Manager. **Nhập liệu**: Loại hoạt động, Ngày thực hiện, Người thực hiện|
-|2. **SẮP TỚI**|Hoạt động sắp diễn ra trong 3 ngày tới|**Tự động hoá**: Nhắc nhở người thực hiện, chuẩn bị nội dung|
-|3. **DELAY**|Hoạt động bị delay so với kế hoạch|**Phân quyền**: Customer Success Manager. **Tự động hoá**: Thông báo manager, đề xuất lịch mới|
-|4. **THỰC HIỆN**|Đang thực hiện hoạt động chăm sóc theo lịch|**Phân quyền**: Người được gán. **Nhập liệu**: Kết quả thực hiện, Phản hồi khách hàng|
-|5. **HOÀN THÀNH**|Hoạt động chăm sóc hoàn tất với kết quả đánh giá|**Tự động hoá**: Lên lịch cho lần tiếp theo, cập nhật CRM|
+| Trạng thái        | Nghiệp vụ                                        | Cài đặt nâng cao                                                                                         |
+| ----------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| 1. **LÊN LỊCH**   | Tạo lịch trình chăm sóc mới cho khách hàng       | **Phân quyền**: Customer Success Manager. **Nhập liệu**: Loại hoạt động, Ngày thực hiện, Người thực hiện |
+| 2. **SẮP TỚI**    | Hoạt động sắp diễn ra trong 3 ngày tới           | **Tự động hoá**: Nhắc nhở người thực hiện, chuẩn bị nội dung                                             |
+| 3. **DELAY**      | Hoạt động bị delay so với kế hoạch               | **Phân quyền**: Customer Success Manager. **Tự động hoá**: Thông báo manager, đề xuất lịch mới           |
+| 4. **THỰC HIỆN**  | Đang thực hiện hoạt động chăm sóc theo lịch      | **Phân quyền**: Người được gán. **Nhập liệu**: Kết quả thực hiện, Phản hồi khách hàng                    |
+| 5. **HOÀN THÀNH** | Hoạt động chăm sóc hoàn tất với kết quả đánh giá | **Tự động hoá**: Lên lịch cho lần tiếp theo, cập nhật CRM                                                |
 
 ##### **Màn hình trường dữ liệu**
 
-|Nhóm thông tin|Trường dữ liệu|Ghi chú|
-|---|---|---|
-|**Thông tin lịch trình** _(4 trường)_|Tên hoạt động _(Dòng chữ)_, Loại hoạt động _(Sổ xuống chọn một)_, Mô tả _(Đoạn văn bản)_, Tần suất lặp lại _(Sổ xuống chọn một)_|Chi tiết về hoạt động chăm sóc|
-|**Thời gian** _(3 trường)_|Ngày thực hiện _(Ngày)_, Thời gian thực hiện _(Ngày giờ)_, Thời lượng dự kiến _(Số nguyên)_|Quản lý timeline|
-|**Kết quả** _(3 trường)_|Kết quả thực hiện _(Đoạn văn bản)_, Đánh giá khách hàng _(Sổ xuống chọn một)_, Hành động tiếp theo _(Đoạn văn bản)_|Theo dõi hiệu quả|
-|**Tổng số trường**: 10 trường|||
+| Nhóm thông tin                        | Trường dữ liệu                                                                                                                   | Ghi chú                        |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| **Thông tin lịch trình** _(4 trường)_ | Tên hoạt động _(Dòng chữ)_, Loại hoạt động _(Sổ xuống chọn một)_, Mô tả _(Đoạn văn bản)_, Tần suất lặp lại _(Sổ xuống chọn một)_ | Chi tiết về hoạt động chăm sóc |
+| **Thời gian** _(3 trường)_            | Ngày thực hiện _(Ngày)_, Thời gian thực hiện _(Ngày giờ)_, Thời lượng dự kiến _(Số nguyên)_                                      | Quản lý timeline               |
+| **Kết quả** _(3 trường)_              | Kết quả thực hiện _(Đoạn văn bản)_, Đánh giá khách hàng _(Sổ xuống chọn một)_, Hành động tiếp theo _(Đoạn văn bản)_              | Theo dõi hiệu quả              |
+| **Tổng số trường**: 10 trường         |                                                                                                                                  |                                |
 
 ### Mối quan hệ & tham chiếu giữa các Loại việc
 
 #### **Kết nối Loại việc**
 
-|Loại Kết nối|Mô tả|
-|---|---|
-|**Hỗ trợ**: _Chăm sóc_ - _Ticket_|Kết nối giữa chăm sóc tổng thể và các ticket hỗ trợ cụ thể|
-|**Lên lịch**: _Chăm sóc_ - _Lịch trình_|Kết nối giữa chăm sóc và các hoạt động định kỳ|
+| Loại Kết nối                            | Mô tả                                                      |
+| --------------------------------------- | ---------------------------------------------------------- |
+| **Hỗ trợ**: _Chăm sóc_ - _Ticket_       | Kết nối giữa chăm sóc tổng thể và các ticket hỗ trợ cụ thể |
+| **Lên lịch**: _Chăm sóc_ - _Lịch trình_ | Kết nối giữa chăm sóc và các hoạt động định kỳ             |
 
 #### **Trường chọn Đầu việc**
 
-|Trường|Tham chiếu|Mô tả|
-|---|---|---|
-|_Chăm sóc_ / **Khách hàng**|**CRM.Khách hàng** / _Tên khách hàng, Số điện thoại, Email_ . **Điều kiện lọc**: Trạng thái = "THÀNH CÔNG"|Liên kết với khách hàng đã hoàn thành dự án|
-|_Chăm sóc_ / **Dự án gốc**|**Project.Dự án** / _Tên dự án, Tổng giá trị, Ngày hoàn thành_ . **Điều kiện lọc**: Trạng thái = "HOÀN TẤT"|Tham chiếu đến dự án vừa hoàn thành|
-|_Ticket_ / **Khách hàng**|**CRM.Khách hàng** / _Tên khách hàng, Số điện thoại, Email_ . **Điều kiện lọc**: Có trong chăm sóc|Khách hàng gửi yêu cầu hỗ trợ|
+| Trường                      | Tham chiếu                                                                                                  | Mô tả                                       |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| _Chăm sóc_ / **Khách hàng** | **CRM.Khách hàng** / _Tên khách hàng, Số điện thoại, Email_ . **Điều kiện lọc**: Trạng thái = "THÀNH CÔNG"  | Liên kết với khách hàng đã hoàn thành dự án |
+| _Chăm sóc_ / **Dự án gốc**  | **Project.Dự án** / _Tên dự án, Tổng giá trị, Ngày hoàn thành_ . **Điều kiện lọc**: Trạng thái = "HOÀN TẤT" | Tham chiếu đến dự án vừa hoàn thành         |
+| _Ticket_ / **Khách hàng**   | **CRM.Khách hàng** / _Tên khách hàng, Số điện thoại, Email_ . **Điều kiện lọc**: Có trong chăm sóc          | Khách hàng gửi yêu cầu hỗ trợ               |
 
 ## TỰ ĐỘNG HOÁ
 
 ### **Quy tắc trên Luồng tiến trình**
 
-|Kích hoạt|Tự động hoá|
-|---|---|
-|23. _Chăm sóc_ / **CẦN LÀM**|Tính toán voucher = 5% giá trị dự án (tối đa ₫50M). Tạo Lịch trình check-in đầu tiên sau 1 tuần. Gửi email chào mừng với voucher đính kèm|
-|24. _Ticket_ / **URGENT**|Gửi chat mention Customer Success Manager ngay lập tức. Gửi SMS thông báo cho khách hàng về việc đang xử lý gấp|
+| Kích hoạt                    | Tự động hoá                                                                                                                               |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| 23. _Chăm sóc_ / **CẦN LÀM** | Tính toán voucher = 5% giá trị dự án (tối đa ₫50M). Tạo Lịch trình check-in đầu tiên sau 1 tuần. Gửi email chào mừng với voucher đính kèm |
+| 24. _Ticket_ / **URGENT**    | Gửi chat mention Customer Success Manager ngay lập tức. Gửi SMS thông báo cho khách hàng về việc đang xử lý gấp                           |
 
 ### **Quy tắc chạy ngầm**
 
-|Quy tắc|Kích hoạt|Hành động|
-|---|---|---|
-|25. **Tự động tạo chăm sóc**|Webhook từ Project khi Dự án chuyển sang "HOÀN TẤT"|Tạo Chăm sóc mới với thông tin từ Dự án: khách hàng, giá trị dự án, địa chỉ. Tính voucher theo công thức 5% giá trị. Gửi chat chúc mừng vào kênh Customer Success. Cập nhật CRM thêm voucher value|
-|26. **Check-in định kỳ**|Lịch trình chạy hàng ngày lúc 9:00 AM|Tìm các Lịch trình có ngày thực hiện = hôm nay + 3 ngày. Gửi email nhắc nhở Customer Success Manager về lịch check-in sắp tới. Chuẩn bị template email cho khách hàng|
+| Quy tắc                      | Kích hoạt                                           | Hành động                                                                                                                                                                                          |
+| ---------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 25. **Tự động tạo chăm sóc** | Webhook từ Project khi Dự án chuyển sang "HOÀN TẤT" | Tạo Chăm sóc mới với thông tin từ Dự án: khách hàng, giá trị dự án, địa chỉ. Tính voucher theo công thức 5% giá trị. Gửi chat chúc mừng vào kênh Customer Success. Cập nhật CRM thêm voucher value |
+| 26. **Check-in định kỳ**     | Lịch trình chạy hàng ngày lúc 9:00 AM               | Tìm các Lịch trình có ngày thực hiện = hôm nay \+ 3 ngày. Gửi email nhắc nhở Customer Success Manager về lịch check-in sắp tới. Chuẩn bị template email cho khách hàng                             |
 
 ### **Hành động trên Đầu việc**
 
-|Kích hoạt|Hành động|
-|---|---|
-|27. _Chăm sóc_ / **Gửi email hỏi thăm**|Gửi email cá nhân hóa với smart values: tên khách hàng, thông tin dự án, voucher hiện tại. Nội dung hỏi thăm tình hình sử dụng và giới thiệu dịch vụ mới|
-|28. _Lịch trình_ / **Lên lịch tiếp theo**|Tự động tạo Lịch trình mới cho lần check-in tiếp theo (sau 2 tháng). Copy thông tin từ lịch trình hiện tại, cập nhật ngày mới|
+| Kích hoạt                                 | Hành động                                                                                                                                                |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 27. _Chăm sóc_ / **Gửi email hỏi thăm**   | Gửi email cá nhân hóa với smart values: tên khách hàng, thông tin dự án, voucher hiện tại. Nội dung hỏi thăm tình hình sử dụng và giới thiệu dịch vụ mới |
+| 28. _Lịch trình_ / **Lên lịch tiếp theo** | Tự động tạo Lịch trình mới cho lần check-in tiếp theo (sau 2 tháng). Copy thông tin từ lịch trình hiện tại, cập nhật ngày mới                            |
 
 ## GIAO DIỆN LÀM VIỆC, BÁO CÁO, BỘ LỌC
 
 ### Giao diện
 
-|Giao diện|Mô tả|Dữ liệu|
-|---|---|---|
-|1. **Dashboard chăm sóc** _(List)_|Tổng quan tất cả khách hàng đang trong chăm sóc|Tất cả Chăm sóc, sắp xếp theo lần check-in tiếp theo|
-|2. **Kanban ticket** _(Kanban)_|Quản lý ticket theo trạng thái xử lý|Tất cả Ticket, phân cột theo trạng thái|
-|3. **Lịch chăm sóc** _(Calendar)_|Xem lịch trình các hoạt động chăm sóc|Lịch trình trong tháng, theo ngày thực hiện|
+| Giao diện                          | Mô tả                                           | Dữ liệu                                              |
+| ---------------------------------- | ----------------------------------------------- | ---------------------------------------------------- |
+| 1. **Dashboard chăm sóc** _(List)_ | Tổng quan tất cả khách hàng đang trong chăm sóc | Tất cả Chăm sóc, sắp xếp theo lần check-in tiếp theo |
+| 2. **Kanban ticket** _(Kanban)_    | Quản lý ticket theo trạng thái xử lý            | Tất cả Ticket, phân cột theo trạng thái              |
+| 3. **Lịch chăm sóc** _(Calendar)_  | Xem lịch trình các hoạt động chăm sóc           | Lịch trình trong tháng, theo ngày thực hiện          |
 
 ### Báo cáo
 
-|Khối trình bày|Dữ liệu|Mô tả|
-|---|---|---|
-|1. **Tổng khách hàng đang chăm sóc** _(Counter & Calculation)_|Chăm sóc với trạng thái "ĐANG CHĂM SÓC"|Đếm số lượng khách hàng active|
-|2. **Tỷ lệ hài lòng ticket** _(Counter & Calculation)_|Ticket đã đóng, tính % đánh giá tích cực|Chất lượng dịch vụ hỗ trợ|
-|3. **Giá trị voucher đã phát hành** _(Counter & Calculation)_|Tổng voucher hiện tại của tất cả khách hàng|Theo dõi chi phí marketing|
-|4. **Phân bổ ticket theo loại** _(Pie Chart)_|Ticket theo loại vấn đề|Phân tích xu hướng vấn đề|
-|5. **Timeline check-in sắp tới** _(Object list)_|Lịch trình có ngày thực hiện trong 7 ngày|Công việc cần chuẩn bị|
+| Khối trình bày                                                 | Dữ liệu                                     | Mô tả                          |
+| -------------------------------------------------------------- | ------------------------------------------- | ------------------------------ |
+| 1. **Tổng khách hàng đang chăm sóc** _(Counter & Calculation)_ | Chăm sóc với trạng thái "ĐANG CHĂM SÓC"     | Đếm số lượng khách hàng active |
+| 2. **Tỷ lệ hài lòng ticket** _(Counter & Calculation)_         | Ticket đã đóng, tính % đánh giá tích cực    | Chất lượng dịch vụ hỗ trợ      |
+| 3. **Giá trị voucher đã phát hành** _(Counter & Calculation)_  | Tổng voucher hiện tại của tất cả khách hàng | Theo dõi chi phí marketing     |
+| 4. **Phân bổ ticket theo loại** _(Pie Chart)_                  | Ticket theo loại vấn đề                     | Phân tích xu hướng vấn đề      |
+| 5. **Timeline check-in sắp tới** _(Object list)_               | Lịch trình có ngày thực hiện trong 7 ngày   | Công việc cần chuẩn bị         |
 
 ### Bộ lọc
 
-|Bộ lọc|Dữ liệu|Nhắc việc|
-|---|---|---|
-|1. **Check-in sắp tới**|Lịch trình có ngày thực hiện trong 3 ngày tới|Hàng ngày 9:00 AM → Customer Success Manager|
-|2. **Ticket quá SLA**|Ticket chưa giải quyết quá thời gian quy định|Hàng ngày 8:00 AM → Support Manager, Support Specialist|
-|3. **Voucher sắp hết hạn**|Chăm sóc có voucher hết hạn trong 30 ngày|Hàng tuần thứ 2 lúc 9:00 AM → Account Manager|
+| Bộ lọc                     | Dữ liệu                                       | Nhắc việc                                               |
+| -------------------------- | --------------------------------------------- | ------------------------------------------------------- |
+| 1. **Check-in sắp tới**    | Lịch trình có ngày thực hiện trong 3 ngày tới | Hàng ngày 9:00 AM → Customer Success Manager            |
+| 2. **Ticket quá SLA**      | Ticket chưa giải quyết quá thời gian quy định | Hàng ngày 8:00 AM → Support Manager, Support Specialist |
+| 3. **Voucher sắp hết hạn** | Chăm sóc có voucher hết hạn trong 30 ngày     | Hàng tuần thứ 2 lúc 9:00 AM → Account Manager           |
 
 ## VAI TRÒ, PHÂN QUYỀN, THÔNG BÁO
 
 ### Vai trò
 
-|Vai trò|Mô tả|Phân quyền & Thông báo|
-|---|---|---|
-|1. **Customer Success Manager**|Quản lý tổng thể customer success và retention|Toàn quyền quản lý chăm sóc và lịch trình, nhận mọi thông báo về khách hàng|
-|2. **Support Specialist**|Xử lý ticket và hỗ trợ kỹ thuật|Xử lý ticket được gán, nhận thông báo ticket mới và urgent|
-|3. **Account Manager**|Phát triển business từ khách hàng cũ|Cập nhật cơ hội upsell, nhận thông báo khách hàng có nhu cầu mua thêm|
+| Vai trò                         | Mô tả                                          | Phân quyền & Thông báo                                                      |
+| ------------------------------- | ---------------------------------------------- | --------------------------------------------------------------------------- |
+| 1. **Customer Success Manager** | Quản lý tổng thể customer success và retention | Toàn quyền quản lý chăm sóc và lịch trình, nhận mọi thông báo về khách hàng |
+| 2. **Support Specialist**       | Xử lý ticket và hỗ trợ kỹ thuật                | Xử lý ticket được gán, nhận thông báo ticket mới và urgent                  |
+| 3. **Account Manager**          | Phát triển business từ khách hàng cũ           | Cập nhật cơ hội upsell, nhận thông báo khách hàng có nhu cầu mua thêm       |
 
 ### Phân quyền
 
@@ -242,16 +241,16 @@ Sử dụng **Thông báo mọi thứ tới người liên quan**:
 
 ### Tổng khối lượng cài đặt
 
-|Yếu tố|Số lượng|Điểm đơn vị|Tổng điểm|
-|---|---|---|---|
-|Loại việc|3|0.3|0.9|
-|Trạng thái|15|0.2|3.0|
-|Trường dữ liệu|29|0.09|2.61|
-|Quy tắc tự động hoá nội bộ Luklak|6|0.6|3.6|
-|Giao diện làm việc|3|0.4|1.2|
-|Bộ lọc|3|0.35|1.05|
-|Khối trình bày trong dashboard|5|0.5|2.5|
-|**TỔNG CỘNG**|||**14.86**|
+| Yếu tố                            | Số lượng | Điểm đơn vị | Tổng điểm |
+| --------------------------------- | -------- | ----------- | --------- |
+| Loại việc                         | 3        | 0.3         | 0.9       |
+| Trạng thái                        | 15       | 0.2         | 3.0       |
+| Trường dữ liệu                    | 29       | 0.09        | 2.61      |
+| Quy tắc tự động hoá nội bộ Luklak | 6        | 0.6         | 3.6       |
+| Giao diện làm việc                | 3        | 0.4         | 1.2       |
+| Bộ lọc                            | 3        | 0.35        | 1.05      |
+| Khối trình bày trong dashboard    | 5        | 0.5         | 2.5       |
+| **TỔNG CỘNG**                     |          |             | **14.86** |
 
 ## KẾT NỐI LIÊN CHỨC NĂNG
 
