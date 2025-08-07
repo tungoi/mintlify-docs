@@ -180,7 +180,7 @@
           {
             "group": "Kiến trúc hệ thống",
             "pages": [
-              "luklak-platform/quickstart",
+              "en/02-platform/luklak-platform",
               "function-design/functiondesign"
             ]
           },
@@ -201,7 +201,7 @@
           {
             "group": "API Documentation",
             "pages": [
-              "api-reference/introduction"
+              "en/03-build/laika-crossfunction"
             ]
           },
           {
