@@ -1,0 +1,55 @@
+---
+title: 'LAIKA - LUKLAK GLOBAL CONFIGURATION DESIGN'
+---
+
+# LAIKA - LUKLAK GLOBAL CONFIGURATION DESIGN
+
+**Business Name:** LAIKA Design & Build\
+**Business Key:** LAIKA\
+**Document Scope:** Global and Area level configuration in the Luklak platform
+
+![laikav8-l1.png](/images/laikav8-l1.png)
+
+---
+
+## PART 1: GLOBAL STRUCTURE & NAVIGATION
+
+### 1.1 UNIFIED ORGANIZATION STRUCTURE
+
+#### Organization Tree
+
+```
+LAIKA (Business/Organization)
+│
+├── 🏢 BUSINESS (Area)
+│   ├── 📍 Marketing Campaigns (Space)
+│   │   └── 📋 Marketing Function
+│   │       ├── 🧊 Marketing Campaign
+│   │       └── 🧊 Ad Lead
+│   └── 📍 Sales & CRM (Space)
+│       └── 📋 CRM & Sales Function
+│           ├── 🧊 Customer
+│           └── 🧊 Consultation Appointment
+│
+├── 🏢 ACCOUNTING (Area)
+│   └── 📍 Contract & Invoice (Space)
+│       └── 📋 Contract & Invoice Function
+│           └── 🧊 Contract
+│               └── 🧊︎ Receipt (Sub-Object)
+│
+├── 🏢 DESIGN - CONSTRUCTION (Area)
+│   └── 📍 Product Delivery Management (Space)
+│       └── 📋 Product Delivery Function
+│           ├── 🧊 Project
+│           ├── 🧊 Survey
+│           └── 🧊 Design
+│               ├── 🧊︎ Concept (Sub-Object)
+│               └── 🧊︎ Construction Drawing (Sub-Object)
+│
+└── 🏢 CUSTOMER SUCCESS (Area)
+    └── 📍 Customer Success (Space)
+        └── 📋 Customer Success Function
+            ├── 🧊 Post-sale Care
+            └── 🧊 Customer Support
+```
+
