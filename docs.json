@@ -157,7 +157,8 @@
           {
             "group": "Get Started",
             "pages": [
-              "EN/getting-started/getting-started"
+              "en/01-getting-started/quick-start",
+              "en/01-getting-started/welcome"
             ]
           },
           {
