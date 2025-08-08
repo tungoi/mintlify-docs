@@ -181,6 +181,7 @@
           {
             "group": "Kiến trúc hệ thống",
             "pages": [
+              "en/02-platform/tab02-note",
               "en/02-platform/luklak-platform",
               "en/02-platform/state-of-unifed",
               "function-design/functiondesign"

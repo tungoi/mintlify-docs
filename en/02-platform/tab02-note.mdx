@@ -1,0 +1,129 @@
+---
+title: "TAB 2: LUKLAK PLATFORM"
+description: "This section is the heart of the information portal, explaining in detail the architecture and components of Luklak, based on the 3-tier structure you've outlined and "product truth" documents"
+---
+
+### **A. Tier 1: Core LEGO Building Blocks (Foundational Concepts)**
+
+_(Each subsection below will have a main page explaining the concept, and may have sub-pages diving deeper into details or usage guides.)_
+
+ 1. **Universal Business Object**
+    - Page: Universal Object Concept - _Detailed in previous response_
+    - Page: Creating and Managing Object Types
+    - Page: Distinguishing Object (Instance) and Object Type
+ 2. **Data Screen & Data Fields**
+    - Page: Introduction to Data Screens and Data Fields
+    - Page: Basic Data Field Types (Text, Number, Date, Select, etc.)
+    - Page: Advanced Data Field Types (Formula, User, Object Lookup, Table, File Attachment, etc.)
+    - Page: Data Field Configuration (Default values, Required, Multi-language display, Display conditions)
+    - Page: System Data Fields (System-defined Fields: Created Date, Last Updated, Object Key, etc.)
+ 3. **Workflow & Status**
+    - Page: Workflow and Status Concepts
+    - Page: Designing Workflows: Creating Statuses and Transitions
+    - Page: Advanced Status Settings (Permissions, Conditions, Input screens, Workflow automation, Status guidance)
+    - Page: System Status Types and Meanings
+ 4. **Object & Data Connection**
+    - Page: Types of Object Relationships in Luklak (Overview)
+    - Page: Parent-Child Relationship
+    - Page: Global Object Connection
+    - Page: Using "Object Lookup Field" to create connections
+    - Page: Working with "Data Table Field" to manage details
+ 5. **Universal Automation & Rules**
+    - Page: Introduction to Automation in Luklak: Trigger - Condition - Action
+    - Page: Types of Automation Rules (Background event/schedule, Workflow-based, Manual Object actions, Webhook Trigger)
+    - Page: Common Trigger Types (Create, Field update, Status transition, Schedule, Incoming webhook)
+    - Page: Building Filter Conditions for Rules (Using basic UQL)
+    - Page: Common Action Types (Update field, Create Object, Send email, Send chat, Outgoing webhook)
+    - Page: Smart Values and Dynamic Data Processing in Automation
+    - Page: Managing and Tracking Automation Rule Execution History
+ 6. **Workviews**
+    - Page: Overview of Workviews (List, Kanban, Calendar, Timeline, Updates/Activity Feed)
+    - Page: Customizing List View (Sort, Group, Hide/Show columns, Totals)
+    - Page: Working efficiently with Kanban View (Column configuration, Drag & drop, WIP Limits)
+    - Page: Using Calendar and Timeline Views for time-based management
+    - Page: Creating and Sharing Custom Workviews
+ 7. **UQL (Universal Query Language)**
+    - **JTBD:** _When I need to search, filter data or build reports/automation conditions accurately and flexibly, I want to understand what UQL is and how to use its basic syntax, so I can maximize data utilization in Luklak._
+    - **Key Takeaway:** "You will master UQL as Luklak's powerful query language, allowing you to search, filter and aggregate data from any Object and Data Field, serving as the foundation for Filters, Reports and Automation Conditions."
+    - Page: Introduction to UQL: The Power of Universal Query Language
+    - Page: Basic UQL Syntax: Comparison operators, logic (AND, OR, NOT), working with data types
+    - Page: Using UQL in Quick Filters and Saved Filters
+    - Page: Applying UQL in Automation Rule Conditions
+    - Page: Advanced UQL Examples (Functions, nested queries - if available)
+ 8. **Permission Scheme & Roles**
+    - Page: Permission and Role Concepts in Luklak
+    - Page: Types of Actions that can be permissioned (View, Create, Edit, Delete, Status Transition, etc.)
+    - Page: Creating and Managing Global Roles and Function-specific Roles
+    - Page: Setting up Permission Schemes for Functions
+    - Page: Assigning Users and Groups to Roles in Spaces and Areas
+ 9. **Notification Scheme**
+    - Page: How Luklak sends Notifications and Personal Settings
+    - Page: Setting up Notification Schemes for Functions: Who receives what, when?
+    - Page: Types of Notification Recipients (Assignee, Creator, Role, User Field)
+10. **Business Privilege**
+    - **JTBD:** _When I am a system administrator, I want to control high-level permissions related to managing the entire business account, such as creating new Functions, managing global users, payment settings, to ensure stable and secure operations._
+    - **Key Takeaway:** "You will understand Business Privileges as the highest-level permissions in Luklak, allowing management of core account aspects, and how to assign these privileges to appropriate users."
+    - Page: Business Privileges and Their Meanings
+    - Page: Managing Users and Allocating Business Privileges
+11. **Item Access / License Management**
+    - **JTBD:** _When I manage Luklak usage in the enterprise, I want to understand how Luklak manages user licenses, different license types (if any), and how it affects access to certain Functions or features, to optimize costs and ensure everyone has appropriate access._
+    - **Key Takeaway:** "You will grasp Luklak's user license management mechanism, how it relates to Function and feature access rights, and how to manage user counts effectively."
+    - Page: Types of User Licenses in Luklak (if multiple types exist)
+    - Page: How Licenses affect Function and Feature Access Rights
+    - Page: Managing and Allocating Licenses to Users
+
+### **B. Tier 2: Function Design**
+
+1. **What is a Function? Packaging Business Logic**
+   - **JTBD:** _When I want to build a solution for a specific business process (e.g., recruitment management, CRM), I need to understand what a "Function" in Luklak is and why it's important, so I can start packaging logic and data in an organized way._
+   - **Key Takeaway:** "You will understand a Function as a complete 'blueprint' for a business category, including related Object Types, Workflows, Data fields, Automation, Permissions and Interfaces, which can be reused and deployed as specific Spaces."
+2. **Process for Designing an Effective Function (Playbook)**
+   - Page: Step 1: Requirements Analysis and Scope Definition
+   - Page: Step 2: Define Object Types and Relationships
+   - Page: Step 3: Design Workflows for each Object Type
+   - Page: Step 4: Build Data Screens and Data Fields
+   - Page: Step 5: Set up Automation Rules
+   - Page: Step 6: Configure Permissions and Notifications
+   - Page: Step 7: Design Workviews and Report Templates
+   - Page: Step 8: Test and Refine the Function
+3. **Function Template Library**
+   - **JTBD:** _When I want to quickly have a solution for a common need (e.g., Simple Task Management) without building from scratch, I want to know if Luklak provides template Functions and how to use them, to save time and effort._
+   - **Key Takeaway:** "You will explore the library of pre-built template Functions by Luklak, how to import them into your account and customize them to fit your specific needs."
+   - Page: Exploring the Function Template Library
+   - Page: Guide to Import and Customize a Template Function
+4. **Function Access Management & Sharing**
+   - **JTBD:** _When I have designed a Function, I want to control who in the enterprise is allowed to use that Function to create Spaces, or share that Function design with others (if I'm a Consultant), I need to understand the Function access management mechanism._
+   - **Key Takeaway:** "You will learn how to manage who has permission to use (deploy) a Function, and how to share (export/import) Function designs between accounts or with the community."
+
+### **C. Tier 3: Using & Operating Luklak**
+
+_(This section focuses on how end users and managers interact with components that have been designed and deployed.)_
+
+1. **Organizing Work with Areas and Spaces**
+   - **JTBD:** _When I start working or managing a team on Luklak, I want to understand what "Areas" and "Spaces" are, how they help organize work, and how to create/join them, so I have a clear and efficient workspace._
+   - **Key Takeaway:** "You will understand that a Space is where a specific Function is deployed for work (e.g., 'Sales Team CRM' Space), and an Area is a way to group related Spaces together (e.g., 'Business' Area)."
+   - Page: What is an Area? High-level Organization for Business
+   - Page: Space: Specialized Workspace for each Business Process
+   - Page: Creating, Joining and Managing Space Members
+   - Page: Space-specific Settings (Interface customization, Private automation)
+2. **Working with Objects: Create, Update, Track**
+   - Page: Creating a new Object (From Interface, From Quick Action button)
+   - Page: Understanding Object Detail Screen (Information, Activity, History, Attachments tabs)
+   - Page: Updating Information and Transitioning Status for Objects
+   - Page: Using Checklist Items and Sub-objects to break down work
+   - Page: Attaching Files and Images to Objects
+3. **Effective Collaboration in Luklak**
+   - Page: Using Live Chat on Objects and Space Chat Channels
+   - Page: @mention, Follow Objects and Receive Notifications
+   - Page: Assigning Tasks and Coordinating with other Members
+4. **Smart Data Search & Filtering**
+   - Page: Using Quick Filter Bar
+   - Page: Creating and Saving Complex Filters (Saved Filters) with basic UQL
+   - Page: Sharing Filters with Team
+5. **Reports & Dashboard: Performance Tracking**
+   - Page: Introduction to Reporting and Dashboard Capabilities in Luklak
+   - Page: Types of Gadgets in Dashboard (Charts, Statistical tables, Counters)
+   - Page: Building Personal and Team Dashboards
+   - Page: Customizing and Sharing Dashboards
+
+---
