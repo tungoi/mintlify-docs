@@ -190,6 +190,7 @@
           {
             "group": "Build",
             "pages": [
+              "en/03-build/tab03-note",
               "function-design/functiondesign-en",
               "function-design/functiondesign-vn",
               "function-design/quanlythuchi",
@@ -225,6 +226,7 @@
           {
             "group": "API Documentation",
             "pages": [
+              "en/04-use/tab04-note",
               "api-reference/introduction"
             ]
           },
@@ -245,6 +247,7 @@
           {
             "group": "API Documentation",
             "pages": [
+              "en/05-templates/tab05-note",
               "api-reference/introduction"
             ]
           },
@@ -265,6 +268,7 @@
           {
             "group": "Tự động hóa",
             "pages": [
+              "en/06-academy/tab06-note",
               "courses/khoa-hoc",
               "function-design/ngonngu"
             ]
