@@ -1,0 +1,217 @@
+---
+title: "New file"
+description: "Description of your new file."
+---
+
+---
+
+### ## **Version 1: For P1 - The Solution Consultant ("The Architect")**
+
+**(Content Drafter's final output after incorporating Truth_Checker and UX_Watcher feedback)**
+
+#### **Title: Architecting a Scalable CRM Data Model in Luklak**
+
+**Why This Matters:** A well-architected CRM is the foundation of a scalable go-to-market operation. In Luklak, this means designing your core `Object Types` not as isolated containers, but as a relational data model that ensures data integrity and operational efficiency. This guide outlines the best practices for structuring the six core CRM objects.
+
+---
+
+#### **Core Principle: Normalization and a Single Source of Truth**
+
+The fundamental principle is to treat each business entity as a distinct `Object Type` to avoid data redundancy. A `🧊 Company` may have many `🧊 Contacts`, and a `🧊 Contact` may be involved in multiple `🧊 Opportunities`. By creating separate objects for each, you can build a robust, normalized database where information is updated in one place and reflected everywhere.
+
+---
+
+#### **Object Type Blueprints**
+
+**`1. 🧊 Company (The Organization)`**
+
+- **Purpose:** The central object representing an entire organization. It acts as the parent container for `🧊 Contacts` and other related data.
+- **Key Fields:** `Company Name` (Text), `Website` (URL), `HQ Address` (Location), `Industry` (Select), `Employee Count` (Number).
+- **Architect's Note:** Use the `🧊 Company` object as the anchor for firmographic data. All `🧊 Contact` objects should link back to a single `🧊 Company` record to maintain a single source of truth for organizational information.
+
+**`2. 🧊 Contact (The Individual)`**
+
+- **Purpose:** Represents an individual person. This object stores all person-specific demographic and contact information.
+- **Key Fields:** `Full Name` (Text), `Email` (Email), `Phone` (Phone), `Job Title` (Text), `LinkedIn URL` (URL).
+- **Relational Design:**
+  - Use a **Lookup Field** named `Company` to create a many-to-one relationship with the `🧊 Company` object.
+  - This is more scalable than a simple text field, as it allows you to view all contacts associated with a single company.
+
+**`3. 🧊 Lead (The Initial Inquiry)`**
+
+- **Purpose:** A temporary object to capture and qualify an initial, unqualified inquiry. Its goal is to be converted into a `🧊 Contact` and `🧊 Opportunity`.
+- **Key Fields:** Inherits fields from `🧊 Contact` but also includes `Lead Source` (Select), `Status` (Lead Workflow), `Qualification Notes` (Text Area).
+- **Architect's Note:** Avoid cluttering your core `🧊 Contact` database with unqualified leads. The `🧊 Lead` object acts as a sandbox. A successful conversion process should be automated to create/update `🧊 Contact` and `🧊 Opportunity` objects and then archive the original `🧊 Lead`.
+
+**`4. 🧊 Opportunity (The Deal)`**
+
+- **Purpose:** Tracks a potential sales deal from initiation to close. This is the core object for pipeline management and revenue forecasting.
+- **Key Fields:** `Deal Name` (Text), `Value` (Currency), `Stage` (Sales Pipeline Workflow), `Close Date` (Date), `Probability` (Percent).
+- **Relational Design:**
+  - Include a **Lookup Field** for the primary `🧊 Contact` to link the deal to a key decision-maker. Through that `🧊 Contact`, you have an implicit link to the `🧊 Company`.
+
+**``5. 🧊 Contract & 🧊 Activity (Execution & Tracking)``**
+
+- **Purpose:**
+  - `🧊 Contract`: Manages the legal and financial agreements post-sale.
+  - `🧊 Activity`: A universal logging object to track every interaction (call, meeting, email) related to `🧊 Contacts` or `🧊 Opportunities`.
+- **Architect's Note:** An `🧊 Activity` object demonstrates the power of global connections. You can design it to be linked to multiple other object types, creating a comprehensive, filterable timeline of every touchpoint in the customer lifecycle.
+
+---
+
+### ## What's Next?
+
+- Now that you've designed the data schema, the next step is to [**Design the Sales Pipeline Workflow**](https://www.google.com/search?q=./workflow-and-status/design-workflows.mdx).
+- Explore how to [**Connect these objects with Universal Automation**](https://www.google.com/search?q=./universal-automation/index.mdx) to automatically convert leads.
+
+---
+
+### ## **Version 2: For P2 - The CEO / Executive Buyer ("The Visionary")**
+
+**(Content Drafter's final output after incorporating Truth_Checker and UX_Watcher feedback)**
+
+#### **Title: The Customer 360° View: How Luklak Unifies Your Business**
+
+**The Business Impact:** Your company's most valuable asset is its customer data, yet it's often fragmented across different departments. This guide explains how Luklak's structure provides a complete, 360° view of your customer journey, from the first marketing touchpoint to the final signed contract, all in one place.
+
+---
+
+#### **From a Single Click to a Lifelong Customer**
+
+Imagine seeing your entire business not as separate departments, but as a single, seamless value stream. Luklak's unique object structure makes this possible. Each stage of the customer journey is a connected piece of the puzzle, giving you unprecedented visibility.
+
+- **`1. The First Spark (🧊 Lead):`** When a potential customer shows interest, all initial data is captured. You can immediately see which marketing channels are bringing in the most valuable inquiries.
+- **``2. The Relationship (🧊 Company & 🧊 Contact):``** We separate the organization from the people. This gives you a clear view of your entire relationship with a key account, including every person you've ever interacted with.
+- **`3. The Deal (🧊 Opportunity):`** This is your sales pipeline. At a glance, you can see every deal in progress, its value, and its forecasted close date, providing a real-time view of your business's financial health.
+- **`4. The Agreement (🧊 Contract):`** See every active contract and its terms without needing to pull reports from a separate system.
+- **`5. The Full Story (🧊 Activity):`** Every meeting, call, and significant email is tracked, giving you a complete, high-level history of the entire relationship.
+
+---
+
+#### **The Result: A Single Source of Truth**
+
+Because all these components are built on the same unified platform, you can build a single dashboard that answers your most critical business questions:
+
+- What is the total value of our sales pipeline right now?
+- Which lead sources generate the most valuable deals?
+- How long does it take us to move from first contact to a signed contract?
+
+This isn't about integrating different apps; it's about having a single, coherent system from the start.
+
+---
+
+### ## What's Next?
+
+- See how this unified data powers real-time business intelligence: [**Building Your First Executive Dashboard**](https://www.google.com/search?q=./use-and-operate/reports-and-dashboards.mdx)
+- Explore a real-world example of this structure in action: [**Read our Customer Stories**](https://www.google.com/search?q=./getting-started/customer-stories.mdx)
+
+---
+
+### ## **Version 3: For P3 - The Project/Team Manager ("The Operator")**
+
+**(Content Drafter's final output after incorporating Truth_Checker and UX_Watcher feedback)**
+
+#### **Title: How-To: Set Up Your Core CRM Objects**
+
+**Why This Matters:** A well-organized CRM is the key to an efficient sales team. This guide provides a step-by-step process for creating the essential `Object Types` your team will use every day to manage leads, contacts, and deals in Luklak.
+
+> **Manager's Tip: Start with a Template\!**
+> Before building from scratch, we strongly recommend importing the pre-built **`CRM 📋 Function Template`**. It includes all the objects, fields, and workflows mentioned below, saving you hours of setup time. You can always customize it later.
+
+---
+
+#### **Checklist for Your CRM Setup**
+
+Here are the six `Object Types` you'll create. Follow the steps below for each one.
+
+- `🧊 Lead`
+- `🧊 Company`
+- `🧊 Contact`
+- `🧊 Opportunity`
+- `🧊 Contract`
+- `🧊 Activity`
+
+---
+
+#### **Step-by-Step Guide**
+
+**``1. Create the 🧊 Company and 🧊 Contact Objects``**
+These are your core database.
+
+- Go to **`📋 Function Design`** \> **Object Types** and click **"Create New."**
+- Create an object named **`🧊 Company`**. Add key fields like `Company Name`, `Website`, and `Industry`.
+- Create another object named **`🧊 Contact`**. Add fields like `Full Name`, `Email`, and `Job Title`.
+- **To Link Them:** In the `🧊 Contact` object, add a new field. Select the **"Object Lookup"** type, name it "Company," and choose the `🧊 Company` object you just created. This lets your team link every contact to a company.
+
+**`2. Build the 🧊 Opportunity Object for Your Pipeline`**
+This object will track your deals.
+
+- Create a new object named **`🧊 Opportunity`**.
+- **Add Key Fields:**
+  - `Deal Name`: A Text field.
+  - `Value`: A **Currency** field.
+  - `Stage`: A **Workflow** field. (You'll design the stages like "Prospecting," "Negotiation," "Closed Won" in the Workflow editor).
+  - `Primary Contact`: An **Object Lookup** field that points to your `🧊 Contact` object.
+
+**`3. Set Up a 🧊 Lead Object for Inquiries`**
+This is the entry point for new business.
+
+- Create a new object named **`🧊 Lead`**.
+- Add fields to capture initial information: `Name`, `Email`, `Lead Source`.
+- **Manager's Tip:** In your "Lead" workflow, you can set up an **automation** on the "Convert" transition that automatically creates a `🧊 Contact` and `🧊 Opportunity` object, saving your team manual data entry.
+
+---
+
+### ## What's Next?
+
+- Your objects are ready. Now, let's build the process your team will follow: [**Designing Your Sales Pipeline Workflow**](https://www.google.com/search?q=./workflow-and-status/design-workflows.mdx).
+- Learn how to automate lead assignment to your team members: [**Creating a "Round Robin" Automation Rule**](https://www.google.com/search?q=./universal-automation/common-actions.mdx).
+
+---
+
+### ## **Version 4: For P4 - The End User / Employee ("The Doer")**
+
+**(Content Drafter's final output after incorporating Truth_Checker and UX_Watcher feedback)**
+
+#### **Title: What are CRM Objects? A Simple Guide**
+
+**Why This Matters:** In Luklak, all your sales information is organized into different types of records, which we call "Objects." Understanding what each one is for will help you find information quickly and do your job faster.
+
+Think of it like a digital filing cabinet for all your customer information. Each drawer is for a different type of record.
+
+---
+
+### ## Your Digital Filing Cabinet for Sales
+
+Here are the main "drawers" (Object Types) you'll use every day:
+
+- **`🧊 Contact`**
+  - **What it is:** A record for a single person.
+  - **When to use it:** Use this to store the name, email, and phone number of anyone you talk to.
+- **`🧊 Company`**
+  - **What it is:** A record for a business or organization.
+  - **When to use it:** This is where you store the company's name, website, and address. You can link multiple **`🧊 Contacts`** to one **`🧊 Company`**.
+- **`🧊 Lead`**
+  - **What it is:** A brand new, temporary inquiry that hasn't been qualified yet.
+  - **When to use it:** When someone fills out a form on the website, a **`🧊 Lead`** is created. Your job is to call them to see if they're a good fit\!
+- **`🧊 Opportunity`**
+  - **What it is:** A potential deal you are trying to win. This is your pipeline\!
+  - **When to use it:** After you've qualified a **`🧊 Lead`**, you'll convert it into an **`🧊 Opportunity`**. You'll update the stage of the **`🧊 Opportunity`** as you get closer to closing the deal.
+- **``🧊 Contract & 🧊 Activity``**
+  - **What they are:**
+    - **`🧊 Contract:`** The official agreement after a deal is won.
+    - **`🧊 Activity:`** A log of your interactions, like a phone call or a meeting.
+  - **Quick Tip:** Your manager may have set up automations to create these for you, so you can focus on selling\!
+
+---
+
+### ## How They Connect
+
+The best part is that these records are all linked. From an `🧊 Opportunity`, you can click to see the `🧊 Contact` you're talking to, and from that `🧊 Contact`, you can see the `🧊 Company` they work for. Everything is connected so you have the full picture.
+
+---
+
+### ## What's Next?
+
+- Learn how to find and update your records: [**Using the Quick Filter Bar**](https://www.google.com/search?q=./use-and-operate/search-and-filter.mdx)
+- See how to manage your deals on a visual board: [**Working with the Kanban View**](https://www.google.com/search?q=./workviews/kanban-view.mdx)
