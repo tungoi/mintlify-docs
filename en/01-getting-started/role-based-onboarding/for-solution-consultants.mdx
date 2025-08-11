@@ -1,0 +1,81 @@
+---
+title: "Technical Architecture: Building Enterprise Solutions"
+description: "Technical overview of platform architecture, capabilities, and integration possibilities for solution design."
+---
+
+import { Card, CardGroup, Steps, Note, Accordion, AccordionGroup } from '@mintlify/components';
+
+You don't just use software; you design systems. This briefing provides the architectural framework of Luklak, enabling you to design robust, scalable, and elegant solutions for your enterprise.
+
+At its core, Luklak is not a suite of applications but a unified platform for building them. To design effectively, it's crucial to understand its three-tiered structure.
+
+### The 3-Tier Architecture
+
+Think of Luklak as a system with three distinct layers of abstraction, moving from foundational logic to user operation.
+
+<AccordionGroup>
+  <Accordion title="Tier 1: Core LEGO Pieces (The Foundation)">
+    This is the lowest level, where the fundamental logic of the platform resides. It consists of universal components like the `🧊 Universal Object`, Data Fields, and Workflows. As an architect, you'll define these pieces to represent the core entities and processes of the business.
+  </Accordion>
+  <Accordion title="Tier 2: Function Design (The Blueprint)">
+    In this tier, you assemble the Core LEGO Pieces into reusable, no-code blueprints called `📋 Functions`. A Function is a complete definition of a business module (e.g., a CRM, a recruitment process). This is where you'll spend most of your design time.
+  </Accordion>
+  <Accordion title="Tier 3: Usage & Operation (The Workspace)">
+    This is the live environment. When a `📋 Function` is deployed, it creates a `⏹️ Space` where end-users interact with the `🧊 Objects` you designed. It's the tangible output of your architectural work.
+  </Accordion>
+</AccordionGroup>
+
+### Deconstructing the Universal Object
+
+The `🧊 Universal Object` is the most critical concept to master. Every `🧊 Object` you create is an instance of a specific **Object Type**, which acts as its blueprint. This blueprint defines the Object's structure and behavior through two core components:
+
+<CardGroup cols={2}>
+  <Card title="Workflows">
+    The state machine that governs the `🧊` Object's lifecycle, consisting of Statuses and Transitions.
+  </Card>
+  <Card title="Data Fields">
+    The attributes or properties of the `🧊` Object. You assemble these fields into configurable Data screens to capture information.
+  </Card>
+</CardGroup>
+
+### Core Capabilities for Solution Design
+
+As an architect, these are the primary tools you will use to build your solutions:
+
+* **Object Connection:** Go beyond simple parent-child links. Model complex relationships (1:1, 1:N, N:M) between any `🧊 Object` types across any `📋 Function`, enabling truly integrated systems.
+* **Universal Automation Engine:** The system's central nervous system. Use triggers, conditions, and actions to automate processes not just within a `📋 Function`, but across your entire Luklak environment.
+* **Granular Governance:** Implement robust security with fine-grained permission schemes and user roles, ensuring the right people have the right access at every level of the system.
+* **Integration & Extensibility:** Connect Luklak to external systems using tools within the Universal Automation engine. While Luklak does not offer an open inbound API, you can push data and trigger external processes via **Webhooks** or by making outbound **HTTPS requests** to third-party APIs. For secure and auditable integrations, always use dedicated `Functional accounts` to perform these actions.
+
+### Your First Solution Design: A Mental Walkthrough
+
+Here’s how to approach designing a solution on Luklak—using a recruitment system as an example.
+
+<Steps>
+    <Step>
+        **1. Deconstruct the Business Process**
+
+        First, identify the core entities (`Candidate`, `Job Position`, `Interview`), the data to capture for each, and the stages they move through (`APPLIED` -> `SCREENING` -> `HIRED`).
+    </Step>
+    <Step>
+        **2. Define Your Universal Objects**
+
+        Map your entities to Luklak `Object types`. `Candidate` and `Job Position` become `🧊 Standard Objects`. `Interview` becomes a `🧊︎ Sub-Object` nested under `Candidate`.
+    </Step>
+    <Step>
+        **3. Model Relationships with Object Connection**
+
+        Create a many-to-many connection between `Candidate` and `Job Position`. Now you can easily see all applicants for a position, and all positions a candidate has applied for.
+    </Step>
+    <Step>
+        **4. Design Cross-Functional Automation**
+
+        Map out the key automations. Example: *WHEN* a `Candidate`'s status changes to `HIRED`, *THEN* create a `New Hire Onboarding` `🧊 Object` in the separate HR `📋 Function` and send an HTTPS request to an external payroll system.
+    </Step>
+</Steps>
+
+**What's Next?**
+
+- [Deep Dive: The Universal Object Platform Reference](/platform/universal-object)
+- [Build Playbook: Construct a Custom CRM](/build-playbooks/crm-playbook)
+- [Learn more about the Automation Engine](/platform/universal-automation)
