@@ -24,7 +24,6 @@
           {
             "group": "Get Started",
             "pages": [
-              "en/01-getting-started/welcome",
               "en/01-getting-started/tab01-note",
               "en/01-getting-started/quick-start"
             ]
