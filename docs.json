@@ -43,7 +43,7 @@
         ]
       },
       {
-        "tab": "Platform",
+        "tab": "Core Platform",
         "groups": [
           {
             "group": "Core concepts",
@@ -57,7 +57,7 @@
         ]
       },
       {
-        "tab": "Build",
+        "tab": "Build Playbook",
         "groups": [
           {
             "group": "Build examples",
@@ -68,7 +68,7 @@
         ]
       },
       {
-        "tab": "Use",
+        "tab": "User Guide",
         "groups": [
           {
             "group": "Use & Manage",
@@ -80,7 +80,7 @@
         ]
       },
       {
-        "tab": "Templates",
+        "tab": "Use Cases & Templates",
         "groups": [
           {
             "group": "Function Templates",
