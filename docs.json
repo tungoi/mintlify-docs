@@ -62,8 +62,7 @@
           {
             "group": "Build examples",
             "pages": [
-              "en/03-build/laika-crossfunction",
-              "en/02-platform/laika-universal-automation"
+              "en/03-build/laika-crossfunction"
             ]
           }
         ]
