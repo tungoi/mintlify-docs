@@ -1,0 +1,75 @@
+---
+title: "Cài đặt Workflow Nâng cao"
+description: "Description of your new file."
+---
+
+
+**Giới thiệu: Từ Lối mòn đến Trạm kiểm soát Thông minh**
+
+Một luồng tiến trình (workflow) cơ bản chỉ định ra một con đường. Nhưng một workflow nâng cao sẽ xây dựng các "trạm kiểm soát" thông minh trên con đường đó. Tại mỗi điểm chuyển giao trạng thái, bạn có thể yêu cầu hệ thống kiểm tra giấy tờ (Điều kiện), yêu cầu người dùng cung cấp thêm thông tin (Màn hình Nhập liệu), và tự động mở các cánh cổng tiếp theo (Tự động hóa).
+
+Bài viết này sẽ đi sâu vào ba cài đặt nâng cao giúp bạn biến một quy trình đơn giản thành một bộ máy vận hành thông minh, chống sai sót và hiệu quả.
+
+**Điều kiện tiên quyết:**
+
+- Bạn nên làm quen với các khái niệm cơ bản về workflow trước: [Universal Workflow: Chuẩn hóa Mọi Quy trình Nghiệp vụ](https://www.google.com/search?q=./platform-reference/universal-workflow)
+
+---
+
+**`1. Điều kiện (Conditions) - Hàng rào Đảm bảo Chất lượng Dữ liệu`**
+
+- **Mục đích:** Điều kiện là tuyến phòng thủ đầu tiên của bạn để đảm bảo tính toàn vẹn của quy trình. Nó được dùng để ngăn chặn các sai sót, đảm bảo dữ liệu được điền đầy đủ và thực thi các quy tắc nghiệp vụ _trước khi_ một công việc được phép chuyển sang giai đoạn tiếp theo.
+- **Cách hoạt động:** Khi người dùng cố gắng chuyển trạng thái một `` `🧊 Đầu việc` ``, hệ thống sẽ kiểm tra các điều kiện bạn đã thiết lập. Nếu không thỏa mãn, hành động sẽ bị chặn lại và một thông báo lỗi sẽ xuất hiện.
+- **Bạn có thể kiểm tra những gì?**
+  - **Trường Dữ liệu:** Kiểm tra giá trị của bất kỳ trường nào (ví dụ: `Giá trị Hợp đồng` \> 0).
+  - **Mục kiểm (Checklist):** Yêu cầu một số lượng hoặc tỷ lệ phần trăm các mục trong checklist phải được hoàn thành.
+  - **Đầu việc con:** Đảm bảo rằng tất cả hoặc một số `` `🧊 Đầu việc con` `` phải ở trạng thái "Hoàn thành".
+  - **Đầu việc được kết nối:** Kiểm tra trạng thái hoặc dữ liệu của các `` `🧊 Đầu việc` `` có liên quan.
+- **Ví dụ thực tế:** Trong quy trình bán hàng, bạn có thể thiết lập một điều kiện trên bước chuyển sang trạng thái "Đã gửi Đề xuất":
+
+  > "Không cho phép chuyển trạng thái _trừ khi_ trường `Tài liệu Đề xuất` (dạng Tệp đính kèm) không bị trống."
+
+---
+
+**`2. Màn hình Nhập liệu (Input Screen) - Thu thập Dữ liệu đúng Ngữ cảnh`**
+
+- **Mục đích:** Yêu cầu người dùng cung cấp thông tin cụ thể ngay tại thời điểm chuyển đổi trạng thái. Điều này giúp thu thập dữ liệu đúng lúc, đúng ngữ cảnh và giảm thiểu việc người dùng quên cập nhật các trường thông tin quan trọng.
+- **Cách hoạt động:** Khi người dùng thực hiện một bước chuyển trạng thái có Màn hình Nhập liệu, một cửa sổ pop-up sẽ hiện ra, yêu cầu họ điền vào các trường bạn đã chỉ định. Bạn có thể đặt các trường này là bắt buộc.
+- **Ví dụ thực tế:** Trong quy trình hỗ trợ khách hàng, khi một nhân viên chuyển một `` `🧊 Ticket` `` từ trạng thái "Đang xử lý" sang "Chờ phản hồi từ khách":
+
+  > "Một Màn hình Nhập liệu sẽ hiện ra, yêu cầu nhân viên phải điền vào trường `Tóm tắt hành động cuối cùng` (dạng Đoạn văn bản) trước khi việc chuyển trạng thái được hoàn tất."
+
+---
+
+**`3. Tự động hóa (Automation) - Kích hoạt Bước Tiếp theo`**
+
+- **Mục đích:** Loại bỏ các bước bàn giao thủ công và tự động khởi chạy các hành động kế tiếp ngay khi một giai đoạn được hoàn thành.
+- **Cách hoạt động:** Các hành động này sẽ được thực thi ngay lập tức _sau khi_ việc chuyển trạng thái diễn ra thành công (tức là đã vượt qua các bước kiểm tra Điều kiện và Màn hình Nhập liệu).
+- **Bạn có thể làm gì?**
+  - Cập nhật một hoặc nhiều trường dữ liệu trên `` `🧊 Đầu việc` ``.
+  - Tạo ra một `` `🧊 Đầu việc` `` mới (ví dụ: một công việc con hoặc một đầu việc trong một `` `📋 Chức năng` `` khác).
+  - Tự động gửi email hoặc tin nhắn chat tới những người liên quan.
+  - Thêm các kết nối đến các `` `🧊 Đầu việc` `` khác.
+- **Ví dụ thực tế:** Khi một `` `🧊 Đầu việc` `` "Ứng viên" được chuyển sang trạng thái "Đã tuyển dụng":
+
+  > "Workflow sẽ tự động: (1) Tạo một `` `🧊 Đầu việc` `` 'Hội nhập Nhân viên mới' cho phòng Nhân sự, (2) Gửi một email chào mừng đến ứng viên, và (3) Đăng một tin nhắn chúc mừng trong kênh chat của đội nhóm."
+
+---
+
+**Kết hợp Cả ba: Một Ví dụ Toàn diện**
+
+Hãy xem cách cả ba cài đặt này phối hợp với nhau trong một bước chuyển trạng thái duy nhất: **Phê duyệt một Yêu cầu Mua hàng**.
+
+- **Bước chuyển:** Từ `Chờ Phê duyệt` sang `Đã Phê duyệt`.
+- **Điều kiện:** `Tổng chi phí` phải nhỏ hơn 20,000,000 VNĐ (nằm trong hạn mức phê duyệt của quản lý cấp trung).
+- **Màn hình Nhập liệu:** Một trường bắt buộc `Ghi chú Phê duyệt` hiện ra để người quản lý điền vào.
+- **Tự động hóa:** Hệ thống tự động gửi một email đến phòng Kế toán, thông báo về yêu cầu đã được phê duyệt và đính kèm ghi chú của người quản lý.
+
+---
+
+**Bước Tiếp Theo là gì?**
+
+- Khám phá các trình kích hoạt tự động hóa mạnh mẽ khác: [Khái niệm về Universal Automation](https://www.google.com/search?q=./vi/platform-reference/universal-automation)
+- Học cách thiết kế các trường dữ liệu bạn sẽ dùng ở đây: [Thiết kế Màn hình Dữ liệu và các Trường quan trọng](https://www.google.com/search?q=./vi/build-playbooks/designing-data-screens)
+
+---
