@@ -31,7 +31,8 @@
           {
             "group": "Essentials",
             "pages": [
-              "en/01-getting-started/role-based-onboarding/index"          
+              "en/01-getting-started/role-based-onboarding/index",
+              "en/01-getting-started/role-based-onboarding/for-ceos-executives"
             ]
           }
         ]
