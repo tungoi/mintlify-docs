@@ -26,14 +26,18 @@
             "pages": [
               "en/01-getting-started/tab01-note",
               "en/01-getting-started/quick-start",
-              "en/01-getting-started/philosophy"
+              "en/01-getting-started/philosophy",
+              "en/01-getting-started/account-setup/account-setup"
             ]
           },
           {
             "group": "Essentials",
             "pages": [
               "en/01-getting-started/role-based-onboarding/index",
-              "en/01-getting-started/role-based-onboarding/for-ceos-executives"
+              "en/01-getting-started/role-based-onboarding/for-ceos-executives",
+              "en/01-getting-started/role-based-onboarding/for-solution-consultants",
+              "en/01-getting-started/role-based-onboarding/for-team-managers",
+              "en/01-getting-started/role-based-onboarding/for-end-users"
             ]
           }
         ]
