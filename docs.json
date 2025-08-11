@@ -17,140 +17,7 @@
    ]
  },
   "navigation": {
-     "versions": [
-      {
-        "version": "🇻🇳 |Tiếng Việt",
-         "tabs": [
-      {
-        "tab": "Bắt đầu",
-        "groups": [
-          {
-            "group": "Tổng quan",
-            "pages": [
-              "vi/01-bat-dau/welcome",
-              "vi/01-bat-dau/tai-khoan",
-              {
-					"group": "Quick Start",
-					"icon": "play",
-					"pages": [
-						"navigation",
-						"code"
-					]
-				}
-            ]
-          },
-          {
-            "group": "Quick Demo",
-            "tag": "INTERACTIVE",
-            "pages": [
-              "function-design/crm",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Platform",
-        "groups": [
-          {
-            "group": "Kiến trúc hệ thống",
-            "pages": [
-              "vi/02-platform/luklak-platform"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Thiết kế",
-        "groups": [
-          {
-            "group": "Thiết kế chức năng",
-            "pages": [
-              "vi/03-thiet-ke/thiet-ke-chuc-nang",
-              "vi/03-thiet-ke/laika-crossfunction"
-            ]
-          },
-          {
-            "group": "Chức năng mẫu",
-            "pages": [
-                 
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Sử dụng",
-        "groups": [
-          {
-            "group": "API Documentation",
-            "pages": [
-              "vi/04-su-dung/su-dung-lam-viec"
-            ]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Templates",
-        "groups": [
-          {
-            "group": "Template Chức năng",
-            "pages": [
-              "vi/05-templates/quan-li-thu-chi",
-              "vi/05-templates/crm",
-              "vi/05-templates/hrm",
-              "vi/05-templates/laika/laika-crossfunction-new",
-              "vi/05-templates/laika/laika-mkt"
-            ]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Khóa học",
-        "groups": [
-          {
-            "group": "Tự động hóa",
-            "pages": [
-              "vi/06-khoa-hoc/gioi-thieu-khoa-hoc"
-            ]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
-      }
-    ]
-      },
-      {
-        "version": "🇺🇸 |English",
-         "tabs": [
+  "tabs": [
       {
         "tab": "Getting Started",
         "groups": [
@@ -191,7 +58,7 @@
             "group": "Build",
             "pages": [
               "en/03-build/tab03-note",
-              "en/03-build/crm"
+              "en/03-build/crm",
               "function-design/functiondesign-en",
               "function-design/functiondesign-vn",
               "function-design/quanlythuchi",
@@ -284,8 +151,6 @@
             ]
           }
         ]
-      }
-    ]
       }
     ]
 },
