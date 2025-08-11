@@ -50,8 +50,7 @@
             "pages": [
               "en/02-platform/tab02-note",
               "en/02-platform/luklak-platform",
-              "en/02-platform/state-of-unifed",
-              "function-design/functiondesign"
+              "en/02-platform/state-of-unifed"
             ]
           }
         ]
@@ -73,8 +72,7 @@
           {
             "group": "Use & Manage",
             "pages": [
-              "en/04-use/tab04-note",
-              "api-reference/introduction"
+              "en/04-use/tab04-note"
             ]
           }
         ]
@@ -85,8 +83,7 @@
           {
             "group": "Function Templates",
             "pages": [
-              "en/05-templates/tab05-note",
-              "api-reference/introduction"
+              "en/05-templates/tab05-note"
             ]
           }
         ]
