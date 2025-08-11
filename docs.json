@@ -30,15 +30,7 @@
             ]
           },
           {
-            "group": "Essentials",
-            "pages": [
-              "function-design/crm",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
-            ]
+            "group": "Essentials"
           }
         ]
       },
@@ -46,7 +38,7 @@
         "tab": "Platform",
         "groups": [
           {
-            "group": "Kiến trúc hệ thống",
+            "group": "Core concepts",
             "pages": [
               "en/02-platform/tab02-note",
               "en/02-platform/luklak-platform",
