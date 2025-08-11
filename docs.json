@@ -59,10 +59,7 @@
             "pages": [
               "en/03-build/tab03-note",
               "en/03-build/crm",
-              "function-design/functiondesign-en",
-              "function-design/functiondesign-vn",
-              "function-design/quanlythuchi",
-              "luklak-platform/endpoint/webhook"
+              "function-design/functiondesign-en"
             ]
           }
         ]
