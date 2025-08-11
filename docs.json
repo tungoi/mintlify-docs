@@ -53,14 +53,6 @@
               "en/02-platform/state-of-unifed",
               "function-design/functiondesign"
             ]
-          },
-          {
-            "group": "Build",
-            "pages": [
-              "en/03-build/tab03-note",
-              "en/03-build/crm",
-              "function-design/functiondesign-en"
-            ]
           }
         ]
       },
@@ -68,19 +60,10 @@
         "tab": "Build",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Build examples",
             "pages": [
               "en/03-build/laika-crossfunction",
               "en/02-platform/laika-universal-automation"
-            ]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
             ]
           }
         ]
@@ -89,19 +72,10 @@
         "tab": "Use",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Use & Manage",
             "pages": [
               "en/04-use/tab04-note",
               "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
             ]
           }
         ]
@@ -110,19 +84,10 @@
         "tab": "Templates",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Function Templates",
             "pages": [
               "en/05-templates/tab05-note",
               "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
             ]
           }
         ]
@@ -136,15 +101,6 @@
               "en/06-academy/tab06-note",
               "courses/khoa-hoc",
               "function-design/ngonngu"
-            ]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
             ]
           }
         ]
