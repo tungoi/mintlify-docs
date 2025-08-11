@@ -97,9 +97,7 @@
           {
             "group": "Tự động hóa",
             "pages": [
-              "en/06-academy/tab06-note",
-              "courses/khoa-hoc",
-              "function-design/ngonngu"
+              "en/06-academy/tab06-note"
             ]
           }
         ]
