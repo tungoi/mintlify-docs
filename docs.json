@@ -144,6 +144,14 @@
                       "en/02-platform/platform-overview/universal-automation/automation-testing"
 
 					]
+				},
+              {
+					"group": "Workviews, Dashboards & Filter",
+					"icon": "table-columns",
+					"pages": [
+			         "en/02-platform/platform-overview/workview/index",
+                      "en/02-platform/platform-overview/workview/list-view"
+					]
 				}
             ]
           },

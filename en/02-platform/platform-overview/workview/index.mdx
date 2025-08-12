@@ -1,5 +1,57 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Workviews: See Your Data Your Way"
+description: "An overview of Workviews, the customizable lenses (List, Kanban, Calendar, etc.) that you can design to view and interact with your Object data."
+sidebarTitle: "Workviews Overview"
 ---
 
+## Why Workviews Matter
+
+Your data is only useful if your team can see it and interact with it effectively. A sales team needs a different view of `🧊 Customer` data than a project management team does. Forcing everyone into a single, rigid "one-size-fits-all" table creates friction and lowers productivity.
+
+**Workviews** are Luklak's solution. A Workview is a configurable **"lens"** through which you and your team can view and interact with a set of `🧊 Objects`. You can create multiple views of the same underlying data, allowing every team to work in the way that best suits their process.
+
+## The Standard View Types
+
+Luklak provides a set of standard, powerful view types that you can customize to fit your needs.
+
+<CardGroup cols={3}>
+  <Card title="List" icon="list" iconType="duotone">
+    The classic spreadsheet-style view, perfect for data management, bulk operations, and detailed review.
+  </Card>
+  <Card title="Kanban" icon="columns" iconType="duotone">
+    A visual, card-based view that maps to your `Workflow`, perfect for tracking progress and managing flow.
+  </Card>
+  <Card title="Calendar" icon="calendar-days" iconType="duotone">
+    A standard calendar layout, ideal for scheduling tasks, planning events, and managing time-based work.
+  </Card>
+  <Card title="Timeline" icon="gantt-chart" iconType="duotone">
+    A Gantt-style view for project planning, visualizing dependencies, and tracking progress over a date range.
+  </Card>
+  <Card title="Updates" icon="line-chart" iconType="duotone">
+    A real-time activity feed showing all the latest comments and changes to the `🧊 Objects` in your view.
+  </Card>
+</CardGroup>
+
+## Template vs. Instance: Where to Create Workviews
+
+As an architect, you have two options for creating Workviews, depending on your goal:
+
+1.  **In a `📋 Function` (As a Template):** When you create a Workview inside a `Function`, you are creating a **master template**. This pre-configured view will then be automatically available in every single `⏹️ Space` created from that `Function`. This is the best practice for standardizing how core processes should be viewed.
+
+2.  **In a `⏹️ Space` (As a Custom Instance):** Users can also create their own private or shared Workviews directly within a `Space`. These are useful for specific, temporary needs or for personal views that aren't relevant to the entire process.
+
+[Image Placeholder: A diagram showing a 'Function' icon containing a 'Workview Template'. An arrow points from it to two 'Space' icons, each of which inherits that template. One of the 'Space' icons also has an additional 'Custom Workview' inside it.]
+
+<Info>
+**Architect's Tip:** Define your most important, process-critical views within the `Function`. This ensures every team starts with a consistent, best-practice interface, which they can then supplement with their own custom views in the `Space` if needed.
+</Info>
+
+## What's Next?
+
+You now have an overview of the visualization options available. Dive into the detailed guides for each view type to master their specific configurations.
+
+- [**For data management: List View**](/platform/core-concepts/workviews/list-view)
+- [**For process visualization: Kanban View**](/platform/core-concepts/workviews/kanban-view)
+- [**For time-based planning: Calendar View**](/platform/core-concepts/workviews/calendar-view)
+- [**For project scheduling: Timeline View**](/platform/core-concepts/workviews/timeline-view)
+- [**For real-time tracking: Updates View**](/platform/core-concepts/workviews/updates-view)
