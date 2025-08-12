@@ -1,0 +1,75 @@
+---
+title: "Designing Data Screens: The User's View"
+description: "Learn how to design and organize Data Screens in Luklak, arrange your custom fields, and manage built-in system fields to create an intuitive user experience."
+sidebarTitle: "Designing Data Screens"
+---
+
+## What is a Data Screen?
+
+If `Data Fields` are the individual pieces of information, the **`Data Screen`** is the organized form that presents them to the user. It is the visual layout for creating, viewing, and editing an `Object`.
+
+As an architect, your goal when designing a screen is to create a logical, intuitive data entry experience that guides the user and improves their productivity.
+
+<Info>
+  **The Core Relationship:** Every `Object Type` you design must be assigned a `Data Screen`. This screen dictates the exact layout and fields a user will see when they interact with an `Object` of that type.
+</Info>
+
+## The Design Canvas: Creating and Arranging
+
+Within a `📋 Function`'s design canvas, you have complete control over the layout of your screens. The process is simple:
+
+1. **Create a Screen:** You can create multiple screens within a single Function.
+2. **Add Fields:** Drag and drop your custom-created `Data Fields` from a library panel onto the screen canvas.
+3. **Organize the Layout:** Arrange fields into a logical order. You can group them into sections to create a clean, easy-to-follow form that matches your business process.
+4. **Assign to an Object Type:** The final step is linking your designed screen to one or more `Object Types`.
+
+<Tip>
+  Screens are reusable. You can create one "Contact Details" screen with fields for name, email, and phone, and then assign that same screen to both your "Lead" and "Customer" Object Types to ensure consistency.
+</Tip>
+
+[Guidejar Placeholder: A tutorial showing the creation of a new Screen. The user drags 'Name', 'Email', and 'Phone' fields onto the canvas, arranges them, and then assigns the screen to a 'Contact' Object Type.]
+
+## Managing Built-in System Fields
+
+Every `Data Screen` comes with a powerful set of built-in system fields and components. You don't need to create these; you simply configure their visibility and behavior on the screen layout.
+
+### Always-Available System Fields
+
+These fields are fundamental to most work processes and are always available in the screen designer. You can typically toggle whether they are **Required** for a given Object Type.
+
+- **``Start Date & Due Date:``** The core fields for scheduling and deadlines.
+- **``Assignee & Supervisor:``** The primary fields for defining ownership and accountability.
+- **``Related Users & Related Groups:``** Fields to tag other stakeholders or teams for visibility.
+
+### Optional System Components
+
+These are powerful, built-in features that you can choose to **Show or Hide** on your `Object` layout to tailor the user experience.
+
+<CardGroup cols={2}>
+  <Card title="Description" icon="align-left" iconType="duotone">
+    A prominent rich text block for detailed explanations, instructions, or scope definitions.
+  </Card>
+  <Card title="Checklist" icon="list-check" iconType="duotone">
+    An interactive to-do list within the Object for breaking down and tracking minor sub-tasks.
+  </Card>
+  <Card title="Sub-objects" icon="cubes-stacked" iconType="duotone">
+    A dedicated section to create, view, and manage nested child Objects.
+  </Card>
+  <Card title="Object Connection" icon="link" iconType="duotone">
+    A designated space to display links to other related Objects across the platform.
+  </Card>
+  <Card title="Attachments" icon="paperclip" iconType="duotone">
+    The area where users can upload and manage files related to the Object.
+  </Card>
+  <Card title="Live Photo" icon="camera-retro" iconType="duotone">
+    A mobile-first feature for capturing geo-tagged and time-stamped photos, perfect for on-site verification or acceptance.
+  </Card>
+</CardGroup>
+
+## What's Next?
+
+You've learned how to create fields, configure their settings, and arrange them on a user-facing screen. Now, let's look at the fields the system manages automatically.
+
+- [**Learn about System & Auto-Generated Fields**](/platform/core-concepts/data-fields/system-and-auto-fields)
+- [**See How to Put Your Data to Work**](/platform/core-concepts/data-fields/using-field-data)
+- [**Return to the Data Fields & Screens Overview**](/platform/core-concepts/data-fields)
