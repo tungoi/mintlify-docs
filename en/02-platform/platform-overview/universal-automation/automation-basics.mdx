@@ -1,0 +1,108 @@
+---
+title: "Automation Basics: The Trigger-Condition-Action Model"
+description: "A foundational guide to Luklak's automation logic, detailing the Trigger-Condition-Action model and the execution flows (If/Else, Multi-Path, Branching) that control your rules."
+sidebarTitle: "Automation Basics"
+---
+
+## The Logic of Automation
+
+Every automation rule in Luklak, no matter how complex, is built on a simple, three-part foundation: the **Trigger**, the **Condition**, and the **Action**. Mastering this T-C-A model is the key to building any automated process.
+
+In simple terms, every rule answers three questions:
+
+1. **When** should this automation run? (The Trigger)
+2. **If** the conditions are right... (The Condition)
+3. **Then** do the following work. (The Action)
+
+## Deconstructing the T-C-A Model
+
+Let's break down each component.
+
+<Tabs>
+  <Tab title="Trigger: The 'When'">
+    <p>
+    The **Trigger** is the specific event that starts your automation rule. The automation engine is constantly listening for this event to occur.
+
+    </p>
+
+    <p>
+    **Examples:** "When a new `🧊 Deal` Object is created," "When the `Status` of a `🧊 Task` is updated to `DONE`," or "Every Monday at 9:00 AM."
+
+    </p>
+
+    <p>
+    **Think of it as:** The starting pistol for a race.
+
+    </p>
+
+    <Info>
+      For a complete list of all possible starting events, see our [Guide to Trigger Types](/platform/core-concepts/universal-automation/trigger-types).
+    </Info>
+  </Tab>
+  <Tab title="Condition: The 'If'">
+    <p>
+    The **Condition** is a logical filter that runs _after_ the trigger fires. If the conditions you define are met, the action proceeds. If not, the rule stops.
+
+    </p>
+
+    <p>
+    **Example:** "...IF the `Deal Value` is greater than \$10,000 AND the `Lead Source` is 'Website'."
+
+    </p>
+
+    <p>
+    **Think of it as:** A security checkpoint that verifies the triggering `Object`'s credentials.
+
+    </p>
+
+    <Info>
+      Conditions are built using UQL. To learn more, see our [Guide to Building Conditions](/platform/core-concepts/universal-automation/building-conditions).
+    </Info>
+  </Tab>
+  <Tab title="Action: The 'Then'">
+    <p>
+    The **Action** is the work that the automation performs once the conditions are successfully met. A rule can have one or many sequential actions.
+
+    </p>
+
+    <p>
+    **Example:** "...THEN create a new `Sub-Object` called 'High-Value Deal Review', assign it to the Sales Manager, and send a message to the #sales channel."
+
+    </p>
+
+    <p>
+    **Think of it as:** The mission that gets executed.
+
+    </p>
+
+    <Info>
+      For a complete list of all possible tasks your automation can perform, see our [Guide to Action Types](/platform/core-concepts/universal-automation/action-types).
+    </Info>
+  </Tab>
+</Tabs>
+
+## Controlling the Flow: Execution Logic
+
+Beyond a simple linear path, you can build sophisticated logic within your rule's 'Condition' block to handle different scenarios. This is known as the **Execution Flow**.
+
+<CardGroup cols={3}>
+  <Card title="If/Else Flow" icon="arrows-split-up-and-left" iconType="duotone">
+    The most basic logic. **IF** the condition is true, perform Action A. **ELSE**, perform Action B. Perfect for simple binary decisions.
+  </Card>
+  <Card title="Multi-Path Flow" icon="sitemap" iconType="duotone">
+    Create multiple parallel paths based on different conditions. For example: If `Priority` is `HIGH`, notify manager. If `Type` is `BUG`, create Jira ticket.
+  </Card>
+  <Card title="Branching Flow" icon="diagram-next" iconType="duotone">
+    Used when your rule finds **multiple** `🧊 Objects`. A Branching flow iterates through each found `🧊 Object` and applies the actions to each one individually.
+  </Card>
+</CardGroup>
+
+[Guidejar Placeholder: A tutorial that builds a simple rule from scratch. Trigger: 'When a Deal is created'. Condition: 'If Deal Value \> \$5000'. Action: 'Send a message to the #deals channel'. This will make the T-C-A model concrete.]
+
+## What's Next?
+
+You've mastered the basic logic and structure of an automation rule. Now, let's explore the full range of possibilities for each component.
+
+- [**Deep dive into starting events: Trigger Types**](/platform/core-concepts/universal-automation/trigger-types)
+- [**Learn to write powerful filters: Building Conditions with UQL**](/platform-.../building-conditions)
+- [**See what your digital workforce can do: Action Types**](/platform/core-concepts/universal-automation/action-types)

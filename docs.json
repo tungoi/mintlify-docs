@@ -135,7 +135,8 @@
 					"group": "Universal Automations",
 					"icon": "robot",
 					"pages": [
-			         "en/02-platform/platform-overview/universal-automation/index"
+			         "en/02-platform/platform-overview/universal-automation/index",
+                      "en/02-platform/platform-overview/universal-automation/automation-basics"
 
 					]
 				}
