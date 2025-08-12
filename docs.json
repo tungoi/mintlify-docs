@@ -83,7 +83,8 @@
           {
             "group": "Universal Lego Blocks",
             "pages": [
-              "en/02-platform/function-design/universal-object"
+              "en/02-platform/function-design/universal-object",
+              "en/02-platform/platform-overview/universal-object/what-is-universal-object"
             ]
           },
           {
