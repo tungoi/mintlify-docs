@@ -1,48 +1,73 @@
 ---
-title: "Luklak Platform Architecture: From Open Land to a Digital Business"
-description: "Understand Luklak's architecture, starting with foundational Global Settings for access control and moving through the 3 Tiers of building your unique business operating system."
-sidebarTitle: "Global Overview"
+title: "Luklak Architecture: Foundation & Construction"
+description: "Discover Luklak's 2-phase architecture: First, establish the Foundation with user and access controls, then construct your business with the 3 Tiers of Building."
+sidebarTitle: "The architecture"
 ---
 
-## The Luklak Analogy: Your Digital Land
+## The Big Picture: Your Digital Land
 
-Subscribing to Luklak isn't like buying a pre-built house; it's like acquiring a plot of digital land. We provide the laws of physics and the raw materials, but you are the architect. This unique approach allows you to design and build the exact operational "house"—or rather, the entire digital city—that your business needs to thrive.
+Subscribing to Luklak isn't like buying a pre-built house; it's like being given a plot of digital land, complete with a full supply of advanced building materials and utilities. We provide the laws of physics and the raw components, but you are the architect.
 
-Before you can build, you must first establish the foundational rules of your world.
+Our platform architecture follows this "outside-in" logic. First, you establish the foundation (the rules of your land). Then, you begin construction.
 
-## The Foundation: Global Settings
+[Image Placeholder: A visual metaphor showing a foundation labeled "Phase 1: Foundation (Users & Access)" with building blocks on top labeled "Phase 2: Construction (3 Tiers)".]
 
-Global Settings are the bedrock of your entire Luklak instance. This is where system administrators define the fundamental governance and access control that underpins everything else. Key configurations include:
+## Phase 1: Establish the Foundation
 
-- **Users & Groups:** Creating the accounts for every person who will work in the system and organizing them into functional teams (`Groups`) like "Sales Team" or "HR Managers".
-- **Business Privileges:** Assigning high-level system powers (e.g., `Owner`, `Admin`) that grant broad administrative capabilities.
-- **Item Access Control:** This is the granular permission system that controls who can **view, use, edit, or manage every single component (or "Item")** within Luklak. It ensures that only authorized architects can design `📋 Functions`, only relevant managers can create new `⏹️ Spaces`, and sensitive reports are only visible to the right people.
+Before you build, you must define the fundamental rules of governance. This is a two-step process that controls who can enter your world and what they are allowed to do once inside.
 
-<Info>
-  The principle of Item Access applies to every component in Luklak. As you explore each concept in our documentation, you'll find specific guides on how to manage its access rights.
+### The Entry Gate: Business Privileges
 
-  See: [Function Access Control](/platform/function-design/index.mdx#function-access-control), [Managing Space Permissions](/user-guides/organizing-work#space-settings), [Sharing Filters & Dashboards](/user-guides/reports-and-dashboards#sharing-dashboards).
-</Info>
+First, every user needs an "entry ticket" to access your company's Luklak instance. This is their **Business Privilege**, a system-wide setting that defines their fundamental authority level. There are four main privilege levels:
 
-## The 3 Tiers of Building: Constructing Your Operations
+<CardGroup cols={2}>
+  <Card title="Owner" icon="crown" iconType="duotone">
+    The highest level. Manages billing, can transfer ownership, and holds all Admin privileges.
+  </Card>
+  <Card title="Admin" icon="user-gear" iconType="duotone">
+    Can configure everything in the system, from Global Settings to user management.
+  </Card>
+  <Card title="App Manager" icon="map" iconType="duotone">
+    A specialized role that can design, edit, and manage `📋 Functions` and other applications.
+  </Card>
+  <Card title="Member" icon="user" iconType="duotone">
+    The standard privilege for most users, allowing them to work within the `⏹️ Spaces` they are given access to.
+  </Card>
+</CardGroup>
 
-Once your foundational rules are set, you can begin construction using Luklak's powerful 3-Tier Architecture. This is the framework you use to build your actual business processes on your digital land.
+### The In-World Rules: Item Access Control
+
+Once a user is "inside the gates" with their Business Privilege, a second, more granular layer of permission takes over: **Item Access Control**.
+
+This system determines who can **view, use, edit, or manage every single component (or "Item")** you build inside Luklak. This access is configured _directly on each individual Item_.
+
+<Tip>
+  For example, to control who can edit your "CRM" `Function`, you configure Item Access **on that specific Function**. To control who sees the "Q4 Financials" `Dashboard`, you set the access **on that Dashboard**. This gives you precise control over every part of your system.
+</Tip>
+
+[Guidejar Placeholder: An interactive tutorial showing a user navigating to a specific `Dashboard`, opening its settings, and configuring its Item Access to be visible only to the "Executive Team" `Group`.]
+
+## Phase 2: The 3 Tiers of Construction
+
+With the foundational rules of governance established, you can begin building your actual business processes using Luklak's powerful 3-Tier Architecture.
 
 <AccordionGroup>
-  <Accordion title="Tier 1: Core Blocks (The Raw Materials)">
-    This is the foundational layer of building materials—the universal "LEGO pieces" that all business processes are made from. This includes our 9 universal components like the `🧊 Universal Object`, `Workflow`, `Universal Automation`, and `Data Fields`.
+  <Accordion title="Tier 1: Core Blocks (The Raw Materials)" icon="cube" iconType="duotone">
+    This is the layer of universal "LEGO pieces" that all processes are made from. It includes our 9 universal components like the `🧊 Universal Object`, `Workflow`, and `Universal Automation`.
   </Accordion>
-  <Accordion title="Tier 2: Function Design (The Blueprints)">
-    This is the design layer. Here, you assemble the Core Blocks into no-code designs called `📋 Functions`. A `📋 Function` is a complete, reusable operational blueprint for a specific business process, like a sales CRM or a recruitment pipeline.
+  <Accordion title="Tier 2: Function Design (The Blueprints)" icon="map" iconType="duotone">
+    In this layer, you assemble the Core Blocks into no-code designs called `📋 Functions`. A `📋 Function` is a complete, reusable operational blueprint for a process like a CRM or a recruitment pipeline.
   </Accordion>
-  <Accordion title="Tier 3: Usage & Operation (The Live Buildings)">
-    This is the live application layer where work actually happens. When you deploy a `📋 Function`, it becomes one or more live `⏹️ Spaces`—the active "buildings" in your digital city where your teams collaborate and execute their daily work.
+  <Accordion title="Tier 3: Usage & Operation (The Live Buildings)" icon="building" iconType="duotone">
+    This is where work happens. When you deploy a `📋 Function`, it becomes one or more live `⏹️ Spaces`—the active "buildings" where your teams collaborate and execute daily work.
   </Accordion>
 </AccordionGroup>
 
 ## What's Next?
 
-Understanding this top-down architecture is the key to mastering Luklak.
+Understanding this 2-phase architecture is the key to mastering Luklak. Your next step depends on your role:
 
-- **For Administrators:** [Start by configuring your foundation in Global Settings](/platform/global-settings)
-- **For Architects:** [Begin exploring your building materials in Core LEGO Pieces](/platform/core-concepts)
+- **For Administrators:** Your first priority is setting up the foundation.
+  → [**Go to the Global Settings Guide**](/platform/global-settings)
+- **For Architects & Builders:** With the foundation understood, it's time to see your materials.
+  → [**Explore the Core LEGO Pieces**](/platform/core-concepts)
