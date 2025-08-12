@@ -1,0 +1,56 @@
+---
+title: "Timeline View: Gantt-Style Project Scheduling"
+description: "Learn to use the Timeline View for project management, including how to configure date ranges, visualize progress, and manage dependencies between your Objects."
+sidebarTitle: "4. Timeline View"
+---
+
+## What is the Timeline View?
+
+The **Timeline View** is a powerful project management tool that visualizes your `🧊 Objects` as bars along a horizontal time axis, similar to a Gantt chart.
+
+It is designed to help you plan project schedules, understand the duration of tasks, visualize dependencies between work items, and track overall progress against a calendar. It provides the "big picture" view of your project's timing and health.
+
+[Image Placeholder: A screenshot of a Timeline View showing several task bars of different lengths spread across a calendar. Some bars are connected with dependency lines.]
+
+## Configuration: Bringing Your Timeline to Life
+
+To function correctly, the Timeline View needs to know how to place your `🧊 Objects` in time. This is done through a simple but critical configuration.
+
+### Setting the Date Range
+To place an `🧊 Object` on the timeline, the view needs to know its start and end dates. You must map these to specific `Date` or `Date & Time` fields on your `Object Type`.
+
+1.  In the Timeline view's settings, find the **"Date Mapping"** or "Timeline Settings" option.
+2.  For the **"Start Date"**, select the appropriate `Data Field` from your `Object Type` (e.g., `Start Date`, `Kick-off Date`).
+3.  For the **"End Date"**, select the corresponding `Data Field` (e.g., `Due Date`, `Launch Date`).
+
+<Tip>
+If your `🧊 Object` only has one significant date (like a deadline), you can map both the start and end points to the same `Due Date` field. The `🧊 Object` will then appear as a single-day event or milestone on the timeline.
+</Tip>
+
+### Customizing the View
+You can adjust the timeline's zoom level to suit your planning horizon. Switch between **Daily, Weekly, Monthly, and Quarterly** views to see the big picture or zoom in on the details of an upcoming week.
+
+## Managing Your Project on the Timeline
+
+Once configured, the Timeline becomes an interactive tool for managing your project.
+
+### Visualizing Progress
+The Timeline view provides an at-a-glance understanding of your project's health. You can instantly see which tasks are running in parallel, which are sequential, and how long each is scheduled to take. Optionally, you can configure the shading of the bars to reflect a "Percent Complete" number field, giving you a visual cue for progress on each task.
+
+### Managing Dependencies
+Dependencies are the heart of project scheduling, showing the relationships between tasks. The Timeline view makes these connections visual and interactive.
+
+To create a "Finish-to-Start" dependency (where one task must finish before the next can begin):
+1.  Hover over the end of the first task's bar until a small dot appears.
+2.  Click and drag the arrow from this dot to the beginning of the task that depends on it.
+
+A line will now connect the two `🧊 Objects`. If the first task's end date is delayed, you can see the immediate impact on the start date of the dependent task, helping you manage your critical path.
+
+[Guidejar Placeholder: A short tutorial showing a user creating a dependency. They hover over one task bar, a dot appears, and they drag a line from it to another task bar, which then automatically shifts to a later start date.]
+
+## What's Next?
+
+You've learned to manage your data in tables, your workflows on boards, and your schedules on a timeline. The final standard view helps you track the conversation and activity around your work.
+
+- [**Learn to track conversations: Updates View**](/platform/core-concepts/workviews/updates-view)
+- [**Return to the Workviews Overview**](/platform/core-concepts/workviews)

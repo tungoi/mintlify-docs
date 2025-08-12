@@ -150,7 +150,19 @@
 					"icon": "table-columns",
 					"pages": [
 			         "en/02-platform/platform-overview/workview/index",
-                      "en/02-platform/platform-overview/workview/list-view"
+                      "en/02-platform/platform-overview/workview/list-view",
+                      "en/02-platform/platform-overview/workview/kanban-view",
+                      "en/02-platform/platform-overview/workview/timeline-view",
+                      "en/02-platform/platform-overview/workview/calendar-view",
+                      "en/02-platform/platform-overview/workview/updates-view.mdx"
+					]
+				},
+              {
+					"group": "Dashboards",
+					"icon": "pie-chart",
+					"pages": [
+			         "en/02-platform/platform-overview/dashboards/index"
+                      "en/02-platform/platform-overview/dashboards/dashboard-gadgets"
 					]
 				}
             ]

@@ -1,0 +1,62 @@
+---
+title: "Kanban View: Visualizing Your Workflow"
+description: "A guide to setting up and using the Kanban View to visualize your workflow, manage progress with drag-and-drop, and organize your board with swimlanes."
+sidebarTitle: "Kanban View"
+---
+
+## What is the Kanban View?
+
+The **Kanban View** is a powerful visual tool that turns your workflow into an interactive, card-based board. Each card on the board represents an `🧊 Object`, and each column represents a `Status` in your process.
+
+It is designed to help you and your team visualize work in progress, identify bottlenecks, and manage the flow of tasks from the "To Do" column to "Done" in a clear and intuitive way.
+
+[Image Placeholder: A screenshot of a dynamic Kanban board with columns like TO DO, IN PROGRESS, and DONE. Cards representing tasks are distributed across the columns.]
+
+## How to Configure Your Kanban Board
+
+You can customize your Kanban board to perfectly match your team's process.
+
+### Column Setup
+
+The vertical columns on your Kanban board represent the stages of your process. While you can base these columns on any 'Select List' type of field, they are most powerfully used when tied directly to your **`Workflow Status`**.
+
+1. In the Kanban view's settings, find the "Group by" or "Columns" option.
+2. Select the `Status` field from the dropdown list.
+3. The board will automatically create a column for each `Status` defined in your `Object Type`'s `Workflow`. You can then drag to reorder the columns or hide any that aren't relevant for a particular view.
+
+### Swimlanes
+
+Swimlanes are horizontal rows that group your cards _within_ each column. This adds a second dimension to your board, which is perfect for managing team workload or categorizing tasks.
+
+1. In the view's settings, find the "Group by" or "Swimlanes" option.
+2. Choose a field to create the horizontal lanes. Common choices include:
+   - **`Assignee`**: To see each team member's workload at every stage.
+   - **`Priority`**: To separate high-priority items from low-priority ones.
+   - **`A custom Sprint field`**: For agile development teams.
+
+[Image Placeholder: A screenshot of a Kanban board with swimlanes. The columns are statuses, and the horizontal swimlanes are grouped by 'Assignee', clearly showing each person's workload at each stage.]
+
+### Card Layout
+
+You can customize what information is visible on the face of each card to ensure your team sees the most important data at a glance. In the view's settings, look for a "Customize Cards" or "Visible Fields" option to select which `Data Fields` (like `Due Date`, `Priority`, or `Assignee`) appear on the cards.
+
+## Working with Your Kanban Board
+
+The Kanban view is designed for interaction.
+
+### Drag and Drop to Update Status
+
+The most intuitive way to work is to simply **drag a card from one column to another**. This single action automatically **`updates the Status field`** of the corresponding `🧊 Object` and records the change in its history. This provides a seamless and visual way to progress work.
+
+### Identifying Bottlenecks
+
+By looking at the board, you can instantly see where work is piling up. A column with a large number of cards is a clear visual indicator of a bottleneck in your process, allowing managers to investigate and resolve issues proactively.
+
+[Guidejar Placeholder: A short tutorial showing a user dragging a card from the 'IN REVIEW' column to the 'APPROVED' column. As the card drops, a success notification appears, and the 'Status' field on the card is visibly updated.]
+
+## What's Next?
+
+You've learned how to manage your data in lists and visualize its flow on a Kanban board. Next, let's explore how to manage your work based on dates and deadlines.
+
+- [**Learn to plan your work in time: Calendar View**](/platform/core-concepts/workviews/calendar-view)
+- [**Return to the Workviews Overview**](/platform/core-concepts/workviews)

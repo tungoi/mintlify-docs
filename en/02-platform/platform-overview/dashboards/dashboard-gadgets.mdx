@@ -1,0 +1,78 @@
+---
+title: "A Guide to Dashboard Gadgets"
+description: "A detailed reference guide to all available gadgets for your Dashboards, including Charts, Statistics Tables, Counters, Object Lists, and Activity Feeds."
+sidebarTitle: "Dashboard Gadgets"
+---
+
+## The Building Blocks of Your Dashboard
+
+A **gadget** is a specific, configurable widget that you place on your dashboard to visualize a set of data. Your dashboard is a canvas, and gadgets are the powerful tools you use to paint your data story.
+
+This guide serves as a reference library for all the standard gadget types available in Luklak, explaining the purpose and best use case for each.
+
+## Charts
+
+Charts are the best way to visualize proportions, comparisons, and trends in your data. You typically configure a chart by grouping your `🧊 Objects` by a `Select List`, `User`, or `Status` field.
+
+<Tabs>
+  <Tab title="Pie Chart">
+    **Best for:** Showing proportions and the percentage breakdown of a whole.
+
+    <br />
+
+    **Business Question:** "What is the breakdown of our sales pipeline by `Stage`?" or "What percentage of our support tickets are `High Priority`?"
+  </Tab>
+  <Tab title="Bar Chart">
+    **Best for:** Comparing values across different categories.
+
+    <br />
+
+    **Business Question:** "How many `Tasks` are currently assigned to each team member?" or "Which marketing channels are generating the most `Leads`?"
+  </Tab>
+  <Tab title="Stacked Bar Chart">
+    **Best for:** Comparing values across categories, while also showing the composition of each bar.
+
+    <br />
+
+    **Business Question:** "How many tasks does each team member have, and what is the `Priority` breakdown for each person?"
+  </Tab>
+</Tabs>
+
+[Image Placeholder: An image showing all three chart types (Pie, Bar, Stacked Bar) side-by-side.]
+
+## Statistics Tables
+
+Statistics Tables are powerful tools for creating summary reports in a pivot-table-like format. They are ideal for analyzing the distribution of work across two dimensions.
+
+- **1D Statistics Table:** Groups `🧊 Objects` by **one** criterion to create a simple summary table.
+  - **Business Question:** "Show me a count of all `Support Tickets`, grouped by their `Status`."
+- **2D Statistics Table:** Groups `🧊 Objects` by **two** criteria simultaneously, creating a matrix.
+  - **Business Question:** "Show me a count of all `Support Tickets`, with `Priority` as the rows and `Assignee` as the columns. This helps identify if one person is overloaded with high-priority tickets."
+
+## Counters & Formulas
+
+This gadget is for displaying a single, important number or calculated result.
+
+- **Counter:** The simplest gadget. It displays a real-time count of `🧊 Objects` that match your UQL query.
+  - **Use Case:** A large number showing the "Total Open Bugs" or "Deals Closed This Quarter."
+- **Formula:** Allows you to perform calculations on aggregated data.
+  - **Use Case:** Use two different counters to calculate a conversion rate: `(Count of 'Deals Won' / Count of 'All Deals') * 100` to show your overall "Win Rate %".
+
+## Object List
+
+Sometimes the most important thing is not a chart, but a direct view of the work itself. This gadget allows you to embed a filtered list of key `🧊 Objects` directly onto your dashboard.
+
+- **Use Case:** On a Project Manager's dashboard, alongside charts showing overall progress, include an `Object List` gadget that shows "All `🧊 Tasks` with a `Status` of `BLOCKED`" for immediate action.
+
+## Activity Feed
+
+This gadget embeds a real-time activity stream from a selected data source directly into your dashboard view, allowing users to track updates and take action in real time.
+
+- **Use Case:** On a team's dashboard, include an `Activity Feed` for their specific `⏹️ Space` so everyone can see the latest comments, status changes, and file attachments without leaving the dashboard.
+
+## What's Next?
+
+You've explored the full library of gadgets. Now, let's walk through the process of combining them to create your first dashboard.
+
+- [**Learn the step-by-step process: Building Your First Dashboard**](/platform/core-concepts/dashboards/building-dashboards)
+- [**Return to the Dashboards Overview**](/platform/core-concepts/dashboards)
