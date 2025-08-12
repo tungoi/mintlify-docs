@@ -1,0 +1,63 @@
+---
+title: "Parent-Child Relationships: Creating Hierarchies"
+description: "A deep dive into the built-in parent-child connection, used to create strict hierarchies between a standard Object and its Sub-Objects for work breakdown structures."
+sidebarTitle: "Parent-Child Relationships"
+---
+
+## What is a Parent-Child Relationship?
+
+The parent-child relationship is a special, built-in connection in Luklak designed for creating **strict, nested hierarchies**. It is the primary method for breaking down large pieces of work or complex entities into smaller, manageable parts.
+
+<Tip>
+  Think of it like a folder and its files on a computer. A `Project` (the parent folder) can contain many `Tasks` (the child files). Each `Task` file belongs exclusively to that one `Project` folder and cannot exist on its own.
+</Tip>
+
+This connection is automatically established when you define one `Object Type` as a **`Sub-Object`** of another **`standard Object Type`**.
+
+## Key Characteristics
+
+This relationship type has unique properties that make it perfect for hierarchical structures:
+
+- **Built-in & Automatic:** You don't need to add a special field to create this link. The connection is automatically managed by the system as soon as you designate an `Object Type` as a `Sub-Object` of another.
+- **Strict Hierarchy:** A `Sub-Object` (the child) is tightly coupled to its parent. It can only have **one** parent and cannot exist independently without being linked to that parent `Object`.
+- **Exclusive by Design:** This connection is used _exclusively_ for the relationship between a standard `Object Type` and its designated `Sub-Object Types`. It cannot be used to link two unrelated standard `Object Types`.
+
+## How to Create a Parent-Child Relationship
+
+The relationship is defined during the design of your `Object Types` within a `📋 Function`.
+
+1. **Define the Parent:** First, ensure you have a standard `Object Type` created (e.g., "Project").
+2. **Define the Child:** When you create your second `Object Type` (e.g., "Task"), you will find a setting to designate it as a `Sub-Object`. When you enable this, you must select its `Parent Object Type` (in this case, "Project").
+3. **The Link is Established:** Once this is saved, the hierarchical link is permanently defined. In any `⏹️ Space`, when a user views a "Project" `Object`, they will see a dedicated section for creating and managing its child "Task" `Objects`.
+
+[Guidejar Placeholder: A tutorial showing an architect creating a new 'Task' Object Type. In the creation modal, they select the option 'Make this a Sub-Object' and choose the existing 'Project' Object Type from a dropdown menu to serve as the parent.]
+
+## Common Use Cases
+
+This connection type is the ideal choice for any scenario that requires a clear work breakdown structure or a nested hierarchy.
+
+<CardGroup cols={2}>
+  <Card title="Project Management" icon="list-check" iconType="duotone">
+    The classic example: `Project` (Parent) → `Sub-Tasks` (Children).
+  </Card>
+  <Card title="Product Development (Agile)" icon="rocket" iconType="duotone">
+    A common structure is `Epic` (Parent) → `User Stories` (Children).
+  </Card>
+  <Card title="Goal Setting (OKRs)" icon="bullseye-arrow" iconType="duotone">
+    Structure your goals as `Objective` (Parent) → `Key Results` (Children).
+  </Card>
+  <Card title="Organizational Structures" icon="building" iconType="duotone">
+    Model your company structure with `Department` (Parent) → `Team` (Children).
+  </Card>
+</CardGroup>
+
+<Info>
+  **Architect's Tip:** Choose the parent-child relationship when the child item **cannot and should not exist independently** of the parent. If the items can exist on their own and just need to reference each other flexibly, an [Object Lookup Field](/platform/core-concepts/object-connections/lookup-connections) is a better choice.
+</Info>
+
+## What's Next?
+
+You've mastered strict, hierarchical relationships. Now, let's explore how to create more flexible, non-hierarchical connections between Objects.
+
+- [**Learn about flexible references: Using Object Lookup Fields**](/platform/core-concepts/object-connections/lookup-connections)
+- [**Return to the Connections Overview**](/platform/core-concepts/object-connections)

@@ -1,0 +1,50 @@
+---
+title: "Object Picker Fields: Creating Flexible References"
+description: "A detailed guide on using the Object Picker field (Single or Multiple) to create flexible, direct references from one Object to another, including how to filter the available options."
+sidebarTitle: "Object Picker Fields"
+---
+
+## What is an Object Picker Field?
+
+While the parent-child connection creates a strict hierarchy, the **`Object Picker`** field is designed for creating **flexible, non-hierarchical references** between Objects. It allows one `Object` to point to one or more other `Objects` anywhere in the system, providing valuable context.
+
+<Tip>
+  Think of it like citing sources in a research paper. A `🧊 Project` Object can "cite" or "reference" a `🧊 Customer` Object and a `🧊 Contract` Object. These referenced Objects don't belong to the project; they are independent entities that are simply being pointed to for context.
+</Tip>
+
+This reference is created by adding a specific type of `Data Field` to your `Object Type`'s `Data Screen`.
+
+## Key Characteristics
+
+- **Flexible & Non-Exclusive:** This is the key difference. The referenced `Objects` are independent. A single `🧊 Customer` can be referenced by many different `🧊 Projects`, `🧊 Support Tickets`, and `🧊 Invoices` simultaneously. The referenced `Object` doesn't "belong" to the `Object` that is referencing it.
+- **Configurable:** As an architect, you add this reference just like any other `Data Field`. This means you can make it required, add help text, and control its visibility.
+- **Highly Specific:** The most powerful feature of the `Object Picker` is the ability to **pre-filter the choices** available to the end-user. You can use UQL to ensure users can only select from relevant `Objects` (e.g., "only allow selecting `🧊 Customers` in an `ACTIVE` status").
+
+## Field Types
+
+There are two types of `Object Picker` fields to choose from, depending on your architectural need:
+
+- **`Single Object Picker:`** Used for many-to-one or one-to-one relationships. For example, a `🧊 Support Ticket` can reference only one `🧊 Customer`.
+- **`Multiple Objects Picker:`** Used for many-to-many relationships. For example, a `🧊 Marketing Campaign` could reference multiple targeted `🧊 Customer Segments`.
+
+## How to Create an Object Picker Reference
+
+1. **Navigate to Data Fields:** Inside a `📋 Function`, select the `Object Type` you want to add the reference to (e.g., `🧊 Support Ticket`) and go to its `Data Fields` section.
+2. **Add a New Field:** Click `+ Add Field` to create a new `Data Field`.
+3. **Choose the Type:** Select `Single Object Picker` or `Multiple Objects Picker` from the field type dropdown.
+4. **Configure the Filter (Optional but Recommended):** In the field's settings, use UQL to define which `Objects` a user is allowed to select from. This ensures data integrity by preventing users from picking irrelevant items.
+
+[Guidejar Placeholder: A tutorial showing an architect adding a 'Single Object Picker' field to a 'Support Ticket' Object Type. The tutorial highlights the configuration where they set up a UQL filter to only allow picking from 'Customer' Objects that have a 'Status' of 'ACTIVE'.]
+
+## Common Use Cases
+
+- Associating a `🧊 Support Ticket` with the specific `🧊 User` who reported it and the `🧊 Product` it relates to.
+- Referencing the `🧊 Meeting` where a `🧊 Project Task` was discussed.
+- Selecting multiple `🧊 Author` Objects on a `🧊 Blog Post` in a co-authoring scenario.
+
+## What's Next?
+
+You now know how to create both strict hierarchies and flexible references. The next level of relationship modeling is to standardize the _meaning_ of these connections across your entire organization.
+
+- [**Learn to standardize connections: Managing Global Connections**](/platform/core-concepts/object-connections/global-connections)
+- [**Return to the Connections Overview**](/platform/core-concepts/object-connections)

@@ -124,7 +124,9 @@
 					"group": "Object Connections",
 					"icon": "link",
 					"pages": [
-			         "en/02-platform/platform-overview/object-connections/index"
+			         "en/02-platform/platform-overview/object-connections/index",
+                      "en/02-platform/platform-overview/object-connections/parent-child-relationships",
+                      "en/02-platform/platform-overview/object-connections/lookup-connections"
 
 					]
 				}
