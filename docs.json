@@ -88,8 +88,8 @@
               "en/02-platform/platform-overview/universal-object/object-vs-object-type",
               "en/02-platform/platform-overview/universal-object/creating-object-types",
               {
-					"group": "Pick your role",
-					"icon": "house-user",
+					"group": "Data Fields & Screens",
+					"icon": "Field",
 					"pages": [
 			          "en/02-platform/platform-overview/data-fields/index",
                       "en/02-platform/platform-overview/data-fields/basic-field-types"
