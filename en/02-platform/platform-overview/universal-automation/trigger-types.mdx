@@ -1,0 +1,55 @@
+---
+title: "Trigger Types: When Automations Run"
+description: "A complete reference guide to all automation triggers in Luklak, grouped into three categories: Silent (event-based), Workflow (status-based), and Object Actions (user-initiated)."
+sidebarTitle: "Trigger Types"
+---
+
+## The Starting Point of Automation
+
+The **Trigger** is the "When" of your automation rule—the specific event that tells the system to start listening and evaluate the rule's conditions.
+
+Luklak provides a variety of trigger types to cover nearly any business scenario, from automatic background processes to user-initiated actions. Understanding the different categories is the first step in building a powerful automation.
+
+## 1. Silent Triggers: The Automated Workforce
+
+Silent Triggers run automatically in the background without any direct user interaction. They are the workhorses of your automation system, constantly listening for events to occur.
+
+<CardGroup cols={1}>
+  <Card title="Object Events" icon="cube" iconType="duotone">
+    <p>The most common type of trigger. The rule runs when an `🧊 Object` is **created**, **updated**, or its **status changes**.</p>
+    <p>**Use Case:** When a `Field` on a `🧊 Support Ticket` is *updated* to `Priority = URGENT`, trigger an alert. Or, when a new `🧊 Lead` is *created*, automatically assign it to a sales representative.</p>
+  </Card>
+  <Card title="Scheduled" icon="clock" iconType="duotone">
+    <p>The rule runs based on a schedule you define (e.g., hourly, daily, weekly, monthly, or a custom cron expression).</p>
+    <p>**Use Case:** Every Friday at 5 PM, find all `🧊 Tasks` with a `Status` of `IN_PROGRESS` and send a summary report to the project manager.</p>
+  </Card>
+  <Card title="Incoming Webhook" icon="cloud-arrow-down" iconType="duotone">
+    <p>The rule is triggered when an external application sends a signal (a webhook) to a unique URL provided by Luklak.</p>
+    <p>**Use Case:** When a customer submits a form on your website (e.g., Typeform), it sends a webhook to Luklak to automatically create a new `🧊 Lead` Object.</p>
+  </Card>
+</CardGroup>
+
+## 2. Workflow Triggers: Process-Driven Automation
+
+Workflow Triggers are a special type of rule that is directly embedded within an `🧊 Object`'s `Workflow`. The automation is inextricably linked to a specific process step.
+
+- **Trigger Event:** The rule executes when a user successfully transitions an `🧊 Object` **into a specific Status**.
+- **Use Case:** When a `🧊 Candidate` Object is moved to the `HIRED` status, trigger a series of actions to create an onboarding checklist and notify the IT department.
+- **Note:** While you *can* use a Silent Trigger for "Status Change," a Workflow Trigger is often better for core process actions because the logic is configured directly on the visual workflow canvas, making it easier to manage.
+
+## 3. Object Actions: User-Initiated Automation
+
+Object Actions allow you to empower your users by giving them "buttons" to run automations manually. These actions appear as menu items on an `🧊 Object`'s toolbar.
+
+- **Trigger Event:** The rule executes when a user clicks the action button on a specific `🧊 Object`.
+- **Key Feature:** You can control the visibility of each action button based on the `Object Type`, its current `Status`, or the user's `Role` or `Group`.
+- **Use Case:** Add an **"Escalate to Manager"** button on `🧊 Support Tickets`. When clicked, an automation re-assigns the ticket and sends a high-priority message. This button can be configured to be visible only for tickets in an `OPEN` status and hidden for `CLOSED` ones.
+
+[Guidejar Placeholder: A tutorial showing a user on a `Support Ticket` Object. They click the '...' menu, and a custom 'Escalate to Manager' button is visible. They click it, and the automation runs.]
+
+## What's Next?
+
+You've mastered the "When" of automation. The next step is to add intelligence with the "If"—the conditions that filter your triggers.
+
+- [**Learn to add logic to your rules: Building Conditions with UQL**](/platform/core-concepts/universal-automation/building-conditions)
+- [**Return to the Automation Overview**](/platform/core-concepts/universal-automation)

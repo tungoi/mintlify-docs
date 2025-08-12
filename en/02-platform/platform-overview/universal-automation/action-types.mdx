@@ -1,0 +1,67 @@
+---
+title: "Action Types: What Your Automation Can Do"
+description: "A comprehensive reference guide to all automation actions in Luklak, grouped by category: Object manipulation, internal & external communication, and system integrations."
+sidebarTitle: "Action Types"
+---
+
+## The Power of Action
+
+The **Action** is the "Then" of your automation rule—it's the work your digital workforce actually performs after a `Trigger` has fired and all `Conditions` have been met.
+
+Luklak provides a rich library of actions, from simple data updates to complex integrations with external systems. This guide serves as a comprehensive reference for everything your automations can do.
+
+## 1. Object & Data Manipulation
+
+These actions directly create or modify your `🧊 Objects` and their data. They are the most common building blocks for internal process automation.
+
+- **Create new Object:** Create a new standard `🧊 Object` or `🧊 Sub-Object` in any `Function`.
+- **Update data fields:** Modify the value of one or more fields on the triggering `🧊 Object` or a related `Object`.
+- **Transition status:** Move an `🧊 Object` to a new `Status` in its workflow.
+- **Increment/decrement number:** Increase or decrease the value of a number field by a specific amount, perfect for counters or inventory management.
+- **Create checklist:** Dynamically generate a list of checklist items inside an `🧊 Object`.
+- **Create connection between Objects:** Establish a defined `Global Connection` between two `🧊 Objects`.
+
+## 2. Communication & Notification
+
+These actions send messages and alerts to both internal users and external contacts, ensuring the right people have the right information at the right time.
+
+### Internal Messaging
+
+- **Send Private Message:** Send a direct message to a specific user's `Unified Inbox`.
+- **Post in Space Chat:** Post a message in the group chat of a `⏹️ Space` for all members to see.
+- **Post in Object Chat:** Send a message directly to a specific `🧊 Object`'s chat feed, keeping the conversation in context.
+
+### External Communication
+
+- **Send Email:** Send customized emails to users or external addresses, using `Smart Values` to personalize the subject and body.
+- **Send Zalo ZNS:** Send template-based notification messages to phone numbers via Zalo's official ZNS service.
+- **Initiate VOIP Call:** Trigger a call to a phone number stored in a field. This is often used as a manual `Object Action` for sales or support teams to quickly connect with customers.
+
+## 3. User & System Interaction
+
+This category covers special actions that interact directly with the user or system processes.
+
+- **Show Input Screen:** A special action tied to `Workflow Triggers`. When a user changes an `🧊 Object`'s status, this action can prompt them with a form to fill in required data before the transition is allowed to complete.
+
+## 4. External Integrations
+
+These actions allow Luklak to communicate with the outside world, acting as the central hub for your entire tool stack.
+
+<CardGroup cols={1}>
+  <Card title="Send HTTP Request / Outgoing Webhook" icon="right-from-bracket" iconType="duotone">
+    Push data from a Luklak `🧊 Object` to any external system that has a webhook or API endpoint. This is the universal tool for custom integrations.
+  </Card>
+  <Card title="Sepay Banking Integration" icon="building-columns" iconType="duotone">
+    Generate payment links and QR codes, and automatically process incoming payment webhooks from Sepay to update the payment status on an `🧊 Object`.
+  </Card>
+  <Card title="Integration Hubs (n8n, Zapier, Make)" icon="network-wired" iconType="duotone">
+    Connect to workflow automation platforms like n8n via Webhooks. This unlocks thousands of pre-built connectors to popular apps, enabling near-universal connectivity.
+  </Card>
+</CardGroup>
+
+## What's Next?
+
+You've seen the vast library of actions your digital workforce can perform. The key to making these actions truly intelligent is to populate them with dynamic data from your `🧊 Objects`.
+
+- [**Learn how to use dynamic data: A Guide to Smart Values**](/platform/core-concepts/universal-automation/smart-values)
+- [**Return to the Automation Overview**](/platform/core-concepts/universal-automation)

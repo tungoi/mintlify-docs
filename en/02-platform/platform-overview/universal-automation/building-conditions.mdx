@@ -1,0 +1,81 @@
+---
+title: "Building Conditions with UQL"
+description: "A deep dive into the 'Condition' block of an automation rule, explaining how to use Universal Query Language (UQL) to create precise, multi-criteria logic."
+sidebarTitle: "Building Conditions"
+---
+
+## The Brain of Your Automation
+
+If the **Trigger** is the event that starts the race, the **Condition** is the gatekeeper that decides which runners are allowed to compete. It is the "If" in the `Trigger-Condition-Action` model and acts as the brain of your automation rule.
+
+The Condition block uses `Universal Query Language (UQL)` to evaluate the `🧊 Object` that fired the trigger. This allows you to create highly specific rules that only run when your exact criteria are met, preventing your automations from running unintentionally.
+
+### How Conditions Work
+
+1. A **Trigger** event occurs (e.g., a `🧊 Task` is updated).
+2. The automation engine takes that `🧊 Task` Object.
+3. It then runs your UQL query from the Condition block **`against that specific 🧊 Task`**.
+4. If the `🧊 Task` meets the criteria (the query returns "true"), the Actions proceed.
+5. If not, the rule stops silently.
+
+<Info>
+  Think of your UQL query as a simple question that must be answered 'Yes' for the rule to continue.
+</Info>
+
+## Writing Conditions with UQL: Examples
+
+Here are some common patterns for building conditions, from simple to complex.
+
+### Checking a Single Field
+
+This is the most basic and common type of condition.
+
+- **Scenario:** You want an automation to run only for urgent support tickets.
+- **Trigger:** `Support Ticket` updated.
+- **UQL Condition:** `priority = "URGENT"`
+- **Explanation:** The rule will only proceed if the `Priority` select list field on the updated ticket is set to "URGENT".
+
+### Combining Multiple Criteria (`AND` / `OR`)
+
+Create more sophisticated logic by checking multiple fields at once.
+
+- **Scenario:** You want to notify a manager about high-value, stagnant deals.
+- **Trigger:** `Deal` updated.
+- **UQL Condition:** `deal_value > 50000 AND status = "STALLED"`
+- **Explanation:** The `AND` operator ensures the rule only runs if **both** conditions are true. Use `OR` to run the rule if **either** condition is true.
+
+### Working with Dates
+
+Use dynamic date values to create time-based conditions.
+
+- **Scenario:** You want to automatically escalate overdue tasks.
+- **Trigger:** Scheduled to run daily.
+- **UQL Condition:** `due_date < "today" AND status.category != "Completed"`
+- **Explanation:** This condition finds any task whose due date has passed (`< "today"`) and that is not in any `Status` belonging to the "Completed" `Category`.
+
+### Checking for Empty or Filled Fields
+
+This is perfect for data integrity workflows.
+
+- **Scenario:** Remind a user to add a description to a new bug report.
+- **Trigger:** `Bug Report` created.
+- **UQL Condition:** `description is empty`
+- **Explanation:** The `is empty` and `is not empty` operators are essential for checking if critical information has been filled out.
+
+### Referencing Related Objects (Advanced)
+
+Create powerful, context-aware conditions by querying through `Object Picker` fields.
+
+- **Scenario:** You want to run an automation on a `Project` only if its associated `Client` is an enterprise customer.
+- **Trigger:** `Project` updated.
+- **UQL Condition:** `client.tier = "Enterprise"`
+- **Explanation:** If your `Project` `Object Type` has an `Object Picker` field with the key `client`, you can use dot notation to query fields on the referenced `Client` `Object`.
+
+[Guidejar Placeholder: A tutorial showing a user building an automation rule. The focus is on the Condition block, where they type in a UQL query (`priority = "HIGH" AND status.category != "Completed"`) and the UI provides real-time validation.]
+
+## What's Next?
+
+You've mastered the "When" (Triggers) and the "If" (Conditions). Now it's time to explore the "Then"—the full range of actions your automation can perform.
+
+- [**See what your digital workforce can do: Action Types**](/platform/core-concepts/universal-automation/action-types)
+- [**Return to the Automation Overview**](/platform/core-concepts/universal-automation)
