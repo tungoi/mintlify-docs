@@ -91,7 +91,8 @@
 					"group": "Pick your role",
 					"icon": "house-user",
 					"pages": [
-			  "en/02-platform/platform-overview/data-fields/index"
+			          "en/02-platform/platform-overview/data-fields/index",
+                      "en/02-platform/platform-overview/data-fields/basic-field-types"
 					]
 				}
             ]
