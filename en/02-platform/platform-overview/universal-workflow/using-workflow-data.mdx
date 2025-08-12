@@ -1,0 +1,63 @@
+---
+title: "Leveraging Workflow Data for Reporting & Insights"
+description: "Learn how to transform workflow data into business intelligence by querying current statuses and, more powerfully, analyzing the history of status changes to measure process efficiency."
+sidebarTitle: "Using Workflow Data"
+---
+
+## More Than a Process: A Source of Truth
+
+A well-designed workflow is more than just a process map; it's a rich source of data that tells the story of how your business operates. Every time an `Object` changes status, Luklak records that event, creating a complete audit trail.
+
+This historical data is the key to unlocking deep insights into process efficiency, bottlenecks, and conversion rates. This guide covers how to analyze both the present state and the past journey of your Objects.
+
+## Analyzing the Present: Querying Current Status
+
+The most common type of reporting is based on where your `Objects` are right now. Using UQL in filters and dashboards, you can get a real-time snapshot of your operations.
+
+- **`Querying by Status:`** You can filter for `Objects` in a specific custom status you created.
+  - **Example:** `status = "AWAITING_CLIENT_FEEDBACK"`
+- **`Querying by Status Category:`** For a broader, cross-functional view, you can query by the system category.
+  - **Example:** `status.category = "IDLE"`. This would find all Objects that are `ON_HOLD`, `AWAITING_FEEDBACK`, etc., across the entire company, regardless of their specific status name.
+
+## Uncovering Insights: Analyzing Workflow History
+
+The real magic happens when you analyze the journey of your Objects over time. Luklak's UQL allows you to query the complete history of status changes, enabling true process analysis.
+
+Here are the key UQL operators for historical queries:
+
+| Operator                  | Description                                                                   |
+| :------------------------ | :---------------------------------------------------------------------------- |
+| `Was in "STATUS"`         | Finds Objects that have ever been in a specific status at any point.          |
+| `Was not in "STATUS"`     | Finds Objects that have **never** been in a specific status.                  |
+| `Changed from "A" to "B"` | Finds Objects that made the specific transition from Status A to Status B.    |
+| `Changed from "STATUS"`   | Finds Objects that have successfully transitioned _out of_ a specific status. |
+| `Changed to "STATUS"`     | Finds Objects that have successfully transitioned _into_ a specific status.   |
+
+[Image Placeholder: A clean graphic illustrating a workflow history query. It could show a timeline for an Object with status changes, and a UQL query box highlighting the 'Changed from X to Y' logic.]
+
+## Practical Application: Measuring Sales Conversion Rates
+
+Let's apply this to a real-world scenario. Imagine a sales workflow with the following statuses: `NEW_LEAD` → `CONSULTATION` → `PROPOSAL_SENT` → `WON`.
+
+**The Business Question:** "How effective are we at converting leads who have had a consultation into receiving a proposal?"
+
+**The UQL Solution:** The `Changed from` operator is perfect for this.
+
+```uql
+status changed from "CONSULTATION" to "PROPOSAL_SENT"
+```
+
+**The Dashboard:** You can build a powerful dashboard to track this conversion rate in real-time.
+
+1. Create a `Counter` gadget to count all Objects that `Were in "CONSULTATION"`. Let's say the result is **100**.
+2. Create a second `Counter` gadget using the query above (`status changed from "CONSULTATION" to "PROPOSAL_SENT"`). Let's say the result is **42**.
+3. From this, you can see your conversion rate for this stage is **42%**.
+
+[Guidejar Placeholder: A tutorial showing a user creating a new Dashboard gadget. They enter a UQL query with the 'changed from' operator to count converted leads, and name the gadget 'Consultation \> Proposal Conversion'.]
+
+## What's Next?
+
+You can now design workflows and measure their effectiveness. To ensure consistency across a large organization, the final step is to learn about global management.
+
+- [**Learn How to Build for Scale: Managing Global Statuses**](https://www.google.com/search?q=/platform/core-concepts/workflow-and-status/global-statuses)
+- [**Return to the Workflow & Status Overview**](https://www.google.com/search?q=/platform/core-concepts/workflow-and-status)
