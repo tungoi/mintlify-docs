@@ -1,0 +1,55 @@
+---
+title: "Tổng quan Nền tảng Luklak"
+---
+
+**Tại sao điều này quan trọng**
+
+<Warning>
+  Các phần mềm kinh doanh truyền thống tạo ra những bức tường vô hình giữa các phòng ban. Dữ liệu bán hàng bị mắc kẹt trong CRM, cập nhật dự án bị lạc trong một công cụ riêng biệt, và phản hồi của khách hàng nằm cô lập ở một nơi khác. Sự xích mích này làm bạn chậm lại, tạo ra các silo dữ liệu, và ngăn cản các đội nhóm của bạn hoạt động như một thể thống nhất.
+</Warning>
+
+<Tip>
+  Luklak mang đến một sự khác biệt cơ bản. Đây không phải là một bộ sưu tập các ứng dụng—mà là một nền tảng phổ quát, duy nhất để xây dựng toàn bộ hệ điều hành kinh doanh cho công ty của bạn. Bằng cách cung cấp một bộ công cụ xây dựng mạnh mẽ và dùng chung, Luklak loại bỏ sự xích mích giữa các quy trình, khai mở sự linh hoạt thực sự cho tổ chức và tạo ra một dòng chảy giá trị thông suốt từ đầu đến cuối doanh nghiệp.
+</Tip>
+
+<Frame caption="LUKLAK system architecture, from raw materials, design to usage">
+  ![kien-truc-he-thong-luklak](/images/platform-structure.png)
+</Frame>
+
+**Bức tranh toàn cảnh**
+
+Để đạt được mức độ hợp nhất độc đáo này, nền tảng Luklak được xây dựng trên một Cấu trúc 3 Tầng đơn giản nhưng mạnh mẽ. Việc hiểu rõ mô hình này là chìa khóa để khai phá toàn bộ tiềm năng của nền tảng.
+
+<AccordionGroup>
+  <Accordion title="Tầng 1: Các Miếng Lego Lõi (Core Blocks)">
+    Đây là tầng nền tảng—các "mảnh LEGO" phổ quát mà từ đó mọi quy trình kinh doanh được xây dựng. Tầng này bao gồm 9 thành phần phổ quát của chúng tôi:
+
+    - **`🧊 Đối tượng Phổ quát (Universal Object)`**: Đơn vị logic cốt lõi cho mọi thực thể nghiệp vụ.
+    - **`Luồng tiến trình (Workflow)`**: Định nghĩa các trạng thái và bước chuyển để mô hình hóa một quy trình nghiệp vụ.
+    - **`Trường dữ liệu (Data Field)`**: Các trường tùy chỉnh để lưu trữ mọi thông tin cần thiết cho một Đối tượng.
+    - **`Giao diện làm việc (Workview)`**: Các bố cục trực quan có thể tùy chỉnh (Dạng danh sách, Kanban, Lịch) để quản lý các Đối tượng.
+    - **`Ngôn ngữ Truy vấn Phổ quát (UQL)`**: Một hệ thống truy vấn giống ngôn ngữ tự nhiên để lấy mọi dữ liệu trên toàn nền tảng.
+    - **`Tự động hóa Phổ quát (Universal Automation)`**: Bộ máy toàn nền tảng giúp kết nối và tự động hóa mọi quy trình.
+    - **`Kết nối Đối tượng (Object Connection)`**: Hệ thống để tạo ra các mối quan hệ mạnh mẽ giữa mọi Đối tượng.
+    - **`Livechat hợp nhất (Unified Live Chat)`**: Một hệ thống giao tiếp ba tầng tích hợp để mang lại ngữ cảnh hoàn hảo.
+    - **`Phương án Phân quyền & Thông báo`**: Hệ thống kiểm soát truy cập và cảnh báo chi tiết để đảm bảo an ninh và nhận biết thông tin.
+  </Accordion>
+  <Accordion title="Tầng 2: Thiết kế Chức năng (Function Design)">
+    Đây là tầng bản thiết kế. Tại đây, bạn lắp ráp các Khối Lõi thành các bản thiết kế nocode được gọi là `📋 Chức năng (Function)`. Một `📋 Function` là một bản thiết kế vận hành hoàn chỉnh cho một quy trình nghiệp vụ cụ thể, như CRM bán hàng hoặc hệ thống quản lý dự án. Nó định nghĩa các loại `🧊 Object`, `Luồng tiến trình`, `Trường dữ liệu`, và `Tự động hóa` cần thiết cho quy trình đó.
+  </Accordion>
+  <Accordion title="Tầng 3: Sử dụng & Vận hành (Usage & Operation)">
+    Đây là tầng ứng dụng trực tiếp nơi công việc thực sự diễn ra. Khi bạn triển khai một `📋 Function`, nó sẽ trở thành một hoặc nhiều `⏹️ Mảng việc (Space)`. Tầng này bao gồm ba cách thức chính để tổ chức và tương tác với công việc:
+
+    - **Cấu trúc Tổ chức (Organizational Structure)**: Hệ thống phân cấp của `📂 Khu vực` và `⏹️ Mảng việc` tạo nên cấu trúc chính thức, nhất quán cho toàn bộ công ty. Một `📂 Khu vực` (ví dụ: "Phòng Kinh doanh") chứa nhiều `⏹️ Mảng việc` liên quan (ví dụ: "CRM" và "Quản lý Hợp đồng").
+    - **Phòng làm việc (Workspaces)**: Một công cụ linh hoạt chủ yếu dành cho cấp quản lý. Phòng làm việc cho phép người dùng kéo các `⏹️ Mảng việc`, báo cáo, và bộ lọc từ nhiều `📂 Khu vực` khác nhau về một giao diện cá nhân hóa duy nhất để tiện theo dõi và quản lý.
+    - **Trang cá nhân (Personal Home)**: Một giao diện được tự động tổng hợp cho mỗi cá nhân. Nó gom tất cả các `🧊 Object` được giao và các cập nhật liên quan từ khắp nơi trên nền tảng, đảm bảo mỗi người có một nơi duy nhất để xem các công việc họ cần làm.
+  </Accordion>
+</AccordionGroup>
+
+Kiến trúc này vừa cho phép sự linh hoạt tuyệt đối trong thiết kế (Tầng 2) vừa đảm bảo tính nhất quán hoàn toàn trong vận hành (Tầng 3), tất cả đều được xây dựng trên một nền tảng hợp nhất, duy nhất (Tầng 1).
+
+**Tiếp theo là gì?**
+
+- [Khám phá chi tiết về Các Khối LEGO Cốt lõi](/platform/core-concepts)
+- [Tìm hiểu Triết lý Luklak: Cuộc Cách mạng Nền tảng Hợp nhất](/getting-started/philosophy)
+- [Xem cách mọi thứ kết hợp với nhau trong Sổ tay Xây dựng](/build-playbooks)
