@@ -61,15 +61,6 @@
         "tab": "Core Platform",
         "groups": [
           {
-            "group": "Core concepts",
-            "pages": [
-              "en/02-platform/tab02-note",
-              "en/02-platform/luklak-platform",
-              "en/02-platform/function",
-              "en/02-platform/state-of-unifed"
-            ]
-          },
-          {
             "group": "Platform Overview",
             "icon": "stars",
             "pages": [
@@ -84,6 +75,26 @@
 				},
               "en/02-platform/function-design/universal-object"
               
+            ]
+          },
+          {
+            "group": "Universal Lego Blocks",
+            "pages": [
+              "en/02-platform/tab02-note"
+              "en/02-platform/function",
+              "en/02-platform/state-of-unifed"
+            ]
+          },
+          {
+            "group": "Function Design",
+            "pages": [
+
+            ]
+          },
+           {
+            "group": "Use & Operate",
+            "pages": [
+
             ]
           }
         ]    
