@@ -23,6 +23,7 @@
         "groups": [
           {
             "group": "About Luklak",
+             "icon": "layer-group",
             "pages": [
               "en/01-getting-started/about-luklak/philosophy",
               "en/01-getting-started/when-to-choose-luklak"
@@ -30,6 +31,7 @@
           },
           {
             "group": "Quick Start",
+            "icon": "rocket-launch",
             "pages": [
               "en/01-getting-started/quick-start/account-setup",
               "en/01-getting-started/quick-start/quick-tour"
@@ -41,7 +43,7 @@
               "en/01-getting-started/role-based-onboarding/index",
               {
 					"group": "Pick your role",
-					"icon": "code",
+					"icon": "house-user",
 					"pages": [
 			  "en/01-getting-started/role-based-onboarding/for-ceos-executives",
               "en/01-getting-started/role-based-onboarding/for-solution-consultants",
