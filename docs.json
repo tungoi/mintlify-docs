@@ -39,6 +39,7 @@
           },
           {
             "group": "Onboarding",
+            "icon": "stars",
             "pages": [
               "en/01-getting-started/role-based-onboarding/index",
               {
