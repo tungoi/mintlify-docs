@@ -1,0 +1,60 @@
+---
+title: "System & Auto-Generated Fields"
+description: "A reference guide to all built-in fields in Luklak, including configurable system components like Checklists and Attachments, and read-only auto-generated metadata."
+sidebarTitle: "Auto Fields"
+---
+
+Beyond the custom fields you create, Luklak automatically provides two types of powerful, built-in fields on every `Object`. Understanding these fields is key to building a rich user experience and leveraging the full analytical power of the platform.
+
+<Info>
+  This guide covers fields that are provided by the system.
+
+  - **System Components** are features you can show or hide on a `Data Screen`.
+  - **Auto-Generated Fields** are read-only metadata for reporting and automation.
+</Info>
+
+## Configurable System Components
+
+These are powerful feature blocks that you can choose to **Show or Hide** on any `Data Screen` to tailor the user experience for a specific `Object Type`.
+
+<CardGroup cols={2}>
+  <Card title="Description" icon="align-left" iconType="duotone">
+    A prominent rich text block perfect for detailed explanations, instructions, or scope definitions.
+  </Card>
+  <Card title="Checklist" icon="list-check" iconType="duotone">
+    An interactive to-do list within the Object, ideal for breaking down minor sub-tasks or acceptance criteria.
+  </Card>
+  <Card title="Sub-objects" icon="cubes-stacked" iconType="duotone">
+    A dedicated section to create, view, and manage nested child Objects, enabling multi-level work breakdown.
+  </Card>
+  <Card title="Attachments" icon="paperclip" iconType="duotone">
+    The area where users can upload and manage files, documents, and images related to the Object.
+  </Card>
+  <Card title="Live Photo" icon="camera-retro" iconType="duotone">
+    A mobile-first feature for capturing geo-tagged and time-stamped photos, perfect for on-site verification or progress tracking.
+  </Card>
+</CardGroup>
+
+## Read-Only Auto-Generated Fields
+
+For every single `Object` created, the system automatically generates and maintains a set of read-only metadata fields. While users cannot edit these fields, they are invaluable for sorting, filtering, reporting, and building powerful automations.
+
+| Field Name      | Data Type | Description                                                                |
+| :-------------- | :-------- | :------------------------------------------------------------------------- |
+| `Object key`    | Text      | A unique, system-wide identifier for the Object (e.g., `CRM-1234`).        |
+| `creator`       | User      | The user who originally created the Object.                                |
+| `created`       | Timestamp | The exact date and time the Object was created.                            |
+| `updated`       | Timestamp | The exact date and time any field on the Object was last modified.         |
+| `statuschanged` | Timestamp | The exact date and time the Object's status was last changed.              |
+| `discussed`     | Timestamp | The exact date and time the last message was sent in the Object's chat.    |
+| `interacted`    | Timestamp | The most recent timestamp from `updated`, `statuschanged`, or `discussed`. |
+
+[Guidejar Placeholder: A tutorial showing a user creating a 'Saved Filter' to find 'all tasks I created in the last 7 days' by using the `creator` and `created` auto-fields.]
+
+## What's Next?
+
+You now have a complete understanding of every type of data field in Luklak—basic, advanced, and system-provided. The final step is to learn how this rich data is leveraged across the platform.
+
+- [**Learn How to Put Your Data to Work**](/platform/core-concepts/data-fields/using-field-data)
+- [**Explore Global Management of Data Components**](/platform/core-concepts/data-fields/global-management)
+- [**Return to the Data Fields & Screens Overview**](/platform/core-concepts/data-fields)
