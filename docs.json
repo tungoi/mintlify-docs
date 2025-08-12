@@ -83,13 +83,19 @@
           {
             "group": "Universal Lego Blocks",
             "pages": [
-              "en/02-platform/function-design/universal-object",
+              {
+					"group": "Universal Objects",
+					"icon": "cube",
+					"pages": [
+			          "en/02-platform/function-design/universal-object",
               "en/02-platform/platform-overview/universal-object/what-is-universal-object",
               "en/02-platform/platform-overview/universal-object/object-vs-object-type",
-              "en/02-platform/platform-overview/universal-object/creating-object-types",
+              "en/02-platform/platform-overview/universal-object/creating-object-types"
+					]
+				},
               {
 					"group": "Data Fields & Screens",
-					"icon": "Field",
+					"icon": "pen-field",
 					"pages": [
 			          "en/02-platform/platform-overview/data-fields/index",
                       "en/02-platform/platform-overview/data-fields/basic-field-types"
