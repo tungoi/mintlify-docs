@@ -1,0 +1,62 @@
+---
+title: "New file"
+description: "Description of your new file."
+---
+
+---
+title: "Tổng quan Nền tảng: Kiến trúc Luklak"
+description: "Giới thiệu về Kiến trúc 3 Tầng và các thành phần phổ quát của Luklak, cung cấp một mô hình tư duy cho toàn bộ nền tảng."
+---
+
+import { Card, CardGroup, Accordion, AccordionGroup } from '@mintlify/components';
+
+Chào mừng bạn đến với mục Nền tảng, nguồn chân lý duy nhất của bạn cho các khái niệm kỹ thuật làm nên sức mạnh của Luklak. Mục này là một bách khoa toàn thư dành cho những người xây dựng hệ thống, được thiết kế để mang lại cho bạn sự hiểu biết sâu sắc về kiến trúc và các năng lực của nền tảng.
+
+Để hiểu về Luklak, hãy bắt đầu với **Kiến trúc 3 Tầng**. [cite_start]Mô hình này tách biệt các miếng LEGO xây dựng nền tảng khỏi các bản thiết kế và các không gian vận hành trực tiếp[cite: 2].
+
+### Kiến trúc 3 Tầng
+
+[cite_start]Luklak được tổ chức thành ba lớp riêng biệt, từ nền tảng trừu tượng đến các hoạt động hữu hình[cite: 2].
+
+<AccordionGroup>
+  <Accordion title="Tầng 1: Các Miếng LEGO Cốt lõi & Cài đặt Toàn cục">
+    [cite_start]Đây là tầng nền tảng nơi các khối xây dựng phổ quát được định nghĩa[cite: 2]. [cite_start]Nó bao gồm các thành phần cốt lõi như `🧊 Đối tượng Phổ quát`, `Trường dữ liệu` và `Luồng tiến trình` của nó[cite: 2]. [cite_start]Các cấu hình cấp hệ thống như `Thư mục Toàn cục` cũng được quản lý ở đây[cite: 2].
+  </Accordion>
+  <Accordion title="Tầng 2: Thiết kế Chức năng">
+    [cite_start]Đây là tầng thiết kế, nơi bạn lắp ráp các miếng ghép cốt lõi thành các bản thiết kế cho quy trình nghiệp vụ, được gọi là `📋 Chức năng`[cite: 2]. [cite_start]Một `📋 Chức năng` là một đơn vị vận hành hoàn chỉnh, khép kín, định nghĩa cách một phân hệ nghiệp vụ cụ thể sẽ hoạt động[cite: 2].
+  </Accordion>
+  <Accordion title="Tầng 3: Sử dụng & Vận hành">
+    [cite_start]Đây là môi trường trực tiếp nơi công việc thực sự diễn ra[cite: 2]. [cite_start]Ở tầng này, các `⏹️ Mảng việc` được tạo ra từ các `📋 Chức năng`, và người dùng tương tác với các `🧊 Đầu việc` hàng ngày[cite: 2].
+  </Accordion>
+</AccordionGroup>
+
+### Các Thành phần Phổ quát
+
+Sức mạnh của Luklak đến từ một bộ các "LEGO" phổ quát có thể được kết hợp để xây dựng bất kỳ giải pháp nào.
+
+<CardGroup cols={3}>
+  <Card title="🧊 Đối tượng Phổ quát" href="/platform/the-universal-object">
+    [cite_start]Đơn vị logic và dữ liệu nền tảng của toàn bộ hệ thống[cite: 2]. Nó có thể được điều chỉnh để đại diện cho bất kỳ thực thể kinh doanh nào, từ khách hàng, công việc cho đến một chuyến hàng.
+  </Card>
+  <Card title="Giao diện làm việc" href="/platform/workviews">
+    [cite_start]Tập hợp các bố cục trực quan có thể tùy chỉnh—bao gồm List, Kanban, Calendar, và Timeline—được sử dụng để tương tác và quản lý `🧊 Đầu việc` trong một `⏹️ Mảng việc`[cite: 2].
+  </Card>
+  <Card title="Tự động hóa Phổ quát" href="/platform/universal-automation">
+    [cite_start]Hệ thống tự động hóa trên toàn nền tảng[cite: 2]. [cite_start]Nó kết nối các quy trình napasg các `📋 Chức năng` bằng cách sử dụng một hệ thống các kích hoạt, điều kiện và hành động[cite: 2].
+  </Card>
+  <Card title="Kết nối Đối tượng" href="/platform/object-connection">
+    [cite_start]Hệ thống để tạo và quản lý các mối quan hệ giữa bất kỳ `🧊 Đầu việc` nào[cite: 2]. Điều này cho phép bạn xây dựng các giải pháp phức tạp, liên kết với nhau như một hệ thống CRM được liên kết với một hệ thống quản lý dự án.
+  </Card>
+  <Card title="Phân quyền & Thông báo" href="/platform/permissions">
+    Lớp quản trị chi tiết. [cite_start]Nó bao gồm các `Phương án Phân quyền` để kiểm soát ai có thể làm gì, và các `Phương án Thông báo` để xác định ai sẽ nhận được cảnh báo về các sự kiện nào[cite: 2].
+  </Card>
+  <Card title="Ngôn ngữ Truy vấn Phổ quát (UQL)" href="/platform/uql">
+     Một hệ thống truy vấn hợp nhất, giống ngôn ngữ tự nhiên cho tất cả dữ liệu nền tảng, cho phép lọc và báo cáo mạnh mẽ.
+  </Card>
+</CardGroup>
+
+**Hành trình Tiếp theo?**
+
+- [Tìm hiểu sâu: `🧊 Đối tượng Phổ quát`](/platform/the-universal-object)
+- [Khám phá Hệ thống Tự động hóa Phổ quát](/platform/universal-automation)
+- [Xem cách `📋 Chức năng` hoạt động như những Bản thiết kế](/platform/functions-the-blueprint)
