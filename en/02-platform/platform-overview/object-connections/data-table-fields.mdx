@@ -1,0 +1,52 @@
+---
+title: "Data Tables: Modeling Contained One-to-Many Relationships"
+description: "Learn how to use the powerful Data Table field to model 'contained' one-to-many relationships, such as invoice line items or meeting action items, directly within an Object."
+sidebarTitle: "Data Tables"
+---
+
+## The Architect's Choice: When to Use a Data Table
+
+Imagine you need to model a one-to-many relationship, like an `🧊 Invoice` that has many `🧊 Line Items`. Should those `Line Items` be `Sub-Objects`, or something else?
+
+This is a critical architectural decision. The **`Data Table`** field is the "something else"—a powerful tool designed for modeling **contained** relationships.
+
+<Tip>
+  **`Use a Data Table`** when the "many" items are simple rows of data that belong exclusively to the parent and **`do not need to live as independent 🧊 Objects`**. Examples: line items, meeting action items, expense logs.
+
+  **`Use Parent-Child Sub-Objects`** when the child items are complex entities that need their own detailed workflow, permissions, and history. Examples: a `🧊 Project` and its `🧊 Tasks`.
+</Tip>
+
+## What is a Data Table Field?
+
+The `Data Table` field is essentially a **`mini-spreadsheet embedded directly within a single 🧊 Object`**. It allows you to manage structured lists of data without having to create dozens of separate, simple `🧊 Objects`.
+
+As an architect, you predefine the **columns** of the table. Each column acts like its own mini data field, with types like `Text`, `Number`, `Date`, or even `Formula`.
+
+[Image Placeholder: A screenshot of an `🧊 Invoice` Object, clearly showing a Data Table field with columns for 'Item Description', 'Quantity', 'Unit Price', and a 'Line Total'.]
+
+## Key Capabilities
+
+The Data Table is more than a simple list; it has two standout features that enable highly advanced solutions.
+
+### 1. Cross-Object Data Referencing
+
+A column in your table can be configured to **`look up and pull in data from another, separate 🧊 Object`**.
+
+- **`Use Case (Students & Classes):`** In a `🧊 Class` Object, you can have a Data Table of attendees. One column could be an `Object Picker` that allows you to select `🧊 Student` Objects. Other columns in the same row can then automatically pull in data like the selected student's `Student ID` and `Contact Email` directly from their `🧊 Student` Object, creating a dynamic class roster.
+
+### 2. Combining with Automation
+
+The Data Table becomes a dynamic, interactive system when combined with `Universal Automation`. Actions within the table can trigger rules that affect other `🧊 Objects`.
+
+- **`Use Case (Inventory & Sales):`** An `🧊 Order` Object has a Data Table for its line items. When the sales team adds a row, selects an `🧊 Inventory Item`, and enters `Quantity = 10`, an automation rule can be triggered. This rule finds the referenced `🧊 Inventory Item` and executes an action to decrease its `Stock Level` field by 10 in real-time.
+
+[Guidejar Placeholder: A tutorial showing the setup of an automation rule that watches a Data Table on an 'Order' Object. When a row is added, it uses the referenced object and quantity from the table row to update a field on the corresponding Inventory Object.]
+
+## What's Next?
+
+You have now mastered the four methods of modeling data relationships in Luklak. The next step is to learn how to make your entire system intelligent by automating the processes you've connected.
+
+- **Learn how to automate your processes:**
+  → [**Introduction to Universal Automation**](/platform/core-concepts/universal-automation)
+- **Return to the main overview:**
+  → [**Back to Core Concepts**](/platform/core-concepts)

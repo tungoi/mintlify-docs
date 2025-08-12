@@ -126,7 +126,17 @@
 					"pages": [
 			         "en/02-platform/platform-overview/object-connections/index",
                       "en/02-platform/platform-overview/object-connections/parent-child-relationships",
-                      "en/02-platform/platform-overview/object-connections/lookup-connections"
+                      "en/02-platform/platform-overview/object-connections/lookup-connections",
+                      "en/02-platform/platform-overview/object-connections/data-table-fields",
+                      "en/02-platform/platform-overview/universal-automation/index"
+
+					]
+				},
+              {
+					"group": "Universal Automations",
+					"icon": "robot",
+					"pages": [
+			         "en/02-platform/platform-overview/universal-automation/index"
 
 					]
 				}
