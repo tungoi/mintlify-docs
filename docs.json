@@ -86,7 +86,14 @@
               "en/02-platform/function-design/universal-object",
               "en/02-platform/platform-overview/universal-object/what-is-universal-object",
               "en/02-platform/platform-overview/universal-object/object-vs-object-type",
-              "en/02-platform/platform-overview/universal-object/creating-object-types"
+              "en/02-platform/platform-overview/universal-object/creating-object-types",
+              {
+					"group": "Pick your role",
+					"icon": "house-user",
+					"pages": [
+			  "en/02-platform/platform-overview/data-fields/index"
+					]
+				}
             ]
           },
           {

@@ -1,0 +1,47 @@
+---
+title: "Data Fields & Screens: Structuring Your Information"
+description: "An overview of how to model your business data in Luklak using custom Data Fields and organizing them into Screen layouts for any Object Type."
+sidebarTitle: "Data Fields & Screens"
+---
+
+## Why Data Modeling Matters
+
+The long-term success of any business system depends on the quality of its data. Poorly structured information leads to inconsistent reporting, failed automations, and a confusing user experience. As an architect, designing a robust data model is one of the most critical parts of your job.
+
+Luklak's **Data Fields** and **Screens** provide a powerful yet intuitive toolkit to build a custom, scalable data schema for any business process. This ensures your data is always clean, consistent, and ready to be leveraged for insights and automation.
+
+## The Core Concepts: Fields and Screens
+
+To model data in Luklak, you'll work with two primary components that define the structure of every `🧊 Universal Object`.
+
+1. **Data Fields: The Building Blocks of Information**
+   A `Data Field` is the smallest unit of information storage. Think of it as a specialized bucket designed to hold a specific type of data—a line of text, a number, a date, a user assignment, or a file attachment. You can create an unlimited number of custom fields to capture exactly what your process needs.
+2. **Screens: The User-Facing Layout**
+   A `Screen` is the visual layout or form where you organize your Data Fields. If `Data Fields` are the individual input boxes on a web form (like 'First Name', 'Email Address'), the `Screen` is the form itself—the organized layout that the user sees and interacts with when they create or view an Object.
+
+<Info>
+  The relationship is simple: You create your desired **`Data Fields`**, arrange them logically on a **`Screen`**, and then assign that `Screen` to an **`Object Type`** to define its data structure.
+</Info>
+
+[Image Placeholder: A diagram showing a collection of Data Field icons (text, date, user) being dragged onto a 'Screen' canvas. An arrow then points from the completed Screen to an 'Object Type' icon, illustrating the assignment process.]
+
+## A Universe of Possibilities: Field Types
+
+Luklak offers a rich library of field types, ranging from simple inputs to powerful relational and calculated fields. Choosing the right field type is the foundation of good data architecture.
+
+- **Basic Fields** like `Text`, `Number`, and `Date` form the backbone of most processes.
+- **Relational Fields** like `User` fields to assign tasks, or `Object Lookup` fields to connect different Objects together.
+- **Advanced & Calculated Fields** like `Formula` fields for dynamic calculations and `Table` fields for structured line items within an Object.
+
+<Tip>
+  Using a dedicated `Date` field for a deadline (instead of a simple `Text` field) is what enables date-based reporting, calendar views, and "Due Date Reminder" automations. Every choice has power.
+</Tip>
+
+## What's Next?
+
+You now understand the data modeling framework. It's time to explore the specific tools at your disposal. Dive into our library of field types and configuration options to see what you can build.
+
+- [**Start with the Basics: A Guide to Basic Field Types**](/platform/core-concepts/data-fields/basic-field-types)
+- [**Unlock Powerful Capabilities: The Advanced Field Library**](/platform/core-concepts/data-fields/advanced-field-types)
+- [**Fine-Tune Your Schema: Data Field Configuration Options**](/platform/core-concepts/data-fields/field-configuration)
+- [**Learn About Built-in Fields: System Data Fields**](/platform/core-concepts/data-fields/system-fields)
