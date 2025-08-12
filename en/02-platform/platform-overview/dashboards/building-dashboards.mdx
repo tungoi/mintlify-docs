@@ -1,0 +1,75 @@
+---
+title: "Building Your First Dashboard"
+description: "A step-by-step tutorial on how to create a new Dashboard, add and configure gadgets, and set up data sources to visualize your business insights."
+sidebarTitle: "Building a Dashboard"
+---
+
+## Before You Begin
+
+This tutorial will walk you through the process of building a simple "Sales Performance" dashboard from scratch.
+
+<Info>
+  **Prerequisite:** This guide assumes you have a `Function` (e.g., "Sales CRM") and a `Space` with some sample `🧊 Deal` Objects. Your `Deal` Object Type should have fields like `Deal Value` (Number), `Stage` (Select List), and `Owner` (User).
+</Info>
+
+Remember, a **Dashboard** is for **analysis**. We are now going to aggregate the data from many individual `🧊 Deal` Objects to see the big picture.
+
+## The 3 Levels of Data Scoping
+
+Before building, it's important to understand how Luklak handles data sources. You can define a data scope at three cascading levels:
+
+1. **Dashboard-Level Source:** Set a default data source for the **entire dashboard** (e.g., "All data from the Sales CRM Function").
+2. **Page-Level Source:** Override the dashboard source for a **specific page** (e.g., "Page 2 only shows data from the Enterprise Deals Space").
+3. **Gadget-Level Source:** Override all other sources for a **single gadget**.
+
+<Tip>
+  For maximum flexibility, most users set data sources at the **Gadget Level**. This allows you to have a gadget for "Sales Deals" right next to a gadget for "Support Tickets" on the same page. This tutorial will follow that approach.
+</Tip>
+
+## Step-by-Step Guide: Building a Sales Dashboard
+
+```guidejar
+# Building a Sales Performance Dashboard
+This guide walks you through creating a simple dashboard with two common gadgets: a Counter and a Pie Chart.
+
+## Section 1: Create Your New Dashboard
+1.  Navigate to the main **Dashboards** area in your sidebar.
+2.  Click the **'+ New Dashboard'** button.
+    ![Screenshot showing the main dashboards page with the '+ New Dashboard' button highlighted.](/images/dashboards/tutorial-step1.png)
+3.  Give your dashboard a name, like "Sales Performance Q3", and click **'Create'**.
+    * You will be taken to a new, empty dashboard canvas, ready for your gadgets.
+
+## Section 2: Add a 'Deal Count' Counter
+* Tip: Counters are great for showing a single, important, at-a-glance number.
+
+1.  On the empty canvas, click **'+ Add Gadget'**.
+2.  Select the **'Counter'** gadget from the library.
+3.  In the gadget's configuration panel, set the **Data Source**. Use UQL to define what you want to count.
+    * For this example, let's count all open deals: `object.type = "Deal" AND status.category = "ACTIVE"`
+    ![Screenshot of the Counter gadget configuration, with the UQL query being entered.](/images/dashboards/tutorial-step2.png)
+4.  Give the gadget a title: "Total Active Deals".
+5.  Click **'Save'**. The counter will appear on your dashboard.
+
+## Section 3: Add a 'Pipeline Stage' Pie Chart
+* Tip: Pie charts are perfect for showing the proportional breakdown of your data.
+
+1.  Click **'+ Add Gadget'** again.
+2.  Select the **'Chart'** gadget and choose the **'Pie'** type.
+3.  Set the **Data Source** to count all your active deals: `object.type = "Deal" AND status.category = "ACTIVE"`
+4.  In the **'Group By'** setting, select your 'Stage' field (`stage`). This tells the chart how to slice the pie.
+    ![Screenshot of the Pie Chart gadget configuration, showing the Data Source and the 'Group By' setting selected.](/images/dashboards/tutorial-step3.png)
+5.  Give the gadget a title: "Active Pipeline by Stage".
+6.  Click **'Save'**.
+
+## Section 4: Arrange Your Dashboard
+1.  You can now **drag and drop** your gadgets on the canvas to arrange them.
+2.  You can also **resize** them by dragging their corners to get the perfect layout.
+    ![Screenshot of the final dashboard with the Counter and Pie Chart arranged nicely on the canvas.](/images/dashboards/tutorial-step4.png)
+```
+
+## What's Next?
+
+You've successfully built a basic dashboard. The next step is to learn how to use filters and drill-downs to explore your data interactively.
+
+- [**Learn how to make your dashboards dynamic: Using Interactive Dashboards**](https://www.google.com/search?q=/platform/core-concepts/dashboards/interactive-dashboards)
+- [**Return to the Dashboards Overview**](https://www.google.com/search?q=/platform/core-concepts/dashboards)

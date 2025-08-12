@@ -161,8 +161,9 @@
 					"group": "Dashboards",
 					"icon": "pie-chart",
 					"pages": [
-			         "en/02-platform/platform-overview/dashboards/index"
-                      "en/02-platform/platform-overview/dashboards/dashboard-gadgets"
+			         "en/02-platform/platform-overview/dashboards/index",
+                      "en/02-platform/platform-overview/dashboards/dashboard-gadgets",
+                      "en/02-platform/platform-overview/dashboards/building-dashboards"
 					]
 				}
             ]
