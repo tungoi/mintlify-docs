@@ -1,0 +1,53 @@
+---
+title: "Workviews: Nhìn Dữ liệu theo Cách của Bạn"
+description: "Tổng quan về Workviews, các 'lăng kính' có thể tùy chỉnh được sử dụng để xem và tương tác với dữ liệu Object của bạn ở các định dạng như List, Kanban, Calendar, v.v."
+sidebarTitle: "Tổng quan Workviews"
+---
+
+## Workview là gì?
+
+Dữ liệu chỉ hữu ích khi bạn có thể nhìn thấy nó theo cách có ý nghĩa với công việc bạn đang làm. Một người quản lý dự án cần một dòng thời gian, một trưởng phòng kinh doanh cần một bảng Kanban, và một quản trị viên cần một danh sách chi tiết.
+
+Một **Workview** (Giao diện làm việc) là một "lăng kính" có thể cấu hình, qua đó bạn và đội nhóm của mình xem và tương tác với các `🧊 Object`. Nó là giao diện người dùng chính cho công việc hàng ngày. Bạn có thể chuyển đổi giữa các Workview khác nhau một cách nhanh chóng, xem cùng một bộ `🧊 Object` qua các lăng kính khác nhau mà không hề thay đổi dữ liệu gốc.
+
+[Image Placeholder: Một đồ họa thể hiện một nhóm các icon `🧊 Object` ở trung tâm. Các mũi tên chỉ từ nhóm này đến các màn hình khác nhau đại diện cho List, bảng Kanban, và Lịch, minh họa rằng dữ liệu nguồn là như nhau.]
+
+## Các loại Giao diện làm việc Tiêu chuẩn
+
+Luklak cung cấp một bộ các loại Workview mạnh mẽ, tiêu chuẩn để đáp ứng tất cả các nhu cầu kinh doanh chính.
+
+<CardGroup cols={3}>
+  <Card title="Dạng List (Danh sách)" icon="list" iconType="duotone">
+    Dạng xem kiểu bảng tính cổ điển để quản lý lượng lớn dữ liệu ở định dạng bảng.
+  </Card>
+  <Card title="Dạng Kanban" icon="columns" iconType="duotone">
+    Một giao diện trực quan dựa trên các thẻ, hoàn hảo để theo dõi các hạng mục khi chúng di chuyển qua các giai đoạn của một `Workflow`.
+  </Card>
+  <Card title="Dạng Calendar (Lịch)" icon="calendar-days" iconType="duotone">
+    Một giao diện lịch quen thuộc để lập kế hoạch và trực quan hóa các `🧊 Object` dựa trên các trường `Date` của chúng.
+  </Card>
+  <Card title="Dạng Timeline (Dòng thời gian)" icon="gantt-chart" iconType="duotone">
+    Dạng xem kiểu biểu đồ Gantt để lập lịch dự án, quản lý các yếu tố phụ thuộc và theo dõi tiến độ theo thời gian.
+  </Card>
+  <Card title="Dạng Updates (Cập nhật)" icon="bell" iconType="duotone">
+    Một luồng hoạt động thời gian thực hiển thị tất cả các bình luận, thay đổi trạng thái và cập nhật trên các `🧊 Object` của bạn.
+  </Card>
+</CardGroup>
+
+## Workviews được Cấu hình ở đâu?
+
+Workviews có thể được định nghĩa ở hai nơi, cho phép cả việc tiêu chuẩn hóa và sự linh hoạt:
+
+1.  **Trong một `📋 Function` (Bản mẫu):** Với vai trò kiến trúc sư, bạn có thể thiết kế trước một bộ Workviews tiêu chuẩn bên trong bản thiết kế `Function` của mình. Khi người dùng tạo một `⏹️ Space` mới từ `Function` đó, nó sẽ tự động kế thừa các giao diện đã được cấu hình sẵn này. Điều này đảm bảo mọi đội nhóm đều bắt đầu với một giao diện nhất quán, theo chuẩn tốt nhất.
+
+2.  **Trong một `⏹️ Space` (Tùy chỉnh):** Người dùng có quyền phù hợp có thể tạo các Workviews riêng tư mới hoặc tùy chỉnh các giao diện hiện có trực tiếp trong `Space` của họ. Điều này cho phép các đội nhóm điều chỉnh giao diện của mình cho phù hợp với nhu cầu công việc hàng ngày cụ thể mà không làm thay đổi bản thiết kế gốc.
+
+## Tiếp theo là gì?
+
+Bây giờ bạn đã có cái nhìn tổng quan về các công cụ trực quan hóa có sẵn. Hãy đi sâu vào các hướng dẫn chi tiết cho từng loại Workview để làm chủ cách cấu hình và các trường hợp sử dụng của chúng.
+
+- [**Tìm hiểu về dạng xem bảng cổ điển: Dạng List**](/platform/core-concepts/workviews/list-view)
+- [**Học cách trực quan hóa quy trình của bạn: Dạng Kanban**](/platform/core-concepts/workviews/kanban-view)
+- [**Học cách quản lý theo ngày: Dạng Calendar**](/platform/core-concepts/workviews/calendar-view)
+- [**Học cách lập lịch dự án: Dạng Timeline**](/platform/core-concepts/workviews/timeline-view)
+- [**Xem luồng hoạt động của bạn: Dạng Updates**](/platform/core-concepts/workviews/updates-view)
