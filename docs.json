@@ -81,7 +81,8 @@
 			  "en/02-platform/platform-overview/core-concepts"
 					]
 				},
-              "en/02-platform/function-design/universal-object"
+              "en/02-platform/function-design/universal-object",
+              "en/02-platform/function-design/function-design"
             ]
           }
         ]    
