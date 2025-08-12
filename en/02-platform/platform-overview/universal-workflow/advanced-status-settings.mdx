@@ -1,0 +1,65 @@
+---
+title: "Advanced Status Settings: Conditions, Screens & Automation"
+description: "A deep dive for architects on configuring advanced settings for each status, including setting transition Conditions (like field validation and user permissions), triggering Input Screens, and attaching Automations."
+sidebarTitle: "Advanced Status Settings"
+---
+
+## Beyond the Flowchart
+
+A workflow's true power lies not just in its path, but in the rules and logic embedded at each step. Advanced Status Settings transform a simple flowchart into an intelligent, secure, and automated business process.
+
+<Info>
+  These settings are configured by clicking on a `Status` within the workflow design canvas. They add layers of control over the transition _into_ that status.
+</Info>
+
+This guide covers the three main types of advanced settings you can configure on any `Status`.
+
+## 1. Conditions: The Gateway to a Status
+
+**Conditions** act as a smart gateway that an `Object` must pass through to enter a status. If the combined conditions are not met, the user is blocked from making the transition. You can set two types of conditions—Data Validation and User Permissions—and combine them for powerful control.
+
+[Image Placeholder: A screenshot of the status configuration panel with the 'Conditions' tab open, showing both a data validation rule and a user permission rule configured.]
+
+### Condition Type: Data Validation
+
+This checks the data _on the Object_ itself before allowing the transition.
+
+- **Use Case:** Prevent a `Contract` from moving to `SENT_FOR_SIGNATURE` unless the `Contract Value` field is filled out AND the `Legal Approval Checklist` is 100% complete.
+- **What you can validate:** `Data Fields` (e.g., not empty), `Checklists` (e.g., completion %), `Sub-objects` (e.g., all sub-tasks are `DONE`), and more.
+
+### Condition Type: User Permission
+
+This checks _who the user_ attempting the transition is, acting as a secure approval gate.
+
+- **Use Case:** Ensure that only a user with the 'Manager' `Role` can move a `Purchase Request` to the `APPROVED` status.
+- **Who you can grant permission to:** `User accounts`, `Groups`, `Roles`, and users listed in `User Fields` (like 'Assignee' or 'Supervisor').
+
+<Tip>
+  By creating multiple transitions out of a single status, each leading to a different next status with its own unique condition, you can create dynamic routing. For example, a `REVIEW` status could have a transition to `APPROVED` (if `Score` \<= 8) and another to `NEEDS_REWORK` (if `Score` \> 8).
+</Tip>
+
+## 2. Input Screens: Collecting Data in Context
+
+An **Input Screen** is a form that automatically pops up when a user transitions an Object _into_ this status, requiring them to fill in specific fields before the transition is complete.
+
+- **Use Case:** When a support ticket is moved to the `CLOSED` status, an Input Screen appears that requires the agent to fill out the `Resolution Summary` and `Time Spent` fields.
+- **Why it's useful:** It ensures you collect the right data at the right time, improving data quality and saving users from having to remember to go back and fill in details later.
+
+[Guidejar Placeholder: A short tutorial showing how to configure an Input Screen for a 'CLOSED' status, then switching to the user view to show the pop-up form appearing during the status change.]
+
+## 3. Workflow Automation: Triggering Actions
+
+You can attach a series of automated actions that fire the moment an `Object` successfully enters a status.
+
+- **Use Case:** When a `Candidate` Object enters the `HIRED` status, a workflow automation can instantly:
+  1. Create a new `Object` in the 'Employee Onboarding' `Function`.
+  2. Update the 'Onboarding Task' `Assignee` field to the HR team.
+  3. Send a pre-written welcome email to the candidate.
+- **Note:** This is a specific type of automation tied directly to the workflow. The main `Universal Automation` engine allows for even more complex rules that can run in the background or be triggered by other events.
+
+## What's Next?
+
+You now have the tools to build secure, intelligent, and automated workflows. The next step is to learn how to analyze their performance.
+
+- [**Learn how to Leverage Workflow Data for Reporting**](/platform/core-concepts/workflow-and-status/using-workflow-data)
+- [**Return to the Workflow & Status Overview**](/platform/core-concepts/workflow-and-status)
