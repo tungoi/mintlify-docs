@@ -73,7 +73,8 @@
             "group": "Platform Overview",
             "icon": "stars",
             "pages": [
-              "en/02-platform/platform-overview/platform-overview"
+              "en/02-platform/platform-overview/platform-overview",
+              "en/02-platform/platform-overview/core-concepts"
             
             ]
           }
