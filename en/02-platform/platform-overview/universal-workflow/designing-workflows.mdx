@@ -1,0 +1,60 @@
+---
+title: "Designing a Basic Workflow"
+description: "A step-by-step tutorial on how to design a basic workflow in Luklak by creating statuses, naming them, and defining transitions to map out a simple process."
+sidebarTitle: "Basic Workflow Design"
+---
+
+## Before You Begin
+
+This tutorial will walk you through designing your first simple workflow. We will create a standard `TO DO` → `IN PROGRESS` → `DONE` lifecycle, which is the foundation for countless business processes.
+
+<Info>
+  **Prerequisite:** This guide assumes you have already created a `Function` and an `Object Type` named "Task". If you haven't, please follow our [Creating Your First Object Type](/platform/core-concepts/universal-object/creating-object-types) guide first.
+</Info>
+
+You are now acting as the architect, defining the official path that all "Task" Objects must follow. A clear workflow is the foundation of a predictable and reportable process.
+
+## Step-by-Step Guide: Creating a 'Task' Workflow
+
+```guidejar
+# Designing a Basic 'Task' Workflow
+This guide walks you through creating a simple but essential three-step workflow on the visual canvas.
+
+## Section 1: Accessing the Workflow Canvas
+! Important: Make sure you are inside the design canvas of a `Function` and have selected the "Task" `Object Type` you created previously.
+
+1.  From the left sidebar of the Function designer, ensure you are on the **'Object Types'** tab and that your "Task" `Object Type` is highlighted.
+    ![Screenshot showing the Function design canvas with the 'Task' Object Type selected.](/images/workflows/tutorial-step1.png)
+2.  Click on the **'Workflow'** sub-tab. This will open the visual workflow canvas where you will design the process.
+    * The canvas may be empty or contain a single default status.
+    ![Screenshot showing the workflow canvas, ready for design.](/images/workflows/tutorial-step2.png)
+
+## Section 2: Creating Your Statuses
+* Tip: Each status represents a key stage in your process. For clarity and system-wide consistency, it's a best practice to name your statuses in `UPPERCASE`.
+
+1.  If there is a default status on the canvas, click on it to open its settings, and rename it to `TO DO`.
+2.  Click the **'+ Add Status'** button on the canvas to create a new status. Name it `IN PROGRESS`.
+3.  Click **'+ Add Status'** again and name the final status `DONE`.
+    ![Screenshot of the canvas with three separate, unconnected status boxes: TO DO, IN PROGRESS, and DONE.](/images/workflows/tutorial-step3.png)
+
+## Section 3: Defining the Transitions
+* Tip: Transitions create the 'flow' in your workflow. They define the permitted paths an Object can take, preventing steps from being skipped.
+
+1.  Hover over the `TO DO` status. Click the small `+` icon on its right edge and, while holding the mouse button, drag the arrow to the `IN PROGRESS` status. Release the mouse button to create the transition.
+2.  Now, hover over the `IN PROGRESS` status. Click the `+` icon on its right edge and drag the arrow to the `DONE` status.
+3.  Review your workflow. You should now have a clear, linear flow: `TO DO` → `IN PROGRESS` → `DONE`.
+    ![A screenshot of the completed workflow showing the three statuses connected by two directional arrows, representing the transitions.](/images/workflows/tutorial-step4.png)
+```
+
+## Your First Workflow is Ready\!
+
+Congratulations\! You have now successfully designed a complete, logical workflow. Every "Task" `Object` created from this `Object Type` will now be bound to this exact `TO DO` → `IN PROGRESS` → `DONE` lifecycle.
+
+This simple act enforces your business process, ensures data consistency for reporting, and makes the status of every task instantly understandable.
+
+## What's Next?
+
+A workflow is more than just boxes and arrows. The next step is to learn about the properties and rules that give your statuses power and intelligence.
+
+- [**Understand the rules: Status Categories & Workflow Guides**](https://www.google.com/search?q=/platform/core-concepts/workflow-and-status/status-categories-and-guides)
+- [**Unlock advanced control: Advanced Status Settings**](https://www.google.com/search?q=/platform/core-concepts/workflow-and-status/advanced-status-settings)

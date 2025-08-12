@@ -112,7 +112,8 @@
 					"group": "Universal Workflows",
 					"icon": "arrow-progress",
 					"pages": [
-			         "en/02-platform/platform-overview/universal-workflow/index"
+			         "en/02-platform/platform-overview/universal-workflow/index",
+                      "en/02-platform/platform-overview/universal-workflow/designing-workflows"
 					]
 				}
             ]
