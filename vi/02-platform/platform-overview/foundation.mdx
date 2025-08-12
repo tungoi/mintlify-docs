@@ -1,0 +1,65 @@
+---
+title: "Giai đoạn 1: Thiết lập Nền móng của bạn"
+description: "Hướng dẫn chi tiết về việc thiết lập nền tảng cho hệ thống Luklak của bạn: quản lý người dùng, định nghĩa Đặc quyền Doanh nghiệp, và quản trị với Quyền Truy cập Tiện ích."
+---
+
+Chào mừng đến với Giai đoạn 1. Trước khi có thể xây dựng các giải pháp nghiệp vụ mạnh mẽ, trước tiên bạn phải thiết lập các quy tắc nền tảng cho thế giới số của mình. Đây là bước đi thiết yếu đầu tiên cho bất kỳ quản trị viên hệ thống nào, đảm bảo rằng hệ thống Luklak của bạn được bảo mật, có tổ chức và sẵn sàng cho các đội nhóm của bạn.
+
+Quá trình này bao gồm hai hệ thống kiểm soát riêng biệt nhưng có liên quan với nhau: định danh những ai có trong thế giới của bạn, và sau đó xác định họ được phép chạm vào những gì.
+
+## Bước 1: Định danh Con người & Quyền lực
+
+Đầu tiên, bạn phải đưa người dùng vào hệ thống và cấp cho họ mức quyền hạn cơ bản.
+
+### Người dùng, Nhóm và Vai trò
+
+Nhiệm vụ ban đầu là tạo tài khoản `Người dùng` cho mỗi người trong đội nhóm của bạn. Để quản lý họ một cách hiệu quả, bạn có thể tổ chức những người dùng này vào các `Nhóm` (ví dụ: "Đội Sales," "Quản lý Nhân sự") và gán cho họ các `Vai trò` (ví dụ: "Người phê duyệt," "Kiểm toán viên") đại diện cho chức năng của họ trong một quy trình nghiệp vụ. Điều này cho phép bạn gán quyền cho một Nhóm hoặc Vai trò một lần, thay vì cho hàng trăm người dùng cá nhân.
+
+### Cổng vào: Đặc quyền Doanh nghiệp
+
+Trước khi một người dùng có thể làm bất cứ điều gì, họ cần một **Đặc quyền Doanh nghiệp**. Nó hoạt động như một "vé vào cửa" và định nghĩa quyền hạn tối đa, trên toàn hệ thống của họ. Hãy coi nó như con dấu hộ chiếu của họ—nó xác định xem họ có được phép vào quốc gia hay không và họ giữ địa vị chung nào.
+
+Có bốn cấp độ đặc quyền chính:
+
+<CardGroup cols={2}>
+  <Card title="Chủ sở hữu" icon="crown" iconType="duotone">
+    Cấp cao nhất. Quản lý thanh toán, có thể chuyển giao quyền sở hữu và nắm giữ mọi đặc quyền của Quản trị viên.
+  </Card>
+  <Card title="Quản trị viên" icon="user-gear" iconType="duotone">
+    Có thể cấu hình mọi thứ trong hệ thống, từ Cài đặt Toàn cục đến quản lý người dùng.
+  </Card>
+  <Card title="Quản lý Ứng dụng" icon="map" iconType="duotone">
+    Một vai trò chuyên biệt có thể thiết kế, chỉnh sửa và quản lý các `📋 Functions` và các ứng dụng khác.
+  </Card>
+  <Card title="Thành viên" icon="user" iconType="duotone">
+    Đặc quyền tiêu chuẩn cho hầu hết người dùng, cho phép họ làm việc trong các `⏹️ Spaces` mà họ được cấp quyền truy cập.
+  </Card>
+</CardGroup>
+
+[Guidejar Placeholder: Hướng dẫn tương tác cho thấy một quản trị viên mời một người dùng mới và gán cho họ Đặc quyền Doanh nghiệp 'Thành viên'.]
+
+## Bước 2: Định rõ Ai được Chạm vào Cái gì
+
+Một khi người dùng đã "bước qua cổng" với Đặc quyền Doanh nghiệp của họ, một lớp phân quyền thứ hai, chi tiết hơn sẽ được áp dụng.
+
+### Luật lệ trong cuộc chơi: Quyền Truy cập Tiện ích
+
+**Quyền Truy cập Tiện ích (Item Access Control)** xác định ai có thể **xem, sử dụng, chỉnh sửa hoặc quản lý mọi thành phần (hay "Tiện ích")** mà bạn xây dựng bên trong Luklak. Nếu Đặc quyền Doanh nghiệp là hộ chiếu, thì Quyền Truy cập Tiện ích là chìa khóa cho các tòa nhà, căn phòng và tủ hồ sơ cụ thể.
+
+Điều cốt yếu là, quyền truy cập này được cấu hình **trực tiếp trên từng Tiện ích riêng lẻ**.
+
+<Tip>
+Ví dụ, để kiểm soát ai có thể chỉnh sửa `Function` "CRM" của bạn, bạn cấu hình Quyền Truy cập Tiện ích **trên chính Function đó**. Để kiểm soát ai thấy `Dashboard` "Tài chính Quý 4", bạn đặt quyền truy cập **trên chính Dashboard đó**. Điều này cho bạn quyền kiểm soát chính xác trên mọi phần của hệ thống.
+</Tip>
+
+[Image Placeholder: Một sơ đồ cho thấy một Người dùng với chìa khóa 'Đặc quyền Doanh nghiệp' đang mở cổng chính vào thế giới Luklak. Bên trong, có nhiều tòa nhà (Function, Dashboard, Space), mỗi tòa nhà có một ổ khóa 'Quyền Truyayin Tiện ích' riêng.]
+
+## Tiếp theo là gì?
+
+Bây giờ bạn đã hiểu các nguyên tắc quản trị, bạn đã sẵn sàng để tiến về phía trước.
+
+- **Để áp dụng vào thực tế:**
+  → [**Đi đến các hướng dẫn chi tiết về Cài đặt Toàn cục**](/platform/global-settings/user-management)
+
+- **Để tìm hiểu về quy trình xây dựng được hỗ trợ bởi nền móng này:**
+  → [**Tiếp tục với Giai đoạn 2: 3 Tầng của Việc Xây dựng**](/platform/construction)
