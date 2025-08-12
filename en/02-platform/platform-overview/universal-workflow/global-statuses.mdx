@@ -1,0 +1,45 @@
+---
+title: "Managing Global Statuses for System-Wide Consistency"
+description: "An enterprise-focused guide on using Global Admin to create and manage a standardized library of statuses for reuse across all your workflows."
+sidebarTitle: "Managing Global Statuses"
+---
+
+## The Challenge of Scale: Process Inconsistency
+
+As your organization scales and you build dozens of `📋 Functions`, a new challenge emerges: process inconsistency. The Sales team might use a `COMPLETED` status, while the Support team uses `RESOLVED`, and the Finance team uses `PAID`. While each makes sense in context, this lack of a common language makes cross-functional reporting difficult and creates ambiguity about the true state of work.
+
+## The Solution: A Central Library of Statuses
+
+Luklak solves this challenge with **Global Statuses**, a central library in `Global Admin` where you can create and manage a standardized set of statuses for your entire organization.
+
+<Tip>
+  Think of it as creating an official "process dictionary" for your company. You define what `APPROVED` means once—including its name and `Status Category`—and then everyone uses that same standard definition, ensuring the entire business is speaking the same language.
+</Tip>
+
+### How Global Statuses Work
+
+The process is simple and powerful:
+
+1. **Create in Global Admin:** An administrator with the correct `Business Privilege` accesses the Global Admin section to create new statuses. For each global status, you define its `Name` (e.g., `AWAITING_REVIEW`) and assign it to one of the six system `Status Categories` (e.g., `ACTIVE`).
+2. **Import into a Workflow:** When designing a `Workflow` inside a `Function`, instead of creating a new status from scratch, you can simply **"Import from Global Library."** This pulls the pre-defined, standardized status directly into your workflow canvas.
+
+[Guidejar Placeholder: A two-part tutorial. Part 1 shows an Admin creating a new Global Status called 'PENDING_LEGAL' in the Global Admin panel. Part 2 shows a Function designer opening a workflow canvas and using the 'Import from Global' button to add that 'PENDING_LEGAL' status to their workflow.]
+
+## The Strategic Benefits
+
+Adopting a global management strategy provides three critical benefits for any large-scale deployment:
+
+- **Unified Process Language:** Everyone in the company understands what `ON_HOLD` means, regardless of the department. This eliminates ambiguity.
+- **Rapid Workflow Design:** Architects can build new workflows much faster by pulling from a pre-approved library of standard statuses instead of recreating them each time.
+- **Reliable Cross-Functional Reporting:** This is the most significant advantage. Because the status is a standardized global component, you can build a single `Dashboard` gadget to count all Objects across the entire company that are currently in the `AWAITING_REVIEW` status. This is impossible when every team uses a different name for the same step.
+
+[Image Placeholder: A screenshot of a Dashboard pie chart gadget titled 'Work Distribution Across All Departments'. The chart segments are labeled with Global Status names like 'IN_PROGRESS', 'ON_HOLD', 'AWAITING_REVIEW', showing data aggregated from multiple different Functions.]
+
+## What's Next?
+
+You now have a complete understanding of how to model, control, and analyze business processes in Luklak. The next step is to learn how to connect the data from these different processes together.
+
+- **Learn how to connect your data:**
+  → [**Introduction to Object Connections**](/platform/core-concepts/object-connections)
+- **Return to the main overview:**
+  → [**Back to Core Concepts**](/platform/core-concepts)

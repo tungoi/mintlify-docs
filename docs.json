@@ -116,7 +116,16 @@
                       "en/02-platform/platform-overview/universal-workflow/designing-workflows",
                       "en/02-platform/platform-overview/universal-workflow/status-categories-and-guides",
                       "en/02-platform/platform-overview/universal-workflow/advanced-status-settings",
-                      "en/02-platform/platform-overview/universal-workflow/using-workflow-data"
+                      "en/02-platform/platform-overview/universal-workflow/using-workflow-data",
+                      "en/02-platform/platform-overview/universal-workflow/global-statuses"
+					]
+				},
+              {
+					"group": "Object Connections",
+					"icon": "link",
+					"pages": [
+			         "en/02-platform/platform-overview/object-connections/index"
+
 					]
 				}
             ]

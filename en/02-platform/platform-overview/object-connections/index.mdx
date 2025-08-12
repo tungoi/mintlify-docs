@@ -1,0 +1,59 @@
+---
+title: "Object Connections: An Overview of Relationship Modeling"
+description: "An overview of the four powerful methods for creating relationships between Objects in Luklak, helping you build a truly connected and unified business system."
+sidebarTitle: "Connections Overview"
+---
+
+## Why Object Connections Matter
+
+<Info>
+  A business isn't a collection of disconnected lists; it's a web of interconnected relationships. A `Customer` is linked to their `Projects`, which are linked to `Tasks`, which are linked to `Invoices`. Modeling these real-world connections is the key to breaking down data silos.
+</Info>
+
+<Tip>
+  Luklak's Object Connection capabilities allow you to build this 360-degree view of your operations. By linking Objects, you can automate across processes, create powerful cross-functional reports, and give your team the full context they need to make smart decisions.
+</Tip>
+
+## Four Ways to Model Relationships
+
+Luklak provides four distinct tools for modeling relationships, each suited for a different architectural need. Understanding when to use each is the key to designing an effective and scalable system.
+
+<CardGroup cols={2}>
+  <Card title="Parent-Child Relationships" icon="sitemap" iconType="duotone">
+    **What it is:** A built-in, strict hierarchy between a standard `Object` and its `Sub-Objects`.
+
+    <br />
+
+    **Best for:** Work breakdown structures, like a `Project` containing many `Tasks`.
+  </Card>
+  <Card title="Object Lookup Fields" icon="magnifying-glass-plus" iconType="duotone">
+    **What it is:** A flexible field that allows one `Object` to reference one or more other `Objects`.
+
+    <br />
+
+    **Best for:** Creating direct, many-to-one references, like linking a `Support Ticket` to a `Customer`.
+  </Card>
+  <Card title="Global Connections" icon="globe" iconType="duotone">
+    **What it is:** A centrally-managed library of reusable relationship _types_ (e.g., "duplicates," "is blocked by").
+
+    <br />
+
+    **Best for:** Standardizing the _meaning_ of relationships across your entire system.
+  </Card>
+  <Card title="Data Table Fields" icon="table" iconType="duotone">
+    **What it is:** An embedded "spreadsheet" within an `Object` for managing structured lists of data.
+
+    <br />
+
+    **Best for:** Modeling "contained" one-to-many data, like the line items on an `Invoice`.
+  </Card>
+</CardGroup>
+
+## What's Next?
+
+You now have an overview of the tools available for modeling relationships. Dive into the detailed guides for each method to master their implementation.
+
+- [**For strict hierarchies: Parent-Child Relationships**](/platform/core-concepts/object-connections/parent-child-relationships)
+- [**For flexible references: Using Object Lookup Fields**](/platform/core-concepts/object-connections/lookup-connections)
+- [**For enterprise consistency: Managing Global Connections**](/platform/core-concepts/object-connections/global-connections)
+- [**For contained lists: Modeling with Data Tables**](/platform/core-concepts/object-connections/data-table-fields)
