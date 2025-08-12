@@ -70,7 +70,8 @@
 					"icon": "house-user",
 					"pages": [
 			  "en/02-platform/platform-overview/core-concepts",
-              "en/02-platform/function-design/function-design"
+              "en/02-platform/function-design/function-design",
+                      "en/02-platform/use-and-operate/index"
 					]
 				}
               
