@@ -113,7 +113,8 @@
 					"icon": "arrow-progress",
 					"pages": [
 			         "en/02-platform/platform-overview/universal-workflow/index",
-                      "en/02-platform/platform-overview/universal-workflow/designing-workflows"
+                      "en/02-platform/platform-overview/universal-workflow/designing-workflows",
+                      "en/02-platform/platform-overview/universal-workflow/status-categories-and-guides"
 					]
 				}
             ]

@@ -1,0 +1,56 @@
+---
+title: "Understanding Status Categories & Workflow Guides"
+description: "Learn how to use Luklak's fixed Status Categories for system-wide consistency and how to embed step-by-step Workflow Guides directly into your processes."
+sidebarTitle: "Categories & Guides"
+---
+
+A good workflow is more than just a series of steps; it's a communication tool. It needs to be instantly understandable and guide your users effectively to ensure process compliance.
+
+Luklak provides two powerful features to achieve this: **Status Categories** for at-a-glance clarity and **Workflow Guides** for step-by-step instructions.
+
+## The Foundation of Clarity: Status Categories
+
+While you can create an unlimited number of custom `STATUS` names for your workflow (like `AWAITING REVIEW` or `PENDING PAYMENT`), each one **must** be mapped to one of six fixed system `Categories`. This simple requirement is the key to maintaining system-wide consistency.
+
+### Why Status Categories Matter
+
+<CardGroup cols={2}>
+  <Card title="Visual Consistency" icon="palette" iconType="duotone">
+    Every `STATUS` automatically inherits the color of its `Category`. For example, all `COMPLETED` statuses are green, and all `CANCELLED` statuses are red. This provides instant, at-a-glance recognition of an `Object's` state across the entire platform.
+  </Card>
+  <Card title="System-Wide Reporting" icon="chart-pie" iconType="duotone">
+    This is the most powerful benefit. It allows you to build `Dashboards` and `Filters` that report on the `Category` level. You can easily find all `ACTIVE` work across the entire company, even if different teams use unique status names like `IN PROGRESS`, `IN REVIEW`, or `BEING WRITTEN`.
+  </Card>
+</CardGroup>
+
+### The Six System Categories
+
+Here are the six fixed categories and their intended meaning:
+
+| Category    | Color      | Intended Meaning                                                       |
+| :---------- | :--------- | :--------------------------------------------------------------------- |
+| `OPEN`      | Light Gray | The work has been created but has not yet been acted upon.             |
+| `PLANNED`   | Sky Blue   | The work is scheduled or planned for the future but is not yet active. |
+| `ACTIVE`    | True Blue  | The work is currently being actively processed or executed.            |
+| `COMPLETED` | Green      | The work has been successfully finished and achieved its goal.         |
+| `IDLE`      | Orange     | The work is paused or waiting for external input to proceed.           |
+| `CANCELLED` | Dark Gray  | The work has been stopped and will not be completed.                   |
+
+## Guiding Your Users: The Workflow Guide
+
+The Workflow Guide is a feature that lets you embed rich-text instructions directly into each `STATUS` of your workflow.
+
+When a user is working on an `Object`, the guide for the Object's current `STATUS` is prominently displayed. When the `Object` transitions to the next `STATUS`, the guide automatically updates to show the instructions for that new step.
+
+<Tip>
+  This is perfect for embedding Standard Operating Procedures (SOPs) directly into the workflow, reducing training time, preventing user errors, and ensuring process compliance.
+</Tip>
+
+[Guidejar Placeholder: A tutorial showing a user editing an `IN REVIEW` status, clicking on the 'Guide' tab, and writing a checklist of review criteria. It would then show an end-user view where that guide is visible on an Object currently in the `IN REVIEW` status.]
+
+## What's Next?
+
+You now know how to make your workflows clear and easy for your team to follow. The next step is to learn how to add powerful rules, validation, and automation to each status.
+
+- [**Unlock advanced control: Advanced Status Settings**](/platform/core-concepts/workflow-and-status/advanced-status-settings)
+- [**Return to the Workflow & Status Overview**](/platform/core-concepts/workflow-and-status)
