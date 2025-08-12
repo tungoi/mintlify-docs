@@ -64,6 +64,7 @@
             "group": "Platform Overview",
             "icon": "stars",
             "pages": [
+              "en/02-platform/platform-overview/overview-highlevel",
               "en/02-platform/platform-overview/platform-overview",
               {
 					"group": "A 3-tier platform",
