@@ -1,0 +1,66 @@
+---
+title: "Putting Your Data to Work"
+description: "Learn how the data captured in your fields powers the entire Luklak platform, from filtering and dashboards to intelligent, cross-functional automation."
+sidebarTitle: "Using Field Data"
+---
+
+## From Raw Data to Actionable Insight
+
+A well-designed data schema is more than just a place to store information. In Luklak, the data you capture in your custom fields becomes the fuel that drives the entire platform. Every piece of data is active, not passive.
+
+This guide explains the two primary ways your data is put to work:
+
+1. **Powering Insight:** To help you find, filter, and visualize information.
+2. **Driving Action:** To serve as the building blocks for intelligent automation.
+
+## Powering Insight: Filters, Queries & Dashboards
+
+Because all data lives in structured fields, it becomes instantly searchable and reportable. This allows you and your users to transform lists of Objects into meaningful business intelligence.
+
+<CardGroup cols={2}>
+  <Card title="Universal Query Language (UQL)" icon="magnifying-glass" iconType="duotone">
+    UQL is the foundation. It can read and query every custom field you create, allowing you to ask complex questions across the entire platform.
+  </Card>
+  <Card title="Quick Filters" icon="filter" iconType="duotone">
+    The instant search bar within any `Workview`. It uses your field data to let users immediately narrow down Objects (e.g., "show only tasks where `Priority` is High").
+  </Card>
+  <Card title="Saved Filters" icon="bookmark" iconType="duotone">
+    Reusable, shareable queries based on field values. Create a "Critical Bugs" filter that dynamically shows all Objects where `Status` is not "Done" AND `Priority` is "Urgent".
+  </Card>
+  <Card title="Dashboards" icon="chart-pie" iconType="duotone">
+    The ultimate visualization tool. Dashboard gadgets aggregate data from your fields across multiple `Spaces` to create charts, tables, and counters that turn raw data into insights.
+  </Card>
+</CardGroup>
+
+[Image Placeholder: A screenshot of a Dashboard showing a pie chart grouped by the 'Priority' field and a bar chart of tasks grouped by the 'Assignee' field.]
+
+## Driving Action: Automation
+
+Data fields are not static—they are active participants in your automated workflows. They can both trigger automations and be updated by them.
+
+### Fields as Triggers
+
+An automation rule can start the moment a field's value is created or updated.
+
+- **Example:** "When the `Status` field on a 'Support Ticket' Object is updated to `Escalated`..."
+
+### Fields as Actions
+
+An automation rule can perform actions that create, delete, or update the value of one or more fields.
+
+- **Example:** "...then automatically update the `Priority` field to 'Urgent' and update the `Assignee` field to 'Tier 2 Support Lead'."
+
+### Fields as Smart Values
+
+During an automation, you can pull in values from any field on the triggering Object (or even related Objects) to use them dynamically in your actions. This allows for incredibly powerful and context-aware workflows.
+
+- **Example:** When a 'Deal' Object's status changes to "Won", a rule can create a new 'Project' Object. It can dynamically name the project by pulling in the deal's name (`Project Kick-off for: {deal.name}`) and set the project's budget by pulling in the deal's value (`Budget: {deal.deal_value}`).
+
+[Guidejar Placeholder: A tutorial showing the creation of a simple automation rule: 'When the field `Status` is changed to `Done`, automatically update the field `Completed Date` to be the current date'.]
+
+## What's Next?
+
+You've seen how to create fields and how they power the platform. The final piece of the puzzle is learning how to manage them efficiently for large-scale deployments.
+
+- [**Learn about Global Management of Data Components**](/platform/core-concepts/data-fields/global-management)
+- [**Return to the Data Fields & Screens Overview**](/platform/core-concepts/data-fields)
