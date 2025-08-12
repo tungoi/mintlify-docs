@@ -1,0 +1,64 @@
+---
+title: "The Advanced Field Library"
+description: "A deep dive into advanced data fields like User/Group assignment, Object Lookups for creating relationships, dynamic Formula fields, and the powerful Data Table field."
+sidebarTitle: "Advanced Field Types"
+---
+
+While basic fields are the foundation of your data model, advanced fields are what allow you to build truly dynamic, interconnected, and intelligent business systems. These fields empower you to manage ownership, create relationships between data, and perform complex calculations automatically.
+
+<Info>
+  This guide covers advanced fields. If you're new to data modeling in Luklak, we recommend starting with our [Guide to Basic Field Types](/platform/core-concepts/data-fields/basic-field-types) first.
+</Info>
+
+## User & Group Fields
+
+These fields create a direct, functional link to the user and group records in your system. Their primary power is that they can be used directly in **Permission and Notification schemes**.
+
+- **Types:** `Single User`, `Multiple Users`, `Single Group`, `Multiple Groups`.
+- **Core Use Case:** Creating an `Assignee` or `Supervisor` field. You can then configure permissions so that only the user listed in the `Assignee` field can edit the Object, or set up an automation to notify the `Supervisor` group when an Object's status changes to "Done".
+
+## Object Lookup Fields
+
+This is the primary tool for creating relationships between different `Object Types`. It allows one Object to "look up" and link to one or more other Objects, forming the backbone of a relational data structure without code.
+
+- **Types:** `Single Object` (for one-to-one or many-to-one relationships), `Multiple Objects` (for many-to-many relationships).
+- **Key Feature:** You can configure the field to only allow users to select from a pre-filtered list of Objects. For example, when linking a `Support Ticket` to a `Customer`, you can filter the list to only show "Active" customers.
+- **Core Use Case:** In a `Project` Object, use a `Multiple Objects` lookup to link to all the `Task` Objects associated with it. In a `Contract` Object, use a `Single Object` lookup to link to the one `Client` it belongs to.
+
+## Formula Field
+
+A **read-only** field that dynamically calculates a value based on other numeric fields _within the same Object_. You write a mathematical expression, and Luklak computes the result in real-time.
+
+- **Core Use Case:** Automatically calculate `Total Value` from `[Quantity] * [Unit Price]`, determine a `Risk Score` from `[Impact] + [Likelihood]`, or compute profit margins. This eliminates manual calculation errors and ensures data is always accurate.
+
+## The Data Table Field
+
+This is one of the most powerful and versatile fields in Luklak. Its core function is to act as a **spreadsheet or a line-item list embedded directly within an Object**.
+
+[Image Placeholder: A screenshot of an Invoice Object, showing a Data Table field with columns for Item, Quantity, Price, and Line Total.]
+
+### Structure
+
+You design the table by defining its columns. Each column can be a basic field type like `Text`, `Number`, `Date`, or even its own `Formula` (e.g., a "Line Total" column that multiplies `Quantity` and `Unit Price` columns).
+
+### Cross-Object Power
+
+The standout feature of the Data Table is that its columns can **reference and pull data from other Objects**. When combined with automation, this enables incredibly advanced, interconnected workflows.
+
+<CardGroup cols={1}>
+  <Card title="Use Case: Inventory & Sales" icon="boxes-stacked" iconType="duotone">
+    An `Order` Object has a Data Table for line items. When the sales team uses an `Object Lookup` in the table to add an `Inventory Item` and enters a quantity of "10", an automation rule can be triggered to immediately find that `Inventory Item` Object and decrease its `Stock Quantity` field by 10.
+  </Card>
+  <Card title="Use Case: Students & Classes" icon="user-graduate" iconType="duotone">
+    A `Class` Object has a Data Table listing all enrolled students. Each row can look up a `Student` Object and pull in their data, like `Student ID` and `Contact Email`, creating a dynamic class roster directly on the `Class` Object.
+  </Card>
+</CardGroup>
+
+[Guidejar Placeholder: A tutorial showing the setup of a Data Table field for an 'Invoice' Object, with columns for 'Service Item', 'Quantity', 'Unit Price', and a 'Line Total' Formula.]
+
+## What's Next?
+
+You now have a complete library of data modeling tools. The next step is to learn how to configure them and arrange them visually for your users.
+
+- [**Learn How to Configure Field Settings**](/platform/core-concepts/data-fields/field-configuration)
+- [**Learn How to Design Data Screens**](/platform/core-concepts/data-fields/data-screens)
