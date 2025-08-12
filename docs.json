@@ -78,11 +78,12 @@
 					"group": "A 3-tier platform",
 					"icon": "house-user",
 					"pages": [
-			  "en/02-platform/platform-overview/core-concepts"
+			  "en/02-platform/platform-overview/core-concepts",
+              "en/02-platform/function-design/function-design"
 					]
 				},
-              "en/02-platform/function-design/universal-object",
-              "en/02-platform/function-design/function-design"
+              "en/02-platform/function-design/universal-object"
+              
             ]
           }
         ]    
