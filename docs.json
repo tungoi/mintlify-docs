@@ -159,7 +159,7 @@
 				},
               {
 					"group": "Dashboards",
-					"icon": "pie-chart",
+					"icon": "chart-pie-simple",
 					"pages": [
 			         "en/02-platform/platform-overview/dashboards/index",
                       "en/02-platform/platform-overview/dashboards/dashboard-gadgets",
