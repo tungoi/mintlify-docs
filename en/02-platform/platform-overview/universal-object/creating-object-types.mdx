@@ -1,0 +1,87 @@
+---
+title: "Creating Your First Object Type"
+description: "A step-by-step tutorial for architects on how to design and create your first Object Type, including configuring its name, workflow, and data fields."
+sidebarTitle: "Create an Object Type"
+---
+
+## Before You Begin
+
+This tutorial will walk you through the practical steps of creating a simple but functional "Task" Object Type from scratch. This process is the heart of designing any solution in Luklak.
+
+<Info>
+  **Prerequisite:** `Object Types` can only be designed inside a `📋 Function`. Before starting, please ensure you have created a new, empty Function to work in. For this guide, let's assume you've created one named "Project Management".
+</Info>
+
+Remember, the `Object Type` is the **blueprint** for a business process. We are now in the workshop, designing that blueprint.
+
+## The Design Process: An Overview
+
+We will follow three main steps to create our "Task" Object Type:
+
+1. **Create the Object Type**: Give it a name and an icon.
+2. **Design the Workflow**: Define the lifecycle statuses for a task.
+3. **Add Data Fields**: Specify what information a task needs to store.
+
+## Step-by-Step Guide: Creating a 'Task' Object Type
+
+```guidejar
+# Creating a 'Task' Object Type
+This guide walks you through designing a simple but functional 'Task' Object Type inside a Function.
+
+## Section 1: Create the Object Type
+! Important: Make sure you are inside the design canvas of your 'Project Management' Function.
+
+1.  From the left sidebar of the Function designer, navigate to the **'Object Types'** tab.
+    ![Screenshot showing the Function design canvas with the 'Object Types' tab highlighted.](/images/object-types/tutorial-step1.png)
+2.  Click the **'+ New Object Type'** button at the top of the list.
+    * A configuration panel will open.
+3.  Enter the following details in the panel:
+    - **Name:** `Task`
+    - **Icon:** Select a 'check-square' icon from the library.
+    ![Screenshot of the new object type configuration panel with the name and icon fields filled in.](/images/object-types/tutorial-step2.png)
+4.  Click **'Create'**.
+    * Your new 'Task' Object Type is now created and appears in the list, ready for configuration.
+
+## Section 2: Design the Workflow
+* Tip: The workflow visualizes the lifecycle of your task. Let's create a simple 'To Do → In Progress → Done' flow.
+
+1.  With the 'Task' Object Type selected, click on the **'Workflow'** sub-tab to open the workflow canvas.
+    ![Screenshot of the workflow canvas, which is initially empty or has a single default status.](/images/object-types/tutorial-step3.png)
+2.  Click **'+ Add Status'** three times to create your statuses. Name them:
+    - `To Do` (Set Type to: To Do)
+    - `In Progress` (Set Type to: In Progress)
+    - `Done` (Set Type to: Done)
+3.  Create transitions between the statuses by clicking the '+' icon on the edge of a status and dragging the arrow to the next one.
+    - Connect `To Do` → `In Progress`.
+    - Connect `In Progress` → `Done`.
+    ![A screenshot of the completed simple workflow showing the three statuses connected by arrows.](/images/object-types/tutorial-step4.png)
+
+## Section 3: Add Data Fields
+* Tip: Data fields are how you store essential information on each task. Let's add fields for an assignee, a due date, and a priority level.
+
+1.  Click on the **'Data Fields'** sub-tab for your 'Task' Object Type.
+    ![Screenshot of the Data Fields list, which may already show some system-generated fields.](/images/object-types/tutorial-step5.png)
+2.  Click **'+ Add Field'** and create the following three custom fields:
+    - **Field 1:** Name: `Assignee`, Type: `User`.
+    - **Field 2:** Name: `Due Date`, Type: `Date`.
+    - **Field 3:** Name: `Priority`, Type: `Select List`. In the options for this field, add: `High`, `Medium`, and `Low`.
+    ![Screenshot showing the list of the three newly added custom fields: Assignee, Due Date, and Priority.](/images/object-types/tutorial-step6.png)
+```
+
+## You've Built Your First Blueprint\!
+
+Congratulations\! You have successfully designed a complete, albeit simple, Object Type. This "Task" blueprint now has:
+
+- A clear identity (name and icon).
+- A 3-step lifecycle (`Workflow`).
+- The ability to store crucial information (`Data Fields`).
+
+This Object Type is now ready to be used in a `⏹️ Space` to create real tasks.
+
+## What's Next?
+
+You've created a basic blueprint. Now you can learn about more advanced configurations to make your Object Types even more powerful.
+
+- [**Explore the Full Library of Data Field Types**](https://www.google.com/search?q=/platform/core-concepts/data-fields/field-type-library)
+- [**Dive into Advanced Workflow Settings**](https://www.google.com/search?q=/platform/core-concepts/workflow-and-status/advanced-workflow-settings)
+- [**Learn about Standard vs. Sub-Objects**](https://www.google.com/search?q=/platform/core-concepts/universal-object/object-levels)
