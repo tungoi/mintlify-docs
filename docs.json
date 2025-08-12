@@ -166,6 +166,13 @@
                       "en/02-platform/platform-overview/dashboards/building-dashboards",
                       "en/02-platform/platform-overview/dashboards/interactive-dashboards"
 					]
+				},
+              {
+					"group": "Filters",
+					"icon": "filter-list",
+					"pages": [
+			         "en/02-platform/platform-overview/filter-and-uql/index"
+					]
 				}
             ]
           },
