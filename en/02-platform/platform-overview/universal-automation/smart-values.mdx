@@ -1,0 +1,70 @@
+---
+title: "Smart Values: Using Dynamic Data in Automations"
+description: "A guide for architects on using Smart Values to pull dynamic, contextual data from your Objects and their relationships into your automation actions."
+sidebarTitle: "Smart Values"
+---
+
+## From Static to Dynamic: What are Smart Values?
+
+A static automation is limited. Sending the same generic email ("A task was completed") every time isn't very helpful. To make your automations truly intelligent, they need to be aware of the context in which they run.
+
+**Smart Values** are the key to this. They are special placeholders you can use in your automation actions that are dynamically replaced with real data from your `🧊 Objects` when the rule runs.
+
+<Tip>
+Think of them like mail merge fields in an email campaign. You write `Dear {{customer.name}}`, and the system automatically fills in the correct name for each recipient. Smart Values bring this power to every part of your automation.
+</Tip>
+
+## The Basic Syntax: `{{object.field_key}}`
+
+Smart Values use a simple "dot notation" syntax wrapped in double curly braces.
+
+- `{{object...}}`: This refers to the `🧊 Object` that triggered the rule.
+- `...field_key}}`: This refers to the unique key of the `Data Field` whose value you want to pull.
+
+#### Example: From Static to Dynamic
+
+Imagine you want to send a message when a task is assigned.
+
+- **Static Action:** `Send Message: "A new task has been assigned."`
+  *(This is not very useful as it lacks context.)*
+
+- **Dynamic Action with Smart Values:**
+  `Send Message: "Hi {{object.assignee.name}}, you've been assigned a new task: '{{object.name}}'. The priority is {{object.priority}}."`
+
+- **The Resulting Message:**
+  *"Hi Jane Doe, you've been assigned a new task: 'Draft Q3 Report'. The priority is HIGH."*
+
+## Common Smart Value Examples
+
+Here is a quick reference for some of the most common Smart Values you will use.
+
+### Referencing the Triggering Object
+This is the most frequent use case. The `object` keyword refers to the `🧊 Object` that started the automation.
+
+- `{{object.name}}`: The name or title of the `🧊 Object`.
+- `{{object.key}}`: The unique key of the `🧊 Object` (e.g., `TASK-123`).
+- `{{object.creator.name}}`: The full name of the user who created the `🧊 Object`.
+- `{{object.assignee.email}}`: The email address of the user in the 'Assignee' field.
+- `{{object.any_custom_field_key}}`: The value from any of your custom fields.
+
+### Referencing the Current User
+The `currentUser` keyword refers to the user who performed the action that triggered the rule (e.g., the person who changed the status).
+
+- `{{currentUser.name}}`: The full name of the user who triggered the rule.
+- `{{currentUser.email}}`: The email address of that user.
+
+### Referencing Related Objects (Advanced)
+If your `🧊 Object` has an `Object Picker` field, you can use dot notation to traverse the relationship and pull data from the referenced `🧊 Object`.
+
+- **Scenario:** An automation runs on a `🧊 Project` Object. The `Project` has an `Object Picker` field with the key `client_company` that references a `🧊 Client` Object.
+- **Smart Value:** `{{object.client_company.name}}` will be replaced with the name of the client company.
+- **Deeper Reference:** `{{object.client_company.account_manager.name}}` will be replaced with the name of the account manager from the referenced `🧊 Client` Object.
+
+[Guidejar Placeholder: A tutorial showing a user building a 'Send Email' action. They click a '+ Insert Smart Value' button, which brings up a helper menu. They navigate through `object` -> `assignee` -> `name` to insert `{{object.assignee.name}}` into the email body.]
+
+## What's Next?
+
+You can now create automations that are not only powerful but also personalized and context-aware. The final step is to learn how to manage your rules and ensure they run reliably.
+
+- [**Learn how to ensure your rules are reliable: Execution & Debugging**](/platform/core-concepts/universal-automation/automation-testing)
+- [**Return to the Automation Overview**](/platform/core-concepts/universal-automation)
