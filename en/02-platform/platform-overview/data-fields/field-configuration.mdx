@@ -1,0 +1,56 @@
+---
+title: "Data Field Configuration Options"
+description: "A practical guide to configuring your data fields, including setting default values, enforcing data validation rules, customizing display styles, and more."
+sidebarTitle: "Config Options"
+---
+
+## Fine-Tuning Your Data Schema
+
+Creating a data field is just the first step. The real power comes from configuring its specific behaviors. These settings allow you, the architect, to build intelligent forms, enforce data integrity, and create a seamless experience for your users.
+
+<Info>
+  These settings are available when you create a new field or edit an existing one within a `📋 Function`'s design canvas.
+</Info>
+
+This guide covers the most important configuration options you will use when designing your `Object Types`.
+
+### Default Value
+
+This setting allows you to pre-populate a field with a specific value whenever a new `Object` is created.
+
+- **Why it's useful:** It saves time, reduces manual entry errors, and ensures consistency. For a "Task" Object, you could set the default `Status` to "To Do" or the default `Priority` to "Medium", guiding the user and standardizing the process from the start.
+
+### Data Input Validation
+
+Validation rules are the cornerstone of data integrity. They ensure that critical information is never omitted.
+
+- **The "Required" Toggle:** This is the most common validation. When enabled, it forces the user to enter a value in the field before they can save the Object or, in some cases, transition it to a new status.
+- **Why it's useful:** It guarantees that you always capture essential information, like a customer's email address, a deal's value, or a reason for escalating a support ticket.
+
+### Display Style
+
+This setting controls how a field appears visually on the `Data Screen`. The options available depend on the field type.
+
+- **Why it's useful:** A well-chosen display style can dramatically improve the user experience. For example, you can change a `Dropdown (single select)` field for a rating system to display as `Radio Buttons` or a visual `Star Rating`, making it faster and more intuitive for the user.
+
+### Multilingual Text
+
+For global teams, you can provide different text for the same field depending on the user's selected language.
+
+- **Configurable Text:** `Field Name`, `Placeholder Text`, and `Help Text` can all be configured with multiple language options.
+- **Why it's useful:** This allows you to design a single, universal `Object Type` that provides a fully localized experience for both English-speaking and Vietnamese-speaking users, for example. There's no need to create separate Functions for different languages.
+
+### Conditional Visibility
+
+This powerful feature allows you to show or hide a field based on the value of another field on the same `Screen`.
+
+- **Why it's useful:** It creates dynamic, uncluttered forms that guide the user through a process. For example, a "Reason for Rejection" text field can be configured to **only appear** if the `Status` field is set to "Rejected". This keeps the screen clean and only asks for relevant information when it's needed.
+
+[Guidejar Placeholder: A tutorial showing the configuration of a 'Priority' dropdown field. The guide would show setting the default value to 'Medium', making the field required, and adding help text in both English and Vietnamese.]
+
+## What's Next?
+
+You've learned how to create fields and fine-tune their individual behavior. Now, let's learn how to arrange them into a clean, user-friendly layout.
+
+- [**Learn How to Design Data Screens**](/platform/core-concepts/data-fields/data-screens)
+- [**Return to the Data Fields & Screens Overview**](/platform/core-concepts/data-fields)

@@ -99,7 +99,8 @@
 					"pages": [
 			          "en/02-platform/platform-overview/data-fields/index",
                       "en/02-platform/platform-overview/data-fields/basic-field-types",
-                      "en/02-platform/platform-overview/data-fields/advanced-field-types"
+                      "en/02-platform/platform-overview/data-fields/advanced-field-types",
+                      "en/02-platform/platform-overview/data-fields/field-configuration"
 					]
 				}
             ]
