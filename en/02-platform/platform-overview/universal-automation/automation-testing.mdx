@@ -1,0 +1,70 @@
+---
+title: "Execution & Debugging: Managing Your Automations"
+description: "A practical guide for architects on ensuring automations are reliable, covering critical runtime settings like Acting Accounts and using the Activity Log for testing and debugging."
+sidebarTitle: "Execution & Debugging"
+---
+
+## Beyond the Build: Ensuring Reliability
+
+Building an automation is only half the battle. A truly great architect ensures their automations are reliable, secure, and easy to manage in a live environment. This is the final, critical step in the automation lifecycle: quality assurance.
+
+This guide covers the crucial **Execution Settings** that control _how_ your rule runs, and the **Activity Log** you'll use to test and debug it.
+
+## Critical Execution Settings
+
+Every automation rule has a set of advanced options that control its runtime behavior and impact on the system.
+
+### Acting Account: Who is Performing the Action?
+
+Every action performed by an automation must be attributed to an "account" for permissions and auditing. Choosing the right account type is critical for security and reliability.
+
+<CardGroup cols={2}>
+  <Card title="User Account" icon="user" iconType="duotone">
+    The rule runs using the permissions of the user who created it. If that user leaves the company or their permissions change, the automation may fail.
+
+    <br />
+
+    **Best for:** Simple, personal automations (e.g., "When a task is assigned to me, add a 'Follow-up' tag").
+  </Card>
+  <Card title="Functional Account (Recommended)" icon="robot" iconType="duotone">
+    A dedicated, non-human technical account created solely for running automations. It has its own specific permissions and is not tied to any single employee.
+
+    <br />
+
+    **Best for:** All critical business processes. It ensures the automation runs consistently and securely, regardless of employee changes.
+  </Card>
+</CardGroup>
+
+### Triggering Other Rules: Chaining & Loops
+
+This is a simple toggle that controls whether the actions of _this_ rule can act as a trigger for _other_ automation rules.
+
+- **Enable:** To create a "chain reaction" of automations. For example, a rule that updates a deal's status could trigger a second rule that listens for that specific status update to generate a contract.
+- **Disable (Default):** To prevent infinite loops. If Rule A updates Field X, and Rule B is triggered by updates to Field X but _also_ updates Field X, you could create a loop. Disabling this setting on at least one rule breaks the chain.
+
+### Notifications for Automated Actions
+
+This toggle controls whether users receive standard notifications for actions performed by this automation rule.
+
+- **Enable:** To keep users fully informed. If an automation assigns a task to someone, enabling this ensures they receive a notification.
+- **Disable:** To reduce notification "noise". If you have a rule that runs every hour to archive old `🧊 Objects`, you can disable notifications to avoid spamming users with routine background updates.
+
+## Testing & Debugging: The Activity Log
+
+The **Activity Log** is your primary tool for testing and debugging. It is a complete run history of every time a rule has been triggered and executed.
+
+In the log for each rule, you can see:
+
+- **Timestamp:** When the rule ran.
+- **`Triggering 🧊 Object:`** Which `🧊 Object` started the rule.
+- **Status:** Whether the execution **Succeeded**, **Failed**, or was **Skipped** (because conditions weren't met).
+- **Details:** An expanded view showing exactly which conditions were checked, which actions were performed, and any specific error messages if the rule failed.
+
+[Guidejar Placeholder: A tutorial showing a user navigating to an automation rule, clicking on the 'Activity Log' tab, and inspecting a 'Failed' run. The user clicks on the failed entry to see an error message indicating that a field it was trying to update did not exist.]
+
+## What's Next?
+
+Congratulations\! You now have a complete understanding of Luklak's Universal Automation engine, from basic logic to advanced execution and debugging. It's time to put this knowledge to work by building real-world solutions.
+
+- [**See practical examples in our Build Playbooks**](/build-playbooks)
+- [**Return to the Core Concepts Overview**](/platform/core-concepts)
