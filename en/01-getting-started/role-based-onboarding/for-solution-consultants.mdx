@@ -1,5 +1,5 @@
 ---
-title: "Technical Architecture: Building Enterprise Solutions"
+title: "For Solution Consultants"
 description: "Technical overview of platform architecture, capabilities, and integration possibilities for solution design."
 ---
 
@@ -42,36 +42,36 @@ The `🧊 Universal Object` is the most critical concept to master. Every `🧊 
 
 As an architect, these are the primary tools you will use to build your solutions:
 
-* **Object Connection:** Go beyond simple parent-child links. Model complex relationships (1:1, 1:N, N:M) between any `🧊 Object` types across any `📋 Function`, enabling truly integrated systems.
-* **Universal Automation Engine:** The system's central nervous system. Use triggers, conditions, and actions to automate processes not just within a `📋 Function`, but across your entire Luklak environment.
-* **Granular Governance:** Implement robust security with fine-grained permission schemes and user roles, ensuring the right people have the right access at every level of the system.
-* **Integration & Extensibility:** Connect Luklak to external systems using tools within the Universal Automation engine. While Luklak does not offer an open inbound API, you can push data and trigger external processes via **Webhooks** or by making outbound **HTTPS requests** to third-party APIs. For secure and auditable integrations, always use dedicated `Functional accounts` to perform these actions.
+- **Object Connection:** Go beyond simple parent-child links. Model complex relationships (1:1, 1:N, N:M) between any `🧊 Object` types across any `📋 Function`, enabling truly integrated systems.
+- **Universal Automation Engine:** The system's central nervous system. Use triggers, conditions, and actions to automate processes not just within a `📋 Function`, but across your entire Luklak environment.
+- **Granular Governance:** Implement robust security with fine-grained permission schemes and user roles, ensuring the right people have the right access at every level of the system.
+- **Integration & Extensibility:** Connect Luklak to external systems using tools within the Universal Automation engine. While Luklak does not offer an open inbound API, you can push data and trigger external processes via **Webhooks** or by making outbound **HTTPS requests** to third-party APIs. For secure and auditable integrations, always use dedicated `Functional accounts` to perform these actions.
 
 ### Your First Solution Design: A Mental Walkthrough
 
 Here’s how to approach designing a solution on Luklak—using a recruitment system as an example.
 
 <Steps>
-    <Step>
-        **1. Deconstruct the Business Process**
+  <Step>
+    **1. Deconstruct the Business Process**
 
-        First, identify the core entities (`Candidate`, `Job Position`, `Interview`), the data to capture for each, and the stages they move through (`APPLIED` -> `SCREENING` -> `HIRED`).
-    </Step>
-    <Step>
-        **2. Define Your Universal Objects**
+    First, identify the core entities (`Candidate`, `Job Position`, `Interview`), the data to capture for each, and the stages they move through (`APPLIED` -\> `SCREENING` -\> `HIRED`).
+  </Step>
+  <Step>
+    **2. Define Your Universal Objects**
 
-        Map your entities to Luklak `Object types`. `Candidate` and `Job Position` become `🧊 Standard Objects`. `Interview` becomes a `🧊︎ Sub-Object` nested under `Candidate`.
-    </Step>
-    <Step>
-        **3. Model Relationships with Object Connection**
+    Map your entities to Luklak `Object types`. `Candidate` and `Job Position` become `🧊 Standard Objects`. `Interview` becomes a `🧊︎ Sub-Object` nested under `Candidate`.
+  </Step>
+  <Step>
+    **3. Model Relationships with Object Connection**
 
-        Create a many-to-many connection between `Candidate` and `Job Position`. Now you can easily see all applicants for a position, and all positions a candidate has applied for.
-    </Step>
-    <Step>
-        **4. Design Cross-Functional Automation**
+    Create a many-to-many connection between `Candidate` and `Job Position`. Now you can easily see all applicants for a position, and all positions a candidate has applied for.
+  </Step>
+  <Step>
+    **4. Design Cross-Functional Automation**
 
-        Map out the key automations. Example: *WHEN* a `Candidate`'s status changes to `HIRED`, *THEN* create a `New Hire Onboarding` `🧊 Object` in the separate HR `📋 Function` and send an HTTPS request to an external payroll system.
-    </Step>
+    Map out the key automations. Example: _WHEN_ a `Candidate`'s status changes to `HIRED`, _THEN_ create a `New Hire Onboarding` `🧊 Object` in the separate HR `📋 Function` and send an HTTPS request to an external payroll system.
+  </Step>
 </Steps>
 
 **What's Next?**
