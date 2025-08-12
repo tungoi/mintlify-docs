@@ -72,17 +72,15 @@
 			  "en/02-platform/platform-overview/core-concepts",
               "en/02-platform/function-design/function-design"
 					]
-				},
-              "en/02-platform/function-design/universal-object"
+				}
+              
               
             ]
           },
           {
             "group": "Universal Lego Blocks",
             "pages": [
-              "en/02-platform/tab02-note",
-              "en/02-platform/function",
-              "en/02-platform/state-of-unifed"
+              "en/02-platform/function-design/universal-object"
             ]
           },
           {
