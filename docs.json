@@ -68,8 +68,16 @@
               "en/02-platform/function",
               "en/02-platform/state-of-unifed"
             ]
+          },
+          {
+            "group": "Platform Overview",
+            "icon": "stars",
+            "pages": [
+              "en/02-platform/platform-overview/platform-overview"
+            
+            ]
           }
-        ]
+        ]    
       },
       {
         "tab": "Build Playbook",
