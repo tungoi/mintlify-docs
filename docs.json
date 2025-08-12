@@ -74,6 +74,13 @@
             "icon": "stars",
             "pages": [
               "en/02-platform/platform-overview/platform-overview",
+              {
+					"group": "A 3-tier platform",
+					"icon": "house-user",
+					"pages": [
+			  "en/02-platform/platform-overview/core-concepts"
+					]
+				},
               "en/02-platform/platform-overview/core-concepts"
             
             ]
