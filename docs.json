@@ -22,22 +22,34 @@
         "tab": "Getting Started",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "About Luklak",
             "pages": [
-              "en/01-getting-started/tab01-note",
-              "en/01-getting-started/quick-start",
-              "en/01-getting-started/philosophy",
-              "en/01-getting-started/account-setup/account-setup"
+              "en/01-getting-started/about-luklak/philosophy",
+              "en/01-getting-started/when-to-choose-luklak"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Quick Start",
+            "pages": [
+              "en/01-getting-started/quick-start/account-setup",
+              "en/01-getting-started/quick-start/quick-tour"
+            ]
+          },
+          {
+            "group": "Onboarding",
             "pages": [
               "en/01-getting-started/role-based-onboarding/index",
-              "en/01-getting-started/role-based-onboarding/for-ceos-executives",
+              {
+					"group": "Pick your role",
+					"icon": "code",
+					"pages": [
+			  "en/01-getting-started/role-based-onboarding/for-ceos-executives",
               "en/01-getting-started/role-based-onboarding/for-solution-consultants",
               "en/01-getting-started/role-based-onboarding/for-team-managers",
               "en/01-getting-started/role-based-onboarding/for-end-users"
+					]
+				}
+            
             ]
           }
         ]
