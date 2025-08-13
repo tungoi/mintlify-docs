@@ -237,7 +237,14 @@
            {
             "group": "Use & Operate",
             "pages": [
-
+                 "en/02-platform/use-and-operate/index1",
+              "en/02-platform/use-and-operate/organize-work",
+              "en/02-platform/use-and-operate/personal-home",
+              "en/02-platform/use-and-operate/navigating-a-space",
+              "en/02-platform/use-and-operate/working-with-objects",
+              "en/02-platform/use-and-operate/search-and-filter",
+              "en/02-platform/use-and-operate/collaboration"
+              
             ]
           }
         ]    
