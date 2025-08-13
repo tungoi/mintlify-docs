@@ -1,0 +1,70 @@
+---
+title: "Advanced UQL: Cross-Object Queries & Analysis"
+description: "An advanced guide for architects and power users on writing complex UQL queries, including traversing object relationships, using functions, and performing historical analysis."
+sidebarTitle: "Advanced UQL"
+---
+
+## Beyond the Basics
+
+You've mastered the basic `field = "value"` structure of UQL. Now it's time to unlock its true power: the ability to ask deep, relational questions that span across your entire business data model.
+
+This guide covers advanced patterns that will allow you to perform sophisticated data analysis, focusing on **cross-object queries**, **built-in functions**, and **historical queries**.
+
+## The Core of Advanced UQL: Cross-Object Queries
+
+This is the most powerful feature of UQL. When you have an `Object Picker` field or a `Parent-Child` relationship, UQL allows you to "walk" across that relationship using **dot notation** to query fields on the referenced `🧊 Object`.
+
+#### The 'Dot Notation' Syntax
+
+The syntax is simple and intuitive: `referencing_field_key.field_on_referenced_object`
+
+- **Simple Example:** Find all `Projects` for enterprise clients.
+  - Your `🧊 Project` Object Type has an `Object Picker` field with the key `client`.
+  - **UQL Query:** `client.tier = "Enterprise"`
+  - **Explanation:** `client` is the field on the `🧊 Project`, and `tier` is a field on the referenced `🧊 Client` Object.
+- **Multi-Level Example:** Find all `Tasks` where the parent `Project`'s `Client` is based in "New York".
+  - **UQL Query:** `parent.client.city = "New York"`
+  - **Explanation:** You can chain together multiple references to traverse complex relationships in your data model (`Task` → `Project` → `Client`).
+
+[Image Placeholder: A diagram showing three linked Object Types (Task -\> Project -\> Client) with their fields. A UQL query box below shows the `parent.client.city` query, with arrows pointing from each part of the query to the corresponding field in the diagram.]
+
+## Using Functions in UQL
+
+UQL includes built-in functions to handle dynamic values and more complex logic.
+
+| Function           | Description                                                                            | Example                      |
+| :----------------- | :------------------------------------------------------------------------------------- | :--------------------------- |
+| `currentUser()`    | A dynamic value representing the user currently running the query.                     | `assignee = "currentUser()"` |
+| `now()`            | The current date and time.                                                             | `start_date > "now()"`       |
+| `today()`          | The current date (without time).                                                       | `due_date = "today()"`       |
+| `count(field_key)` | Counts the number of items in a multi-value field (e.g., a `Multiple Objects Picker`). | `count(sub_tasks) > 10`      |
+
+## Querying History
+
+As covered in our guide to [Leveraging Workflow Data](/platform/core-concepts/workflow-and-status/using-workflow-data), you can use special operators to query the history of an `🧊 Object`'s status changes. This is a powerful feature for process analysis.
+
+- **Example:** `status changed from "IN_REVIEW" to "APPROVED"`
+- **Use Case:** This is essential for building `Dashboards` that measure process efficiency or `Saved Filters` that find `🧊 Objects` that have ever passed through a critical review stage.
+
+## Putting It All Together: A Complex Example
+
+By combining these advanced techniques, you can answer very specific business questions.
+
+- **Business Question:** "Find all `IN_PROGRESS` `Tasks` assigned to me, which belong to a `Project` for an 'Enterprise' tier `Client`, and where that `Project` has more than 5 stakeholders."
+- **UQL Query:**
+
+  ```uql
+  status = "IN_PROGRESS" AND assignee = "currentUser()" AND parent.client.tier = "Enterprise" AND count(parent.stakeholders) > 5
+  
+  ```
+
+[Guidejar Placeholder: A tutorial showing a power user in the 'Saved Filter' UQL editor. They build the complex query above step-by-step, and the live preview on the right updates to show the filtered results.]
+
+## What's Next?
+
+Congratulations\! You have now completed the deep dive into all of the Core LEGO Pieces of the Luklak platform, from the `Universal Object` to the `UQL` engine that queries them.
+
+You have the full architectural knowledge. It's time to put it all together and build your first complete solution.
+
+- [**Go to the Build Playbooks**](https://www.google.com/search?q=/build-playbooks)
+- [**Return to the Platform Overview**](https://www.google.com/search?q=/platform)
