@@ -1,0 +1,74 @@
+---
+title: "Step 6: Creating Workviews and Dashboards"
+description: "Learn how to design the 'cockpit' for your Function by creating operational Workviews for daily tasks and analytical Dashboards for strategic insights."
+sidebarTitle: "6. Create Workviews"
+---
+
+## Designing the User's Cockpit
+
+Your `📋 Function` is now a powerful, automated engine. This next step focuses on designing the user experience—the "cockpit" your team will use to interact with the process and the data it generates. A well-designed interface makes your solution intuitive and ensures high user adoption.
+
+This process has two distinct goals: designing interfaces for **action** (`Workviews`) and designing interfaces for **insight** (`Dashboards`).
+
+## Phase 1: Designing for Action — Creating Workviews
+
+`Workviews` are the primary, operational interfaces where your team will spend their day managing `🧊 Objects`. As the architect, your job is to create a set of pre-configured `Workviews` within your `Function` that are tailored to the needs of its future users.
+
+Common `Workview` types you will design include:
+
+- **List View:** Perfect for managers and users who need to see dense information, sort, filter, and perform bulk actions on many `Objects` at once.
+- **Kanban View:** Ideal for teams managing `Objects` through a `Workflow`. It provides a clear, visual representation of work in progress as cards move from one `Status` column to the next.
+- **Calendar & Timeline View:** Essential for any process driven by dates. Use these to visualize deadlines, schedule appointments, or plan project timelines.
+
+<Tip>
+  Each `Workview` type is a powerful LEGO piece with many of its own configuration options. This guide focuses on _why_ you choose a certain `Workview` during Function design. To learn about every specific setting, see our deep-dive guide on the [Workview LEGO Block](/platform/core-concepts/workviews).
+</Tip>
+
+## Phase 2: Designing for Insight — Building Dashboards and Filters
+
+While `Workviews` are for _doing_ the work, `Dashboards` are for _analyzing_ it. They answer the critical question, "How are we doing?" for managers and stakeholders.
+
+Within your `Function`, you can design one or more `Dashboards` that pull together key metrics, charts, and reports. At the same time, you'll create `Saved Filters` to help users instantly find the information they need without having to build complex queries themselves.
+
+- **Dashboards:** Build analytical screens using various gadgets like Bar Charts, Pie Charts, Counters, and advanced statistical tables.
+- **Saved Filters:** Create pre-built, one-click filters for common questions like "My High-Priority Tasks" or "Deals Closing This Month."
+
+<Info>
+  Both `Dashboards` and `Filters` are powered by Luklak's **Universal Query Language (UQL)**. As the architect, you are essentially building user-friendly interfaces on top of powerful queries.
+
+  - To see how a complete, real-world dashboard is constructed, explore the [Sales Performance Dashboard in our CRM Playbook](/build-playbooks/sales-crm).
+  - To master the syntax and advanced capabilities of UQL itself, please refer to the [UQL Core Concept Guide](/platform/core-concepts/uql).
+</Info>
+
+```guidejar
+# Tutorial: Creating a Basic Kanban Workview
+
+! Important: You can create multiple Workviews for each Object Type in your Function.
+
+## Section 1: Create the Workview
+
+1.  **Navigate to Workview Settings**
+    In your `Function`'s design canvas, select the `Object Type` you want to create a view for (e.g., "Deal") and navigate to the `Workviews` tab.
+
+2.  **Add a New Workview**
+    Click `Add Workview` and select `Kanban` from the list of types. Give it a clear name, such as "Deal Pipeline Kanban".
+
+## Section 2: Configure the Kanban View
+
+1.  **Set the Grouping**
+    The most important setting for a Kanban view is how the columns are grouped. In the configuration panel, select `Status` to create columns based on your `Workflow`.
+
+2.  **Customize the Card Display**
+    Choose which `Data Fields` should be visible on the face of each Kanban card. Select 3-4 of the most important fields, like "Deal Value," "Assignee," and "Expected Close Date."
+    ![The Kanban configuration panel showing a user selecting which fields to display on the cards.](https://via.placeholder.com/1200x600.png/000000/FFFFFF?text=Step%202:%20Customize%20Cards)
+
+3.  **Save the View**
+    Save your configuration. This Kanban view will now be a default option available in any `⏹️ Space` created from this `Function`.
+```
+
+## What's Next?
+
+You have now designed what the `Function` does, how it automates, and how users will see it. The final, critical step in the design process is to define who is allowed to interact with it.
+
+- [**Proceed to Step 7: Configuring Permissions and Roles**](https://www.google.com/search?q=/platform/function-design/design-process/07-set-permissions)
+- [**Go back to the 8-Step Process Overview**](https://www.google.com/search?q=/platform/function-design/design-process/)

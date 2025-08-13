@@ -1,0 +1,111 @@
+---
+title: "Step 5: Building Automation Rules"
+description: "Learn how to bring your Function to life by building powerful automation rules that connect steps, update data, and eliminate manual work."
+sidebarTitle: "5. Setup Automation"
+---
+
+## From Static Structure to Living Process
+
+You have now built the complete static structure of your `📋 Function`—the data model, the process flow, and the screens for data entry. Now, it's time to make this structure intelligent. Automation is the nervous system that connects these parts and makes your process run itself.
+
+This step leverages the `Universal Automation` LEGO piece to create rules that handle repetitive tasks, ensuring your process is not only consistent but also highly efficient.
+
+<Info>
+  Every automation rule in Luklak follows a simple but powerful principle: **Trigger → Condition → Action**. This can be translated as: When event **A** happens, if condition **B** is true, then perform action **C**.
+</Info>
+
+## The Three Types of Automation Rules
+
+As an architect, your first decision is to choose the right type of rule for the job. Luklak provides three types, each triggered in a different way.
+
+<CardGroup cols={3}>
+  <Card title="Background Rules" icon="clock" iconType="duotone">
+    **System-Driven.** These rules run automatically in the background without any user interaction.
+
+    <br />
+
+    <br />
+
+    **Triggers:** An `Object` is created/updated, a specific time is reached (e.g., every Monday at 9 AM), or an external webhook is received.
+
+    <br />
+
+    <br />
+
+    **Use Case:** Automatically assign a new `Lead` to a sales representative the moment it's created in the system.
+  </Card>
+  <Card title="Workflow Rules" icon="arrow-progress" iconType="duotone">
+    **Process-Driven.** These rules are tied directly to your `Workflow` and execute when an `Object` moves into a specific `Status`.
+
+    <br />
+
+    <br />
+
+    **Trigger:** An `Object` enters a `Status` like `IN REVIEW`.
+
+    <br />
+
+    <br />
+
+    **Use Case:** When a `Deal` enters the "Proposal Sent" `Status`, automatically create a follow-up `Task` for the account manager, due in 7 days.
+  </Card>
+  <Card title="Object Action Rules" icon="hand-pointer" iconType="duotone">
+    **User-Driven.** These rules appear as buttons in an `Object`'s action menu, allowing users to trigger complex automation on demand.
+
+    <br />
+
+    <br />
+
+    **Trigger:** A user manually clicks the action button.
+
+    <br />
+
+    <br />
+
+    **Use Case:** A "Request Escalation" button that, when clicked, re-assigns a `Support Ticket` to a senior manager and updates its priority to "Critical".
+  </Card>
+</CardGroup>
+
+## Building Your First Automation Rule
+
+Let's build a common and useful `Workflow Rule`: when a `Task` is moved to the `IN REVIEW` status, it will be automatically assigned to the "Project Manager" `Role`.
+
+```guidejar
+# Tutorial: Building a Workflow Rule
+
+! Important: Automation rules are defined within the Function, and will apply to all Spaces created from it.
+
+## Section 1: Create and Configure the Rule
+
+1.  **Navigate to the Automation Builder**
+    In your `Function`'s design canvas, select the `Universal Automation` tab.
+
+2.  **Create a New Rule**
+    Click `Create New Rule`. Give it a clear name like "Assign to PM for Review" and select the `Workflow Rule` type.
+
+3.  **Configure the Trigger**
+    Since this is a `Workflow Rule`, the trigger is a `Status`. Select the `IN REVIEW` status from the dropdown. The rule will now run every time an `Object` enters this status.
+    ![The automation builder interface showing a user selecting "Workflow Rule" as the type and "IN REVIEW" as the trigger status.](https://via.placeholder.com/1200x600.png/000000/FFFFFF?text=Step%203:%20Configure%20Trigger)
+
+## Section 2: Define the Action
+
+1.  **(Optional) Add a Condition**
+    You could add an "If" condition here to make the rule more specific, such as "If `Priority` is `High`". For this example, we will skip this.
+
+2.  **Define the Action**
+    Click `Add Action`. Select the `Update Object` action from the list.
+
+3.  **Set the Field to Update**
+    In the `Update Object` configuration, choose the `Assignee` field. For the value, select the `Role` tab and choose "Project Manager". This will dynamically assign the `Object` to whoever holds the "Project Manager" role in that specific `Space`.
+    ![The action configuration panel, where the "Assignee" field is being set to the "Project Manager" Role.](https://via.placeholder.com/1200x600.png/000000/FFFFFF?text=Step%203:%20Set%20Field%20to%20Update)
+
+4.  **Save and Activate**
+    Save the rule. It is now a permanent part of your `Function`'s logic.
+```
+
+## What's Next?
+
+Your `Function` now has a powerful automated engine running under the hood. The next step is to design the "cockpit"—the interfaces that your team will use to view and interact with the data this intelligent process generates.
+
+- [**Proceed to Step 6: Creating Workviews and Dashboards**](https://www.google.com/search?q=/platform/function-design/design-process/06-create-workviews)
+- [**Go back to the 8-Step Process Overview**](https://www.google.com/search?q=/platform/function-design/design-process/)

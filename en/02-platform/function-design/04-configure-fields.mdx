@@ -1,0 +1,57 @@
+---
+title: "Step 4: Configuring Data Fields and Screens"
+description: "Learn how to ensure data quality and a great user experience by configuring the right Data Fields and arranging them into logical Screens."
+sidebarTitle: "4. Configure Fields"
+---
+
+## Capturing the Right Information
+
+You have designed your `🧊 Objects` (the "what") and the `Workflows` they follow (the "how"). Now, you must define the precise information that your team needs to capture for each `Object` as it moves through its lifecycle. This is done by configuring **Data Fields** and arranging them into **Screens**.
+
+<Info>
+Good screen design is critical for user adoption. A clean, logical layout that only shows relevant fields at the right time makes the system a pleasure to use and dramatically improves data quality. This step leverages the **Data Fields** LEGO piece.
+</Info>
+
+## Phase 1: Creating Your Data Fields
+
+A `Data Field` is the smallest unit of information storage in Luklak. Choosing the right field type is essential for ensuring data integrity, which enables powerful filtering, reporting, and automation later on.
+
+When creating fields for your `Object Types`, you can choose from a wide variety of types, including:
+-   **Text:** For short or long-form text descriptions.
+-   **Number:** For numerical data like currency, quantity, or scores.
+-   **Date/Time:** For tracking deadlines, appointments, or timestamps.
+-   **Dropdown (Single/Multi-select):** For predefined lists of options, ensuring data consistency.
+-   **User Selector:** To assign or link `Objects` to specific people.
+-   **Object Field:** To create relationships by linking to other `Objects` (as covered in Step 2).
+-   **Checkbox:** For simple true/false or yes/no options.
+-   **Formula:** To perform real-time calculations based on other fields in the `Object`.
+
+<Tip>
+Always choose the most specific field type possible. For example, to track a contract's value, use a `Number` field with currency formatting, not a generic `Text` field. This allows you to perform calculations and build accurate reports.
+</Tip>
+
+## Phase 2: Arranging Fields into Screens
+
+A `Screen` is the user-facing layout that presents your `Data Fields` to the end-user for viewing and data entry. The `Screen` designer is a visual, drag-and-drop canvas that lets you organize your fields for maximum clarity and efficiency.
+
+When designing your `Screens`, consider these best practices:
+-   **Group related fields:** Use sections to group fields like "Contact Information" or "Deal Value Details" together.
+-   **Prioritize a visual hierarchy:** Place the most critical, must-have information at the top of the `Screen`.
+-   **Use tabs for complexity:** If an `Object` has a very large number of fields, organize them into tabs to avoid overwhelming users with a long, scrolling form.
+
+## Phase 3: Assigning Screens to Your Workflow
+
+This is a powerful architectural concept in Luklak. You are not limited to a single, static form for an `Object`. Instead, you can design multiple `Screens` and dynamically show the most relevant one based on an `Object`'s `Status` in its `Workflow`.
+
+This enables **progressive disclosure**, where you only ask for the information you need, when you need it.
+
+**Example:**
+-   When a `Support Ticket` `Object` is first created, it is in the `NEW` Status. You can assign a simple "New Ticket" `Screen` that only asks for the customer's name, their issue, and the urgency.
+-   Once a support agent starts working on it and moves it to the `IN PROGRESS` Status, you can automatically switch to a more detailed "Investigation" `Screen` that includes fields for diagnostic notes, root cause analysis, and linked technical documents.
+
+## What's Next?
+
+You have now built the complete static structure of your `Function`: the data model, the process flow, and the user interface for capturing data. The next step is to make this structure intelligent by building automation rules that connect the dots and eliminate manual work.
+
+-   [**Proceed to Step 5: Building Automation Rules**](/platform/function-design/design-process/05-setup-automation)
+-   [**Go back to the 8-Step Process Overview**](/platform/function-design/design-process/)

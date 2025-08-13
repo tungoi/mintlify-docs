@@ -221,7 +221,12 @@
 			 "en/02-platform/function-design/8-step-design-process",
               "en/02-platform/function-design/01-analysis-scope",
               "en/02-platform/function-design/02-define-objects",
-              "en/02-platform/function-design/03-design-workflows"
+              "en/02-platform/function-design/03-design-workflows",
+              "en/02-platform/function-design/04-configure-fields",
+              "en/02-platform/function-design/05-setup-automation",
+              "en/02-platform/function-design/06-create-workviews",
+              "en/02-platform/function-design/07-set-permissions-and-notifications",
+                      "en/02-platform/function-design/08-test-deploy"
 					]
 				}
               

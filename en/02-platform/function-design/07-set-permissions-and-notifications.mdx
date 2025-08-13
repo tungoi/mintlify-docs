@@ -1,0 +1,72 @@
+---
+title: "Step 7: Configuring Permissions & Notifications"
+description: "Learn how to secure your Function by defining process-specific Roles and applying the correct Permission and Notification Schemes to control access and awareness."
+sidebarTitle: "7. Set Permissions"
+---
+
+## Securing Your Process
+
+Your `📋 Function` now has a data model, a workflow, automations, and a user interface. This final design step is one of the most critical: securing the entire process to ensure the right people have the right access—and the right awareness—at all times.
+
+This step involves two distinct activities: first, defining the "cast of characters" (`Roles`) specific to your process, and second, assigning them their script (`Permission` and `Notification Schemes`).
+
+<Info>
+  Remember, this step is about **applying** governance, not building it from scratch. You will be using the `Permission & Notification Schemes` that were designed as a Tier 1 LEGO piece.
+</Info>
+
+## Phase 1: Defining Function-Specific Roles
+
+While your system has `Global Roles` (like Admin, Manager, Member), most business processes have their own unique set of actors. In this phase, you define these process-specific `Roles`.
+
+Think of `Roles` as the job titles within your `Function's` process. For a "Recruitment" `Function`, you might create `Roles` such as:
+
+- `Hiring Manager`
+- `Recruiter`
+- `Interviewer`
+- `Compensation Approver`
+
+These `Roles` act as placeholders. You are defining the parts that need to be played. Later, when a `⏹️ Space` is created from this `Function`, real `Users` or `Groups` will be assigned to fill these parts.
+
+<Tip>
+  This approach makes your `Function` incredibly reusable. The same `Function` can be used by different departments, each mapping their own people to the same set of defined `Roles`. To refresh your understanding of how `Roles` work, see our foundational guide on [Users, Groups, and Roles](/platform/core-concepts/permissions/users-groups-roles).
+</Tip>
+
+## Phase 2: Applying Permission & Notification Schemes
+
+Once your `Roles` are defined, you apply the rules that govern their behavior. This is done by selecting the appropriate `Permission` and `Notification Schemes` for your `Function`.
+
+### Choosing a Permission Scheme
+
+A `Permission Scheme` defines **who can do what**. In your `Function`'s settings, you will select a scheme (either a built-in one like "Strict Access" or a custom one) from a dropdown. This scheme's rules will then be mapped to the `Roles` you just created.
+
+**Example:**
+
+1. You select the **"Strict Access"** `Permission Scheme`.
+2. This scheme contains a rule: "Only the `Role` named 'Approver' can perform the `Transition` 'Approve Offer'."
+3. In your `Function`, you have created a `Role` called `Compensation Approver`.
+4. The system now understands that only the user(s) assigned to the `Compensation Approver` `Role` in a live `Space` will see the "Approve Offer" button.
+
+### Choosing a Notification Scheme
+
+Similarly, a `Notification Scheme` defines **who knows what**. You will select a scheme that dictates which actions trigger alerts for which `Roles`.
+
+**Example:**
+
+1. You select the **"Notify key actions to key assignees"** `Notification Scheme`.
+2. This scheme has a rule: "When an `Object`'s `Status` changes, send a notification to the `Role` 'Manager'."
+3. In your `Function`, you've defined the `Hiring Manager` `Role`.
+4. Now, every time a `Candidate` `Object` changes status, the user mapped to the `Hiring Manager` `Role` will automatically receive a notification.
+
+<Info>
+  This guide focuses on **applying** schemes within a `Function`. If the standard schemes don't fit and you need to design a complex, custom scheme from the ground up, refer to our detailed guides:
+
+  - [Creating Custom Permission Schemes](/platform/core-concepts/permissions/permission-schemes)
+  - [Creating Custom Notification Schemes](/platform/core-concepts/permissions/notification-schemes)
+</Info>
+
+## What's Next?
+
+Congratulations, your `Function` blueprint is now complete\! You've defined the entire process from data structure to security. The final step is to ensure everything works as expected before launching it to your teams.
+
+- [**Proceed to Step 8: Testing and Deployment**](/platform/function-design/design-process/08-test-deploy)
+- [**Go back to the 8-Step Process Overview**](/platform/function-design/design-process/)
