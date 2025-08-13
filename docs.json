@@ -63,7 +63,6 @@
         "groups": [
           {
             "group": "Platform Overview",
-            "icon": "stars",
             "pages": [
               "en/02-platform/platform-overview/index",
               {

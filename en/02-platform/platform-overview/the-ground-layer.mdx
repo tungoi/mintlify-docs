@@ -1,28 +1,21 @@
 ---
-title: "The Ground layer"
+title: "The Ground Layer: Governance and Access Control"
 description: "A detailed guide to setting up your Luklak instance's foundation: managing users, defining system-wide Business Privileges, and governing with Item Access Control."
-icon: "layer-plus"
+sidebarTitle: "The Ground Layer"
 ---
 
 <Info>
-  Welcome to Phase 1. Before you can build your powerful business solutions, you must first establish the foundational rules of your digital world. This is the essential first step for any system administrator, ensuring your Luklak instance is secure, organized, and ready for your teams.
+  Before you can build your powerful business solutions, you must first establish the foundational rules of your digital world. The Ground Layer is where system administrators ensure the Luklak instance is secure, organized, and ready for your teams.
 </Info>
 
-This process involves two distinct but related systems of control: defining who's in your world, and then defining what they are allowed to touch. 
+This process involves two distinct but related systems of control: defining who's in your world, and then defining what they are allowed to touch.
 
 ## Step 1: Define Your People & Powers
 
-First, you must populate your instance with users and grant them their fundamental level of authority.
-
-### Users, Groups, and Roles
-
-The initial task is to create `User` accounts for every person on your team. To manage them efficiently, you can organize these users into `Groups` (e.g., "Sales Team," "HR Managers") and assign them to `Roles` (e.g., "Approver," "Auditor") that represent their function in a business process. This allows you to assign permissions to a Group or Role once, rather than to hundreds of individual users.
+First, you must populate your instance with `Users`, organize them into `Groups`, and define the `Roles` they will play. Once the people are defined, you grant them their fundamental level of authority.
 
 ### The Entry Gate: Business Privileges
-
 Before a user can do anything, they need a **Business Privilege**. This acts as their "entry ticket" and defines their maximum, system-wide authority. Think of it as their passport stamp—it determines if they are allowed in the country and what general status they hold.
-
-There are four main privilege levels:
 
 <CardGroup cols={2}>
   <Card title="Owner" icon="crown" iconType="duotone">
@@ -32,36 +25,26 @@ There are four main privilege levels:
     Can configure everything in the system, from Global Settings to user management.
   </Card>
   <Card title="App Manager" icon="map" iconType="duotone">
-    A specialized role that can design, edit, and manage `📋 Functions` and other applications.
+    A specialized role that can design, edit, and manage `📋 Functions`.
   </Card>
   <Card title="Member" icon="user" iconType="duotone">
     The standard privilege for most users, allowing them to work within the `⏹️ Spaces` they are given access to.
   </Card>
 </CardGroup>
 
-[Guidejar Placeholder: An interactive tutorial showing an administrator inviting a new user and assigning them the 'Member' Business Privilege.]
-
 ## Step 2: Define Who Can Touch What
 
 Once a user is "inside the gates" with their Business Privilege, a second, more granular layer of permission takes over.
 
 ### The In-World Rules: Item Access Control
-
-**Item Access Control** determines who can **view, use, edit, or manage every single component (or "Item")** you build inside Luklak. If Business Privilege is the passport, Item Access is the key to specific buildings, rooms, and file cabinets.
-
-Crucially, this access is configured **directly on each individual Item**.
+**Item Access Control** determines who can view, use, edit, or manage every single component (or "Item") you build inside Luklak. If Business Privilege is the passport, Item Access is the key to specific buildings, rooms, and file cabinets. Crucially, this access is configured **directly on each individual Item**.
 
 <Tip>
   For example, to control who can edit your "CRM" `Function`, you configure Item Access **on that specific Function**. To control who sees the "Q4 Financials" `Dashboard`, you set the access **on that Dashboard**. This gives you precise, contextual control over every part of your system.
 </Tip>
 
-[Image Placeholder: A diagram showing a User with a 'Business Privilege' key opening the main gate to the Luklak world. Inside, there are several buildings (Function, Dashboard, Space), each with its own separate 'Item Access' keyhole.]
-
-## What's Next?
-
-Now that you understand the principles of governance, you are ready to move forward.
-
-- **To put this into practice:**
-  → [**Go to the detailed Global Settings Guides**](/platform/global-settings/user-management)
-- **To learn about the building process that this foundation supports:**
-  → [**Proceed to Phase 2: The 3 Tiers of Construction**](/platform/construction)
+### What's Next?
+Now that you understand the principles of governance, you are ready to dive deeper.
+- [**Learn to manage people → A Guide to Users, Groups, and Roles**](/platform/core-concepts/permissions/users-groups-roles)
+- [**Understand system-wide access → A Guide to Business Privileges**](/platform/core-concepts/permissions/business-privileges)
+- [**Master component-level access → A Guide to Item Access Management**](/platform/core-concepts/permissions/item-access-management)
