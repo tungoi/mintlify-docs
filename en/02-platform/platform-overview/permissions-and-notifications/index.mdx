@@ -1,0 +1,59 @@
+---
+title: "An Overview of Luklak's 3-Layered Security Model"
+description: "Understand the core principles of security and access control in Luklak, from high-level system privileges to granular data permissions."
+sidebarTitle: "Permissions Overview"
+---
+
+## Security Meets Collaboration
+
+The central challenge in any powerful business system is balancing two critical needs: protecting sensitive information and enabling seamless collaboration. Systems that are too open are a security risk. Systems that are too locked down create friction and slow down work.
+
+Luklak solves this with a sophisticated, multi-layered security model. It's designed to give you precise control over who can see and do what at every level of the platform, from the entire system down to a single field on an individual `🧊 Object`.
+
+## The 3 Layers of Control
+
+To understand how security works, think of your Luklak instance as a secure corporate campus. To do any work, a person must pass through three distinct levels of security checks.
+
+<Info>
+This model ensures that permissions are always explicit. A user must have the right credentials at all three layers to perform an action, providing comprehensive and predictable security.
+</Info>
+
+`[Image Placeholder: A diagram showing a funnel with three sections labeled Layer 1, Layer 2, and Layer 3. An icon of a user is at the top, passing through each layer to reach an icon of an Object at the bottom.]`
+
+### Layer 1: Business Privilege - Your Campus ID Badge
+
+This is the highest and most fundamental level of access. A user's **Business Privilege** determines if they are allowed onto the campus at all and defines their maximum potential authority. It's the first gate everyone must pass.
+
+<Card title="Layer 1: Business Privilege" icon="user-shield" iconType="duotone">
+  Defines a user's system-wide status, such as **Owner, Admin, App Manager,** or **Member**. Without this "ID badge," a user cannot enter the system.
+</Card>
+
+### Layer 2: Item Access - The Key to a Building
+
+Once a user is on campus, `Item Access Management` determines which specific buildings they can enter. In Luklak, "buildings" are high-level components like a `📋 Function`, a `Dashboard`, or a top-level `📂 Area`.
+
+<Card title="Layer 2: Item Access" icon="key" iconType="duotone">
+  Controls who can view or manage the containers of work. Your campus ID gets you in, but you still need the specific keycard to enter the "Finance Department" building.
+</Card>
+
+### Layer 3: Permission Schemes - The Rules Inside the Building
+
+Once inside a specific building (like a `⏹️ Space` created from a `Function`), **Permission Schemes** govern what a user can actually do. This is the most granular layer of control, defining specific actions on the data within.
+
+<Card title="Layer 3: Permission Schemes" icon="file-invoice" iconType="duotone">
+  Controls actions on individual `🧊 Objects`. Can you read the files on the desk (`View Object`)? Can you write on the whiteboard (`Edit Object`)? Who gets an alert when you do?
+</Card>
+
+## How The Layers Interact
+
+A user's effective permissions are the result of all three layers working together. A user must have the required access at each level to perform an action. For example, a user might be an **Admin** (Layer 1) and have access to the "Recruitment" `Function` (Layer 2), but a `Permission Scheme` (Layer 3) on a `⏹️ Space` for "Executive Hires" could still prevent them from seeing `🧊 Objects` related to confidential candidates.
+
+This layered approach provides a powerful and flexible security framework that can be adapted to any business process.
+
+## What's Next?
+
+Now that you understand the security philosophy, you can begin your deep dive into each component.
+
+-   **Start with the foundation:** [**Managing People: Users, Groups, and Roles**](/platform/core-concepts/permissions/users-groups-roles)
+-   **Explore the first layer of security:** [**Layer 1: System Access with Business Privileges**](/platform/core-concepts/permissions/business-privileges)
+-   **See how granular control works:** [**Layer 3: Granular Control with Permission Schemes**](/platform/core-concepts/permissions/permission-schemes)

@@ -189,6 +189,13 @@
                       "en/02-platform/platform-overview/unified-live-chat/object-chat",
                       "en/02-platform/platform-overview/unified-live-chat/chat-features"
 					]
+				},
+              {
+					"group": "Permissions & Notifications",
+					"icon": "user-shield",
+					"pages": [
+			         "en/02-platform/platform-overview/permissions-and-notifications/index"
+					]
 				}
             ]
           },
