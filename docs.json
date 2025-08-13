@@ -147,7 +147,11 @@
 					]
 				},
               {
-					"group": "Workviews, Dashboards & Filter",
+					"group": "Workviews & Dashboards",
+					"icon": "chart-pie-simple",
+					"pages": [
+                      {
+					"group": "Workviews",
 					"icon": "table-columns",
 					"pages": [
 			         "en/02-platform/platform-overview/workview/index",
@@ -158,7 +162,8 @@
                       "en/02-platform/platform-overview/workview/updates-view"
 					]
 				},
-              {
+			  
+                      {
 					"group": "Dashboards",
 					"icon": "chart-pie-simple",
 					"pages": [
@@ -167,9 +172,11 @@
                       "en/02-platform/platform-overview/dashboards/building-dashboards",
                       "en/02-platform/platform-overview/dashboards/interactive-dashboards"
 					]
+				}
+					]
 				},
               {
-					"group": "Filters",
+					"group": "Filters & UQL",
 					"icon": "filter-list",
 					"pages": [
 			         "en/02-platform/platform-overview/filter-and-uql/index",
