@@ -2,6 +2,7 @@
 title: "The Ground Layer: Governance and Access Control"
 description: "A detailed guide to setting up your Luklak instance's foundation: managing users, defining system-wide Business Privileges, and governing with Item Access Control."
 sidebarTitle: "The Ground Layer"
+icon: "layer-plus"
 ---
 
 <Info>
@@ -15,6 +16,7 @@ This process involves two distinct but related systems of control: defining who'
 First, you must populate your instance with `Users`, organize them into `Groups`, and define the `Roles` they will play. Once the people are defined, you grant them their fundamental level of authority.
 
 ### The Entry Gate: Business Privileges
+
 Before a user can do anything, they need a **Business Privilege**. This acts as their "entry ticket" and defines their maximum, system-wide authority. Think of it as their passport stamp—it determines if they are allowed in the country and what general status they hold.
 
 <CardGroup cols={2}>
@@ -37,6 +39,7 @@ Before a user can do anything, they need a **Business Privilege**. This acts as 
 Once a user is "inside the gates" with their Business Privilege, a second, more granular layer of permission takes over.
 
 ### The In-World Rules: Item Access Control
+
 **Item Access Control** determines who can view, use, edit, or manage every single component (or "Item") you build inside Luklak. If Business Privilege is the passport, Item Access is the key to specific buildings, rooms, and file cabinets. Crucially, this access is configured **directly on each individual Item**.
 
 <Tip>
@@ -44,7 +47,9 @@ Once a user is "inside the gates" with their Business Privilege, a second, more 
 </Tip>
 
 ### What's Next?
+
 Now that you understand the principles of governance, you are ready to dive deeper.
+
 - [**Learn to manage people → A Guide to Users, Groups, and Roles**](/platform/core-concepts/permissions/users-groups-roles)
 - [**Understand system-wide access → A Guide to Business Privileges**](/platform/core-concepts/permissions/business-privileges)
 - [**Master component-level access → A Guide to Item Access Management**](/platform/core-concepts/permissions/item-access-management)
