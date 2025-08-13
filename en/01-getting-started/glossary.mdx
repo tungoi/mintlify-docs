@@ -1,0 +1,152 @@
+---
+title: "The Luklak Glossary: A Complete Guide to System Terminology"
+description: "A comprehensive glossary of all key terms in the Luklak platform, organized by architectural concept from the Foundation to daily Operations."
+sidebarTitle: "Glossary"
+---
+
+<Info>
+  Welcome to the official Luklak Glossary. This document is the single source of truth for all terminology used across the platform. Understanding these concepts is the key to mastering Luklak's unique and powerful architecture.
+</Info>
+
+## Phase 1: The Foundation (Global & Governance)
+
+These terms relate to the system-wide setup and permission layers that form the bedrock of your Luklak instance. They are typically managed in **Global Settings**.
+
+<CardGroup cols={3}>
+  <Card title="User Account" icon="user" iconType="duotone">
+    An account for an individual person who can sign in and perform work.
+  </Card>
+  <Card title="Functional Account" icon="robot" iconType="duotone">
+    A non-human technical account used exclusively for running `Universal Automation` rules securely.
+  </Card>
+  <Card title="Group" icon="users" iconType="duotone">
+    A collection of `User Accounts` (e.g., "Sales Team") used for efficient permission management.
+  </Card>
+  <Card title="Role" icon="user-tag" iconType="duotone">
+    A named definition of a user's function within a process (e.g., Approver, Manager). Roles are used in Permission Schemes to define what a user can do.
+  </Card>
+  <Card title="Business Privilege" icon="crown" iconType="duotone">
+    A user's system-wide authority level; their "entry ticket." The four levels are **Owner**, **Admin**, **App Manager**, and **Member**.
+  </Card>
+  <Card title="Item Access Control" icon="key" iconType="duotone">
+    The granular permission system that controls who can view, use, edit, or manage a specific "Item" (like a `Function` or `Dashboard`).
+  </Card>
+  <Card title="Global Settings" icon="gear" iconType="duotone">
+    The central administration area for configuring system-wide settings like users, groups, and global components.
+  </Card>
+</CardGroup>
+
+## Phase 2: The 3 Tiers of Construction
+
+These terms relate to the architectural components used in the process of building your business solutions.
+
+### Tier 1: Core Blocks (The Raw Materials)
+
+These are the fundamental "LEGO Pieces" that you, the architect, assemble to create any business process.
+
+<CardGroup cols={3}>
+  <Card title="Universal Object" icon="cube" iconType="duotone">
+    ![Universal Object.png](/images/UniversalObject.png)
+
+    The DNA of your business. Define any entity—customers, projects, candidates, assets—to create one source of truth.
+  </Card>
+  <Card title="Workflow" icon="arrow-progress" iconType="duotone">
+    ![Universal Workflow.png](/images/UniversalWorkflow.png)
+
+    Standardize your operations with visual process maps. Define the exact stages for any task, from `IDEA` to `LAUNCH`.
+  </Card>
+  <Card title="Data Fields" icon="pen-field" iconType="duotone">
+    ![data-screen.png](/images/data-screen.png)
+
+    Capture the exact data you need for any business entity. Ensure data consistency for everything you track.
+  </Card>
+  <Card title="Object Connection" icon="link" iconType="duotone">
+    ![Object Connection.png](/images/ObjectConnection.png)
+
+    Your relationship map. Visualize how customers, projects, and support tickets are all interconnected in real-time.
+  </Card>
+  <Card title="Workview & Dashboard" icon="table-columns" iconType="duotone">
+    ![Universal Dashboard.png](/images/UniversalDashboard.png)
+
+    Your command center. Allow every team to see the same underlying data in the layout that best suits their work.
+  </Card>
+  <Card title="Universal Query Language (UQL)" icon="magnifying-glass" iconType="duotone">
+    ![Universal Query Language.png](/images/UniversalQueryLanguage.png)
+
+    Your business brain. Ask complex, cross-functional questions in natural language and get answers instantly.
+  </Card>
+  <Card title="Universal Automation" icon="robot" iconType="duotone">
+    ![Universal Automation.png](/images/UniversalAutomation.png)
+
+    Your operational nervous system. Connect every process automatically, eliminating manual handoffs and friction.
+  </Card>
+  <Card title="Unified Live Chat" icon="comments" iconType="duotone">
+    ![download.png](/images/download.png)
+
+    Your collaboration fabric. Keep all conversations in the context of the work itself, ending scattered communication.
+  </Card>
+  <Card title="Permission & Notification" icon="user-shield" iconType="duotone">
+    ![permission-scheme.png](/images/permission-scheme.png)
+
+    Your governance layer. Scale with confidence, knowing the right people always have the right access.
+  </Card>
+</CardGroup>
+
+### Tier 2: Function Design (The Blueprints)
+
+<CardGroup cols={1}>
+  <Card title="Function" icon="map" iconType="duotone">
+    A reusable, no-code **blueprint** for a complete business solution. It is a container that packages `Object Types`, `Workflows`, `Data Screens`, `Workviews`,  `Automations`, `Roles`, `Permissions & Notifications`
+  </Card>
+</CardGroup>
+
+### Tier 3: Usage & Operation (The Live Instances)
+
+<CardGroup cols={3}>
+  <Card title="Object" icon="cube" iconType="duotone">
+    A single, live **instance** of an `Object Type`. This is the actual work item (e.g., the specific "Q4 Sales Deal").
+  </Card>
+  <Card title="Status" icon="flag" iconType="duotone">
+    A specific step or stage in a `Workflow` (e.g., `IN PROGRESS`). Always written in `UPPERCASE`.
+  </Card>
+  <Card title="Transition" icon="arrows-left-right" iconType="duotone">
+    The defined, one-way path between two `Statuses` in a `Workflow`.
+  </Card>
+</CardGroup>
+
+## The Work Environment (Operational Concepts)
+
+These terms describe the interfaces and tools users interact with on a daily basis.
+
+<CardGroup cols={3}>
+  <Card title="Area" icon="folder-tree" iconType="duotone">
+    A container for grouping related `Spaces`, forming the high-level structure of your organization (e.g., "Sales Department Area").
+  </Card>
+  <Card title="Space" icon="table-layout" iconType="duotone">
+    A live, dedicated **workspace** created from a `Function`. This is where teams collaborate and work on `Objects`.
+  </Card>
+  <Card title="Workspace" icon="briefcase" iconType="duotone">
+    A **personal, customizable hub** for managers to pull in different `Spaces` and reports from across the organization.
+  </Card>
+  <Card title="Personal Home" icon="house-user" iconType="duotone">
+    An **automatic, personal dashboard** for every user, aggregating all their assigned `Objects` and notifications.
+  </Card>
+  <Card title="Smart Value" icon="wand-magic-sparkles" iconType="duotone">
+    A placeholder (e.g., `{{object.name}}`) used in `Universal Automation` to dynamically pull data from `Objects` into actions.
+  </Card>
+  <Card title="Filter" icon="filter-list" iconType="duotone">
+    A set of criteria, powered by `UQL`, used to find specific `Objects`. Can be a `Quick Filter` or a `Saved Filter`.
+  </Card>
+</CardGroup>
+
+## Key Distinctions at a Glance
+
+This table clarifies some of the most important and commonly confused concepts.
+
+| We Say...                | We Mean...            | Not to be confused with... | The Core Difference                                                                                                 |
+| :----------------------- | :-------------------- | :------------------------- | :------------------------------------------------------------------------------------------------------------------ |
+| **`📋 Function`**        | The **Blueprint**     | **`⏹️ Space`**             | A Function is the design; a Space is the live workspace created from that design.                                   |
+| **`Object Type`**        | The **Blueprint**     | **`🧊 Object`**            | An Object Type is the template (e.g., "Sales Deal"); an Object is the actual instance (e.g., "The Acme Corp Deal"). |
+| **`Workview`**           | The **Workshop**      | **`Dashboard`**            | A Workview is for _executing_ work on individual Objects; a Dashboard is for _analyzing_ aggregated data.           |
+| **`Workspace`**          | The **Manager's Hub** | **`⏹️ Space`**             | A Space is an official team workspace; a Workspace is a personal dashboard for a manager to _view_ multiple Spaces. |
+| **`Business Privilege`** | The **Entry Ticket**  | **`Item Access`**          | Privilege gets you into the system; Item Access gives you the keys to specific things _inside_ the system.          |
