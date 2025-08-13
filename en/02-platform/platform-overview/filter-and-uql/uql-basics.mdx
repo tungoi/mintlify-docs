@@ -1,0 +1,68 @@
+---
+title: "UQL Basics: Writing Your First Queries"
+description: "A foundational guide to writing basic UQL queries, covering the core syntax for referencing fields, using operators (=, >, <), and combining criteria with AND/OR."
+sidebarTitle: "UQL Basics"
+---
+
+## From Questions to Answers
+
+At its heart, Universal Query Language (UQL) is a way to ask questions about your data. It's designed to be simple and readable, like a natural language sentence, but with the power to find exactly what you're looking for.
+
+This guide will teach you the fundamental "grammar" of UQL, allowing you to write your own precise queries for filters, reports, and automations.
+
+## The Core Structure: `field` `operator` `value`
+
+Almost every basic UQL clause is made of three parts:
+
+1.  **Field:** The `Data Field` you want to check (e.g., `status`, `priority`, `deal_value`).
+2.  **Operator:** The comparison you want to make (e.g., `=`, `!=`, `>`, `<`).
+3.  **Value:** The data you are comparing against (e.g., `"DONE"`, `"HIGH"`, `5000`).
+
+For example: `priority = "HIGH"`
+
+<Info>
+**Syntax Tip:** Text values must always be enclosed in double quotes (`" "`). Numbers do not require quotes. Field and operator names are not case-sensitive, but `Status` names often are.
+</Info>
+
+## A Library of Basic Operators
+
+Here are the most common operators you will use to build your queries.
+
+| Operator        | Meaning                 | Example                                  |
+| :-------------- | :---------------------- | :--------------------------------------- |
+| `=`             | Equals                  | `status = "DONE"`                        |
+| `!=`            | Does not equal          | `assignee != "John Doe"`                 |
+| `>`             | Greater than            | `deal_value > 10000`                     |
+| `<`             | Less than               | `risk_score < 5`                         |
+| `>=`            | Greater than or equal to| `story_points >= 8`                      |
+| `<=`            | Less than or equal to   | `tasks_completed <= 10`                  |
+| `in`            | Is one of... (a list)   | `priority in ("HIGH", "URGENT")`         |
+| `not in`        | Is not one of... (a list)| `category not in ("Internal", "Archived")`|
+| `is empty`      | The field has no value  | `description is empty`                   |
+| `is not empty`  | The field has a value   | `assignee is not empty`                  |
+
+
+## Combining Criteria with `AND` & `OR`
+
+You can create more powerful logic by combining multiple clauses.
+
+- **`AND`**: Use `AND` when you need **all** criteria to be true.
+  - **Example:** `status = "OPEN" AND priority = "HIGH"`
+  (Finds all `🧊 Objects` that are both open AND high priority).
+
+- **`OR`**: Use `OR` when you need **at least one** of the criteria to be true.
+  - **Example:** `assignee = "currentUser()" OR supervisor = "currentUser()"`
+  (Finds all `🧊 Objects` where the current user is either the assignee OR the supervisor).
+
+- **Parentheses `( )`**: For even more complex logic, you can group criteria with parentheses, just like in mathematics.
+  - **Example:** `status = "OPEN" AND (priority = "HIGH" OR due_date < "today")`
+  (Finds all open `🧊 Objects` that are either high priority OR overdue).
+
+[Guidejar Placeholder: A tutorial showing a user in the 'Saved Filters' creation screen. They are typing a UQL query (`assignee = "me" AND status.category != "Completed"`) into a text box, and the list of `🧊 Objects` below updates in real-time to reflect the filter.]
+
+## What's Next?
+
+You've learned the fundamental grammar of UQL. Now it's time to see how this language is applied across the platform to create powerful, reusable filters.
+
+- [**See UQL in action: Creating Filters**](/platform/core-concepts/uql/filters)
+- [**Return to the UQL Overview**](/platform/core-concepts/uql)
