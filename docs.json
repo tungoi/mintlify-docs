@@ -66,12 +66,12 @@
             "icon": "stars",
             "pages": [
               "en/02-platform/platform-overview/index",
-              "en/02-platform/platform-overview/foundation",
-              "en/02-platform/platform-overview/platform-overview",
+              "en/02-platform/platform-overview/foundation",   
               {
-					"group": "A 3-tier platform",
-					"icon": "house-user",
+					"group": "The Build layer",
+					"icon": "building-user",
 					"pages": [
+              "en/02-platform/platform-overview/platform-overview",
 			  "en/02-platform/platform-overview/core-concepts",
               "en/02-platform/function-design/function-design",
                       "en/02-platform/use-and-operate/index"
