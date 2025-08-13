@@ -65,8 +65,7 @@
             "group": "Platform Overview",
             "icon": "stars",
             "pages": [
-              "en/02-platform/platform-overview/architecture",
-              "en/02-platform/platform-overview/the-ground-layer",   
+              "en/02-platform/platform-overview/index",
               {
 					"group": "The Build layer",
 					"icon": "building-user",
@@ -76,7 +75,9 @@
               "en/02-platform/function-design/function-design",
                       "en/02-platform/use-and-operate/index"
 					]
-				}
+				},
+              "en/02-platform/platform-overview/the-ground-layer"   
+              
               
               
             ]
