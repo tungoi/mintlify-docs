@@ -66,7 +66,7 @@
             "pages": [
               "en/02-platform/platform-overview/index",
               {
-					"group": "The Build layer",
+					"group": "The Build Layer",
 					"icon": "building-user",
 					"pages": [
               "en/02-platform/platform-overview/the-build-layer",
