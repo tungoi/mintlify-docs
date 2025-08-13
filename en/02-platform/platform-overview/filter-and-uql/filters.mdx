@@ -1,0 +1,54 @@
+---
+title: "Creating Filters: Quick Filters & Saved Filters"
+description: "A practical guide to the two main applications of UQL: creating temporary Quick Filters for on-the-fly analysis and building reusable, shareable Saved Filters."
+sidebarTitle: "Creating Filters"
+---
+
+## Turning Queries into Tools
+
+Now that you understand the grammar of UQL, let's explore its two most powerful, user-facing applications: **Quick Filters** and **Saved Filters**.
+
+These are the tools that transform your UQL queries from simple questions into interactive, reusable instruments for you and your team. For both types of filters, you can use the simple **Visual Builder** for common queries or write **UQL Script** for more advanced logic.
+
+## Quick Filter Bar: On-the-Fly Analysis
+
+The **Quick Filter Bar** is the ever-present search and filter bar located at the top of your `Workviews` and `Dashboards`.
+
+- **Purpose:** It's designed for **temporary, on-the-fly filtering**. It allows any user to quickly narrow down the data they are currently looking at without needing to save the filter permanently.
+- **How it Works:** Architects and managers can customize the Quick Filter Bar for a specific `Workview`, adding the most relevant fields for that context (e.g., `Assignee`, `Status`). Users can then use these dropdowns and search boxes to instantly refine their view.
+- **Use Case:** A sales manager looking at a `Kanban View` of all deals can use the Quick Filter Bar to instantly see only the deals assigned to "John Doe" that are in the "NEGOTIATION" status.
+
+[Image Placeholder: A screenshot of a Workview with the Quick Filter Bar at the top. The user is shown selecting 'Jane Doe' from an 'Assignee' dropdown in the filter bar, and the list of `🧊` Objects below is instantly filtered.]
+
+## Saved Filters: Reusable, Shareable Queries
+
+A **Saved Filter** is a UQL query that you build, name, and save for later use. It becomes a permanent, reusable tool in your `Space`, accessible to you and your team.
+
+- **Purpose:** It's designed for **standard, recurring queries** that you or your team need to run often. It saves time and ensures everyone is looking at the same consistent set of data.
+
+<CardGroup cols={1}>
+  <Card title="Build and Save for Reuse" icon="bookmark" iconType="duotone">
+    Use the visual builder or write UQL script to create your filter (e.g., "All My Open Tasks Due This Week") and give it a memorable name. You can access this filter anytime with a single click.
+  </Card>
+  <Card title="Share with Your Team" icon="users" iconType="duotone">
+    You can keep a Saved Filter private for your own use or share it with your team, specific users, or `Groups`. This is perfect for creating a standard set of "reports" for your `Space` that everyone can access.
+  </Card>
+  <Card title="Schedule Reminders & Reports" icon="bell" iconType="duotone">
+    This is the most powerful feature of Saved Filters. You can attach a schedule to a filter to automatically send a notification (with a list of the matching `🧊` Objects) to specific users or groups.
+
+    <br />
+
+    <br />
+
+    **Use Case:** Create a filter called "Overdue Tasks." Set up a reminder to run every Monday at 8 AM, sending a list of all `🧊` Objects matching the filter to their respective `Assignees`.
+  </Card>
+</CardGroup>
+
+[Guidejar Placeholder: A tutorial showing a user creating a new Saved Filter. They name it 'My Overdue Tasks', use the filter builder to set `assignee = "currentUser()" AND due_date < "today"`, share it with their team, and set up a daily reminder.]
+
+## What's Next?
+
+You've learned how to use UQL to find and organize your data. Next, discover how it provides the intelligence for your automated workflows.
+
+- [**Learn to use it in automation: UQL in Automation**](/platform/core-concepts/uql/uql-in-automation)
+- [**Return to the UQL Overview**](/platform/core-concepts/uql)

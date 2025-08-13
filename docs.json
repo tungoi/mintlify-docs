@@ -173,7 +173,8 @@
 					"icon": "filter-list",
 					"pages": [
 			         "en/02-platform/platform-overview/filter-and-uql/index",
-                      "en/02-platform/platform-overview/filter-and-uql/uql-basics"
+                      "en/02-platform/platform-overview/filter-and-uql/uql-basics",
+                      "en/02-platform/platform-overview/filter-and-uql/filters"
 					]
 				}
             ]
