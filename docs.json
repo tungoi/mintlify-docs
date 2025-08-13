@@ -178,6 +178,13 @@
                       "en/02-platform/platform-overview/filter-and-uql/uql-in-automation",
                       "en/02-platform/platform-overview/filter-and-uql/advanced-uql"
 					]
+				},
+              {
+					"group": "Unified Livechat",
+					"icon": "comment-dots",
+					"pages": [
+			         "en/02-platform/platform-overview/unified-live-chat/index"
+					]
 				}
             ]
           },
