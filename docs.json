@@ -181,9 +181,10 @@
 				},
               {
 					"group": "Unified Livechat",
-					"icon": "comment-dots",
+					"icon": "comment-lines",
 					"pages": [
-			         "en/02-platform/platform-overview/unified-live-chat/index"
+			         "en/02-platform/platform-overview/unified-live-chat/index",
+                      "en/02-platform/platform-overview/unified-live-chat/personal-chat"
 					]
 				}
             ]
