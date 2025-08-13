@@ -1,0 +1,66 @@
+---
+title: "Step 3: Designing Workflows"
+description: "Learn how to model your end-to-end business process by designing visual Workflows with clear Statuses and Transitions for your Objects."
+sidebarTitle: "3. Design Workflows"
+---
+
+## Mapping Your Process Flow
+
+In the previous step, you established the data foundation of your `Function` by defining your `🧊 Objects` and their relationships. You know *what* you are tracking. Now, it's time to define *how* these `Objects` move through your business process from start to finish. This is the purpose of a `Workflow`.
+
+<Info>
+A well-designed `Workflow` brings clarity, standardization, and accountability to your operations. It creates a "golden path" for every `Object`, ensuring that work is handled consistently and nothing falls through the cracks. This step leverages the **Workflow** LEGO piece from Tier 1.
+</Info>
+
+## The Components of a Workflow
+
+Every `Workflow` in Luklak is built from two simple but powerful components: **Statuses** and **Transitions**.
+
+### `Statuses`: The Stages of Your Process
+
+A `Status` represents a specific milestone, stage, or state in the lifecycle of an `Object`. It's a snapshot in time. The naming convention for `Statuses` is `ALL CAPS` to make them easily identifiable.
+
+**Examples:**
+-   **Simple Task Workflow:** `TO DO` → `IN PROGRESS` → `IN REVIEW` → `DONE`
+-   **Sales Deal Workflow:** `NEW` → `QUALIFIED` → `DEMO SCHEDULED` → `PROPOSAL SENT` → `CLOSED-WON`
+
+### `Transitions`: The Paths Between Stages
+
+A `Transition` is the defined, one-way path that moves an `Object` from one `Status` to another. In the user interface, `Transitions` appear as action buttons on an `Object`. You are not just defining the path, but also the action the user takes to move along that path.
+
+**Example:**
+To move an `Object` from the `IN REVIEW` Status to the `DONE` Status, you might create a `Transition` named "Approve & Complete". This will appear as an "Approve & Complete" button for users to click.
+
+`[IN REVIEW]` --- (*Click "Approve & Complete" button*) ---> `[DONE]`
+
+## Designing Your Workflow in Luklak
+
+The `Workflow` designer is a visual, drag-and-drop canvas that makes it easy to map out even the most complex processes. You will create a unique `Workflow` for each `Object Type` in your `Function`.
+
+```guidejar
+# Tutorial: Building a Visual Workflow
+
+! Important: Each Object Type in your Function can have its own unique Workflow.
+
+## Section 1: Laying Out Your Statuses
+
+1.  **Open the Workflow Designer**
+    In your `Function`'s design canvas, select the `Object Type` you want to build a process for (e.g., "Deal") and navigate to the `Workflow` tab.
+
+2.  **Add Your Statuses**
+    Drag `Status` nodes from the side panel onto the canvas. Name them according to the process you mapped out in Step 1 (e.g., `NEW`, `QUALIFIED`, `PROPOSAL SENT`).
+
+3.  **Set the Starting Status**
+    Select one `Status` (usually `NEW` or `TO DO`) and designate it as the initial `Status` for all newly created `Objects`.
+
+## Section 2: Connecting with Transitions
+
+1.  **Create a Transition**
+    Click on the edge of a `Status` node and drag the arrow to a subsequent `Status` node. This creates a `Transition` path.
+    ![A user dragging an arrow from a "NEW" status node to a "QUALIFIED" status node on the workflow canvas.](https://via.placeholder.com/1200x600.png/000000/FFFFFF?text=Step%201:%20Drag%20to%20create%20Transition)
+
+2.  **Configure the Transition**
+    Click on the transition arrow you just created. In the configuration panel, give it a clear, action-oriented name. This name will appear on the button for users (e.g., "Mark as Qualified").
+
+3.  **Build the Full Flow**
+    Continue adding all your `Statuses` and `Transitions` until your complete business process is visually represented on the canvas.

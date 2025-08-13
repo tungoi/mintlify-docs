@@ -1,0 +1,68 @@
+---
+title: "Step 2: Defining Objects and Their Connections"
+description: "Learn how to translate business requirements into a robust data model by identifying and defining Object Types and the critical connections between them."
+sidebarTitle: "2. Define Objects"
+---
+
+## From Requirements to Data Model
+
+With a clear scope from Step 1, your next task is to build the data foundation of your `📋 Function`. This step bridges the gap between abstract business needs and a concrete technical structure in Luklak. It's where you identify the core "nouns" of your process and model them as `🧊 Objects`.
+
+<Info>
+  The goal of this step is to create a digital twin of your real-world business entities and the relationships between them. A well-designed data model is the key to creating a single source of truth for your entire operation.
+</Info>
+
+## Phase 1: Identifying Your Core Objects
+
+First, review your process maps and stakeholder notes from Step 1. Look for the distinct "things" that your business needs to track, manage, or act upon. Each of these will become an `Object Type` in your `Function`.
+
+For example, in a "Recruitment" `Function`, your core nouns might be:
+
+- `Job Requisition`
+- `Candidate`
+- `Interview`
+- `Offer Letter`
+
+### Standard Objects vs. Sub-Objects
+
+Luklak allows you to create a hierarchy between your `Object Types` to accurately model complex processes.
+
+<CardGroup cols={2}>
+  <Card title="Standard Object" icon="cube" iconType="duotone">
+    A `🧊︎ Standard Object` is a primary, independent entity. It's the main "thing" your process revolves around. In our example, `Job Requisition` and `Candidate` would be Standard Objects.
+  </Card>
+  <Card title="Sub-Object" icon="cubes" iconType="duotone">
+    A `🧊︎ Sub-Object` is a child entity that logically belongs to a Standard Object. It's used to break down larger work items. In our example, `Interview` and `Offer Letter` would be Sub-Objects of a `Candidate`.
+  </Card>
+</CardGroup>
+
+## Phase 2: Modeling Relationships
+
+Defining your `Objects` is only half the battle. The real power comes from connecting them. A `Candidate` is useful, but a `Candidate` _connected_ to a specific `Job Requisition` and multiple `Interviews` creates a complete, contextual picture.
+
+There are three ways to model these relationships in Luklak.
+
+### 1. Object Field (Most Common)
+
+This is the primary method for linking different `Object Types`. You simply add a special type of `Data Field` to an `Object`'s screen that allows users to select and link to another `Object`.
+
+**Example:** On your `Job Requisition` Object Type, you would add an "Object Field" named "Hiring Manager" that lets you link to a specific `Object` from an "Employee" Object Type (which might live in a separate HR `Function`).
+
+### 2. Parent-Child Connection (Built-in)
+
+This connection is created **automatically** when you define a `Sub-Object`. The `Sub-Object` is always intrinsically linked to its parent `Standard Object`.
+
+**Example:** You don't need to manually configure a link between an `Interview` and a `Candidate`. Because `Interview` is a `Sub-Object` of `Candidate`, the parent-child connection is already built-in.
+
+### 3. Global Object Connection (Advanced)
+
+These are reusable, system-wide connection types that can create flexible links between `Objects` across your entire Luklak instance. This is useful for creating ad-hoc relationships that may not be part of the primary process design.
+
+**Example:** You could use a generic "Relates To" connection to link a `Candidate` to a `Project` they previously worked on as a contractor.
+
+## What's Next?
+
+You have successfully designed the data skeleton of your `Function`. You know _what_ you are tracking and how it all relates. The next step is to define _how_ these `Objects` will move through your business process.
+
+- [**Proceed to Step 3: Designing Workflows**](/platform/function-design/design-process/03-design-workflows)
+- [**Go back to the 8-Step Process Overview**](/platform/function-design/design-process/)
