@@ -215,11 +215,6 @@
             "pages": [
                 "en/02-platform/function-design/index",
               {
-            "group": "Onboarding",
-            "icon": "stars",
-            "pages": [
-              "en/01-getting-started/role-based-onboarding/index",
-              {
 					"group": "Design a Function",
 					"icon": "map",
 					"pages": [
@@ -229,9 +224,7 @@
               "en/02-platform/function-design/03-design-workflows"
 					]
 				}
-            
-            ]
-          }
+              
               
             ]
           },
