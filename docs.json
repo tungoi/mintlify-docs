@@ -238,20 +238,31 @@
             "group": "Use & Operate",
             "pages": [
                  "en/02-platform/use-and-operate/index1",
-              "en/02-platform/use-and-operate/organize-work",
+              
               {
 					"group": "3 work environments",
-					"icon": "map",
+					"icon": "sitemap",
 					"pages": [
-			  "en/02-platform/use-and-operate/personal-home",
-              "en/02-platform/use-and-operate/navigating-a-space",
-              "en/02-platform/use-and-operate/workspaces"
+              "en/02-platform/use-and-operate/organize-work",
+                  "en/02-platform/use-and-operate/workspaces",
+			  "en/02-platform/use-and-operate/personal-home"
+              
+              
 					]
 				},
+              {
+					"group": "Working in Spaces",
+					"icon": "table-layout",
+					"pages": [
+              "en/02-platform/use-and-operate/navigating-a-space",
               "en/02-platform/use-and-operate/working-with-objects",
               "en/02-platform/use-and-operate/search-and-filter",
               "en/02-platform/use-and-operate/collaboration",
               "en/02-platform/use-and-operate/reports-and-dashboards"
+              
+					]
+				}
+              
               
             ]
           }
