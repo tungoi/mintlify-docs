@@ -1,0 +1,45 @@
+---
+title: "UQL in Automation: Creating Smart Conditions"
+description: "Learn how Universal Query Language (UQL) serves as the engine for the 'Condition' block in automation rules, enabling you to create dynamic, data-driven automations."
+sidebarTitle: "UQL in Automation"
+---
+
+## The Brain Behind the Action
+
+You've learned the `Trigger-Condition-Action` model for automation, and you've learned the grammar of `UQL`. This article explains how the two are fundamentally connected: **UQL is the engine that powers the Condition block.**
+
+This integration is what transforms your automations from simple, static rules ("_always_ send an email") into intelligent, data-driven workflows that can adapt to changing information ("_only_ send an email _if_ the deal is high-value").
+
+## UQL in the 'Condition' Block
+
+This is the primary way UQL and Automation work together.
+
+- **How it Works:** When a `Trigger` fires, the automation rule uses a UQL query in the `Condition` block to evaluate the triggering `🧊 Object`. If the UQL query returns 'true' for that `Object`, the `Actions` proceed. If not, the rule stops.
+- **Simple Example:** For a rule triggered by a `Deal` update, the condition `deal_value > 100000 AND status = 'PROPOSAL_SENT'` ensures the automation only runs for high-value, active deals.
+- **Advanced Example:** For a rule on a `Project` `Object`, the condition `client.priority_support = true` uses dot notation to check a field on a related `Client` `Object`, creating a context-aware automation.
+
+<Info>
+  For a complete, step-by-step guide on all the operators and syntax for writing these conditions, please see our definitive guide:
+
+  <br />
+
+  → [**Deep Dive: Building Conditions with UQL**](/platform/core-concepts/universal-automation/building-conditions)
+</Info>
+
+## UQL in the 'Action' Block (Advanced)
+
+Beyond the Condition block, UQL also plays a critical role in some `Action` steps. When an action needs to **`find or update other 🧊 Objects`**, you can use UQL to specify exactly _which_ `Objects` to act upon.
+
+- **Use Case:**
+  - **Trigger:** A `Project` `Object` is moved to the `ARCHIVED` status.
+  - **Action:** Select the "Update other Objects" action.
+  - **UQL in Action:** Use the query `parent_project = {{object.key}} AND status != 'DONE'` to find all `Sub-Tasks` that are related to the archived project and are not yet done. You can then add a subsequent action step to update the status of all these found tasks to `CANCELLED`.
+
+[Image Placeholder: A screenshot of an automation's 'Action' configuration block. It should show a UQL input field where the user is defining which related objects to find and update.]
+
+## What's Next?
+
+You've seen how UQL provides the logic for both the "Condition" and "Action" parts of an automation. Now, you're ready to explore the most complex querying patterns.
+
+- [**Become a power user: Advanced UQL**](/platform/core-concepts/uql/advanced-uql)
+- [**Return to the UQL Overview**](/platform/core-concepts/uql)
