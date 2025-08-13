@@ -214,10 +214,25 @@
             "group": "Function Design",
             "pages": [
                 "en/02-platform/function-design/index",
-              "en/02-platform/function-design/8-step-design-process",
+              {
+            "group": "Onboarding",
+            "icon": "stars",
+            "pages": [
+              "en/01-getting-started/role-based-onboarding/index",
+              {
+					"group": "Design a Function",
+					"icon": "map",
+					"pages": [
+			 "en/02-platform/function-design/8-step-design-process",
               "en/02-platform/function-design/01-analysis-scope",
               "en/02-platform/function-design/02-define-objects",
               "en/02-platform/function-design/03-design-workflows"
+					]
+				}
+            
+            ]
+          }
+              
             ]
           },
            {

@@ -6,10 +6,10 @@ sidebarTitle: "3. Design Workflows"
 
 ## Mapping Your Process Flow
 
-In the previous step, you established the data foundation of your `Function` by defining your `🧊 Objects` and their relationships. You know *what* you are tracking. Now, it's time to define *how* these `Objects` move through your business process from start to finish. This is the purpose of a `Workflow`.
+In the previous step, you established the data foundation of your `Function` by defining your `🧊 Objects` and their relationships. You know _what_ you are tracking. Now, it's time to define _how_ these `Objects` move through your business process from start to finish. This is the purpose of a `Workflow`.
 
 <Info>
-A well-designed `Workflow` brings clarity, standardization, and accountability to your operations. It creates a "golden path" for every `Object`, ensuring that work is handled consistently and nothing falls through the cracks. This step leverages the **Workflow** LEGO piece from Tier 1.
+  A well-designed `Workflow` brings clarity, standardization, and accountability to your operations. It creates a "golden path" for every `Object`, ensuring that work is handled consistently and nothing falls through the cracks. This step leverages the **Workflow** LEGO piece from Tier 1.
 </Info>
 
 ## The Components of a Workflow
@@ -21,8 +21,9 @@ Every `Workflow` in Luklak is built from two simple but powerful components: **S
 A `Status` represents a specific milestone, stage, or state in the lifecycle of an `Object`. It's a snapshot in time. The naming convention for `Statuses` is `ALL CAPS` to make them easily identifiable.
 
 **Examples:**
--   **Simple Task Workflow:** `TO DO` → `IN PROGRESS` → `IN REVIEW` → `DONE`
--   **Sales Deal Workflow:** `NEW` → `QUALIFIED` → `DEMO SCHEDULED` → `PROPOSAL SENT` → `CLOSED-WON`
+
+- **Simple Task Workflow:** `TO DO` → `IN PROGRESS` → `IN REVIEW` → `DONE`
+- **Sales Deal Workflow:** `NEW` → `QUALIFIED` → `DEMO SCHEDULED` → `PROPOSAL SENT` → `CLOSED-WON`
 
 ### `Transitions`: The Paths Between Stages
 
@@ -31,7 +32,7 @@ A `Transition` is the defined, one-way path that moves an `Object` from one `Sta
 **Example:**
 To move an `Object` from the `IN REVIEW` Status to the `DONE` Status, you might create a `Transition` named "Approve & Complete". This will appear as an "Approve & Complete" button for users to click.
 
-`[IN REVIEW]` --- (*Click "Approve & Complete" button*) ---> `[DONE]`
+`[IN REVIEW]` --- (_Click "Approve & Complete" button_) ---\> `[DONE]`
 
 ## Designing Your Workflow in Luklak
 
@@ -64,3 +65,11 @@ The `Workflow` designer is a visual, drag-and-drop canvas that makes it easy to 
 
 3.  **Build the Full Flow**
     Continue adding all your `Statuses` and `Transitions` until your complete business process is visually represented on the canvas.
+```
+
+## What's Next?
+
+You have now built the process map that your `Objects` will follow. The structure is taking shape. The next logical step is to define the specific data points you need to collect at each stage of this journey.
+
+- [**Proceed to Step 4: Configuring Data Fields and Screens**](https://www.google.com/search?q=/platform/function-design/design-process/04-configure-fields)
+- [**Go back to the 8-Step Process Overview**](https://www.google.com/search?q=/platform/function-design/design-process/)
