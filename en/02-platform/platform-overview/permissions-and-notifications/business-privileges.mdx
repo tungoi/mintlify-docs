@@ -1,0 +1,74 @@
+---
+title: "Layer 1: System Access with Business Privileges"
+description: "Learn about the highest level of security in Luklak. Understand the four Business Privilege levels—Owner, Admin, App Manager, and Member—that grant system-wide access."
+sidebarTitle: "Business Privileges"
+---
+
+## Your Ticket to the Platform
+
+**Business Privilege** is the first and most important layer in Luklak's security model. Think of it as a user's passport or campus ID badge—it determines if they are allowed to enter the system at all and defines their maximum, unchangeable authority across the entire platform.
+
+<Info>
+  Every account, whether it's a `User account` or a `Functional account`, must be assigned one of the four Business Privileges. This is a global setting that precedes all other permissions.
+</Info>
+
+## The Four Privilege Levels
+
+There are four distinct levels of Business Privilege, each designed for a specific scope of responsibility.
+
+<CardGroup cols={2}>
+  <Card title="Owner" icon="crown" iconType="duotone">
+    The single highest authority. The Owner can manage billing, transfer ownership of the entire instance, and holds all permissions of the Admin role. There can only be one Owner.
+  </Card>
+  <Card title="Admin" icon="user-gear" iconType="duotone">
+    A system administrator with full configuration power. Admins can manage all users, groups, roles, global settings, and have the ability to access and configure any part of the platform.
+  </Card>
+  <Card title="App Manager" icon="map" iconType="duotone">
+    A specialized builder role. App Managers can design, create, edit, and manage `📋 Functions`. This role is ideal for solution architects or department heads who build and maintain processes without needing full admin rights like user management.
+  </Card>
+  <Card title="Member" icon="user" iconType="duotone">
+    The standard privilege for most team members. Members can work within the `⏹️ Spaces` and `🧊 Objects` they are granted access to via Layer 2 and Layer 3 permissions, but they cannot access global settings or design `📋 Functions`.
+  </Card>
+</CardGroup>
+
+## How to Assign and Manage Privileges
+
+Assigning a Business Privilege is a high-level administrative action.
+
+<Warning>
+  Assigning `Owner` or `Admin` privileges grants extensive control over your entire Luklak instance. Grant these privileges with caution and only to trusted personnel.
+</Warning>
+
+```guidejar
+# Tutorial: Assigning a Business Privilege
+
+! Important: You must have Owner or Admin privileges to manage other users' privileges.
+
+## Section 1: Navigate to User Management
+
+1.  **Open Global Settings**
+    Click on the main menu and select `Global Settings`.
+
+2.  **Select User Management**
+    In the settings panel, navigate to the `User Management` section. You will see a list of all users in your instance.
+
+## Section 2: Change a User's Privilege
+
+1.  **Select a User**
+    Click on the user whose privilege you wish to change. Their profile details will open in a side panel.
+
+2.  **Choose the New Privilege**
+    Find the "Business Privilege" dropdown menu. Select the desired level: `Owner`, `Admin`, `App Manager`, or `Member`.
+    ![A user's profile panel with the "Business Privilege" dropdown open, showing the four options.](https://via.placeholder.com/1200x600.png/000000/FFFFFF?text=Step%202:%20Choose%20Privilege)
+
+3.  **Confirm the Change**
+    The change is saved automatically and takes effect immediately. The user will now operate under their new system-wide authority.
+```
+
+## What's Next?
+
+Now that you understand how to grant users access to the platform, the next step is to define what they can access _within_ it.
+
+- **Proceed to the next layer:** [**Layer 2: Securing Components with Item Access Management**](https://www.google.com/search?q=/platform/core-concepts/permissions/item-access-management)
+- **Review the building blocks:** [**Managing People: Users, Groups, and Roles**](https://www.google.com/search?q=/platform/core-concepts/permissions/users-groups-roles)
+- **Go back to the overview:** [**Return to the Permissions Overview**](https://www.google.com/search?q=/platform/core-concepts/permissions/)

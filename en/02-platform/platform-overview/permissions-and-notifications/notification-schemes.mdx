@@ -1,0 +1,85 @@
+---
+title: "Managing Alerts with Notification Schemes"
+description: "Learn how to control the flow of information with Notification Schemes, ensuring your team stays informed without being overwhelmed by alerts."
+sidebarTitle: "Notification Schemes"
+---
+
+## Smart Alerts, Not More Noise
+
+In a busy work environment, too many notifications create noise, causing team members to miss the updates that truly matter. The key to effective collaboration isn't more alerts, it's smarter alerts.
+
+**Notification Schemes** are Luklak's solution for intelligent alert management. They run in parallel with `Permission Schemes` to control who gets notified when specific actions occur, ensuring the right people get the right information at the right time.
+
+<Info>
+  A Notification Scheme is a reusable set of rules, defined in a `📋 Function`, that determines who gets an alert when a specific action happens to an `🧊 Object`.
+</Info>
+
+## How Notification Schemes Work
+
+Notification Schemes use the same powerful "Action -\> Recipient" logic as Permission Schemes. However, their purpose is different:
+
+- **Permission Schemes** ask: "Is this `Recipient` **allowed** to perform this `Action`?"
+- **Notification Schemes** ask: "When this `Action` occurs, which `Recipients` should be **informed** about it?"
+
+This separation is powerful. For example, a project manager may not have permission to transition a task to `DONE`, but a Notification Scheme can ensure they are always alerted the moment a team member does.
+
+## Built-in Schemes for Common Use Cases
+
+To get you started quickly, Luklak provides four pre-configured Notification Schemes that cover the most common communication patterns.
+
+<CardGroup cols={2}>
+  <Card title="1. Notify all actions to all viewers" icon="volume-high" iconType="duotone">
+    The "loudest" setting. Every action on any `Object` (edits, new messages, etc.) sends a notification to everyone who can view that `Object`. Best for small, highly-engaged teams where everyone needs to know everything.
+  </Card>
+  <Card title="2. Notify all actions to direct assignees" icon="volume-low" iconType="duotone">
+    More focused. Every action on an `Object` sends a notification, but only to the people directly assigned to that `Object` (e.g., in the "Assignee" or "Reviewer" fields).
+  </Card>
+  <Card title="3. Notify key actions to direct assignees" icon="bell-on" iconType="duotone">
+    A balanced default. Only important actions (like status changes, @mentions, or new messages) will trigger notifications, and only for the direct assignees. This reduces noise from minor edits.
+  </Card>
+  <Card title="4. Notify key actions to key assignees" icon="bell-slash" iconType="duotone">
+    The "quietest" setting. Only the most important actions trigger notifications, and only for key `Roles` like "Manager" or "Approver", not every single assignee. Ideal for high-level oversight.
+  </Card>
+</CardGroup>
+
+## Creating a Custom Notification Scheme
+
+When you need more precise control, you can build your own Notification Scheme from scratch. The process is nearly identical to creating a `Permission Scheme`.
+
+<Tip>
+  Custom schemes allow for powerful workflows. For example, you can create a rule that when an `Object`'s `Priority` field is set to "Critical", a notification is automatically sent to the "Senior Leadership" `Group`.
+</Tip>
+
+```guidejar
+# Tutorial: Creating a Custom Notification Scheme
+
+! Important: You must have the appropriate Business Privilege (e.g., Admin) to create and manage global Notification Schemes.
+
+## Section 1: Create the Scheme
+
+1.  **Navigate to Notification Schemes**
+    Go to `Global Settings` > `Permissions & Notifications` > `Notification Schemes`.
+
+2.  **Create New Scheme**
+    Click `Create New Scheme` and give it a descriptive name.
+
+## Section 2: Build Your Notification Rules
+
+1.  **Add Your First Rule**
+    In the scheme editor, click `Add Rule`.
+
+2.  **Define the Action and Recipient**
+    First, select an **Action** that will serve as the trigger (e.g., `Create Object`). Then, select the **Recipients** who should receive an alert when this action happens (e.g., the `Role` "Project Manager").
+    ![The rule builder interface showing a user selecting the "Create Object" Action and assigning the notification to the "Project Manager" Role.](https://via.placeholder.com/1200x600.png/000000/FFFFFF?text=Step%202:%20Configure%20Rule)
+
+3.  **Save the Scheme**
+    Continue adding rules as needed. When finished, save the scheme. It is now available to be selected in the settings of any `📋 Function`.
+```
+
+## What's Next?
+
+You have now mastered Luklak's complete governance framework. You can confidently control who can perform actions and who gets notified, creating secure and efficient workflows.
+
+- **Review the complete security model:** [**Return to the Permissions Overview**](https://www.google.com/search?q=/platform/core-concepts/permissions/)
+- **Refresh your knowledge on the parallel concept:** [**Review How Permission Schemes Work**](https://www.google.com/search?q=/platform/core-concepts/permissions/permission-schemes)
+- **See how notifications interact with automation:** [**Learn about Universal Automation**](https://www.google.com/search?q=/platform/core-concepts/universal-automation)

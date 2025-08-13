@@ -1,0 +1,92 @@
+---
+title: "Layer 3: Granular Control with Permission Schemes"
+description: "Master the most detailed level of security. Learn how Permission Schemes control who can view, edit, and manage individual Objects within a Space."
+sidebarTitle: "Permission Schemes"
+---
+
+## The Rules Inside the Building
+
+This is the final and most granular layer of Luklak's security model. You have your campus ID (`Business Privilege`) and the key to a specific building (`Item Access`). Now, **Permission Schemes** define the rules _inside_ that building. They control who can perform specific actions on the individual `🧊 Objects` within a `⏹️ Space`.
+
+<Card title="Permission & Notification" icon="user-shield" iconType="duotone">
+  Defines your governance layer. Permission Schemes ensure the right people always have the right access to the data they work with, scaling with confidence.
+</Card>
+
+Permission Schemes are reusable sets of rules, typically defined within a `📋 Function`, that automatically apply to all `⏹️ Spaces` created from that Function. This ensures that your business processes are executed consistently and securely.
+
+## The Anatomy of a Permission Scheme
+
+Every rule within a Permission Scheme answers the fundamental question: "**Who** can do **what**?" It achieves this by connecting a specific **Recipient** (the "who") to a specific **Action** (the "what").
+
+### Available Actions
+
+These are the operations that users can perform on `🧊 Objects` and `⏹️ Spaces` which you can grant or deny permission for:
+
+- **Space Actions:** View Space
+- **Object Actions:** View, Create, Delete, Edit, Transition Status
+- **Assignment Actions:** Assign Users, Set Dates, Link Objects
+- **Communication Actions:** Send Messages, Delete Messages, Add/Remove Attachments
+
+### Available Recipients
+
+These are the different ways you can define "who" gets the permission. This flexibility allows for incredibly powerful and dynamic security models.
+
+- **Roles:** The most flexible method. Grant permission to an abstract `Role` like "Project Manager" or "Approver". You then map actual users to that Role in each `⏹️ Space`.
+- **Specific Users & Groups:** The most direct method. Grant permission to a named person or a predefined `Group` (e.g., "Finance Department").
+- **Dynamic User & Group Fields:** The most powerful method for object-level security. Grant permission to the user(s) or group(s) listed in a field _on the Object itself_. For example, only the person listed in the `Assignee` field can edit the `Object`.
+- **Special Recipients:** Includes the `Creator` of the `Object` and `All members` of the business.
+
+## Built-in Schemes for Quick Setup
+
+For common scenarios, Luklak provides four pre-configured Permission Schemes you can apply to any `📋 Function` for rapid setup.
+
+<Check>
+  - **Fully open:** All business members can view the `Space` and all `Objects` inside. Only people directly assigned to an `Object` can update it.
+  - **Broad access:** All `Roles` within the `Space` can view the `Space` and all `Objects` inside. Only direct assignees can update an `Object`.
+  - **Moderate restriction:** All `Roles` can view the `Space`, but only people directly assigned to an `Object` can view or update it.
+  - **Strict access:** All `Roles` can view the `Space`, but only direct assignees can view an `Object`, and only key assignees can update it.
+</Check>
+
+## Creating a Custom Permission Scheme
+
+When the built-in options aren't enough, you can design your own scheme with precise rules.
+
+```guidejar
+# Tutorial: Creating a Custom Permission Scheme
+
+! Important: You must have the appropriate Business Privilege (e.g., Admin) to create and manage global Permission Schemes.
+
+## Section 1: Create the Scheme
+
+1.  **Navigate to Permission Schemes**
+    Go to `Global Settings` > `Permissions & Notifications` > `Permission Schemes`.
+
+2.  **Create New Scheme**
+    Click `Create New Scheme`. Give it a descriptive name, like "Strict Financial Approval Scheme".
+
+## Section 2: Build Your Rules
+
+1.  **Add Your First Rule**
+    In the scheme editor, click `Add Rule`. This opens the rule builder.
+
+2.  **Define the Action and Recipient**
+    First, select an **Action** from the dropdown (e.g., `Transition Status`). Then, select one or more **Recipients** who are allowed to perform this action (e.g., the `Role` named "Finance Approver").
+    ![The rule builder interface showing a user selecting the "Transition Status" Action and assigning it to the "Finance Approver" Role.](https://via.placeholder.com/1200x600.png/000000/FFFFFF?text=Step%202:%20Configure%20Rule)
+
+3.  **Continue Adding Rules**
+    Continue adding rules for every action you want to control. Any action without a rule will be denied by default.
+
+4.  **Save the Scheme**
+    Once finished, save the scheme. It is now available to be selected in the settings of any `📋 Function`.
+
+
+    
+```
+
+## What's Next?
+
+You have now mastered all three layers of permission control. The final piece of the governance puzzle is managing how your team is notified of actions.
+
+- **Complete your governance setup:** [**Managing Alerts with Notification Schemes**](https://www.google.com/search?q=/platform/core-concepts/permissions/notification-schemes)
+- **Review the role of Roles:** [**Managing People: Users, Groups, and Roles**](https://www.google.com/search?q=/platform/core-concepts/permissions/users-groups-roles)
+- **Go back to the overview:** [**Return to the Permissions Overview**](https://www.google.com/search?q=/platform/-core-concepts/permissions/)

@@ -1,0 +1,87 @@
+---
+title: "Layer 2: Securing Components with Item Access Management"
+description: "Learn how to use Item Access Management to control who can view or manage high-level components like Functions, Dashboards, and Areas."
+sidebarTitle: "Item Access Management"
+---
+
+## The Key to Your Buildings
+
+<Info>
+  After a user enters the platform with their **Business Privilege** (Layer 1), the next layer of security determines what they can interact with. This is **Item Access Management**.
+</Info>
+
+If a Business Privilege is the ID badge that gets a user onto the campus, Item Access Management provides the specific keys to each building on that campus.
+
+<Card title="Item Access Control" icon="key" iconType="duotone">
+  The granular permission system that controls who can view, use, edit, or manage a specific "Item" (like a `Function` or `Dashboard`).
+</Card>
+
+## What is an "Item"?
+
+This is a critical distinction. In the context of Item Access Management, an "Item" is a high-level, structural component of your system, **not** the individual `🧊 Objects` (like tasks or deals) that your team works on day-to-day. Access to those is handled by Layer 3: Permission Schemes.
+
+<Info>
+  Item Access Management gives you contextual control over the containers, blueprints, and shared resources that define your workspaces.
+</Info>
+
+The following "Items" include a built-in access control mechanism:
+
+- `📋 Functions`
+- `⏹️ Spaces`
+- `📂 Areas`
+- `👥 Groups` (Controlling who can manage the group's membership)
+- `Dashboards`
+- `Saved Filters`
+
+## Item Permission Levels
+
+When you grant a User or Group access to an Item, you assign them one of three permission levels.
+
+<Warning>
+  **Crucial Distinction:** These Item-level roles (`Admin`, `Manager`, `Member`) are assigned **per Item** and are completely separate from a user's system-wide `Business Privilege`. For example, a user can be a `Member` of the system but an `Admin` of a specific `Dashboard`.
+</Warning>
+
+- **Admin:** Full control over the Item. An `Admin` can manage the Item's content, settings, and its access controls (i.e., they can add or remove other Admins, Managers, and Members).
+- **Manager:** Can manage the Item's content and settings but **cannot** change its access controls. For example, a `Manager` of a `Dashboard` can add or remove charts, but cannot change who is allowed to see that `Dashboard`.
+- **Member:** Can view or use the Item but cannot change its content or settings. This is the standard "read-only" or "user-level" access.
+
+## How to Manage Item Access
+
+<Tip>
+  As a best practice, we recommend assigning access to `Groups` whenever possible, rather than to individual `Users`. If a team member's role changes, you only need to update their Group membership, and all their Item Access permissions will update automatically.
+</Tip>
+
+```guidejar
+# Tutorial: Setting Access on a Function
+
+! Important: You must have the appropriate Business Privilege (e.g., Admin or App Manager) and `Admin`-level access on an Item to change its permissions.
+
+## Section 1: Locate the Item
+
+1.  **Navigate to the Item's Location**
+    For this example, go to `Global Settings` > `Functions` to see the list of all Functions in your system.
+
+2.  **Find the Access Control**
+    Hover over the `Function` you wish to secure and click the `...` (More actions) menu. Select `Access Control`.
+    ![A list of Functions with the "More actions" menu open on one of them, showing the "Access Control" option.](https://via.placeholder.com/1200x600.png/000000/FFFFFF?text=Step%202:%20Select%20Access%20Control)
+
+## Section 2: Assign Permissions
+
+1.  **Add a User or Group**
+    In the Access Control panel, click `Add People`. Search for and select the `User` or `Group` you want to add.
+
+2.  **Set the Permission Level**
+    Once added, choose the level of access from the dropdown next to their name: `Admin`, `Manager`, or `Member`.
+    ![The Access Control panel showing a User being assigned the "Admin" permission level from a dropdown.](https://via.placeholder.com/1200x600.png/000000/FFFFFF?text=Step%202:%20Set%20Permission%20Level)
+
+3.  **Confirm Changes**
+    The permissions are saved and take effect immediately.
+```
+
+## What's Next?
+
+Now that you can control access to the "buildings" on your campus, it's time to manage the rules inside them.
+
+- **Proceed to the final layer:** [**Layer 3: Granular Control with Permission Schemes**](https://www.google.com/search?q=/platform/core-concepts/permissions/permission-schemes)
+- **Review the first layer:** [**Layer 1: System Access with Business Privileges**](https://www.google.com/search?q=/platform/core-concepts/permissions/business-privileges)
+- **Go back to the overview:** [**Return to the Permissions Overview**](https://www.google.com/search?q=/platform/core-concepts/permissions/)

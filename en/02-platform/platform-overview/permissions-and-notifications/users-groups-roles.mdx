@@ -1,0 +1,58 @@
+---
+title: "Managing People: Users, Groups, and Roles"
+description: "Learn how to create and manage the foundational elements of access control: User accounts, Groups for organization, and Roles for scalable permission assignment."
+sidebarTitle: "Users, Groups & Roles"
+---
+
+## The Foundation of Access Control
+
+Before you can define _what_ people can do in your system, you must first establish _who_ they are. In Luklak, managing people is handled through three distinct but interconnected building blocks: **Users**, **Groups**, and **Roles**.
+
+Mastering these concepts is the essential first step to building a secure and scalable system. This guide will walk you through each element, from individual accounts to abstract, reusable Roles.
+
+## Step 1: Define Your Users
+
+A **User** is the most basic entity, representing a single identity that can be assigned work and permissions. Luklak utilizes two types of accounts to distinguish between human action and system automation.
+
+<CardGroup cols={2}>
+  <Card title="User Account" icon="user" iconType="duotone">
+    This is the standard account for your team members. It's associated with a person who signs in to the platform to create, manage, and collaborate on work.
+  </Card>
+  <Card title="Functional Account" icon="robot" iconType="duotone">
+    A special, non-login account used exclusively by `Universal Automation`. When an automation makes a change, it does so via a Functional Account, ensuring a clear audit trail of what was changed by a person versus a system process.
+  </Card>
+</CardGroup>
+
+## Step 2: Organize with Groups
+
+A **Group** is a collection of `User accounts`. Their purpose is simple but powerful: to make permission management efficient at scale. Instead of assigning access and notifications to 50 individual users, you can assign them to a single Group like "Marketing Team" or "Senior Leadership."
+
+<Tip>
+  Think of Groups as distribution lists for permissions. They are used across the platform to grant `Item Access` to `Functions`, assign permissions in `Permission Schemes`, and define recipients in `Notification Schemes`.
+</Tip>
+
+## Step 3: Scale with Roles
+
+The **Role** is the most powerful and flexible concept for assigning permissions within a process. A Role is an abstract _placeholder_ or _job title_ (e.g., "Approver," "Project Manager," "Assignee") that is not tied to a specific person.
+
+<Info>
+  The core principle is this: You assign permissions to the **Role** in a `Permission Scheme`. Then, within each live `⏹️ Space`, you map actual **Users** or **Groups** to that **Role**.
+</Info>
+
+This approach allows you to design a standardized process once and reuse it across different teams with different people.
+
+### Example: The "Legal Approver" Role
+
+1. You design a "Contract Management" `Function` and create a `Permission Scheme` for it. In this scheme, you specify that only the **"Legal Approver" Role** has permission to transition an `🧊 Object` to the "Approved" status.
+2. Your US Sales team creates a `⏹️ Space` from this `Function`. In this Space, they map the user **Alice** to the "Legal Approver" Role. Only Alice can approve contracts here.
+3. Your EU Sales team creates another `⏹️ Space` from the same `Function`. In their Space, they map the **"EU Legal Team" Group** to the "Legal Approver" Role. Anyone in that group can approve contracts here.
+
+The process remains identical and secure across both `Spaces`, but the specific people fulfilling the Role are different. This makes your system incredibly scalable and easy to maintain.
+
+## What's Next?
+
+Now that you understand how to define and organize the people in your system, you're ready to start granting them permissions.
+
+- **Assign their system-wide power:** [**Layer 1: System Access with Business Privileges**](/platform/core-concepts/permissions/business-privileges)
+- **Define what Roles can do:** [**Layer 3: Granular Control with Permission Schemes**](/platform/core-concepts/permissions/permission-schemes)
+- **Go back to the overview:** [**Return to the Permissions Overview**](/platform/core-concepts/permissions/)

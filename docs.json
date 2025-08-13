@@ -194,7 +194,11 @@
 					"group": "Permissions & Notifications",
 					"icon": "user-shield",
 					"pages": [
-			         "en/02-platform/platform-overview/permissions-and-notifications/index"
+			         "en/02-platform/platform-overview/permissions-and-notifications/index",
+                      "en/02-platform/platform-overview/permissions-and-notifications/users-groups-roles",
+                      "en/02-platform/platform-overview/permissions-and-notifications/item-access-management",
+                      "en/02-platform/platform-overview/permissions-and-notifications/permission-schemes",
+                      "en/02-platform/platform-overview/permissions-and-notifications/notification-schemes"
 					]
 				}
             ]
