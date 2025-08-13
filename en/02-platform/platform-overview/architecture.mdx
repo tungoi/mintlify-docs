@@ -1,0 +1,73 @@
+---
+title: "The Luklak Architecture: A Two-Layer Approach"
+description: "Discover Luklak's unique 2-layer architecture: The Build Layer, where you design and operate your business systems, and The Ground Layer, where you manage users and governance."
+sidebarTitle: "Platform Architecture"
+---
+
+## Why This Matters
+
+Traditional business software creates invisible walls between departments. Sales data is trapped in a CRM, project updates are lost in a separate tool, and customer feedback sits isolated in another. This friction slows you down, creates data silos, and prevents your teams from working as a unified force.
+
+Luklak is fundamentally different. It's not a collection of apps—it's a single, universal foundation for building your company's entire business operating system. To achieve this, our platform is built on a simple yet powerful two-layer architecture.
+
+<Frame caption="LUKLAK system architecture, from raw materials, design to usage">
+  ![kien-truc-he-thong-luklak](/images/platform-structure.png)
+</Frame>
+
+---
+
+## Layer 1: The Build Layer (Design & Operation)
+
+This is the layer where you design, build, and operate your business processes. It follows a logical, 3-tier structure that takes you from raw materials to a live, functioning application.
+
+<AccordionGroup>
+  <Accordion title="Tier 1: Core Blocks (The Raw Materials)" icon="cube" iconType="duotone">
+    This is the foundational layer of building—the universal "LEGO pieces" that all business processes are made from. This includes our 9 universal components, such as the `🧊 Universal Object`, `Workflow`, `Universal Automation`, and `Universal Query Language (UQL)`, which provide the ultimate flexibility to model any operation.
+  </Accordion>
+  <Accordion title="Tier 2: Function Design (The Blueprints)" icon="map" iconType="duotone">
+    This is the blueprint layer. Here, you assemble the Core Blocks into no-code designs called `📋 Functions`. A `📋 Function` is a complete, reusable operational blueprint for a specific process, like a sales CRM or a project management system. It defines the specific `Object Types`, workflows, and automations required.
+  </Accordion>
+  <Accordion title="Tier 3: Usage & Operation (The Live Buildings)" icon="building" iconType="duotone">
+    This is the live application layer where work actually happens. When you deploy a `📋 Function`, it becomes one or more live `⏹️ Spaces`—the active "buildings" where your teams collaborate and execute daily work. This tier includes the `Organizational Structure`, personal `Workspaces`, and each user's `Personal Home`.
+  </Accordion>
+</AccordionGroup>
+
+## Layer 2: The Ground Layer (Governance & Access)
+
+This powerful 3-tier build structure rests upon a solid foundation of governance. The Ground Layer is where system administrators define the fundamental rules of your digital world, controlling who is in it and what they are allowed to touch.
+
+### Step 1: Define Your People & Powers
+
+First, you populate your instance with `Users`, organize them into `Groups`, and define the `Roles` they will play in your processes. Then, you grant them their "entry ticket" to the system: their **Business Privilege**. This is a system-wide authority level that determines their maximum potential power.
+
+<CardGroup cols={2}>
+  <Card title="Owner" icon="crown" iconType="duotone">
+    The highest level. Manages billing, can transfer ownership, and holds all Admin privileges.
+  </Card>
+  <Card title="Admin" icon="user-gear" iconType="duotone">
+    Can configure everything in the system, from Global Settings to user management.
+  </Card>
+  <Card title="App Manager" icon="map" iconType="duotone">
+    A specialized role that can design, edit, and manage `📋 Functions`.
+  </Card>
+  <Card title="Member" icon="user" iconType="duotone">
+    The standard privilege for most users, allowing them to work within the `⏹️ Spaces` they are given access to.
+  </Card>
+</CardGroup>
+
+### Step 2: Define Who Can Touch What
+
+Once a user is "inside the gates," a second, more granular layer of permission takes over: **Item Access Control**. This system determines who can view, use, edit, or manage every single component (or "Item") inside Luklak.
+
+<Tip>
+  For example, to control who can edit your "CRM" `Function` blueprint, you configure Item Access **on that specific Function**. To control who sees the "Q4 Financials" `Dashboard`, you set the access **on that Dashboard**. This gives you precise, contextual control over every part of your system.
+</Tip>
+
+## What's Next?
+
+Understanding this two-layer architecture is the key to mastering Luklak. Your next step depends on your role:
+
+- **For Architects & Builders:** Your journey begins with the building blocks.
+  → [**Explore the Tier 1 Core Blocks**](/platform/core-concepts)
+- **For Administrators:** Your first priority is setting up the foundation.
+  → [**Go to the Ground Layer & Governance Guides**](/platform/global-settings)
