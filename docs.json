@@ -252,7 +252,7 @@
 				},
               {
 					"group": "Working in Spaces",
-					"icon": "table-layout",
+					"icon": "draw-square",
 					"pages": [
               "en/02-platform/use-and-operate/navigating-a-space",
               "en/02-platform/use-and-operate/working-with-objects",
