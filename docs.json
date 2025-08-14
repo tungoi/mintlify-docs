@@ -276,7 +276,17 @@
           {
             "group": "Start Building",
             "pages": [
-              "en/03-build/index"
+              "en/03-build/index",
+              "en/03-build/design-thinking",
+              {
+					"group": "Solutions & Functions",
+					"icon": "draw-square",
+					"pages": [
+             "en/03-build/solution-playbooks/index",
+                      
+              
+					]
+				}
             ]
           }
         ]
