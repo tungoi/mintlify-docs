@@ -274,9 +274,9 @@
         "tab": "Build Playbook",
         "groups": [
           {
-            "group": "Build examples",
+            "group": "Start Building",
             "pages": [
-              "en/03-build/laika-crossfunction"
+              "en/03-build/index"
             ]
           }
         ]
