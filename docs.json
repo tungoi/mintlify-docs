@@ -270,16 +270,18 @@
           }
         ]    
       },
-      {
+     {
         "tab": "Build Playbook",
         "groups": [
-    {
-      "group": "Introduction",
-      "icon": "book-open-cover",
-      "pages": [
-        "en/03-build-playbooks/introduction/index"
-      ]
+          {
+            "group": "Introduction",
+            "pages": [
+              "en/03-build/introduction/index"
+            ]
+          }
+        ]
       },
+      
       {
         "tab": "User Guide",
         "groups": [
