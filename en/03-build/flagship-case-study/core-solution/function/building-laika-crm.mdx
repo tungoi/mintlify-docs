@@ -1,0 +1,89 @@
+---
+title: "Building the LAIKA CRM Function"
+description: "A step-by-step guide to building the LAIKA Sales CRM Function, from defining Objects and Fields to configuring the sales pipeline workflow."
+sidebarTitle: "Building the LAIKA CRM"
+---
+
+**From Plan to Production**
+
+<Info>
+  With our governance layer in place, it's time to build the first specialized tool for the LAIKA `Sales Team`: their Customer Relationship Management (CRM) `Function`. This is where we apply the **8-Step Design Methodology** to create the system that will manage the entire sales process, from new lead to closed deal.
+
+  In this guide, you can switch between the **Blueprint** tab to see the design specifications, and the **Build Tutorial** tab for the hands-on, step-by-step instructions.
+</Info>
+
+<Tabs>
+  <Tab title="CRM Function Blueprint">
+    ### **1. Analysis & Scope**
+
+    The CRM must capture new leads, allow salespeople to manage opportunities through a pipeline, and provide visibility for management. It will serve as the single source of truth for all client and deal-related information prior to project handoff.
+
+    ### **``2. Universal Objects & Data Fields``**
+
+    The CRM is built around three core `🧊 Objects`:
+
+    - **`Lead`**: Represents a new, unqualified inquiry.
+      - _Key Fields_: `Full Name`, `Email`, `Phone`, `Lead Source`.
+    - **`Opportunity`**: A qualified lead that has entered the sales pipeline. This is the central object for tracking deals.
+      - _Key Fields_: `Opportunity Name`, `Project Value` (Currency), `Estimated Close Date` (Date), `Assigned To` (User).
+    - **`Contact`**: A person associated with a `Lead` or `Opportunity`.
+
+    ### **`3. Workflow & Statuses`**
+
+    The `Opportunity` object will have a defined sales pipeline to track its lifecycle:
+
+    - `NEW LEAD`
+    - `CONSULTING`
+    - `PROPOSAL`
+    - `NEGOTIATION`
+    - `WON`
+    - `LOST`
+
+    ### **`4. Workviews & Dashboards`**
+
+    The `Sales Team` requires one primary `Workview` to manage their daily work:
+
+    - **"Sales Pipeline Kanban"**: A Kanban board organized by the `Opportunity` status, providing a clear visual of the entire pipeline.
+  </Tab>
+  <Tab title="Step-by-Step Build Tutorial">
+    ```guidejar
+    # Tutorial: Building the CRM Function
+    
+    ## Section 1: Create the Core Objects
+    
+    1.  **Navigate to Function Designer**: Open your LAIKA `Function` and go to "Object Types".
+    2.  **Create the `Opportunity` Object**: Click "Add Object Type" and name it "Opportunity".
+    3.  **Create the `Lead` Object**: Repeat the process to create another Object Type named "Lead".
+    
+    ## Section 2: Configure Key Data Fields
+    
+    1.  **Open the `Opportunity` Object**: In the Object Types list, click on "Opportunity".
+    2.  **Add `Project Value` Field**: Click "Add Field", select the "Currency" field type, and name it "Project Value".
+    3.  **Add `Estimated Close Date` Field**: Click "Add Field" again, select the "Date" field type, and name it "Estimated Close Date".
+    ![Configuring custom fields for the Opportunity Object.](https://path/to/configure-fields-screen.png)
+    
+    ## Section 3: Design the Sales Pipeline Workflow
+    
+    1.  **Open Workflow Editor**: In the `Opportunity` Object settings, click on "Workflow".
+    2.  **Create Statuses**: Click "Add Status" and create each status from the blueprint: `NEW LEAD`, `CONSULTING`, `PROPOSAL`, `NEGOTIATION`, `WON`, and `LOST`.
+    3.  **Set Status Categories**: For `WON`, set the category to "SUCCESS". For `LOST`, set it to "FAILURE". This helps with reporting.
+    ![Designing the sales pipeline workflow in the status editor.](https://path/to/workflow-editor-screen.png)
+    
+    ## Section 4: Build the Kanban Workview
+    
+    1.  **Navigate to Workviews**: In your `Function`'s left sidebar, click on "Workviews".
+    2.  **Create New Workview**: Click "Add Workview" and select "Kanban".
+    3.  **Configure the Kanban**:
+        - Set the `Object Type` to "Opportunity".
+        - Set the "Group by" option to the "Status" field.
+        - Name the view "Sales Pipeline Kanban" and save it.
+    ![Configuring a Kanban view for the sales pipeline.](https://path/to/kanban-config-screen.png)
+    ```
+  </Tab>
+</Tabs>
+
+**What's Next?**
+
+Now that the CRM `Function` is built to manage the sales process, the next step is to build the `Function` that will handle the work _after_ a deal is won: the Project Delivery system.
+
+- [Next: Building the Project Delivery Function](https://www.google.com/search?q=/build-playbooks/01-flagship-case-study-laika/core-functions/building-laika-project-delivery)

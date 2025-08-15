@@ -1,0 +1,84 @@
+---
+title: "Designing the Ground Layer: Users, Groups & Governance"
+description: "Learn the crucial first step of any system build: setting up the foundational governance layer with users,groups, and roles for the LAIKA case study."
+sidebarTitle: "Ground Layer & Governance"
+---
+
+**Before You Build, Set the Foundation**
+
+<Info>
+You don't build a new office without first deciding who gets keys to which rooms. In Luklak, you don't build `Functions` without first setting up your users and defining their access rights.
+
+This is the crucial "Step 0" of any serious build. Establishing a clear governance structure from the beginning ensures your system is secure, organized, and ready to scale. Getting this right now prevents major headaches later.
+</Info>
+
+## **Step 1: Identify Key Roles at LAIKA**
+
+Before creating any groups or permissions, we first need to identify the distinct roles within the LAIKA organization. Each role has different responsibilities and different information needs.
+
+- **Management (CEO, Dept. Heads):** Need a high-level overview of the entire business, from sales pipeline to project profitability.
+- **Salesperson:** Needs to manage leads, opportunities, and client communication.
+- **Project Manager:** Needs to oversee a project's entire lifecycle, including budget, timeline, and tasks.
+- **Designer:** Needs to work on creative tasks, submit designs for approval, and collaborate on revisions.
+- **Site Manager:** Needs to report on-site progress and issues from the field.
+- **Accountant:** Needs to create contracts, manage invoices, and track payments.
+
+## **Step 2: Create Groups for Team-Based Access**
+
+Instead of assigning permissions to individuals one by one, the best practice is to create `Groups`. This way, when a new employee joins, you can simply add them to the correct group to grant them all the necessary access instantly.
+
+For LAIKA, we will create the following core groups:
+
+<CardGroup cols={3}>
+  <Card title="Management" icon="crown" iconType="duotone">
+    For the CEO and department heads who require high-level administrative and viewing privileges across all functions.
+  </Card>
+  <Card title="Sales Team" icon="handshake" iconType="duotone">
+    For all salespeople. This group will be given access to the CRM `Function` to manage leads and opportunities.
+  </Card>
+  <Card title="Project Managers" icon="user-helmet-safety" iconType="duotone">
+    A group for the PMs who orchestrate project delivery from start to finish.
+  </Card>
+  <Card title="Design Team" icon="palette" iconType="duotone">
+    For all designers. This group will primarily work within the Project Delivery `Function` on creative tasks.
+  </Card>
+  <Card title="Site Team" icon="person-digging" iconType="duotone">
+    For managers and staff who work on the construction site and need to file reports from the field.
+  </Card>
+  <Card title="Finance Team" icon="calculator" iconType="duotone">
+    For accountants who will manage contracts, invoices, and payments. They will need specific access to financial data.
+  </Card>
+</CardGroup>
+
+## **Step 3: Setting Up Your First Group**
+
+Let's walk through creating the `Sales Team` group. The process is the same for all other groups.
+
+```guidejar
+# Tutorial: Creating a User Group
+
+## 1. Navigate to User Management
+From your workspace settings, find and click on the "User Management" section.
+
+## 2. Create the New Group
+1. Go to the "Groups" tab.
+2. Click "Create Group".
+3. Name the group "Sales Team" and provide a brief description.
+![Creating a new user group in Luklak](https://path/to/create-group-screen.png)
+
+## 3. Add Members to the Group
+1. Once the group is created, click on it to open the member management panel.
+2. Click "Add Members" and select all the users who are part of the sales team.
+![Adding members to the Sales Team group](https://path/to/add-members-screen.png)
+* Tip: Now, instead of managing permissions for 5 individual salespeople, you only need to manage permissions for this one group.
+````
+
+**What's Next?**
+
+The foundation is poured and the teams are organized. We are now ready to build the first specialized tool for our `Sales Team`: the CRM `Function`.
+
+  - [Next: Building the Core Functions - The LAIKA CRM](https://www.google.com/search?q=/build-playbooks/01-flagship-case-study-laika/core-functions/building-laika-crm)
+
+
+```
+

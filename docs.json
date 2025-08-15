@@ -276,7 +276,8 @@
           {
             "group": "Introduction",
             "pages": [
-              "en/03-build/introduction/index"
+              "en/03-build/introduction/index",
+              "en/03-build/introduction/the-luklak-way"
             ]
           }
         ]
@@ -310,7 +311,8 @@
           {
             "group": "Tự động hóa",
             "pages": [
-              "en/06-academy/tab06-note"
+              "en/06-academy/tab06-note",
+              "en/06-academy/unified-slide"
             ]
           }
         ]
