@@ -280,6 +280,15 @@
               "en/03-build/introduction/index",
               "en/03-build/introduction/the-luklak-way"
             ]
+          },
+          {
+            "group": "Flagship Casestudy",
+            "pages": [
+              "en/03-build/flagship-case-study/master-plan/the-business-challenge",
+              "en/03-build/flagship-case-study/master-plan/the-cross-function-system-blueprint",
+              "en/03-build/flagship-case-study/master-plan/designing-the-ground-layer-governance"
+          
+            ]
           }
         ]
       },
