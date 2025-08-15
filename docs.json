@@ -356,6 +356,9 @@
     "light": "/logo/luklaklight.svg",
     "dark": "/logo/luklakdark.svg"
   },
+  "styling": {
+    "eyebrows": "breadcrumbs"
+  },
   "navbar": {
     "links": [
       {
