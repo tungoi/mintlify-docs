@@ -282,11 +282,33 @@
             ]
           },
           {
-            "group": "Flagship Casestudy",
+            "group": "Challenge & Analysis",
+            "pages": [
+              {
+            "group": "Build",
             "pages": [
               "en/03-build/flagship-case-study/master-plan/the-business-challenge",
               "en/03-build/flagship-case-study/master-plan/the-cross-function-system-blueprint",
               "en/03-build/flagship-case-study/master-plan/designing-the-ground-layer-governance"
+          
+            ]
+          },
+              
+               {
+            "group": "Build",
+            "pages": [
+              "en/03-build/flagship-case-study/core-solution/function/building-laika-crm",
+              "en/03-build/flagship-case-study/core-solution/function/product-delivery"
+          
+            ]
+          },
+              {
+            "group": "Use & Operate",
+            "pages": [
+              "en/03-build/flagship-case-study/use-and-operate/connecting-functions-with-universal-automation"
+          
+            ]
+          }
           
             ]
           }

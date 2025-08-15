@@ -1,0 +1,118 @@
+---
+title: "Building the Project Delivery Function"
+description: "A complete guide to building LAIKA's core operational engine: the Project Delivery function that manages design, site work, and financials."
+sidebarTitle: "Building Project Delivery"
+---
+
+**The Core Operational Engine**
+
+<Info>
+  After a deal is won in the CRM, the real work begins. This guide shows how to build the **Project Delivery** `Function`, the most critical part of LAIKA's operating system. This single `Function` will manage a project's entire lifecycle, from the initial planning phase through design, construction, and final invoicing, creating a single source of truth for the entire delivery team.
+
+  As before, you can switch between the **Blueprint** tab for design specs and the **Build Tutorial** tab for hands-on instructions.
+</Info>
+
+<Tabs>
+  <Tab title="Project Delivery Blueprint">
+    ### **1. Function & Scope**
+
+    - **Function Name**: `Project Delivery`
+    - **Scope**: To manage all post-sale activities for a client project, unifying the Design, Site, and Finance teams into a single, cohesive workflow.
+
+    ### **``2. Universal Objects & Data Fields``**
+
+    This function uses a central "hub" `Object` with several supporting "spoke" `Objects`.
+
+    - **`Project (The Hub)`**: The central record for a client engagement.
+      - _Fields_: `Project Name` (Text), `Client` (Object Connection to Contact), `Total Budget` (Currency), `Start Date` (Date), `End Date` (Date).
+    - **`Design Concept`**: Tracks a specific creative design and its approval cycle.
+      - _Fields_: `Version` (Text), `Status` (Workflow), `Design File` (Attachment).
+    - **`Site Report`**: A report filed from the construction site.
+      - _Fields_: `Report Date` (Date), `Progress Photos` (Attachment), `Notes` (Text).
+    - **`Invoice`**: A financial record for a specific payment milestone.
+      - _Fields_: `Invoice Amount` (Currency), `Due Date` (Date), `Status` (Workflow).
+
+    ### **`3. Object Connections`**
+
+    - The `Project` object is the "parent."
+    - `Design Concept`, `Site Report`, and `Invoice` are "children" that are always linked to a specific parent `Project`.
+
+    ### **`4. Workflows & Statuses`**
+
+    - **`Project Workflow:`**
+      - `PLANNING` → `DESIGN` → `CONSTRUCTION` → `WARRANTY` → `COMPLETED`
+    - **`Design Concept Workflow:`**
+      - `PENDING` → `IN PROGRESS` → `IN REVIEW` → `APPROVED` → `REJECTED`
+    - **`Invoice Workflow:`**
+      - `DRAFT` → `SENT` → `PAID` → `OVERDUE`
+
+    ### **`5. Workviews & Dashboards`**
+
+    - **"All Active Projects (List)"**: A master list of all ongoing projects.
+    - **"Project Delivery Timeline"**: A timeline/Gantt view of all projects, using their Start and End Dates.
+    - **"Design Approval Kanban"**: A Kanban board for the `Design Concept` object, grouped by its status.
+  </Tab>
+  <Tab title="Step-by-Step Build Tutorial">
+    ```guidejar
+    # Tutorial: Building the Project Delivery Function (Full Detail)
+    
+    ## Section 1: Initial Setup
+    
+    1.  **Create the Function**: Create a new `Function`, name it "Project Delivery", and choose an icon.
+    2.  **Navigate to Object Types**: Inside the new Function, go to "Object Types" in the sidebar.
+    
+    ## Section 2: Building the Core `Project` Object
+    
+    3.  **Create the `Project` Object**: Click "Add Object Type" and name it "Project".
+    4.  **Add `Project` Fields**:
+        - Click on the "Project" object to configure it.
+        - Go to the "Fields" tab and add: `Project Name` (Text), `Total Budget` (Currency), `Start Date` (Date), and `End Date` (Date).
+        - Add an **Object Connection** field named "Client" and configure it to connect to the `Contact` object from your "Sales & CRM" Function.
+    5.  **Design the `Project` Workflow**:
+        - Go to the "Workflow" tab for the `Project` object.
+        - Create the statuses: `PLANNING`, `DESIGN`, `CONSTRUCTION`, `WARRANTY`, and `COMPLETED`. Set the category for `COMPLETED` to "Success".
+    
+    ## Section 3: Building the Sub-Process Objects
+    
+    6.  **Create the `Design Concept` Object**:
+        - Go back to "Object Types" and create a new object named "Design Concept".
+        - Add a "Design File" (Attachment) field.
+        - Go to its "Workflow" tab and create the statuses: `PENDING`, `IN PROGRESS`, `IN REVIEW`, `APPROVED`, `REJECTED`.
+    
+    7.  **Create the `Site Report` Object**:
+        - Create a new object named "Site Report".
+        - Add a "Progress Photos" (Attachment) field and a "Notes" (Text) field.
+    
+    8.  **Create the `Invoice` Object**:
+        - Create a new object named "Invoice".
+        - Add an "Invoice Amount" (Currency) field and a "Due Date" (Date) field.
+        - Go to its "Workflow" tab and create the statuses: `DRAFT`, `SENT`, `PAID`, `OVERDUE`.
+    
+    ## Section 4: Linking Sub-Objects to the Main Project
+    
+    9.  **Navigate back to the `Project` Object**: From the "Object Types" list, click on "Project".
+    10. **Add a `Design Concepts` Table**:
+        - Go to the "Data Screens" tab. This lets you customize the layout of the `Project` object's screen.
+        - Click "Add Gadget" and select the **"Data Table"** gadget.
+        - Configure the gadget to show all `Design Concept` objects that are linked to the current `Project`.
+        ![Adding a Data Table gadget to the Project screen](https://path/to/data-table-setup.png)
+    11. **Repeat for `Site Reports` and `Invoices`**: Add two more "Data Table" gadgets to the screen to show lists of all related `Site Reports` and `Invoices`. This creates the unified 360-degree view.
+    
+    ## Section 5: Building Key Workviews
+    
+    12. **Create the "Project Delivery Timeline"**:
+        - In the main Function sidebar, click on "Workviews".
+        - Click "Add Workview" and select the "Timeline" type.
+        - Configure the view to use the `Project` object, with the `Start Date` and `End Date` fields driving the timeline bars.
+    13. **Create the "Design Approval Kanban"**:
+        - Add another `Workview`, this time selecting "Kanban".
+        - Configure it to use the `Design Concept` object, and set the "Group by" option to its "Status" field.
+    ```
+  </Tab>
+</Tabs>
+
+**What's Next?**
+
+We have now built the two core `Functions` for LAIKA's operation. The next critical step is to connect them. We will use `Universal Automation` to make the handoff from the Sales team to the Project Delivery team seamless and instant.
+
+- [Next: Operating the Unified System - Connecting Functions with Universal Automation](https://www.google.com/search?q=/build-playbooks/01-flagship-case-study-laika/operating-system/connecting-functions-with-universal-automation)

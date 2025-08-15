@@ -1,0 +1,72 @@
+---
+title: "Connecting Functions with Universal Automation"
+description: "Learn how to build the most critical automation in the LAIKA system: the seamless, instant handoff from a closed deal in Sales to a new project in Project Delivery."
+sidebarTitle: "Connecting Functions"
+---
+
+**Bringing the System to Life**
+
+<Info>
+We have built two powerful, dedicated `📋 Functions`: one for Sales and one for Project Delivery. But right now, they are still separate islands. This is the moment we build the bridge between them.
+
+In this guide, we will create the single most impactful automation in the LAIKA workflow. This automation solves the problem of manual, error-prone handoffs, eliminating "dead time" and ensuring that project data is perfectly consistent from the very first moment. This is where our separate `Functions` become a single, unified **system**.
+</Info>
+
+## **Building the Sales-to-Project Handoff Automation**
+
+Our goal is simple: when a salesperson moves an `🧊 Opportunity` to the `WON` status in the CRM, we want the system to instantly and automatically create the corresponding `🧊 Project` and `🧊 Contract` for the delivery and finance teams.
+
+```guidejar
+# Tutorial: The Automatic Sales Handoff
+
+## Section 1: Setting Up the Trigger
+
+1.  **Navigate to Universal Automation**: Open the `Sales & CRM` `📋 Function` we built previously. In the left sidebar, find and click on "Universal Automation".
+
+2.  **Create a New Rule**: Click the "Create Rule" button to open the automation builder.
+
+3.  **Configure the Trigger**: The trigger is the event that starts the automation.
+    - For the trigger type, select **"When: Object is transitioned"**.
+    - For the `Object Type`, select `🧊 Opportunity`.
+    - For the "To Status", select `WON`.
+    - This configuration means the rule will run at the exact moment a deal is won, and not at any other time.
+![Configuring the automation trigger for a WON Opportunity](https://path/to/automation-trigger.png)
+
+## Section 2: Action 1 - Create the `Project`
+
+1.  **Add Your First Action**: In the "Then: Do this" section, click "Add Action".
+2.  **Select "Create Object"**: Choose the "Create Object" action from the list.
+3.  **Configure the Action**:
+    - For "Object Type to Create", select `🧊 Project`. **Crucially, you must select the `Project` object from the `Project Delivery` `📋 Function**. This is how we connect the two functions.
+    - Now, we will map the data from the `Opportunity` to the new `Project` using **Smart Values**.
+    - In the `Project Name` field, enter `{{triggerObject.opportunityName}}`. This will copy the name of the opportunity that triggered the rule.
+    - In the `Client` field, select the smart value for `{{triggerObject.relatedContact}}`.
+    - In the `Total Budget` field, select the smart value for `{{triggerObject.projectValue}}`.
+![Mapping data from the Opportunity to the new Project using Smart Values](https://path/to/create-project-action.png)
+
+## Section 3: Action 2 - Create the `Contract`
+
+1.  **Add a Second Action**: Click the "+" button below your first action to add another.
+2.  **Select "Create Object"**: Again, choose the "Create Object" action.
+3.  **Configure the Action**:
+    - For "Object Type to Create", select `🧊 Contract` (also from the `Project Delivery` `📋 Function`).
+    - Map the data just as before:
+        - `Contract Name`: `Contract for {{triggerObject.opportunityName}}`
+        - `Contract Value`: `{{triggerObject.projectValue}}`
+        - `Client`: `{{triggerObject.relatedContact}}`
+    - You will also need to link this new `Contract` to the `Project` that was just created in the step above. Add a link to the "Step 1: Create Object" result.
+
+## Section 4: Finalize and Activate
+
+1.  **Name Your Rule**: At the top, give your automation rule a clear name, like "Handoff: WON Opportunity -> Create Project & Contract".
+2.  **Turn It On**: Click the toggle to activate the rule.
+3.  **Save**: Click "Save".
+
+Your automation is now live. From this moment on, every time a salesperson closes a deal, the delivery and finance teams will be notified and have their work records created for them instantly and perfectly.
+````
+
+**What's Next?**
+
+Our system is now fully connected and automated. The final step in the LAIKA build is to create the tools for the Board of Directors to monitor this newly unified operation with real-time dashboards.
+
+  - [Next: Monitoring the Business with Dashboards](https://www.google.com/search?q=/build-playbooks/01-flagship-case-study-laika/operating-system/monitoring-the-business-with-dashboards)
