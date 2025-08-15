@@ -333,6 +333,7 @@
           {
             "group": "Function Templates",
             "pages": [
+              "en/05-templates/index",
               "en/05-templates/tab05-note"
             ]
           }
