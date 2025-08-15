@@ -27,6 +27,7 @@
             "pages": [
               "en/01-getting-started/about-luklak/philosophy",
               "en/01-getting-started/about-luklak/when-to-choose-luklak",
+              "en/01-getting-started/about-luklak/unified-slide",
               "en/01-getting-started/glossary"
             ]
           },
@@ -311,8 +312,7 @@
           {
             "group": "Tự động hóa",
             "pages": [
-              "en/06-academy/tab06-note",
-              "en/06-academy/unified-slide"
+              "en/06-academy/tab06-note"
             ]
           }
         ]
