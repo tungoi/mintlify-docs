@@ -1,0 +1,64 @@
+---
+title: "Advanced Technique: Change Management"
+description: "Your business is always evolving, and your system should too. Learn the best practices for safely testing, deploying, and managing updates to a live system."
+sidebarTitle: "Change Management"
+---
+
+**Evolving with Confidence**
+
+<Info>
+One of Luklak's greatest strengths is its flexibility. Unlike rigid, off-the-shelf software, you can adapt your system as your business processes evolve. But with this power comes the need for a responsible process.
+
+Making changes to a live, mission-critical system can be risky if not handled correctly. This guide provides a safe, structured methodology for managing change, allowing you to innovate with confidence while minimizing disruption to your team.
+</Info>
+
+## **The Core Challenge: Updating a Live System**
+
+Once your team relies on a `📋 Function` for their daily work, any changes can have a significant impact. Modifying a `Workflow`, changing an `Automation`, or removing a `Data Field` could potentially break a process or confuse users.
+
+A structured change management process mitigates these risks.
+
+## **The Recommended Change Management Process**
+
+For anything beyond a minor, cosmetic change, we strongly recommend a "Develop → Test → Deploy" lifecycle.
+
+<CardGroup cols={1}>
+  <Card title="Step 1: Create a Sandbox by Cloning Your `Function`" icon="vial" iconType="duotone">
+    **Never make major changes directly on your live `📋 Function`.** The safest first step is to create a duplicate of your `Function` to use as a "sandbox" environment.
+
+    - **How-to:** Go to your `Function`'s settings, select "Duplicate Function", and give the copy a clear name, such as `[Function Name] - V2 Development`.
+    - This creates an identical, isolated copy where you can experiment freely without affecting any real users or data.
+  </Card>
+  <Card title="Step 2: Develop & Test Your Changes in the Sandbox" icon="user-gear" iconType="duotone">
+    With your sandbox copy, you can now safely make all your desired changes. Re-design the `Workflow`, add new `Data Fields`, or build complex new `Automations`.
+
+    - **Critical Sub-step: Testing.** Create a temporary "Test `⏹️ Space`" from your sandbox `Function`. Add a small group of power users to this space.
+    - Ask them to create sample `🧊 Objects` and run through the new process to provide feedback and identify any potential issues before the official rollout.
+  </Card>
+  <Card title="Step 3: Communicate and Deploy the New Version" icon="rocket-launch" iconType="duotone">
+    Once you are confident the new version is working perfectly, it's time to roll it out.
+
+    - **Communication is Key:** Announce the upcoming changes to all users well in advance. Explain **what** is changing, **why** it is changing, and **when** it will happen. Provide a brief training or a link to a user guide.
+    - **Deployment Strategy:**
+        - **For Minor Changes** (e.g., adding a new, non-critical field): After communicating, you can make these changes directly on the live `Function`, preferably during off-peak hours.
+        - **For Major Changes** (e.g., a complete workflow redesign): Use the sandbox method. The deployment involves creating a new, official `⏹️ Space` from your perfected V2 `Function`. You then guide users to begin all new work in this new space and implement a plan to archive the old one.
+  </Card>
+</CardGroup>
+
+---
+
+## **You are Now a Luklak Architect**
+
+Congratulations! You have completed the entire **Build Playbooks** journey.
+
+You have learned the foundational **methodology** for system design, followed a **flagship case study** from problem to solution, explored alternative **solution patterns**, and now understand the **advanced techniques** for connecting, optimizing, and managing a live system.
+
+You now have the complete skillset to architect powerful, scalable, and truly unified operating systems on the Luklak platform.
+
+**Where to Go Next?**
+
+Your learning journey continues. Now that you've mastered the art of building, explore the other areas of the Learning Portal:
+
+- [Master Daily Use: Go to the User Guides](/04-user-guides)
+- [Accelerate Your Next Build: Visit the Template Library](/05-templates)
+- [Become a Certified Expert: Explore Courses](/06-courses)

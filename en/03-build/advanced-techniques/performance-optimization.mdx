@@ -1,0 +1,49 @@
+---
+title: "Advanced Technique: Performance & Optimization"
+description: "Learn the best practices for designing scalable Luklak solutions that remain fast and efficient as you grow to thousands of Objects and dozens of users."
+sidebarTitle: "Performance & Optimization"
+---
+
+**Building for Growth**
+
+<Info>
+A system that feels fast for 5 users and 100 `🧊 Objects` might feel slow for 50 users and 10,000 `🧊 Objects`. True scalability isn't an accident; it's the result of intentional design choices.
+
+This guide provides the core principles for building high-performance solutions. By making smart architectural decisions during the build process, you can ensure your system remains responsive, stable, and a joy to use, no matter how much your business grows.
+</Info>
+
+## **Core Optimization Principles**
+
+Optimizing your Luklak workspace comes down to three key areas: how you view data, how you build automations, and how you structure your overall architecture.
+
+<CardGroup cols={1}>
+  <Card title="Principle 1: Design Lean `Workviews`" icon="table-columns" iconType="duotone">
+    **The Problem:** The most common cause of slowness is a `Workview` trying to load too much data at once. A single view showing 5,000 objects with 20 columns each is asking the browser to render 100,000 data points, which can be demanding.
+
+    **Best Practices:**
+    - **Favor Specific Filters:** Instead of one giant "All Projects" view, encourage teams to create and save highly specific, filtered views like "My Active Projects Due This Quarter." This dramatically reduces the initial data load.
+    - **Limit Columns:** Only display the columns that are essential for the task at hand. Use the "Customize Columns" option to hide unnecessary fields for a leaner, faster view.
+    - **Use a "Staged" Approach:** For very large datasets, create separate `Workviews` for different stages. For example, have an "Active Tickets" view for daily work and a separate "Archived Tickets" view for historical searches.
+  </Card>
+  <Card title="Principle 2: Build Smart Automations" icon="robot" iconType="duotone">
+    **The Problem:** Poorly designed automations can trigger unnecessarily, run complex calculations, or even create infinite loops, consuming system resources and slowing down the experience for everyone.
+
+    **Best Practices:**
+    - **Use Precise Triggers:** Be as specific as possible. A trigger on "When Status is changed **to** `COMPLETED`" is far more efficient than a generic "When Object is updated," which runs on every single field change.
+    - **Leverage Conditions:** Use `IF` conditions to stop your automation from running unless it's absolutely necessary. For example: `IF Project Budget > $10,000 AND Client Tier is 'Enterprise'`, *then* send a notification.
+    - **Avoid Long Chain Reactions:** Be mindful of creating automations where one rule triggers a second rule, which triggers a third. While powerful, long chains can become difficult to debug and may have performance implications.
+  </Card>
+  <Card title="Principle 3: Architect Your Data Intelligently" icon="sitemap" iconType="duotone">
+    **The Problem:** Placing dozens of unrelated business processes into a single, monolithic `📋 Function` can make that `Function` difficult to manage, and its larger dataset can impact the performance of all associated views and reports.
+
+    **Best practices:**
+    - **Separate `Functions` for Separate Processes:** Keep distinct business units in their own `Functions`. Your `HR & Recruitment` process should live in a separate `Function` from your `Sales & CRM` process. This keeps data sets contained and more performant.
+    - **Implement an Archiving Strategy:** For high-volume `Objects` like `Support Tickets` or `Daily Logs`, create an "Archive" `Function`. Build a scheduled automation that runs monthly to move any `Objects` closed more than 90 days ago into the archive. This keeps your active workspace lean and fast.
+  </Card>
+</CardGroup>
+
+**What's Next?**
+
+Now that you understand how to build a scalable system, let's explore how to get more value from the data within it. The next guide covers how to use Universal Query Language (UQL) to perform deep, cross-system analysis.
+
+- [Next: Advanced UQL Analysis](/build-playbooks/03-advanced-techniques/advanced-uql-analysis)

@@ -1,0 +1,99 @@
+---
+title: "Advanced Technique: Advanced UQL Analysis"
+description: "Unlock deep, cross-system insights. Learn to write complex Universal Query Language (UQL) queries to go beyond dashboards and answer your most difficult business questions."
+sidebarTitle: "Advanced UQL Analysis"
+---
+
+**Asking Deeper Questions**
+
+<Info>
+Dashboards are excellent for monitoring known metrics. But true competitive advantage often comes from answering novel, complex questions that you haven't thought to track before. This is the job of the **Universal Query Language (UQL)**.
+
+This guide moves beyond basic filtering. It will teach you how to use UQL to perform calculations, traverse relationships between `🧊 Objects`, and query data across your entire workspace. You will learn to ask—and answer—your most powerful business questions.
+</Info>
+
+## **Recap: The Anatomy of a UQL Query**
+
+A basic UQL query has three parts: `SELECT` (what fields to show), `FROM` (which `🧊 Object` to look in), and `WHERE` (the conditions to filter by).
+
+```uql
+-- A simple query to find all won opportunities
+SELECT opportunityName, projectValue 
+FROM Opportunity 
+WHERE status = 'WON'
+```
+
+Now, let's go beyond this to perform true analysis.
+
+## **Performing Calculations with Functions**
+
+UQL includes powerful aggregate functions to perform calculations on your data directly, without needing to export to a spreadsheet.
+
+<CardGroup cols={1}>
+<Card title="COUNT: How many deals did we win last month?" icon="arrow-down-1-9" iconType="duotone">
+The `COUNT()` function totals the number of `🧊 Objects` that match your criteria.
+
+```uql
+SELECT COUNT(objectId) 
+FROM Opportunity 
+WHERE status = 'WON' AND estimatedCloseDate >= "2025-07-01" AND estimatedCloseDate <= "2025-07-31"
+```
+</Card>
+<Card title="SUM: What is the total value of all active projects?" icon="plus-minus" iconType="duotone">
+The `SUM()` function adds up the values in a specific numeric field.
+
+```uql
+SELECT SUM(totalBudget) 
+FROM Project 
+WHERE status = 'CONSTRUCTION'
+```
+</Card>
+<Card title="AVG: What is the average value of our won deals?" icon="divide" iconType="duotone">
+The `AVG()` function calculates the average of a set of numbers.
+
+```uql
+SELECT AVG(projectValue) 
+FROM Opportunity 
+WHERE status = 'WON'
+```
+</Card>
+</CardGroup>
+
+## **Traversing Relationships: Querying Across Connections**
+
+The real power of UQL begins when you query across `Object Connections`. You can use dot notation (`connectedObject.fieldName`) to filter based on data from a related `🧊 Object`.
+
+**Business Question:** "Show me all active projects for clients from the 'Hospitality' industry."
+
+This requires looking at the `Project` `🧊 Object` but filtering based on a field in the connected `Client` `🧊 Object`.
+
+```uql
+SELECT projectName, totalBudget
+FROM Project
+WHERE status = 'ACTIVE' AND client.industry = 'Hospitality'
+```
+
+The `client.industry` part of the query seamlessly traverses the `Object Connection` to access the data you need.
+
+## **The Ultimate Power: Cross-Function Queries**
+
+Because Luklak is a unified platform, UQL can query across your entire workspace. This allows you to answer questions that are impossible for siloed systems.
+
+**Business Question:** "For all projects that entered the `CONSTRUCTION` phase last month, what was the name of the original salesperson who won the deal?"
+
+This question requires data from both the `Project Delivery` `📋 Function` and the `Sales & CRM` `📋 Function`.
+
+```uql
+-- This assumes an 'sourceOpportunity' connection was built from Project back to Opportunity
+SELECT projectName, sourceOpportunity.assignedTo.fullName
+FROM Project
+WHERE statusTransitionDate >= "2025-07-01" AND status = 'CONSTRUCTION'
+```
+
+This single query connects data from two different departments to answer a strategic question that would normally require manually exporting and merging multiple spreadsheets. This is the power of a truly unified system.
+
+**What's Next?**
+
+You can now build a scalable system and analyze the data within it. The final advanced topic is about managing these powerful systems over time as your business evolves.
+
+  - [Next: Change Management](https://www.google.com/search?q=/build-playbooks/03-advanced-techniques/change-management)
