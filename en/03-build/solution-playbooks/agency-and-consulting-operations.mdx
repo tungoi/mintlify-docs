@@ -1,0 +1,100 @@
+---
+title: "Industry Pattern: Agency & Consulting Operations"
+description: "A reusable pattern for creative agencies and consulting firms to manage clients, projects, billable hours, and deliverables from pitch to completion."
+sidebarTitle: "Agency & Consulting"
+---
+
+**A Pattern for Client Services**
+
+<Info>
+  This Solution Pattern is designed for businesses that manage multiple clients and projects simultaneously, such as creative agencies, marketing firms, and business consultancies.
+
+  Unlike a construction project which is often linear, agency work involves juggling numerous deliverables, tracking billable time, and managing complex client feedback loops. This pattern provides a robust starting point for building a system to manage that complexity.
+</Info>
+
+<Tabs>
+  <Tab title="Agency Operations Blueprint">
+    ### **1. Function & Scope**
+
+    - **Function Name**: `Agency Operations Hub`
+    - **Scope**: To provide a single source of truth for all client work, from the initial sales pitch to tracking project profitability and managing ongoing retainers.
+
+    ### **``2. Universal Objects & Data Fields``**
+
+    - **`Client`**: The central record for a customer company.
+      - _Fields_: `Client Name`, `Industry`, `Primary Contact`.
+    - **`Project`**: A specific engagement for a client (e.g., "Q4 Marketing Retainer").
+      - _Fields_: `Project Name`, `Client` (Object Connection), `Project Type` (Select List: Retainer, Fixed-Price), `Total Budget` (Currency), `Hourly Rate` (Currency).
+    - **`Deliverable`**: A specific task or piece of work within a `Project` (e.g., "Homepage Mockup V2").
+      - _Fields_: `Deliverable Name`, `Assigned To` (User), `Due Date` (Date), `Status`.
+    - **`Timesheet Entry`**: A record of billable time spent on a project.
+      - _Fields_: `Hours` (Number), `Work Date` (Date), `Activity Description` (Text).
+
+    ### **`3. Object Connections`**
+
+    - `Project` is linked to one `Client`.
+    - `Deliverable` is linked to one `Project`.
+    - `Timesheet Entry` is linked to one `Project`.
+
+    ### **`4. Workflows & Statuses`**
+
+    - **`Project Workflow:`**
+      - `PITCH` → `PROPOSAL` → `ACTIVE` → `COMPLETED` → `ON HOLD`
+    - **`Deliverable Workflow (Creative Cycle):`**
+      - `BACKLOG` → `IN PROGRESS` → `INTERNAL REVIEW` → `CLIENT REVIEW` → `APPROVED`
+
+    ### **`5. Workviews`**
+
+    - **"Active Projects Dashboard"**: A list or card view of all projects with the `ACTIVE` status.
+    - **"Deliverable Kanban"**: A Kanban board showing all `Deliverables` grouped by their status, providing a clear view of the creative production pipeline.
+    - **"Team Workload View"**: A list view of `Deliverables` grouped by the `Assigned To` user, to help with resource planning.
+  </Tab>
+  <Tab title="Step-by-Step Build Tutorial">
+    ```guidejar
+    # Tutorial: Building the Agency Operations Hub
+    
+    ## Section 1: Create the Function & Core Objects
+    
+    1.  **Create the Function**: Create a new `Function` and name it "Agency Operations Hub".
+    2.  **Create the `Client` Object**: Inside the new Function, create an `🧊 Object` named "Client" with fields for `Client Name`, `Industry`, etc.
+    3.  **Create the `Project` Object**: Create an `🧊 Object` named "Project". Add fields like `Project Type` (use a Select List with "Retainer" and "Fixed-Price" options), `Total Budget`, and `Hourly Rate`.
+    4.  **Create the `Deliverable` Object**: Create an `🧊 Object` named "Deliverable" with `Assigned To` (User) and `Due Date` (Date) fields.
+    5.  **Create the `Timesheet Entry` Object**: Create an `🧊 Object` named "Timesheet Entry" with `Hours` (Number) and `Activity Description` (Text) fields.
+    
+    ## Section 2: Connecting the Objects
+    
+    6.  **Link `Project` to `Client`**:
+        - Open the `Project` object's configuration.
+        - Add an "Object Connection" field named "Client".
+        - Configure it to connect to the `Client` object.
+    7.  **Link `Deliverable` & `Timesheet` to `Project`**: Repeat the process for the `Deliverable` and `Timesheet Entry` objects, adding an "Object Connection" field in each that links back to the `Project` object.
+    
+    ## Section 3: Designing the Workflows
+    
+    8.  **Build the `Project` Workflow**: In the `Project` object's "Workflow" tab, create the statuses: `PITCH`, `PROPOSAL`, `ACTIVE`, `COMPLETED`, `ON HOLD`.
+    9.  **Build the `Deliverable` Workflow**: This workflow is key for the creative process. In the `Deliverable` object's "Workflow" tab, create the statuses: `BACKLOG`, `IN PROGRESS`, `INTERNAL REVIEW`, `CLIENT REVIEW`, `APPROVED`.
+    
+    ## Section 4: Building Key Workviews
+    
+    10. **Navigate to Workviews**: In the main Function sidebar, click on "Workviews".
+    11. **Create the "Deliverable Kanban"**:
+        - Click "Add Workview" and select "Kanban".
+        - Name it "Deliverable Pipeline".
+        - Configure it to use the `Deliverable` object, grouped by the "Status" field. This gives you a view of your entire production floor.
+        ![Configuring the Deliverable Kanban view](https://path/to/deliverable-kanban.png)
+    12. **Create the "Team Workload" View**:
+        - Click "Add Workview" and select "List".
+        - Name it "Team Workload".
+        - Configure it to use the `Deliverable` object.
+        - Use the "Group by" option and select the `Assigned To` field. This instantly shows who is working on what.
+        ![Configuring a List view grouped by user for workload management](https://path/to/workload-view.png)
+    ```
+  </Tab>
+</Tabs>
+
+**What's Next?**
+
+Now that you've seen a pattern for a project-based service business, let's explore a pattern for a completely different business model.
+
+- [Explore Next Industry Pattern: E-commerce & Retail Operations](https://www.google.com/search?q=/build-playbooks/02-solution-patterns-library/by-industry/ecommerce-and-retail-operations)
+- [Back to the Patterns Library](https://www.google.com/search?q=/build-playbooks/02-solution-patterns-library)

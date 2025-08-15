@@ -1,0 +1,79 @@
+---
+title: "Monitoring the Business with Dashboards"
+description: "Learn how to build the final piece of the LAIKA system: a real-time executive dashboard that provides a unified view of Sales and Project Delivery performance."
+sidebarTitle: "Monitoring with Dashboards"
+---
+
+**The View from the Top**
+
+<Info>
+A fully connected and automated system is powerful, but its ultimate value is realized when you can derive clear, real-time insights from it. This is where we deliver the final and most crucial benefit to LAIKA's leadership team.
+
+In this guide, we will solve the last major problem from our business challenge: the lack of unified, real-time reporting. We will build a single executive dashboard that pulls data from both the `Sales & CRM` and `Project Delivery` `📋 Functions`, giving the Board of Directors instant visibility into the health of the entire business.
+</Info>
+
+## **Building the LAIKA Executive Dashboard**
+
+Our goal is to create a single screen that answers the most important questions: How is our sales pipeline performing? What is the status of our active projects? Are we hitting our revenue goals?
+
+```guidejar
+# Tutorial: The LAIKA Executive Dashboard
+
+## Section 1: Creating Your Dashboard
+
+1.  **Navigate to Dashboards**: In the main navigation bar of your workspace, find and click on the "Dashboards" item.
+2.  **Create a New Dashboard**: Click the "Create Dashboard" button. Let's name it `LAIKA - Executive Overview`.
+
+## Section 2: Adding Sales Performance Gadgets
+
+1.  **Add a Gadget**: On your new blank dashboard, click "Add Gadget".
+2.  **Create the Sales Pipeline Chart**:
+    - Select the "Chart" gadget.
+    - Configure it to use data from the `Sales & CRM` `📋 Function`.
+    - Set the `Object Type` to `🧊 Opportunity`.
+    - Choose a "Bar Chart" and set the "Group by" option to the "Status" field.
+    - This creates a real-time visualization of your sales funnel.
+    ![Configuring a bar chart gadget for the sales pipeline](https://path/to/sales-pipeline-chart.png)
+3.  **Create the Total Won Revenue Counter**:
+    - Add another gadget, this time selecting "Statistic".
+    - Configure it to show the **SUM** of the `Project Value` field.
+    - Add a filter to only include `🧊 Opportunities` where the `Status` is `WON`.
+    - This creates a single, powerful number showing total closed deals.
+
+## Section 3: Adding Project Delivery Gadgets
+
+1.  **Create the Project Status Chart**:
+    - Add a "Chart" gadget.
+    - Configure it to use data from the `Project Delivery` `📋 Function`.
+    - Set the `Object Type` to `🧊 Project`.
+    - Choose a "Pie Chart" and set the "Group by" option to the "Status" field (e.g., `PLANNING`, `DESIGN`, `CONSTRUCTION`).
+    ![Configuring a pie chart for project status overview](https://path/to/project-status-chart.png)
+2.  **Create the Active Projects List**:
+    - Add a "Data Table" gadget.
+    - Configure it to show a list of `🧊 Projects` from the `Project Delivery` `📋 Function`.
+    - Add a filter so that `Status` **is not** `COMPLETED`.
+    - Choose to display key columns like `Project Name`, `Client`, and `End Date`.
+
+## Section 4: Arranging and Sharing
+
+1.  **Arrange Your Dashboard**: Drag and drop the four gadgets you've created into a logical layout.
+2.  **Share with Leadership**:
+    - Click the "Share" button on your dashboard.
+    - Share it with the `Board of Directors` group we created earlier, giving them "View Only" access.
+````
+
+**Congratulations\! You've Built a Unified Operating System**
+
+You have now completed the entire LAIKA flagship playbook.
+
+You started with a business drowning in disconnected tools and manual processes. Following the Luklak Way methodology, you have architected and built a complete, end-to-end system that connects every part of the business, from the first marketing lead to the final project report.
+
+You have built the foundation, designed the core functions, and connected them with powerful automation. The result is a single source of truth that provides clarity, efficiency, and real-time insights.
+
+**What's Next?**
+
+Your journey as a Luklak architect is just beginning. Now that you've mastered a complete build, you can explore further:
+
+  - [Explore Other Solution Patterns](https://www.google.com/search?q=/build-playbooks/02-solution-patterns-library)
+  - [Master Advanced Building Techniques](https://www.google.com/search?q=/build-playbooks/03-advanced-techniques)
+  - [Learn How to Use Your New System (User Guides)](https://www.google.com/search?q=/04-user-guides)

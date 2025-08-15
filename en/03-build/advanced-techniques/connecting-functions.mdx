@@ -1,0 +1,62 @@
+---
+title: "Advanced Technique: Connecting Functions"
+description: "Learn the principles and methods for making separate Functions communicate, sharing data and triggering actions to create a truly unified, cross-departmental system."
+sidebarTitle: "Connecting Functions"
+---
+
+**Breaking Down the Silos**
+
+<Info>
+You have learned to build powerful, dedicated `📋 Functions` for different teams. But the true power of Luklak is unlocked when you make those `Functions` talk to each other. The goal is to eliminate the "digital gaps" between your departments.
+
+This guide teaches the two primary methods for connecting `Functions` and creating a single, seamless flow of information across your entire business: **Universal Automation** (for processes) and **Object Connections** (for data).
+</Info>
+
+## **The Core Problem: Functional Silos**
+
+Imagine you have a `Sales & CRM` `📋 Function` and a `Project Delivery` `📋 Function`. They are both perfectly designed for their respective teams, but they don't share information. When a deal is won, a project manager has to manually re-enter all the client data to start the project.
+
+This is a functional silo. Connecting your functions is how you solve it.
+
+## **Method 1: `Universal Automation` for Process Handoffs**
+
+`Universal Automation` is the nervous system of your workspace. You use it to listen for events in one `📋 Function` and trigger actions in another. This is the ideal method for managing **process handoffs**.
+
+<CardGroup cols={2}>
+  <Card title="Use Case: Sales to Projects" icon="arrow-right-arrow-left" iconType="duotone">
+    This is the classic handoff we built in the LAIKA case study. When an `🧊 Opportunity` is marked `WON` in the Sales `Function`, an automation instantly creates a new `🧊 Project` in the Project Delivery `Function`, copying over all relevant client data.
+  </Card>
+  <Card title="Use Case: HR to IT" icon="user-plus" iconType="duotone">
+    When a `🧊 New Hire` object is moved to the `ONBOARDING` status in an HR `Function`, an automation can create a "New Laptop Setup" `🧊 Task` in the IT Operations `Function`, automatically assigning it to the IT team.
+  </Card>
+</CardGroup>
+
+#### **How it Works**
+You build a rule with a trigger (e.g., "Object Transitioned") and an action (e.g., "Create Object"). The key is that when you configure the action, you can choose to create an `🧊 Object` in **any other `📋 Function` in your workspace**. You then use **Smart Values** (e.g., `{{triggerObject.fieldName}}`) to map data from the source object to the new object.
+
+## **Method 2: `Object Connections` for Data Visibility**
+
+`Object Connections` are used to create a permanent **relationship** between `🧊 Objects`, even if they live in different `📋 Functions`. This is the ideal method for providing lasting **data visibility** without duplicating information.
+
+<CardGroup cols={2}>
+  <Card title="Use Case: Central Client Record" icon="address-book" iconType="duotone">
+    A `🧊 Client` object lives in your main CRM `Function`. Multiple `🧊 Projects` (in Project Delivery), `🧊 Invoices` (in Finance), and `🧊 Support Tickets` (in Helpdesk) can all link back to that single client record, providing a true 360-degree view.
+  </Card>
+  <Card title="Use Case: Product Catalog" icon="tags" iconType="duotone">
+    A `Product Catalog` `Function` can contain all your `🧊 Product` objects. Your Sales team, working in the CRM `Function`, can then link their `🧊 Opportunities` to the specific products a client is interested in, pulling in real-time pricing and SKU data.
+  </Card>
+</CardGroup>
+
+#### **How it Works**
+You add a field of the type "Object Connection" to an `🧊 Object`. In the field's configuration, you can point it to an `Object` from any other `📋 Function`. Once linked, you can use "Data Table" gadgets on an object's screen to display a live, filterable list of all its connected objects from across the workspace.
+
+## **When to Use Which Method**
+
+- **Use `Universal Automation` when:** You need to react to an **event** and trigger a **process**. It is action-oriented ("When this happens, *do* that.").
+- **Use `Object Connections` when:** You need to establish a permanent **relationship** and provide lasting **visibility**. It is data-oriented ("For this object, *show me* all related items.").
+
+**What's Next?**
+
+Now that you understand how to connect your functions into a cohesive system, it's time to think about scale. The next guide covers the best practices for ensuring your solutions remain fast and efficient as your business grows.
+
+- [Next: Performance & Optimization](/build-playbooks/03-advanced-techniques/performance-optimization)
