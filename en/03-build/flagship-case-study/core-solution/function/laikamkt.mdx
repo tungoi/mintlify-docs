@@ -1,0 +1,92 @@
+---
+title: "Blueprint: LAIKA Marketing Function"
+description: "The complete and unabridged technical blueprint for the LAIKA Marketing Function, detailing object models, workflows, dashboards, and key automations."
+sidebarTitle: "Blueprint: LAIKA Marketing"
+---
+
+<Info>
+This document is the complete technical blueprint for the **LAIKA Marketing `📋 Function`**. It contains the unabridged design specifications, intended for Solution Architects (P2) and System Builders (P3) who need a deep understanding of the function's architecture.
+</Info>
+
+## **1. Objective (Mục tiêu)**
+
+To manage and measure the effectiveness of marketing campaigns, from ad creation to lead capture and source analysis, with a specific focus on the interior design & construction industry.
+
+---
+
+## **2. Entities & Relationships (Thực thể & Quan hệ)**
+
+The data model is designed as a three-level hierarchy to accurately represent the structure of modern marketing campaigns.
+
+| Entity | Analogy (We Mean...) | Role in the System | Key Connections |
+| :--- | :--- | :--- | :--- |
+| **`🧊 Campaign`** | The **Strategy** | The top-level `Standard Object` for a major marketing initiative (e.g., "Summer 2025 Launch"). | Contains multiple `Ad Sets`. |
+| **`🧊 Ad Set`** | The **Targeting** | A `Sub-Object` used to group ads by a common theme or audience (e.g., "Facebook Ads - Age 25-35"). | Belongs to one `Campaign`; contains multiple `Ads`. |
+| **`🧊 Ad`** | The **Creative** | The most granular `Sub-Object`; the specific ad creative that a potential customer interacts with. | Belongs to one `Ad Set`; connects to a `Customer` in the CRM `Function`. |
+
+**Cross-Function Connection:** An `Ad` `Object` is linked to the `Customer` `Object` it generates in the **Sales CRM Function**, providing a direct, measurable line from marketing spend to the sales pipeline.
+
+---
+
+## **3. Main Operational Flow (Luồng vận hành chính)**
+
+This is the standard, end-to-end process for using the Marketing Function from campaign creation to analysis.
+
+<CardGroup cols={4}>
+  <Card title="Step 1: Campaign Creation" icon="flag-pennant" iconType="duotone">
+    A new `Campaign` `Object` is created for each new marketing initiative.
+  </Card>
+  <Card title="Step 2: Ad Setup" icon="image" iconType="duotone">
+    `Ad Set` and `Ad` `Sub-Objects` are created within the campaign, with specific budgets and creative assets attached.
+  </Card>
+  <Card title="Step 3: Lead Generation" icon="webhook" iconType="duotone">
+    A lead submits a form via a link from an `Ad`, triggering a webhook that creates a `Customer` in the CRM and links it back to the source `Ad`.
+  </Card>
+  <Card title="Step 4: Performance Analysis" icon="chart-line-up" iconType="duotone">
+    Marketers use the dashboards to monitor the performance of each `Campaign`, `Ad Set`, and `Ad` based on lead data.
+  </Card>
+</CardGroup>
+
+---
+
+## **4. Reports & Analytics (Báo cáo & Phân tích)**
+
+The function includes three pre-configured dashboards for real-time, actionable insights.
+
+<CardGroup cols={3}>
+  <Card title="Marketing Campaign Dashboard" icon="chart-pie-simple" iconType="duotone">
+    Provides a high-level overview of all active campaigns, their total budgets, and overall lead generation numbers.
+  </Card>
+  <Card title="Ad Performance Dashboard" icon="chart-mixed" iconType="duotone">
+    Offers a detailed breakdown of individual ad performance, showing key metrics like Cost Per Lead (CPL).
+  </Card>
+  <Card title="Lead Source Effectiveness" icon="bullseye-arrow" iconType="duotone">
+    Analyzes which channels generate the most valuable customers by cross-referencing data with the Sales CRM.
+  </Card>
+</CardGroup>
+
+---
+
+## **5. Key Automations (Tự động hóa chính)**
+
+These automations are the core of the function, designed to eliminate manual tasks and ensure perfect data integrity.
+
+<CardGroup cols={1}>
+    <Card title="Automation 1: Automatic UTM Generation" icon="link" iconType="duotone">
+        **Trigger:** When a new `Ad` `Object` is created.
+        <br/>
+        **Action:** The system automatically generates a unique tracking URL (UTM link) and populates it into the "UTM Tracking Link" `Data Field` on the `Ad` `Object`.
+        <br/>
+        **Purpose:** Ensures all traffic from every ad is properly attributed without manual link creation.
+    </Card>
+    <Card title="Automation 2: Automatic Lead Creation & Connection" icon="user-plus" iconType="duotone">
+        **Trigger:** When an **Incoming Webhook** is received from an external lead capture form.
+        <br/>
+        **Actions:** 
+        <ol>
+            <li>**Create Object:** A new `Customer` `Object` is created in the `Sales CRM` `Function`, mapping form data (name, email, etc.) to the `Customer`'s fields.</li>
+            <li>**Connect Objects:** The system establishes a connection between the newly created `Customer` and the source `Ad` `Object` (identified via the UTM in the webhook payload).</li>
+        </ol>
+        **Purpose:** Creates a seamless, real-time link between a marketing action and a sales-ready lead, providing a true end-to-end view of the funnel.
+    </Card>
+</CardGroup>

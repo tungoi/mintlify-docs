@@ -1,0 +1,256 @@
+---
+title: "LAIKA INTERIOR DESIGN FUNCTION"
+---
+
+## **OVERVIEW**
+
+<CardGroup cols={3}>
+  <Card title="Purpose" icon="bullseye-arrow" iconType="duotone">
+    To manage the interior design process from the receipt of site survey information to the final completion and handover of the design to the client, ensuring quality and adherence to project timelines.
+  </Card>
+  <Card title="Business Logic" icon="diagram-project" iconType="duotone">
+    The design system is triggered by the results of a site survey, flowing through a visual Kanban process with distinct stages: Concept → 3D → 2D → Revisions. Each stage requires a quality review before advancing, including a special Sales Review to ensure alignment with client requirements before submission.
+  </Card>
+  <Card title="Business Impact" icon="chart-line-up" iconType="duotone">
+    Ensures consistent design quality, reduces client response times, and increases design acceptance rates through a thorough review process and automated client communication.
+  </Card>
+</CardGroup>
+
+## **FUNCTIONALITY**
+
+<Tabs>
+  <Tab title="Object Types & Workflow">
+    | Level                   | Name               | Short Description                                                  |
+    | :---------------------- | :----------------- | :----------------------------------------------------------------- |
+    | Standard                | **`🧊 Design`**    | Manages the entire interior design process for a specific project. |
+    | Sub-Object of: _Design_ | **`🧊︎ Concept`**  | For developing initial ideas and design sketches.                  |
+    | Sub-Object of: _Design_ | **`🧊︎ 3D`**       | For creating detailed three-dimensional space models.              |
+    | Sub-Object of: _Design_ | **`🧊︎ 2D`**       | For finalizing technical drawings and construction details.        |
+    | Sub-Object of: _Design_ | **`🧊︎ Revision`** | For adjusting the design based on client feedback.                 |
+  </Tab>
+  <Tab title="Object Type Relationships">
+    | Relationship     | Connection Type   | Description                                                    |
+    | :--------------- | :---------------- | :------------------------------------------------------------- |
+    | Design - Concept | Object Connection | The Concept is the first stage of the design process.          |
+    | Design - 3D      | Object Connection | 3D development begins once the Concept is approved.            |
+    | Design - 2D      | Object Connection | 2D technical drawings are created from the completed 3D model. |
+  </Tab>
+  <Tab title="Roles">
+    | Role               | Description                                                                             | Permissions & Notifications                                                                                                                                                     |
+    | :----------------- | :-------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+    | **Lead Designer**  | The head designer, responsible for the concept and coordinating the team.               | **Permissions**: Full control over the design process; can create and update all stages. **Notifications**: Receives alerts for completed site surveys and new client feedback. |
+    | **3D Designer**    | A specialist who creates 3D visualizations.                                             | **Permissions**: Can update the 3D stage and view concept information. **Notifications**: Receives an alert when a Concept is complete.                                         |
+    | **2D Designer**    | A specialist who finalizes technical drawings.                                          | **Permissions**: Can update the 2D stage and view 3D information. **Notifications**: Receives an alert when a 3D model is complete.                                             |
+    | **Sales Reviewer** | A sales team member who reviews the design for quality before sending it to the client. | **Permissions**: Can view and approve designs at all stages. **Notifications**: Is tagged when a review is needed.                                                              |
+  </Tab>
+</Tabs>
+
+### **Object Types & Processes (Loại việc & Nghiệp vụ)**
+
+This section details the specific business logic, workflows, statuses, and data fields for each Object Type within the Interior Design Function.
+
+<Tabs>
+  <Tab title="🧊 Design (Standard Object)">
+    <Info>
+      The primary `Object` that manages the entire interior design process for a single client, from receiving the initial site survey to handing over the final, approved design.
+      \
+      **Examples:** "Design - Hoài An - Scandinavian Simplicity", "Design - Ms. Riviera - Modern Naturalism" for a villa project with a green concept.
+    </Info>
+    **Workflow (Luồng tiến trình):**
+    `NEW` → `DRAFTING` → `SALES REVIEW` → `CLIENT SUBMISSION` → `COMPLETED`
+    \
+     └── `REVISIONS` → `SALES REVIEW`
+
+    **Status Details (Chi tiết các Trạng thái):**
+
+    | Status                   | Business Process                                                                            | Advanced Settings                                                                                                                                     |
+    | :----------------------- | :------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | 1. **NEW**               | The Lead Designer receives information from the site survey and begins planning the design. | **Permissions:** `Lead Designer`. <br />**Conditions:** Site survey information must be complete.                                                     |
+    | 2. **DRAFTING**          | The initial concept is completed with a vision statement and style description.             | **Input Fields:** `Vision Statement`, `Design Style`, `Concept Description`. <br />**Automation:** Creates the 4 standard professional `Sub-Objects`. |
+    | 3. **SALES REVIEW**      | The Sales team reviews and provides feedback on the design before it is sent to the client. | **Permissions:** `Sales Reviewer`. <br />**Automation:** Sends a chat `@mention` to the sales team for review.                                        |
+    | 4. **CLIENT SUBMISSION** | An email with the design is automatically sent to the client using smart values.            | **Automation:** Sends a concept email with personalized information.                                                                                  |
+    | 5. **COMPLETED**         | The client has approved the design and the process concludes.                               | **Conditions:** Must have positive feedback from the client.                                                                                          |
+    | 6. **REVISIONS**         | The design is adjusted according to the client's requests.                                  | **Input Fields:** `Revision details` based on client feedback.                                                                                        |
+
+    **Data Field Screen (Màn hình trường dữ liệu):**
+
+    | Information Group                    | Data Fields                                                                                                                                                                      | Notes                                              |
+    | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------- |
+    | **Project Information** _(5 fields)_ | `Client Name` (Text), `Phone Number` (Phone), `Project Address` (Text Area), `Design Start Date` (Date), `Completion Deadline` (Date)                                            | Basic project and timeline information.            |
+    | **Design Information** _(6 fields)_  | `Design Style` (Text), `Vision Statement` (Text Area), `Primary Materials` (Text Area), `Main Color Palette` (Text), `Lighting Concept` (Text Area), `Special Notes` (Text Area) | Details about the concept and design requirements. |
+    | **Project Links** _(3 fields)_       | `Related Site Survey` (Object Field), `Main Project` (Object Field), `Lead Designer` (User Field)                                                                                | References to related Objects and stakeholders.    |
+
+    _Total Fields: 14_
+  </Tab>
+  <Tab title="🧊︎ Concept">
+    <Info>
+      The first step in the design process. This `Sub-Object` is for developing the initial design idea, creating sketches, and describing the overall concept for the project.
+      \
+      **Examples:** "Concept - Hoài An - Scandinavian Simplicity" describing natural oak, cotton/linen fabrics, and silk paintings. "Concept - Ms. Riviera - Naturalism" with a green concept and natural lighting.
+    </Info>
+    **Workflow (Luồng tiến trình):**
+    `PREPARATION` → `DEVELOPMENT` → `COMPLETED`
+
+    **Status Details (Chi tiết các Trạng thái):**
+
+    | Status             | Business Process                                                                     | Advanced Settings                                                         |
+    | :----------------- | :----------------------------------------------------------------------------------- | :------------------------------------------------------------------------ |
+    | 1. **PREPARATION** | The designer studies the site survey and client requirements.                        | **Permissions:** `Lead Designer`.                                         |
+    | 2. **DEVELOPMENT** | A detailed concept is created with descriptions for materials, colors, and lighting. | **Input Fields:** `Concept description`, `Material list`, `Color scheme`. |
+    | 3. **COMPLETED**   | The concept is finalized and ready to proceed to 3D development.                     | **Automation:** Notifies the 3D team to begin work.                       |
+
+    **Data Field Screen (Màn hình trường dữ liệu):**
+    `Concept Description` (Text Area), `Material Details` (Text Area), `Color Palette` (Text), `Style References` (Text Area), `Special Notes` (Text Area)
+  </Tab>
+  <Tab title="🧊︎ 3D">
+    <Info>
+      This `Sub-Object` is for creating a detailed 3D spatial model from the approved concept, allowing the client to easily visualize the final space.
+      \
+      **Examples:** A 3D model of a Scandinavian living room with oak wood and natural light from large windows. Detailed rendering of furniture layout in a modern style.
+    </Info>
+    **Workflow (Luồng tiến trình):**
+    `MODELING` → `TEXTURING` → `RENDERING` → `COMPLETED`
+
+    **Status Details (Chi tiết các Trạng thái):**
+
+    | Status           | Business Process                                           | Advanced Settings                                                 |
+    | :--------------- | :--------------------------------------------------------- | :---------------------------------------------------------------- |
+    | 1. **MODELING**  | Creating the basic 3D model of the space and furniture.    | **Permissions:** `3D Designer`.                                   |
+    | 2. **TEXTURING** | Applying materials and textures according to the concept.  | **Input Fields:** `Texture details`, `Material specifications`.   |
+    | 3. **RENDERING** | Creating high-quality rendered images for presentation.    | **Input Fields:** `Render settings`, `Camera angles`.             |
+    | 4. **COMPLETED** | The 3D model is finalized, ready for 2D technical drawing. | **Automation:** Notifies the 2D team to begin technical drawings. |
+
+    **Data Field Screen (Màn hình trường dữ liệu):**
+    `Model Details` (Text Area), `Render Quality` (Single Select), `Camera Views` (Text Area), `Lighting Setup` (Text Area)
+  </Tab>
+  <Tab title="🧊︎ 2D">
+    <Info>
+      This `Sub-Object` is for finalizing detailed 2D technical drawings from the 3D model, creating precise plans for construction with exact dimensions and specifications.
+      \
+      **Examples:** Floor plans, section drawings, and technical details for the Scandinavian living room with precise measurements. Material specifications and construction notes.
+    </Info>
+    **Workflow (Luồng tiến trình):**
+    `LAYOUT` → `TECHNICAL DRAWING` → `FINALIZATION` → `COMPLETED`
+
+    **Status Details (Chi tiết các Trạng thái):**
+
+    | Status                   | Business Process                                             | Advanced Settings                                             |
+    | :----------------------- | :----------------------------------------------------------- | :------------------------------------------------------------ |
+    | 1. **LAYOUT**            | Creating the overall layout and arrangement diagrams.        | **Permissions:** `2D Designer`.                               |
+    | 2. **TECHNICAL DRAWING** | Detailing technical aspects, dimensions, and specifications. | **Input Fields:** `Technical specifications`, `Measurements`. |
+    | 3. **FINALIZATION**      | Completing and quality-checking the drawings.                | **Input Fields:** `Quality check notes`.                      |
+    | 4. **COMPLETED**         | The 2D drawings are finalized and ready for construction.    | **Conditions:** Must have approval from the Lead Designer.    |
+
+    **Data Field Screen (Màn hình trường dữ liệu):**
+    `Drawing Details` (Text Area), `Technical Specs` (Text Area), `Measurements` (Text Area), `Construction Notes` (Text Area)
+  </Tab>
+  <Tab title="🧊︎ Revision">
+    <Info>
+      This `Sub-Object` is for making adjustments and revisions to the design based on client feedback, ensuring the final design perfectly meets their expectations.
+      \
+      **Examples:** Changing the wood color from oak to walnut per client Hoài An's request. Adjusting the kitchen layout based on feedback about usable space.
+    </Info>
+    **Workflow (Luồng tiến trình):**
+    `RECEIVED` → `ADJUSTING` → `COMPLETED`
+
+    **Status Details (Chi tiết các Trạng thái):**
+
+    | Status           | Business Process                                             | Advanced Settings                                                                     |
+    | :--------------- | :----------------------------------------------------------- | :------------------------------------------------------------------------------------ |
+    | 1. **RECEIVED**  | Receiving and analyzing feedback from the client.            | **Permissions:** `Lead Designer`.                                                     |
+    | 2. **ADJUSTING** | Implementing the requested changes.                          | **Input Fields:** `Revision details`, `Reason for change`.                            |
+    | 3. **COMPLETED** | Revisions are finished, ready to be sent back to the client. | **Automation:** Updates the main design `Object` and sends a completion notification. |
+
+    **Data Field Screen (Màn hình trường dữ liệu):**
+    `Feedback Content` (Text Area), `Changes Made` (Text Area), `Revision Notes` (Text Area), `Completion Status` (Checkbox)
+  </Tab>
+</Tabs>
+
+### **Relationships & References between Object Types (Mối quan hệ & tham chiếu giữa các Loại việc)**
+
+This section defines the three ways `Object Types` in the Design Function connect with each other and with other functions: hierarchical parent-child links, peer-to-peer connections, and specific field-level references.
+
+<Tabs>
+<Tab title="Parent-Child Relationships">
+<p>This defines the hierarchical structure where creative deliverables are nested under a main `Design` Object.</p>
+
+| Parent-Child Relationship | Description |
+| :--- | :--- |
+| `Design` => `Concept` | The Concept is the first stage of the overall design process. |
+| `Design` => `3D` | 3D development begins after the Concept is completed. |
+| `Design` => `2D` | 2D technical drawings are derived from the 3D model. |
+| `Design` => `Revision` | Revisions and adjustments are based on client feedback. |
+
+</Tab>
+<Tab title="Object Connections">
+<p>These are direct, peer-to-peer connections that link the `Design` Function to other key business functions.</p>
+
+| Connection Type | Description |
+| :--- | :--- |
+| **Design Support:** `Design` <=> `Site Survey` | The `Design` Object receives critical information from the results of a completed `Site Survey` Object. |
+| **Design Collaboration:** `Design` <=> `Project` | The `Design` Object is a key component of the overall `Project` management process. |
+
+</Tab>
+<Tab title="Object Fields">
+<p>These are specific `Data Fields` that allow users to link individual `Objects` together, with filtering conditions to ensure data accuracy.</p>
+
+| Field | Reference Details | Description |
+| :--- | :--- | :--- |
+| _Design_ / **Related Survey** | **References:** `Site Survey` Object <br/> **Displays Fields:** `Type`, `Location`, `Survey Results` <br/> **Filter Condition:** `Status = "COMPLETED"` | References the completed site survey to pull in key information for the design process. |
+| _Design_ / **Main Project** | **References:** `Project` Object <br/> **Displays Fields:** `Project Name`, `Client`, `Timeline` <br/> **Filter Condition:** `Status != "CANCELLED"` | Links the design work to the main project for overall progress tracking. |
+
+</Tab>
+</Tabs>
+
+### **Reports & Analytics (Báo cáo & Phân tích)**
+
+The function includes two pre-configured dashboards for real-time visibility into the design process and team workload.
+
+<CardGroup cols={2}>
+  <Card title="Design Phase Dashboard" icon="chart-pie-simple" iconType="duotone">
+    Provides a project-level view of the design process, showing the status of all creative `Sub-Objects` (`Concept`, `2D`, `3D`, etc.) for a given project in one place.
+  </Card>
+  <Card title="Designer Workload Report" icon="person-digging" iconType="duotone">
+    A report that shows how many deliverables each `Designer` is actively working on, helping managers balance workload and prevent bottlenecks.
+  </Card>
+</CardGroup>
+
+### **Key Automations (Tự động hóa chính)**
+
+These automations are crucial for maintaining process consistency and reducing administrative overhead.
+
+<CardGroup cols={1}>
+  <Card title="Automation 1: Standard Deliverable Creation" icon="layer-group" iconType="duotone">
+    **Trigger:** When a new `Design` `Object` is created.
+
+    <br />
+
+    **Action:** Automatically create the four standard `Sub-Objects` (`Concept`, `2D Drawing`, `3D Render`, `Material Board`) and link them to the parent `Design` `Object`.
+
+    <br />
+
+    **Purpose:** Ensures every project starts with the same consistent set of required deliverables, eliminating manual setup.
+  </Card>
+  <Card title="Automation 2: Automatic Review Assignment" icon="user-magnifying-glass" iconType="duotone">
+    **Trigger:** When a `Sub-Object`'s status is changed to `INTERNAL REVIEW`.
+
+    <br />
+
+    **Action:** Automatically assign the Manager of the user in the `Designer` field as a follower and @mention them in a comment to begin the review.
+
+    <br />
+
+    **Purpose:** Streamlines the internal review process and ensures managers are immediately notified when their input is required.
+  </Card>
+  <Card title="Automation 3: Automated Client Notification" icon="paper-plane" iconType="duotone">
+    **Trigger:** When a `Sub-Object`'s status is changed to `AWAITING CLIENT FEEDBACK`.
+
+    <br />
+
+    **Action:** The system sends a pre-formatted email to the client, including a secure link to view the file in the `Presentation File` field.
+
+    <br />
+
+    **Purpose:** Standardizes client communication and reduces the time designers spend writing emails.
+  </Card>
+</CardGroup>

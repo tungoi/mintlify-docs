@@ -1,0 +1,122 @@
+---
+title: "Function Template: Sales CRM for Interior Design"
+description: "A specialized CRM for project-based businesses like interior design. Manage clients, track opportunities through a visual pipeline, and log every touchpoint from first call to final proposal."
+sidebarTitle: "LAIKA Sales CRM"
+---
+
+**From First Call to 'Closed-Won': A CRM Tailored for Interior Design**
+
+<Info>
+  This `📋 Function` template provides a complete Customer Relationship Management (CRM) system specifically for project-based businesses like architecture and interior design. It focuses on managing long sales cycles with multiple client touchpoints and ensures a perfect, automated handoff from the sales team to the project delivery team.
+</Info>
+
+**Why This Template Matters**
+For an interior design business, a deal isn't just a transaction; it's a journey. This CRM is designed to manage that journey. It tracks every interaction—from the initial phone call to the critical site survey—as a distinct `Touchpoint`. This ensures that when a deal is won, your design and project teams receive a rich, detailed history of the client's needs, not just a name and a number.
+
+**Key Outcomes You'll Achieve:**
+
+- **Visualize Your Sales Pipeline:** Track every potential project (`Opportunity`) as it moves through a pre-configured, 5-stage visual pipeline from `Prospecting` to `Closed-Won`.
+- **Log Every Client Interaction:** Record every call, email, meeting, and site survey as a `Touchpoint` `Sub-Object`, ensuring no detail is lost.
+- **Automated Lead Assignment:** Automatically assign new leads to your sales team with a round-robin system to ensure fast follow-up.
+- **Never Miss a Follow-Up:** Receive automatic alerts for deals that have stalled, prompting you to re-engage and maintain momentum.
+- **Seamless Project Handoff:** The moment an `Opportunity` is won, an automation instantly creates a new `Project` for your delivery team, transferring all critical data.
+
+<Frame>
+  ![](/images/laika-crm-opportunity-pipeline.png)
+
+  The pre-configured Kanban view shows each Opportunity in its current sales stage.
+</Frame>
+
+---
+
+## **Architectural Blueprint**
+
+This template is built on a proven, AI-generated design that ensures scalability and efficiency for the interior design sales process. Below are its core technical components.
+
+<Tabs>
+  <Tab title="Entities & Relationships (Object Types)">
+    <p>
+    Objective: To establish a clear data model for managing clients, potential projects (Opportunities), and all related interactions (Touchpoints).</p>
+
+    <ul>
+    <li>
+    🧊 Khách hàng (Customer) [Standard Object]: The central entity for storing information about individuals or organizations. It acts as the primary record for all contact details and history.</li>
+
+    
+    <li>
+    🧊 Cơ hội (Opportunity) [Standard Object]: Represents a potential design and build project. It contains the deal's value, sales stage, and is always linked to a Customer.</li>
+
+    
+    <li>
+    🧊 Điểm chạm (Touchpoint) [Sub-Object]: A child Object of an Opportunity. It is used to log every specific interaction, such as a phone call, a concept presentation, or a site survey, creating a detailed timeline of the sales process.</li>
+
+    </ul>
+  </Tab>
+  <Tab title="Operational Flow (Workflow)">
+    <p>
+    Objective: To guide a potential project (Opportunity) through a standardized sales funnel, ensuring consistent process and accurate forecasting.</p>
+
+    
+    **Opportunity Object Workflow:**
+    `Prospecting` → `Qualification` → `Proposal/Design` → `Negotiation` → `Closed-Won` / `Closed-Lost`.
+
+    - Each stage is a distinct step in the sales cycle. The `Proposal/Design` stage is critical for interior design firms and is explicitly included.
+  </Tab>
+  <Tab title="Key Automations">
+    <p>
+    Objective: To eliminate manual tasks, ensure data integrity, and accelerate the sales cycle from lead to project handoff.</p>
+
+    <ul>
+    <li>
+    Lead Assignment: Automatically assigns new Customer Objects (in "Lead" state) to sales reps using a round-robin mechanism.</li>
+
+    
+    <li>
+    Stale Opportunity Alert: If an Opportunity has no new Touchpoint logged for 14 days, an alert is automatically sent to the Sales Manager.</li>
+
+    
+    <li>
+    Project Creation on "Closed-Won": When an Opportunity status changes to Closed-Won, this automation automatically creates a new Project Object in the Project Management Function and links it to the Customer.</li>
+
+    </ul>
+  </Tab>
+</Tabs>
+
+---
+
+## **Quick Start Guide**
+
+Deploy and configure this `Function` in your business in under 5 minutes.
+
+**Prerequisites:**
+
+- You must have `Admin` or `Manager` privileges for your Business.
+
+```guidejar
+# Deploying the LAIKA Sales CRM Function
+
+## 1. Import the Function Blueprint
+! Important: You must import the Function file before you can create a workspace from it.
+
+1. Navigate to "Business Settings" -> "Functions".
+![Navigating to the function import screen](path/to/image1.png)
+2. Click "Import Function" and upload the provided `LAIKA-Sales-CRM.json` file.
+
+## 2. Create Your Sales Workspace (Space)
+1. Navigate to the `📂 Area` where you want your sales team to operate.
+2. Click "+ Add Space" and choose "Create from my Functions".
+![Creating a space from a function](path/to/image2.png)
+3. Select the newly imported "LAIKA Sales CRM" Function and give your `⏹️ Space` a name, like "Sales Hub".
+
+## 3. Assign Your Team to Roles
+1. In your new "Sales Hub" `⏹️ Space`, go to `Space Settings` -> `Roles`.
+![Navigating to space roles settings](path/to/image3.png)
+2. Assign your team members to the "Sales Team Member" role and managers to the "Sales Manager" role. This activates all the pre-configured permissions.
+* Tip: This is the most critical step to ensure your team can see and interact with their deals correctly.
+```
+
+**What's Next?**
+
+- **See the Big Picture:** Learn how this CRM function connects to other departments in the full [**LAIKA OS Solution Template**](https://www.google.com/search?q=/05-templates/solutions/laika-os-solution).
+- **Connect the Next Step:** Explore the [**Project Management Function Template**](https://www.google.com/search?q=/05-templates/functions/project-management-function), the direct downstream connection for a "Closed-Won" deal.
+- **Train Your Team:** Share the [**User Guide for Sales Teams**](https://www.google.com/search?q=/04-user-guides/guides-for-sales-teams/managing-your-sales-pipeline-in-kanban) to get them started.
