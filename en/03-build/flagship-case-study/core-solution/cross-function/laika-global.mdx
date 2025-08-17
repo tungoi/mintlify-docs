@@ -1,0 +1,107 @@
+---
+title: "LAIKA - GLOBAL CONFIGURATION BLUEPRINT"
+---
+
+<Info>
+  This document serves as the architectural blueprint for the entire global-level configuration of the Luklak system for LAIKA. It is the single source of truth for all cross-functional relationships, reporting structures, and automations.
+</Info>
+
+### **PART 1: STRUCTURE, NAVIGATION & REPORTING**
+
+#### **1.1. Unified Organizational Structure**
+
+This diagram details the complete hierarchical structure of Areas, Spaces, Functions, and Object Types for LAIKA.
+
+```
+LAIKA (Organization)
+│
+├── 📂 MARKETING (Area)
+│   └── ⏹️ Marketing Campaigns (Space)
+│       └── 📋 Function: Marketing Campaigns
+│           ├── 🧊 Campaign
+│           │   └── 🧊︎ Ad (Sub-Object)
+│           ├── 🧊 Event
+│           └── 🧊 Content Production
+│
+├── 📂 SALES (Area)
+│   └── ⏹️ Sales & CRM (Space)
+│       └── 📋 Function: CRM
+│           ├── 🧊 Customer
+│           │   └── 🧊︎ Demo (Sub-Object)
+│           └── 🧊 Deal
+│               └── 🧊︎ Proposal (Sub-Object)
+│
+├── 📂 ACCOUNTING (Area)
+│   └── ⏹️ Contracts & Receipts (Space)
+│       └── 📋 Function: Accounting
+│           ├── 🧊 Contract
+│           └── 🧊 Receipt
+│
+├── 📂 PROJECT DELIVERY (Area)
+│   ├── ⏹️ Project Management (Space)
+│   │   └── 📋 Function: Project Management
+│   │       ├── 🧊 Project
+│   │       │   ├── 🧊︎ Design (Sub-Object)
+│   │       │   ├── 🧊︎ Construction (Sub-Object)
+│   │       │   └── 🧊︎ Acceptance (Sub-Object)
+│   │       └── 🧊 Task
+│   └── ⏹️ Field Operations (Space)
+│       └── 📋 Function: Field Operations
+│           └── 🧊 Site Survey
+│
+├── 📂 CUSTOMER SUCCESS (Area)
+│   └── ⏹️ Customer Care (Space)
+│       └── 📋 Function: Customer Care
+│           └── 🧊 Customer Care
+│
+└── 📂 HUMAN RESOURCES (Area)
+    └── ⏹️ HR Operations (Space)
+        └── 📋 Function: HR Management
+            ├── 🧊 Employee
+            └── 🧊 Request
+```
+
+### **PART 2: OBJECT CONNECTIONS**
+
+This section defines the critical relationships between different Object Types across the entire system, enabling a 360-degree view of operations.
+
+| Source Object Type    | Relationship Type | Destination Object Type | Description & Purpose                                                                          |
+| :-------------------- | :---------------- | :---------------------- | :--------------------------------------------------------------------------------------------- |
+| `CRM.Customer`        | One-to-Many       | `CRM.Deal`              | Connects a Customer to their active Deals, providing a complete sales funnel view.             |
+| `CRM.Deal`            | One-to-One        | `Accounting.Contract`   | Links a closed-won Deal to its corresponding legal Contract for financial tracking.            |
+| `Accounting.Contract` | One-to-One        | `Project.Project`       | Associates a signed Contract with the Project to be delivered, ensuring seamless handover.     |
+| `Project.Project`     | One-to-Many       | `Project.Task`          | Breaks down a master Project into actionable Tasks for team members.                           |
+| `Project.Project`     | One-to-One        | `CS.Customer Care`      | Connects a completed Project to a post-delivery customer care cycle for support and retention. |
+| `CRM.Customer`        | One-to-Many       | `Project.Project`       | Provides a complete history of all projects delivered for a specific Customer.                 |
+
+### **PART 3: GLOBAL AUTOMATIONS**
+
+These automation rules operate across different `⏹️ Spaces` and `📋 Functions` to ensure a smooth, uninterrupted flow of information and value.
+
+| ID        | Rule Name                                 | Trigger                                                                    | Action                            | Logic Description                                                                                                       |
+| :-------- | :---------------------------------------- | :------------------------------------------------------------------------- | :-------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
+| **CF-01** | Deal Won → Create Contract                | **Status Change**: `CRM.Deal` / Status "CONTRACT SIGNED"                   | **Create**: `Accounting.Contract` | Automatically generates a Contract Object and links it to the source Deal when a sale is successfully closed.           |
+| **CF-02** | Contract Signed → Create Project          | **Status Change**: `Accounting.Contract` / Status "SIGNED"                 | **Create**: `Project.Project`     | Kicks off the delivery process by automatically creating a Project Object once the customer signs the contract.         |
+| **CF-03** | Project Complete → Initiate Customer Care | **Status Change**: `Project.Project` / Status "COMPLETED"                  | **Create**: `CS.Customer Care`    | Ensures a smooth handover to the support team by creating a customer care cycle as soon as a project is finished.       |
+| **CF-08** | Calculate Project Profit Margin           | **Update**: `Project.Project` / Fields "Total Revenue" OR "Total Cost"     | **Update**: `Project.Project`     | Instantly calculates and updates the "Profit Margin" field on the Project whenever revenue or cost figures are changed. |
+| **CF-11** | Calculate Customer Lifetime Value (LTV)   | **Status Change**: `Project.Project` / Status "COMPLETED"                  | **Update**: `CRM.Customer`        | Automatically calculates and updates the voucher value on the original `Customer` Object.                               |
+| **CF-13** | Periodic Care & Voucher Dispatch          | **Background Rule**: Scheduled (runs every 2 months) on `CS.Customer Care` | **Send**: Email to Customer       | Automatically sends a follow-up email, potentially including a discount voucher stored on the `CRM.Customer` Object.    |
+
+### **PART 4: USER & ACCESS MANAGEMENT**
+
+#### **4.1. Global Roles**
+
+| Role Name               | Description & Responsibilities                                                     |
+| :---------------------- | :--------------------------------------------------------------------------------- |
+| **Marketing Manager**   | Manages campaigns, advertising budgets, and overall marketing performance.         |
+| **Sales Executive**     | Nurtures and advises customers, responsible for closing deals.                     |
+| **Project Manager**     | Coordinates the entire project lifecycle, ensuring on-time, high-quality delivery. |
+| **Design Lead**         | Responsible for the quality and creative direction of all design work.             |
+| **Site Supervisor**     | Oversees all survey and construction activities on-site.                           |
+| **Accountant**          | Manages contracts, accounts payable/receivable, and financial matters.             |
+| **Customer Care Agent** | Provides post-project support and manages customer relationships.                  |
+
+#### **4.2. Global Permission Scheme**
+
+- **Default Implementation**: The system will utilize Luklak's standard, out-of-the-box Permission & Notification scheme as the default setting.
+- **Note**: More granular permission adjustments will be configured at the `📋 Function` and `⏹️ Space` levels to meet specific team requirements.

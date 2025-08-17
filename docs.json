@@ -297,6 +297,7 @@
                {
             "group": "Build",
             "pages": [
+              "en/03-build/flagship-case-study/core-solution/cross-function/laika-global",
               "en/03-build/flagship-case-study/core-solution/function/building-laika-crm",
               "en/03-build/flagship-case-study/core-solution/function/product-delivery"
           
