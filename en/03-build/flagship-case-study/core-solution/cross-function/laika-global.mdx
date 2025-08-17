@@ -78,6 +78,10 @@ This section defines the critical relationships between different Object Types a
 
 These automation rules operate across different `⏹️ Spaces` and `📋 Functions` to ensure a smooth, uninterrupted flow of information and value.
 
+<Frame>
+  ![laika-sequence-level1-en.png](/images/laika-sequence-level1-en.png)
+</Frame>
+
 | ID        | Rule Name                                 | Trigger                                                                    | Action                            | Logic Description                                                                                                       |
 | :-------- | :---------------------------------------- | :------------------------------------------------------------------------- | :-------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
 | **CF-01** | Deal Won → Create Contract                | **Status Change**: `CRM.Deal` / Status "CONTRACT SIGNED"                   | **Create**: `Accounting.Contract` | Automatically generates a Contract Object and links it to the source Deal when a sale is successfully closed.           |
