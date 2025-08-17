@@ -1,0 +1,124 @@
+---
+title: "CRM Function"
+---
+
+<Info>
+  Purpose: This document defines the internal operational logic of the CRM 📋 Function. Interactions with other functions will be referenced via Global Rules.
+</Info>
+
+---
+
+#### **OVERVIEW**
+
+**General Description**
+
+- **Purpose:** To manage potential customers from lead acquisition to deal closure and handover to subsequent departments.
+- **Internal Business Logic:** Manages the lifecycle of a potential customer through stages like New Lead, Contacting, and Appointment Set. Includes logic for creating and managing Demo `🧊︎ Sub-Objects` (appointments). Automatically assigns new customers to sales staff.
+- **Business Impact:** Increases lead conversion rates through a standardized and closely monitored consultation and follow-up process.
+
+**Inputs & Outputs**
+
+- **Inputs:** `Marketing.Ad` (via Global Rule **#CF-01**).
+- **Outputs:** `Accounting.Contract`, `Project Delivery.Site Survey` (via Global Rule **#CF-03**).
+- **External Interaction:** `Google Calendar` (via Global Rule **#CF-02**).
+
+---
+
+#### **OBJECT TYPES & PROCESSES**
+
+##### **1. Customer (Standard Object Type)**
+
+- **Process Description**: Manages potential customers from initial contact through the sales pipeline.
+- **Example**: "Anh B - Vinhomes Smart City", "Chị C - Royal City".
+
+**Workflow: Customer Lifecycle**
+
+| Status                | Available Transitions                                                                       |
+| :-------------------- | :------------------------------------------------------------------------------------------ |
+| **NEW LEAD**          | `Start Contact` → MOVES TO `CONTACTING`                                                     |
+| **CONTACTING**        | `Set Appointment` → MOVES TO `APPOINTMENT SET` \<br\> `Mark as Lost` → MOVES TO `DEAL LOST` |
+| **APPOINTMENT SET**   | `Draft Contract` → MOVES TO `CONTRACT DRAFTING`                                             |
+| **CONTRACT DRAFTING** | `Win Deal` → MOVES TO `DEAL WON`                                                            |
+| **DEAL WON**          | (End Status)                                                                                |
+| **DEAL LOST**         | (End Status)                                                                                |
+
+**Data Fields**
+
+| Field Name         | Field Type | Description                                                           |
+| :----------------- | :--------- | :-------------------------------------------------------------------- |
+| Customer Name      | Short Text | Full name of the potential customer.                                  |
+| Phone Number       | Phone      | Contact phone number.                                                 |
+| Email              | Email      | Contact email address.                                                |
+| Source             | Select     | The source of the lead (e.g., Facebook, Zalo, Referral).              |
+| Assigned Sales Rep | User       | The sales team member responsible for this customer.                  |
+| Expected Revenue   | Number     | The estimated value of the potential deal.                            |
+| Conversion Rate    | Formula    | A formula that calculates the success rate of the assigned sales rep. |
+| Notes              | Long Text  | General notes and interaction history.                                |
+
+##### **2. Demo (Sub-Object Type)**
+
+- **Process Description**: Manages demo appointments with customers. A `Demo` is created when a `Customer` status is moved to `APPOINTMENT SET`.
+- **Example**: "Demo with Anh B - 10 AM 20/08/2025".
+
+**Workflow: Demo Lifecycle**
+
+| Status        | Available Transitions                                                    |
+| :------------ | :----------------------------------------------------------------------- |
+| **SCHEDULED** | `Complete` → MOVES TO `COMPLETED` \<br\> `Cancel` → MOVES TO `CANCELLED` |
+| **COMPLETED** | (End Status)                                                             |
+| **CANCELLED** | (End Status)                                                             |
+
+**Data Fields**
+
+| Field Name         | Field Type  | Description                                                   |
+| :----------------- | :---------- | :------------------------------------------------------------ |
+| Demo Time          | Date & Time | The scheduled date and time for the demo.                     |
+| Location           | Short Text  | The location of the appointment (Online or physical address). |
+| Attending Designer | User        | The designer who will join the sales rep for the demo.        |
+
+---
+
+#### **INTERNAL AUTOMATIONS**
+
+| ID        | Rule Name                   | Trigger                                 | Action                 | Description                                                                                                            |
+| :-------- | :-------------------------- | :-------------------------------------- | :--------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| **IC-01** | Round-Robin Lead Assignment | **Create**: A new `Customer` is created | **Update**: `Customer` | Automatically assigns the new `Customer` to a sales executive in a rotating sequence to ensure fair lead distribution. |
+
+---
+
+#### **WORKVIEWS**
+
+##### **Dashboards**
+
+| Block Title              | Data                                                                                                                                                  | Description                                                        |
+| :----------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------- |
+| 1. Sales Rep Performance | Counts the number of assigned `Customers`, number of `Demos` conducted, and the conversion rate to "CONTRACT DRAFTING" for each `Assigned Sales Rep`. | Evaluates the performance of each individual sales representative. |
+
+##### **Filters**
+
+| Filter Name          | Filter Criteria                                                      | Reminder                                                         |
+| :------------------- | :------------------------------------------------------------------- | :--------------------------------------------------------------- |
+| 1. Uncontacted Leads | Status = "NEW LEAD" AND (Date Received \> 24 hours).                 | Daily @ 9:00 AM → `Assigned Sales Rep`.                          |
+| 2. Upcoming Demos    | Status = "APPOINTMENT SET" AND (Time within the next 24 hours).      | Daily @ 8:00 AM → `Assigned Sales Rep` and `Attending Designer`. |
+| 3. Stale Leads       | Status IN ("CONTACTING", "APPOINTMENT SET") AND (updated \> 7 days). | Weekly, Monday @ 9:00 AM → `Sales Manager` role.                 |
+
+---
+
+#### **ROLES & PERMISSIONS**
+
+- **Roles Used:** References the predefined **Global Roles**: `Sales Executive`, `Sales Manager`, `Design Lead`.
+- **Permission Scheme:** Utilizes **Global Scheme 3: Moderate Permissions**.
+- **Notification Scheme:** Utilizes **Global Scheme 2: Notify All Stakeholders**.
+
+---
+
+#### **INSTALLATION ESTIMATE (INTERNAL)**
+
+| Element              | Quantity | Unit Points | Total Points |
+| :------------------- | :------- | :---------- | :----------- |
+| Object Types         | 2        | 3           | 6            |
+| Data Fields          | 11       | 0.5         | 5.5          |
+| Internal Automations | 1        | 2           | 2            |
+| Dashboards           | 1        | 1.5         | 1.5          |
+| Filters              | 3        | 1           | 3            |
+| **TOTAL**            |          |             | **18**       |
