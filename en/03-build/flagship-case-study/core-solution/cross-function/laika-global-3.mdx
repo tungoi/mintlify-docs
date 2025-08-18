@@ -1,0 +1,300 @@
+---
+title: "LAIKA GLOBAL SYSTEM BLUEPRINT"
+description: "Description of your new file."
+---
+
+## **ORGANIZATION STRUCTURE & WORKSPACES**
+
+<Tabs>
+  <Tab title="Unified Organization Structure">
+    <Info>
+      This diagram illustrates the clear hierarchy of functional units and business object types within the system. This format places the Function (the blueprint) directly under the Space (the instance) to clarify their relationship.
+    </Info>
+    ```plaintext
+    🏢 LAIKA (Organization)
+    │
+    ├── 📂 MARKETING (Area)
+    │   └── ⏹️ Marketing Campaigns (Space)
+    │       └── 📋 Function: Marketing Campaigns
+    │           └── 🧊 Campaign
+    │               └── 🧊︎ Ad (Sub-Object)
+    │
+    ├── 📂 SALES (Area)
+    │   └── ⏹️ Sales & CRM (Space)
+    │       └── 📋 Function: CRM
+    │           └── 🧊 Customer
+    │
+    ├── 📂 ACCOUNTING (Area)
+    │   └── ⏹️ Contracts & Invoices (Space)
+    │       └── 📋 Function: Contract & Invoice
+    │           └── 🧊 Contract
+    │               └── 🧊︎ Invoice (Sub-Object)
+    │
+    ├── 📂 DESIGN & CONSTRUCTION (Area)
+    │   ├── ⏹️ Project Management (Space)
+    │   │   └── 📋 Function: Project Management
+    │   │       └── 🧊 Project
+    │   │
+    │   ├── ⏹️ Design (Space)
+    │   │   └── 📋 Function: Interior Design
+    │   │       └── 🧊 Design Package
+    │   │           ├── 🧊︎ Functional Layout
+    │   │           ├── 🧊︎ Concept
+    │   │           ├── 🧊︎ 3D
+    │   │           ├── 🧊︎ 2D
+    │   │           └── 🧊︎ Revisions
+    │   │
+    │   └── ⏹️ Interior Construction (Space)
+    │       └── 📋 Function: Site Survey & Construction
+    │           ├── 🧊 Site Survey
+    │           │   └── 🧊︎ Constraint (Sub-Object)
+    │           └── 🧊 Construction
+    │
+    └── 📂 CUSTOMER SUCCESS (Area)
+        └── ⏹️ Customer Success (Space)
+            └── 📋 Function: Customer Success
+                └── 🧊 Success Plan
+    ```
+  </Tab>
+  <Tab title="Workspace List">
+    <Info>
+      Virtual workspaces designed to serve specific user groups or objectives, helping to focus on relevant work by aggregating necessary items.
+    </Info>
+    | Workspace Name          | Design Rationale                                                                                                                 | Items Included (Dashboards, Filters, Spaces)                                                                                                |
+    | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
+    | **Executive Workspace** | Aggregates key metrics and strategic reports, allowing leadership to monitor overall business health without complex navigation. | - **Dashboard**: Business Overview<br />- **Filter**: Major Projects (\>500M)<br />- **Space (Read-only)**: Sales & CRM, Project Management |
+    | **Revenue Operations**  | A shared environment for Marketing, Sales, and Customer Success to track the entire customer funnel and coordinate seamlessly.   | - **Space**: Marketing Campaigns, Sales & CRM, Customer Success<br />- **Filter**: VIP Customers                                            |
+    | **Project Delivery**    | A central hub for Project Managers, Designers, and Construction teams to coordinate all active projects.                         | - **Space**: Project Management, Design, Interior Construction, Contracts & Invoices                                                        |
+  </Tab>
+</Tabs>
+
+---
+
+## **USER MANAGEMENT**
+
+<Tabs>
+  <Tab title="Account Management">
+    <Info>
+      The system uses two types of accounts to clearly distinguish between human actions and automated system processes.
+    </Info>
+    | Account Type           | Description                                                                                                                  | Application at LAIKA                                                                              |
+    | :--------------------- | :--------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------ |
+    | **User Account**       | The standard account for team members, associated with a specific person who logs into the platform to work and collaborate. | For all LAIKA employees.                                                                          |
+    | **Functional Account** | A special, non-login account used exclusively for Universal Automation to ensure a clear audit trail.                        | A single account, `automation@laika.com`, will be created to execute all global automation rules. |
+  </Tab>
+  <Tab title="Global Groups">
+    <Info>
+      A group is a collection of user accounts, used to efficiently assign access permissions and notifications at scale.
+    </Info>
+    | Group Name                        | Description & Example Members                     |
+    | :-------------------------------- | :------------------------------------------------ |
+    | `Marketing Department`            | Includes all members of the Marketing department. |
+    | `Sales Department`                | Includes all sales employees.                     |
+    | `Accounting Department`           | Includes all accounting staff.                    |
+    | `Project Management Office (PMO)` | Includes all Project Managers.                    |
+    | `Design Department`               | Includes Design Leads and design staff.           |
+    | `Construction Team`               | Includes Site Supervisors and construction staff. |
+    | `Customer Success Team`           | Includes all customer success agents.             |
+    | `Board of Directors`              | Includes the CEO, COO, and senior management.     |
+  </Tab>
+  <Tab title="Global Roles">
+    <Info>
+      A Role is an abstract placeholder or title (e.g., "Project Manager") not tied to a specific user or group. Permissions are assigned to the Role, and then actual users/groups are mapped to that Role within each specific Space.
+    </Info>
+    | Role Name           | Core Responsibilities                                                         |
+    | :------------------ | :---------------------------------------------------------------------------- |
+    | `Marketing Manager` | Manages campaigns, advertising budgets, and marketing performance.            |
+    | `Sales Executive`   | Nurtures and consults with customers, closes deals.                           |
+    | `Project Manager`   | Coordinates entire projects, ensuring timeline and quality standards are met. |
+    | `Design Lead`       | Responsible for the quality and direction of all design work.                 |
+    | `Site Supervisor`   | Supervises all survey and construction activities on-site.                    |
+    | `Accountant`        | Manages contracts, accounts payable/receivable, and other financial matters.  |
+    | `CSKH Agent`        | Manages customer care after project completion.                               |
+  </Tab>
+</Tabs>
+
+---
+
+## **OBJECT RELATIONSHIP MODEL**
+
+<Tabs>
+  <Tab title="Parent-Child Relationships">
+    <Info>
+      A built-in, strict hierarchy between a standard `Object` and its `Sub-Objects`. This method is best for work breakdown structures.
+    </Info>
+    **Application at LAIKA:**
+
+    | Parent Object                              | Child Object(s)                                                                   | Architectural Rationale                                                                                                                    |
+    | :----------------------------------------- | :-------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
+    | `Marketing Campaigns/🧊Campaign`           | `Marketing Campaigns/🧊Ad`                                                        | **Work Breakdown Structure:** Each `Campaign` is a major plan that contains multiple specific `Ads`.                                       |
+    | `Contract & Invoice/🧊Contract`            | `Contract & Invoice/🧊Invoice`                                                    | **Financial Breakdown Structure:** A `Contract`'s total value is broken down into multiple `Invoices` corresponding to payment milestones. |
+    | `Site Survey & Construction/🧊Site Survey` | `Site Survey & Construction/🧊Constraint`                                         | **Work Breakdown Structure:** A `Site Survey` may identify and record multiple `Constraints` (issues to be addressed).                     |
+    | `Interior Design/🧊Design Package`         | `Interior Design/🧊Functional Layout`, `🧊Concept`, `🧊3D`, `🧊2D`, `🧊Revisions` | **Work Breakdown Structure:** A master `Design Package` is broken down into sub-items for each phase of the design process.                |
+  </Tab>
+  <Tab title="Global Connections">
+    <Info>
+      A centrally-managed library of reusable relationship _types_ that standardize the _meaning_ of bidirectional relationships across the entire system.
+    </Info>
+    **Application at LAIKA:** This is where the core business relationships between different functions are defined.
+
+    | Connection Type          | Object A                        | A → B Relationship | Object B                                   | B → A Relationship |
+    | :----------------------- | :------------------------------ | :----------------- | :----------------------------------------- | :----------------- |
+    | **Marketing → Sales**    | `Marketing Campaigns/🧊Ad`      | Generates          | `CRM/🧊Customer`                           | Sourced from       |
+    | **Sales ↔ Accounting**   | `CRM/🧊Customer`                | Owns               | `Contract & Invoice/🧊Contract`            | For                |
+    | **Accounting → Project** | `Contract & Invoice/🧊Contract` | Initiates          | `Project Management/🧊Project`             | From               |
+    | **Project ↔ Design**     | `Project Management/🧊Project`  | Contains           | `Interior Design/🧊Design Package`         | Part of            |
+    | **Project ↔ Survey**     | `Project Management/🧊Project`  | Requires           | `Site Survey & Construction/🧊Site Survey` | Serves             |
+    | **Project → CS**         | `Project Management/🧊Project`  | Leads to           | `Customer Success/🧊Success Plan`          | For                |
+  </Tab>
+  <Tab title="Object Picker Fields">
+    <Info>
+      A flexible field that allows one `Object` to reference one or more other `Objects`. This is the tool used to _implement_ the relationships defined above.
+    </Info>
+    **Application at LAIKA:**
+
+    | Defined on Object                  | Field Name           | Reference Type                           | Purpose                                                                        |
+    | :--------------------------------- | :------------------- | :--------------------------------------- | :----------------------------------------------------------------------------- |
+    | `CRM/🧊Customer`                   | `Ad Source`          | Select 1 `Marketing Campaigns/🧊Ad`      | To record the ad that brought in the customer for ROI measurement.             |
+    | `Contract & Invoice/🧊Contract`    | `Customer`           | Select 1 `CRM/🧊Customer`                | To specify which customer this contract belongs to.                            |
+    | `Project Management/🧊Project`     | `Original Contract`  | Select 1 `Contract & Invoice/🧊Contract` | To link the project back to the signed contract for scope and value reference. |
+    | `Interior Design/🧊Design Package` | `Belongs to Project` | Select 1 `Project Management/🧊Project`  | To assign the design package to an overall managed project.                    |
+    | `Customer Success/🧊Success Plan`  | `Related Project`    | Select 1 `Project Management/🧊Project`  | To link the care plan to the completed project.                                |
+  </Tab>
+  <Tab title="Data Table Fields">
+    <Info>
+      An embedded 'spreadsheet' within an `Object` to manage structured lists of data, ideal for modeling 'contained' one-to-many data.
+    </Info>
+    **Application at LAIKA:**
+
+    | Used on Object                     | Data Table Name           | Example Columns                                                     | Rationale & Benefit                                                                                                                                |
+    | :--------------------------------- | :------------------------ | :------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `Contract & Invoice/🧊Contract`    | `Payment Schedule`        | `Milestone Name`, `Amount`, `Due Date`, `Status`, `Related Invoice` | Provides a structured overview of the entire payment schedule directly on the Contract. Simplifies calculation of total paid and outstanding debt. |
+    | `Interior Design/🧊Design Package` | `Bill of Materials (BOM)` | `Item`, `Supplier`, `Unit Price`, `Quantity`, `Total Cost`          | Helps designers and project managers manage a detailed budget for materials and equipment directly within the design package.                      |
+  </Tab>
+</Tabs>
+
+---
+
+## **WORKVIEWS, DASHBOARDS, FILTERS & REMINDERS**
+
+<Info>
+  This section defines the tools for aggregating and presenting data from across all functions, helping users work efficiently and enabling leadership to make informed decisions based on a holistic view of the business.
+</Info>
+
+<Tabs>
+  <Tab title="Global Workviews">
+    <Info>
+      These are pre-saved work screens at the global level, consolidating work items from various Spaces for operational management purposes.
+    </Info>
+    | Workview Name           | View Type | Data Source & Filter Logic                                                                             | Audience                                      |
+    | :---------------------- | :-------- | :----------------------------------------------------------------------------------------------------- | :-------------------------------------------- |
+    | **All Active Projects** | List View | **Source:** `Project Management/🧊Project`<br />**Logic:** `Status` IS NOT "Completed" AND "Cancelled" | COO, Board of Directors, All Project Managers |
+  </Tab>
+  <Tab title="Global Dashboards">
+    <Info>
+      This dashboard is placed in the "Executive Workspace" to provide a 360-degree view of business performance.
+    </Info>
+    | Dashboard Name                        | Purpose & Audience                                                                                                                         |
+    | :------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------- |
+    | **Business Overview (CEO Dashboard)** | Provides a comprehensive overview of the sales funnel, cash flow, advertising effectiveness, and project progress for the leadership team. |
+
+    **Detailed Structure of the "Business Overview" Dashboard:**
+
+    | # | Gadget Name                    | Chart Type            | Data Source (Functions & Objects)                          | Logic & Key Metrics                                                                                                                |
+    | :-- | :----------------------------- | :-------------------- | :--------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
+    | 1 | **Customer Conversion Funnel** | Funnel Chart          | `CRM/🧊Customer`                                           | Counts the number of `Customers` by `Status` (e.g., New, Consulting, Deal Closed...) to calculate conversion rates between stages. |
+    | 2 | **Revenue & Outstanding Debt** | Counter & Calculation | `Contract & Invoice/🧊Invoice`                             | - **Revenue**: `SUM(Amount)` WHERE `Status` = "Paid".<br />- **Debt**: `SUM(Amount)` WHERE `Status` = "Pending".                   |
+    | 3 | **Top Ads by Revenue**         | Pie Chart             | `Contract & Invoice/🧊Contract` linked to `CRM/🧊Customer` | `SUM(Total Contract Value)` grouped by `Ad Source` on the `Customer` object.                                                       |
+    | 4 | **Project Progress Status**    | Bar Chart             | `Project Management/🧊Project`                             | Counts the number of `Projects` by `Status` (e.g., Planning, In Design, In Construction...).                                       |
+  </Tab>
+  <Tab title="Global Saved Filters">
+    <Info>
+      Saved filters that allow users to quickly access critical lists of work items.
+    </Info>
+    | Filter Name                 | Data Source & Filter Logic                                                              | Purpose & Audience                                                                       |
+    | :-------------------------- | :-------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
+    | **Major Projects (\>500M)** | **Source:** `Project Management/🧊Project`<br />**Logic:** `Total Value` \> 500,000,000 | Helps leadership and project managers focus on high-value contracts.                     |
+    | **VIP Customers**           | **Source:** `CRM/🧊Customer`<br />**Logic:** `Number of completed projects` \>= 2       | Filters the list of loyal customers for special care programs by CS and Marketing teams. |
+  </Tab>
+  <Tab title="Filter Reminders">
+    <Info>
+      Automated notifications based on saved filters to ensure important tasks are not missed.
+    </Info>
+    | Reminder Name                        | Data Source & Filter Used                                                                                                     | Frequency & Time | Recipients (Roles/Groups)              |
+    | :----------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- | :--------------- | :------------------------------------- |
+    | **Customer Care Follow-up Reminder** | **Source:** `Customer Success/🧊Success Plan`<br />**Logic:** `Next Check-in Date` is within the next 3 days.                 | Daily at 8:00 AM | - CSKH Agent<br />- CSKH Manager       |
+    | **Overdue Contract Alert**           | **Source:** `Contract & Invoice/🧊Contract`<br />**Logic:** `Expected Sign Date` is in the past AND `Status` IS NOT "Signed". | Daily at 8:30 AM | - Sales Executive<br />- Sales Manager |
+  </Tab>
+</Tabs>
+
+---
+
+## **GLOBAL LOGIC & AUTOMATION**
+
+<Tabs>
+  <Tab title="Cross-System Automation">
+    <Info>
+      Rules that connect Luklak with external applications and services (e.g., Website, Google, SEPAY, Email).
+    </Info>
+    | Rule #    | Rule Name                      | Business Description                                                                                                                                      |
+    | :-------- | :----------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **CF-01** | Receive Lead from Landing Page | When a form is submitted on the website, a **Webhook** triggers the creation of a `CRM/🧊Customer` and links it to the source `Marketing Campaigns/🧊Ad`. |
+    | **CF-02** | Create Google Calendar Event   | A Sales user clicks a button on a `CRM/🧊Customer`, sending an **HTTP Request** via N8N to create an event in **Google Calendar**.                        |
+    | **CF-05** | Create Google Docs Contract    | An Accountant clicks a button, sending an **HTTP Request** via N8N to populate a **Google Docs** template with contract data.                             |
+    | **CF-06** | Log Payment from SEPAY         | **SEPAY** sends a **Webhook** upon payment, which finds the corresponding `Contract & Invoice/🧊Invoice` and updates its status.                          |
+    | **CF-10** | Send Concept Email to Customer | A Sales user clicks a button to automatically compose and send a personalized **Email** with design details to the customer.                              |
+  </Tab>
+  <Tab title="Cross-Function Automation">
+    <Info>
+      Rules that orchestrate and transfer work between different functions _inside_ the Luklak platform.
+    </Info>
+    | Rule #    | Rule Name                                       | Business Description                                                                                                                                    |
+    | :-------- | :---------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+    | **CF-03** | Finalize Consultation, Create Contract & Survey | A status change on `CRM/🧊Customer` automatically creates a `Contract & Invoice/🧊Contract` and a `Site Survey & Construction/🧊Site Survey`.           |
+    | **CF-04** | Survey Complete, Notify Design Team             | A status change on `Site Survey & Construction/🧊Site Survey` automatically notifies the `Interior Design/🧊Design Package` team.                       |
+    | **CF-07** | First Payment Received, Kick-off Project        | A status change on `Contract & Invoice/🧊Invoice` (Milestone 1) automatically creates a new `Project Management/🧊Project`.                             |
+    | **CF-08** | Project Created, Assign Design Work             | A status change on `Project Management/🧊Project` automatically creates and links a new `Interior Design/🧊Design Package`.                             |
+    | **CF-09** | Design Draft Ready for Sales Review             | A status change on `Interior Design/🧊Concept` automatically sends a Chat @mention to the Sales team for an internal review.                            |
+    | **CF-11** | Project Complete, Hand-off to Customer Success  | A status change on `Project Management/🧊Project` to "Completed" automatically creates a `Customer Success/🧊Success Plan`.                             |
+    | **CF-12** | Project Complete, Calculate Loyalty Voucher     | A status change on `Project Management/🧊Project` automatically finds the related `CRM/🧊Customer` and updates a field with a calculated voucher value. |
+  </Tab>
+</Tabs>
+
+---
+
+## **ACCESS & GOVERNANCE**
+
+<Tabs>
+  <Tab title="Layer 1: Business Privilege">
+    <Info>
+      This is the highest level of permissions, acting as the "entry ticket" to the entire system and defining a user's maximum potential authority.
+    </Info>
+    | Privilege Level | Assigned to (at LAIKA)                                  | Permission Description                                                                                      |
+    | :-------------- | :------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------- |
+    | **Owner**       | CEO                                                     | The highest level. Manages billing, can transfer ownership, and holds all Admin privileges.                 |
+    | **Admin**       | COO, System Administrator                               | Can configure everything in the system, from Global Settings to user management.                            |
+    | **App Manager** | Heads of Areas (e.g., Head of Sales, Head of Design...) | A specialized role that can design, edit, and manage Functions 📋.                                          |
+    | **Member**      | All remaining employees                                 | The standard privilege for most users, allowing them to work within the Spaces ⏹️ they are given access to. |
+  </Tab>
+  <Tab title="Layer 2: Item Access">
+    <Info>
+      These principles act as a guide for Administrators when assigning access to the "containers" of work and shared assets.
+    </Info>
+    | Item Type                  | Permission Principle                                                                                                                 | Rationale & Benefit                                                                                                                              |
+    | :------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **📂 Areas**               | - **Admin:** CEO, COO<br />- **Manager:** Head of the respective Area<br />- **Member:** The respective department's Group           | Creates a focused work environment for each department, reducing clutter and improving navigation efficiency.                                    |
+    | **👥 Groups**              | - **Manager:** Head of the respective department<br />- **Member:** All members of the Group                                         | Empowers department heads to manage their own team membership, increasing agility and reducing the load on System Admins.                        |
+    | **📊Dashboards & Filters** | - **Admin:** The creator, CEO, COO<br />- **Manager:** Relevant Heads of Areas<br />- **Member:** Shared-with Groups or individuals  | Ensures that aggregated data and sensitive business metrics are shared only with the intended audience.                                          |
+    | **📋 Functions**           | - **Admin:** System Administrator, CEO, COO<br />- **Manager:** Users with `App Manager` privilege<br />- **Member:** Most employees | Tightly governs core business processes while allowing department heads the flexibility to refine them and enabling all employees to apply them. |
+    | **⏹️ Spaces**              | - **Admin:** Project Manager or Team Lead<br />- **Member:** All invited members                                                     | Ensures the person with primary responsibility for a project or workspace has full control over it.                                              |
+  </Tab>
+  <Tab title="Layer 3: Permission & Notification Schemes">
+    <Info>
+      This is the most granular layer of control, defining "who can do what" and "who gets notified about what" for Objects within a Space.
+    </Info>
+    | Scheme Type             | Selected Scheme for LAIKA                    | Description & Rationale                                                                                                                                                                      |
+    | :---------------------- | :------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **Permission Scheme**   | **"Moderate restriction"**                   | **Balances security and collaboration:** Everyone in a Space can see that work exists, but only directly assigned users can view details and make updates, protecting sensitive information. |
+    | **Notification Scheme** | **"Notify key actions to direct assignees"** | **Reduces notification noise:** Only important events (status changes, @mentions) trigger alerts for directly involved users, helping the team focus on actionable updates.                  |
+  </Tab>
+</Tabs>
