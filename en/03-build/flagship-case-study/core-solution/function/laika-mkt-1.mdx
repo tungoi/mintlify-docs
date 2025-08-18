@@ -92,83 +92,12 @@ title: "Marketing Campaigns Function"
 | Target Audience | Long Text  | Description of the target demographic. |
 | UTM Code        | Short Text | Automatically generated tracking code. |
 
-
-
-```mermaid
----
-config:
-  theme: neutral
-  layout: elk
-title: LAIKA - Ad - Individual Workflow
----
-flowchart TD
-
-    %% =================== AD ===================
-    subgraph "🧊︎ Ad"
-        %% Start Event
-        AD_START(["Created from<br/>Marketing Campaign"])
-        
-        %% Data Object
-        AD_DATA[("🧊︎ Ad")]
-        
-        %% Status Nodes
-        AD_NEW("NEWLY CREATED")
-        AD_RUNNING("RUNNING")
-        AD_PAUSED("PAUSED")
-        AD_COMPLETED("COMPLETED")
-        AD_REJECTED("REJECTED")
-        
-        %% Decision Points
-        AD_GW1{"Ad<br/>approved?"}
-        
-        %% End Events
-        AD_END_SUCCESS(["Ad run completed"])
-        AD_END_FAILURE(["Ad was rejected"])
-        
-        %% Internal Flows
-        AD_START -- "Create Ad & UTM" --> AD_NEW
-        AD_NEW -- "Submit for review" --> AD_GW1
-        AD_GW1 -- "Approved" --> AD_RUNNING
-        AD_GW1 -- "Rejected" --> AD_REJECTED
-        AD_RUNNING -- "Optimize" --> AD_PAUSED
-        AD_PAUSED -- "Resume" --> AD_RUNNING
-        AD_RUNNING -- "Finish" --> AD_COMPLETED
-        
-        AD_COMPLETED --> AD_END_SUCCESS
-        AD_REJECTED --> AD_END_FAILURE
-    end
-    
-    %% External Connection Placeholders
-    EXTERNAL_IN(["From Marketing Campaign"]) -.-> AD_START
-    AD_RUNNING -.-> EXTERNAL_OUT(["Send lead to CRM"])
-
-    %% =================== STYLING ===================
-    classDef mo fill:#F8F9FA,stroke:#64718B,stroke-width:2px,color:#213459
-    classDef kehoach fill:#E6FBFF,stroke:#33CCFF,stroke-width:2px,color:#213459
-    classDef hoatdong fill:#E8F4FF,stroke:#358AFF,stroke-width:2px,color:#213459
-    classDef tamdung fill:#FFF7ED,stroke:#FF7E46,stroke-width:2px,color:#213459
-    classDef hoanthanh fill:#E8FDF4,stroke:#1AD598,stroke-width:2px,color:#213459
-    classDef donghuy fill:#F8F9FA,stroke:#213459,stroke-width:2px,color:#213459
-
-    %% Apply colors to this object's nodes
-    class AD_NEW mo
-    class AD_RUNNING hoatdong
-    class AD_PAUSED tamdung
-    class AD_COMPLETED hoanthanh
-    class AD_REJECTED donghuy
-    class AD_DATA kehoach
-```
-
 #### **INTERNAL AUTOMATIONS**
 
 | ID        | Rule Name                        | Trigger                               | Action                 | Description                                                                                                                                        |
 | :-------- | :------------------------------- | :------------------------------------ | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **IM-01** | Generate UTM Code                | **Create**: A new `Ad` is created     | **Update**: `Ad`       | Automatically generates and assigns a unique UTM code to the `Ad` based on the parent Campaign Name and the Ad Name.                               |
 | **IM-02** | Consolidate Ad Spend to Campaign | **Update**: `Ad` Field `Actual Spend` | **Update**: `Campaign` | When the `Actual Spend` on an `Ad` is updated, this rule automatically aggregates the total spend to the parent `Campaign`'s `Actual Spend` field. |
-
-<Frame>
-  ![mermaid-diagram-2025-08-18-113751.png](/images/mermaid-diagram-2025-08-18-113751.png)
-</Frame>
 
 ---
 
