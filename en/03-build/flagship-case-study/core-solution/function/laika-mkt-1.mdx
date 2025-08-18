@@ -9,7 +9,85 @@ title: "Marketing Campaigns Function"
 #### **OVERVIEW**
 
 <Frame>
-  ![laika-mkt-l3-en.png](/images/laika-mkt-l3-en.png)
+  ```mermaid
+  ---
+  config:
+    theme: redux
+    themeVariables:
+      primaryColor: '#358AFF'
+      primaryTextColor: '#213459'
+      primaryBorderColor: '#73BDFF'
+      lineColor: '#358AFF'
+      secondaryColor: '#C7DFF4'
+      tertiaryColor: '#F4F5F7'
+      background: '#FFFFFF'
+      mainBkg: '#FFFFFF'
+      secondBkg: '#F4F5F7'
+      noteTextColor: '#213459'
+      noteBkgColor: '#EBFAFE'
+      noteBorderColor: '#33CCFF'
+      actorBkg: '#FFFFFF'
+      actorBorder: '#33CCFF'
+      actorTextColor: '#213459'
+      actorLineColor: '#E2EEF9'
+      sequenceNumberColor: '#FFFFFF'
+      activationBorderColor: '#33CCFF'
+      activationBkgColor: '#EBFAFE'
+      loopTextColor: '#213459'
+      labelBoxBkgColor: '#E2EEF9'
+      labelBoxBorderColor: '#73BDFF'
+      labelTextColor: '#213459'
+      signalColor: '#64718B'
+      signalTextColor: '#213459'
+  ---
+  sequenceDiagram
+      title LAIKA - LUKLAK SYSTEM - Level 1: Cross-System View
+      autonumber
+  
+      actor KH as Khách hàng
+      actor NV as Nhân viên LAIKA
+  
+      participant LUK as Luklak LAIKA
+      participant EXT as External Systems
+  
+      Note over KH,EXT: LUỒNG 1: THU HÚT KHÁCH HÀNG
+      KH->>+EXT: Click quảng cáo Facebook
+      Note right of EXT: Chuyển đến Landing Page:<br/>- Form thu thập thông tin<br/>- Gắn mã theo dõi chiến dịch
+      EXT-->>+LUK: [Webhook]<br/>→ Tạo [CRM/🧊 Customer]
+      deactivate EXT
+      deactivate LUK
+  
+      Note over NV,EXT: LUỒNG 2: TƯ VẤN & HẸN LỊCH
+      NV->>+LUK: Đặt lịch tư vấn trên Luklak
+      LUK->>+EXT: [CRM/🧊 Customer | Đặt lịch]<br/>→ Tạo sự kiện Google Calendar
+      deactivate EXT
+      deactivate LUK
+  
+      Note over LUK,EXT: LUỒNG 3: HỢP ĐỒNG & THANH TOÁN
+      activate LUK
+      LUK->>+EXT: [Accounting/🧊 Contract | SOẠN THẢO]<br/>→ Tạo file Google Docs
+      deactivate LUK
+      deactivate EXT
+  
+      activate LUK
+      LUK-->>+EXT: [Accounting/🧊 Receipt | CẦN THU]<br/>→ Tạo mã QR thanh toán (Sepay)
+      deactivate LUK
+      deactivate EXT
+  
+      KH->>+EXT: Quét mã QR và thanh toán
+      EXT-->>+LUK: [Webhook]<br/>→ Cập nhật [Accounting/🧊 Receipt | ĐÃ THU]
+      deactivate EXT
+      deactivate LUK
+  
+      Note over LUK,EXT: SAU KHI DỰ ÁN HOÀN THÀNH VÀ BÀN GIAO...
+  
+      Note over LUK,EXT: LUỒNG 4: CHĂM SÓC ĐỊNH KỲ (QUY TRÌNH NGẦM)
+      activate LUK
+      LUK-->>+EXT: [CS/🧊 Customer Care | ĐỊNH KỲ]<br/>→ Gửi email CSKH
+      deactivate LUK
+      Note right of EXT: Quy tắc chạy ngầm định kỳ (mỗi 2 tháng)<br/>gửi email kèm voucher
+      deactivate EXT
+  ```
 </Frame>
 
 **General Description**
@@ -67,8 +145,6 @@ title: "Marketing Campaigns Function"
 <Frame>
   ![mermaid-diagram-2025-08-18-120028.png](/images/mermaid-diagram-2025-08-18-120028.png)
 </Frame>
-
-
 
 | Status       | Available Transitions                                                |
 | :----------- | :------------------------------------------------------------------- |
