@@ -2,21 +2,25 @@
 title: "Marketing Campaigns Function"
 ---
 
-**Purpose:** This document defines the **internal** operational logic of the Marketing Campaigns `📋 Function`. Interactions with other functions will be referenced via Global Rules.
+<Info>
+  **Purpose:** This document defines the **internal** operational logic of the Marketing Campaigns `📋 Function`. Interactions with other functions will be referenced via Global Rules.
+</Info>
 
 ---
 
-#### **OVERVIEW**
+## **OVERVIEW**
 
 <Frame>
   ![image.png](/images/image.png)
 </Frame>
 
-**General Description**
+<Tip>
+  **General Description**
 
-- **Purpose:** To manage advertising campaigns and run ads to attract potential customers, then transfer qualified leads to the Sales department.
-- **Internal Business Logic:** Manages the lifecycle of campaigns and their child Ad `🧊︎ Sub-Objects`. Automatically generates tracking codes (UTM) for each ad to ensure consistency.
-- **Business Impact:** Standardizes the ad creation and management process, and tracks the internal performance of each campaign.
+  - **Purpose:** To manage advertising campaigns and run ads to attract potential customers, then transfer qualified leads to the Sales department.
+  - **Internal Business Logic:** Manages the lifecycle of campaigns and their child Ad `🧊︎ Sub-Objects`. Automatically generates tracking codes (UTM) for each ad to ensure consistency.
+  - **Business Impact:** Standardizes the ad creation and management process, and tracks the internal performance of each campaign.
+</Tip>
 
 **Inputs & Outputs**
 
@@ -25,25 +29,30 @@ title: "Marketing Campaigns Function"
 
 ---
 
-#### **OBJECT TYPES & WORKFLOWS**
+## **OBJECT TYPES & WORKFLOWS**
+
+### **1. 🧊 Marketing Campaign (Standard Object Type)**
+
+- **Process Description**: Manages Facebook advertising campaigns to attract potential customers interested in interior design.
+- **Example**: "Nordic Style Living" campaign targeting customers interested in interior design. "Modern Design 2025" campaign.
 
 <Tabs>
-  <Tab title="1. Marketing Campaign (Standard Object)">
-    - **Process Description**: Manages Facebook advertising campaigns to attract potential customers interested in interior design.
-    - **Example**: "Nordic Style Living" campaign targeting customers interested in interior design. "Modern Design 2025" campaign.
-
-    **Workflow: Campaign Lifecycle**
-
+  <Tab title="Workflow Diagram">
     <Frame>
       ![mermaid-diagram-2025-08-18-115911.png](https://mintlify.s3.us-west-1.amazonaws.com/luklak-28b92ec5/images/mermaid-diagram-2025-08-18-115911.png)
     </Frame>
+  </Tab>
+  <Tab title="Status Details">
+    **Campaign Lifecycle**
+
     | Status        | Available Transitions                                                               |
     | :------------ | :---------------------------------------------------------------------------------- |
     | **PLANNING**  | `Start Campaign` → MOVES TO `RUNNING`                                               |
     | **RUNNING**   | `Pause Campaign` → MOVES TO `PAUSED` <br /> `End Campaign` → MOVES TO `COMPLETED`   |
     | **PAUSED**    | `Resume Campaign` → MOVES TO `RUNNING` <br /> `End Campaign` → MOVES TO `COMPLETED` |
     | **COMPLETED** | (End Status)                                                                        |
-
+  </Tab>
+  <Tab title="Data Fields">
     **Data Fields**
 
     | Field Name    | Field Type | Description                                    |
@@ -56,15 +65,24 @@ title: "Marketing Campaigns Function"
     | Target CPL    | Formula    | `Target Budget / Target Leads`                 |
     | Actual CPL    | Formula    | `Actual Spend / Actual Leads`                  |
   </Tab>
-  <Tab title="2. Ad (Sub-Object)">
-    - **Process Description**: Manages individual ads within a campaign.
-    - **Example**: Ad A for the "Nordic Style Living" campaign, targeting female audiences aged 25-35.
+</Tabs>
 
-    **Workflow: Ad Lifecycle**
+---
 
+### **2. 🧊︎ Ad (Sub-Object Type)**
+
+- **Process Description**: Manages individual ads within a campaign.
+- **Example**: Ad A for the "Nordic Style Living" campaign, targeting female audiences aged 25-35.
+
+<Tabs>
+  <Tab title="Workflow Diagram">
     <Frame>
       ![mermaid-diagram-2025-08-18-120028.png](https://mintlify.s3.us-west-1.amazonaws.com/luklak-28b92ec5/images/mermaid-diagram-2025-08-18-120028.png)
     </Frame>
+  </Tab>
+  <Tab title="Status Details">
+    **Ad Lifecycle**
+
     | Status       | Available Transitions                                                |
     | :----------- | :------------------------------------------------------------------- |
     | **DRAFT**    | `Submit for Approval` → MOVES TO `PENDING`                           |
@@ -73,7 +91,8 @@ title: "Marketing Campaigns Function"
     | **LIVE**     | `Pause Ad` → MOVES TO `PAUSED` <br /> `Stop Ad` → MOVES TO `STOPPED` |
     | **PAUSED**   | `Go Live` → MOVES TO `LIVE`                                          |
     | **STOPPED**  | (End Status)                                                         |
-
+  </Tab>
+  <Tab title="Data Fields">
     **Data Fields**
 
     | Field Name      | Field Type | Description                            |
@@ -86,7 +105,7 @@ title: "Marketing Campaigns Function"
   </Tab>
 </Tabs>
 
-#### **INTERNAL AUTOMATIONS**
+## **INTERNAL AUTOMATIONS**
 
 | ID        | Rule Name                        | Trigger                               | Action                 | Description                                                                                                                                        |
 | :-------- | :------------------------------- | :------------------------------------ | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -95,25 +114,26 @@ title: "Marketing Campaigns Function"
 
 ---
 
-#### **WORKVIEWS**
+## **WORKVIEWS**
 
-##### **Dashboards**
-
-| Dashboard Name                         | Criteria                                     | Description                                                        |
-| :------------------------------------- | :------------------------------------------- | :----------------------------------------------------------------- |
-| 1. Performance by Campaign (Bar Chart) | `Lead generated` grouped by `Campaign Name`. | Compares lead generation effectiveness across different campaigns. |
-| 2. Lead Trend Over Time (Line Chart)   | `Lead generated` by `Creation Date`.         | Tracks the daily trend of incoming leads.                          |
-
-##### **Filters**
-
-| Filter Name                 | Filter Criteria                                                    | Reminder                                      |
-| :-------------------------- | :----------------------------------------------------------------- | :-------------------------------------------- |
-| 1. Low-Performing Campaigns | Status = "RUNNING" AND (Actual Spend / Actual Leads) \> Target CPL | Daily @ 9:00 AM → `Marketing Manager` role.   |
-| 2. Ads Awaiting Approval    | Status = "DRAFT" for more than 24 hours.                           | Daily @ 8:00 AM → `Marketing Executive` role. |
+<Tabs>
+  <Tab title="Dashboards">
+    | Dashboard Name                         | Criteria                                     | Description                                                        |
+    | :------------------------------------- | :------------------------------------------- | :----------------------------------------------------------------- |
+    | 1. Performance by Campaign (Bar Chart) | `Lead generated` grouped by `Campaign Name`. | Compares lead generation effectiveness across different campaigns. |
+    | 2. Lead Trend Over Time (Line Chart)   | `Lead generated` by `Creation Date`.         | Tracks the daily trend of incoming leads.                          |
+  </Tab>
+  <Tab title="Filters">
+    | Filter Name                 | Filter Criteria                                                    | Reminder                                      |
+    | :-------------------------- | :----------------------------------------------------------------- | :-------------------------------------------- |
+    | 1. Low-Performing Campaigns | Status = "RUNNING" AND (Actual Spend / Actual Leads) \> Target CPL | Daily @ 9:00 AM → `Marketing Manager` role.   |
+    | 2. Ads Awaiting Approval    | Status = "DRAFT" for more than 24 hours.                           | Daily @ 8:00 AM → `Marketing Executive` role. |
+  </Tab>
+</Tabs>
 
 ---
 
-#### **ROLES & PERMISSIONS**
+## **ROLES & PERMISSIONS**
 
 - **Roles Used:** References the predefined **Global Roles**: `Marketing Manager`, `Marketing Executive`.
 - **Permission Scheme:** Utilizes **Global Scheme 3: Moderate Permissions**.
