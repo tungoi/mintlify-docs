@@ -25,100 +25,7 @@ title: "Marketing Campaigns Function"
 
 ---
 
-#### **OBJECT TYPES & PROCESSES**
-
-##### **1. Marketing Campaign (Standard Object Type)**
-
-- **Process Description**: Manages Facebook advertising campaigns to attract potential customers interested in interior design.
-- **Example**: "Nordic Style Living" campaign targeting customers interested in interior design. "Modern Design 2025" campaign.
-
-**Workflow: Campaign Lifecycle**
-
-<Frame>
-  ![mermaid-diagram-2025-08-18-115911.png](/images/mermaid-diagram-2025-08-18-115911.png)
-</Frame>
-
-| Status        | Available Transitions                                                               |
-| :------------ | :---------------------------------------------------------------------------------- |
-| **PLANNING**  | `Start Campaign` → MOVES TO `RUNNING`                                               |
-| **RUNNING**   | `Pause Campaign` → MOVES TO `PAUSED` <br /> `End Campaign` → MOVES TO `COMPLETED`   |
-| **PAUSED**    | `Resume Campaign` → MOVES TO `RUNNING` <br /> `End Campaign` → MOVES TO `COMPLETED` |
-| **COMPLETED** | (End Status)                                                                        |
-
-**Data Fields**
-
-| Field Name    | Field Type | Description                                    |
-| :------------ | :--------- | :--------------------------------------------- |
-| Campaign Name | Short Text | The official name of the campaign.             |
-| Target Budget | Number     | The expected budget for the campaign.          |
-| Actual Spend  | Number     | The actual amount spent, updated from reports. |
-| Target Leads  | Number     | The target number of leads to generate.        |
-| Actual Leads  | Number     | The actual number of leads generated.          |
-| Target CPL    | Formula    | `Target Budget / Target Leads`                 |
-| Actual CPL    | Formula    | `Actual Spend / Actual Leads`                  |
-
-##### **2. Ad (Sub-Object Type)**
-
-- **Process Description**: Manages individual ads within a campaign.
-- **Example**: Ad A for the "Nordic Style Living" campaign, targeting female audiences aged 25-35.
-
-**Workflow: Ad Lifecycle**
-
-<Frame>
-  ![mermaid-diagram-2025-08-18-120028.png](/images/mermaid-diagram-2025-08-18-120028.png)
-</Frame>
-
-| Status       | Available Transitions                                                |
-| :----------- | :------------------------------------------------------------------- |
-| **DRAFT**    | `Submit for Approval` → MOVES TO `PENDING`                           |
-| **PENDING**  | `Approve` → MOVES TO `APPROVED` <br /> `Reject` → MOVES TO `DRAFT`   |
-| **APPROVED** | `Go Live` → MOVES TO `LIVE`                                          |
-| **LIVE**     | `Pause Ad` → MOVES TO `PAUSED` <br /> `Stop Ad` → MOVES TO `STOPPED` |
-| **PAUSED**   | `Go Live` → MOVES TO `LIVE`                                          |
-| **STOPPED**  | (End Status)                                                         |
-
-**Data Fields**
-
-| Field Name      | Field Type | Description                            |
-| :-------------- | :--------- | :------------------------------------- |
-| Ad Name         | Short Text | The name of the specific ad creative.  |
-| Ad Content      | Long Text  | The text/copy used in the ad.          |
-| Ad Image/Video  | Attachment | The visual creative for the ad.        |
-| Target Audience | Long Text  | Description of the target demographic. |
-| UTM Code        | Short Text | Automatically generated tracking code. |
-
-#### **INTERNAL AUTOMATIONS**
-
-| ID        | Rule Name                        | Trigger                               | Action                 | Description                                                                                                                                        |
-| :-------- | :------------------------------- | :------------------------------------ | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **IM-01** | Generate UTM Code                | **Create**: A new `Ad` is created     | **Update**: `Ad`       | Automatically generates and assigns a unique UTM code to the `Ad` based on the parent Campaign Name and the Ad Name.                               |
-| **IM-02** | Consolidate Ad Spend to Campaign | **Update**: `Ad` Field `Actual Spend` | **Update**: `Campaign` | When the `Actual Spend` on an `Ad` is updated, this rule automatically aggregates the total spend to the parent `Campaign`'s `Actual Spend` field. |
-
----
-
-#### **WORKVIEWS**
-
-##### **Dashboards**
-
-| Dashboard Name                         | Criteria                                     | Description                                                        |
-| :------------------------------------- | :------------------------------------------- | :----------------------------------------------------------------- |
-| 1. Performance by Campaign (Bar Chart) | `Lead generated` grouped by `Campaign Name`. | Compares lead generation effectiveness across different campaigns. |
-| 2. Lead Trend Over Time (Line Chart)   | `Lead generated` by `Creation Date`.         | Tracks the daily trend of incoming leads.                          |
-
-##### **Filters**
-
-| Filter Name                 | Filter Criteria                                                    | Reminder                                      |
-| :-------------------------- | :----------------------------------------------------------------- | :-------------------------------------------- |
-| 1. Low-Performing Campaigns | Status = "RUNNING" AND (Actual Spend / Actual Leads) \> Target CPL | Daily @ 9:00 AM → `Marketing Manager` role.   |
-| 2. Ads Awaiting Approval    | Status = "DRAFT" for more than 24 hours.                           | Daily @ 8:00 AM → `Marketing Executive` role. |
-
----
-
-#### **ROLES & PERMISSIONS**
-
-- **Roles Used:** References the predefined **Global Roles**: `Marketing Manager`, `Marketing Executive`.
-- **Permission Scheme:** Utilizes **Global Scheme 3: Moderate Permissions**.
-- **Notification Scheme:** Utilizes **Global Scheme 2: Notify All Stakeholders**.
+#### **OBJECT TYPES & WORKFLOWS**
 
 <Tabs>
   <Tab title="1. Marketing Campaign (Standard Object)">
@@ -178,3 +85,36 @@ title: "Marketing Campaigns Function"
     | UTM Code        | Short Text | Automatically generated tracking code. |
   </Tab>
 </Tabs>
+
+#### **INTERNAL AUTOMATIONS**
+
+| ID        | Rule Name                        | Trigger                               | Action                 | Description                                                                                                                                        |
+| :-------- | :------------------------------- | :------------------------------------ | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **IM-01** | Generate UTM Code                | **Create**: A new `Ad` is created     | **Update**: `Ad`       | Automatically generates and assigns a unique UTM code to the `Ad` based on the parent Campaign Name and the Ad Name.                               |
+| **IM-02** | Consolidate Ad Spend to Campaign | **Update**: `Ad` Field `Actual Spend` | **Update**: `Campaign` | When the `Actual Spend` on an `Ad` is updated, this rule automatically aggregates the total spend to the parent `Campaign`'s `Actual Spend` field. |
+
+---
+
+#### **WORKVIEWS**
+
+##### **Dashboards**
+
+| Dashboard Name                         | Criteria                                     | Description                                                        |
+| :------------------------------------- | :------------------------------------------- | :----------------------------------------------------------------- |
+| 1. Performance by Campaign (Bar Chart) | `Lead generated` grouped by `Campaign Name`. | Compares lead generation effectiveness across different campaigns. |
+| 2. Lead Trend Over Time (Line Chart)   | `Lead generated` by `Creation Date`.         | Tracks the daily trend of incoming leads.                          |
+
+##### **Filters**
+
+| Filter Name                 | Filter Criteria                                                    | Reminder                                      |
+| :-------------------------- | :----------------------------------------------------------------- | :-------------------------------------------- |
+| 1. Low-Performing Campaigns | Status = "RUNNING" AND (Actual Spend / Actual Leads) \> Target CPL | Daily @ 9:00 AM → `Marketing Manager` role.   |
+| 2. Ads Awaiting Approval    | Status = "DRAFT" for more than 24 hours.                           | Daily @ 8:00 AM → `Marketing Executive` role. |
+
+---
+
+#### **ROLES & PERMISSIONS**
+
+- **Roles Used:** References the predefined **Global Roles**: `Marketing Manager`, `Marketing Executive`.
+- **Permission Scheme:** Utilizes **Global Scheme 3: Moderate Permissions**.
+- **Notification Scheme:** Utilizes **Global Scheme 2: Notify All Stakeholders**.
