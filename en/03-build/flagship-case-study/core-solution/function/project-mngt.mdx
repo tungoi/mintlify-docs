@@ -1,0 +1,140 @@
+---
+title: "Project Delivery Function"
+---
+
+<Info>
+  **Purpose:** This document defines the internal operational logic of the Project Delivery `📋 Function`. It manages the entire process from initial site survey to final project handover.
+</Info>
+
+---
+
+## **OVERVIEW**
+
+<Tip>
+  **General Description**
+
+  - **Purpose:** To manage the execution of interior design and construction projects, ensuring they are completed on time, within budget, and to the required quality standards.
+  - **Internal Business Logic:** Manages a `Project` from start to finish, including all associated `Tasks`. It automatically calculates project progress based on the completion of child tasks.
+  - **Business Impact:** Ensures consistent project quality, improves client satisfaction, and provides clear visibility into the progress of all ongoing work.
+</Tip>
+
+**Inputs & Outputs**
+
+- **Inputs:** `CRM.Customer` (specifically, when a deal is won, via Global Rule **#CF-03**).
+- **Outputs:** `Accounting.Invoice` (for final billing, via Global Rule **#CF-04**).
+
+---
+
+## **OBJECT TYPES & PROCESSES**
+
+### **1. 🧊 Project (Standard Object Type)**
+
+- **Process Description**: Manages the entire lifecycle of a client project, from the initial survey to final handover.
+- **Example**: "Project - Anh B - Vinhomes Smart City", "Project - Chị C - Royal City".
+
+<Tabs>
+  <Tab title="Workflow Diagram">
+    <Frame>
+      <p style={{ type:"mdxJsxAttributeValueExpression",value:"{textAlign: 'center'}",data:{estree:{type:"Program",start:1406,end:1427,body:[{type:"ExpressionStatement",expression:{type:"ObjectExpression",start:1406,end:1427,loc:{start:{line:38,column:16,offset:1406},end:{line:38,column:37,offset:1427}},properties:[{type:"Property",start:1407,end:1426,loc:{start:{line:38,column:17,offset:1407},end:{line:38,column:36,offset:1426}},method:false,shorthand:false,computed:false,key:{type:"Identifier",start:1407,end:1416,loc:{start:{line:38,column:17,offset:1407},end:{line:38,column:26,offset:1416}},name:"textAlign",range:[1407,1416]},value:{type:"Literal",start:1418,end:1426,loc:{start:{line:38,column:28,offset:1418},end:{line:38,column:36,offset:1426}},value:"center",raw:"'center'",range:[1418,1426]},kind:"init",range:[1407,1426]}],range:[1406,1427]},start:1406,end:1427,loc:{start:{line:38,column:16,offset:1406},end:{line:38,column:37,offset:1427}},range:[1406,1427]}],sourceType:"module",comments:[],loc:{start:{line:38,column:16,offset:1406},end:{line:38,column:37,offset:1427}},range:[1406,1427]}} }}>
+      Placeholder for Project Lifecycle Diagram</p>
+    </Frame>
+  </Tab>
+  <Tab title="Status Details">
+    **Project Lifecycle**
+
+    | Status                   | Available Transitions                                                                                |
+    | :----------------------- | :--------------------------------------------------------------------------------------------------- |
+    | **SITE SURVEY**          | `Start Design` → MOVES TO `CONCEPT DESIGN`                                                           |
+    | **CONCEPT DESIGN**       | `Submit for Approval` → MOVES TO `WAITING FOR APPROVAL`                                              |
+    | **WAITING FOR APPROVAL** | `Approve Design` → MOVES TO `TECHNICAL DESIGN` <br /> `Request Revision` → MOVES TO `CONCEPT DESIGN` |
+    | **TECHNICAL DESIGN**     | `Start Construction` → MOVES TO `UNDER CONSTRUCTION`                                                 |
+    | **UNDER CONSTRUCTION**   | `Complete Construction` → MOVES TO `QUALITY ASSURANCE`                                               |
+    | **QUALITY ASSURANCE**    | `Pass QA` → MOVES TO `HANDOVER`                                                                      |
+    | **HANDOVER**             | (End Status)                                                                                         |
+  </Tab>
+  <Tab title="Data Fields">
+    **Data Fields**
+
+    | Field Name      | Field Type   | Description                                          |
+    | :-------------- | :----------- | :--------------------------------------------------- |
+    | Project Name    | Short Text   | The official name of the project.                    |
+    | Client          | Object Conn. | Link to the `CRM.Customer` Object.                   |
+    | Address         | Short Text   | The project site address.                            |
+    | Start Date      | Date         | The planned start date of the project.               |
+    | End Date        | Date         | The planned completion date of the project.          |
+    | Budget          | Number       | The total budget allocated for the project.          |
+    | Project Manager | User         | The employee responsible for overseeing the project. |
+    | Progress        | Formula      | Calculates `(Completed Tasks / Total Tasks) * 100`.  |
+  </Tab>
+</Tabs>
+
+---
+
+### **2. 🧊︎ Task (Sub-Object Type)**
+
+- **Process Description**: Manages individual tasks that must be completed as part of a project.
+- **Example**: "Task - 3D Rendering for Vinhomes Project", "Task - Procure Materials for Royal City".
+
+<Tabs>
+  <Tab title="Workflow Diagram">
+    <Frame>
+      <p style={{ type:"mdxJsxAttributeValueExpression",value:"{textAlign: 'center'}",data:{estree:{type:"Program",start:4713,end:4734,body:[{type:"ExpressionStatement",expression:{type:"ObjectExpression",start:4713,end:4734,loc:{start:{line:80,column:16,offset:4713},end:{line:80,column:37,offset:4734}},properties:[{type:"Property",start:4714,end:4733,loc:{start:{line:80,column:17,offset:4714},end:{line:80,column:36,offset:4733}},method:false,shorthand:false,computed:false,key:{type:"Identifier",start:4714,end:4723,loc:{start:{line:80,column:17,offset:4714},end:{line:80,column:26,offset:4723}},name:"textAlign",range:[4714,4723]},value:{type:"Literal",start:4725,end:4733,loc:{start:{line:80,column:28,offset:4725},end:{line:80,column:36,offset:4733}},value:"center",raw:"'center'",range:[4725,4733]},kind:"init",range:[4714,4733]}],range:[4713,4734]},start:4713,end:4734,loc:{start:{line:80,column:16,offset:4713},end:{line:80,column:37,offset:4734}},range:[4713,4734]}],sourceType:"module",comments:[],loc:{start:{line:80,column:16,offset:4713},end:{line:80,column:37,offset:4734}},range:[4713,4734]}} }}>
+      Placeholder for Task Lifecycle Diagram</p>
+    </Frame>
+  </Tab>
+  <Tab title="Status Details">
+    **Task Lifecycle**
+
+    | Status          | Available Transitions                                                      |
+    | :-------------- | :------------------------------------------------------------------------- |
+    | **TO DO**       | `Start Progress` → MOVES TO `IN PROGRESS`                                  |
+    | **IN PROGRESS** | `Complete Task` → MOVES TO `DONE` <br /> `Block Task` → MOVES TO `BLOCKED` |
+    | **BLOCKED**     | `Unblock Task` → MOVES TO `IN PROGRESS`                                    |
+    | **DONE**        | (End Status)                                                               |
+  </Tab>
+  <Tab title="Data Fields">
+    **Data Fields**
+
+    | Field Name | Field Type | Description                                                  |
+    | :--------- | :--------- | :----------------------------------------------------------- |
+    | Task Name  | Short Text | The name or title of the task.                               |
+    | Assignee   | User       | The team member responsible for completing the task.         |
+    | Due Date   | Date       | The deadline for task completion.                            |
+    | Department | Select     | The department responsible (e.g., Design, Construction, QA). |
+  </Tab>
+</Tabs>
+
+---
+
+## **INTERNAL AUTOMATIONS**
+
+| ID        | Rule Name               | Trigger                                     | Action                       | Description                                                                                                                      |
+| :-------- | :---------------------- | :------------------------------------------ | :--------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| **IP-01** | Update Project Progress | **Update**: `Task` status changes to `DONE` | **Update**: Parent `Project` | Automatically recalculates and updates the `Progress` field on the parent `Project` Object whenever a child `Task` is completed. |
+
+---
+
+## **WORKVIEWS**
+
+<Tabs>
+  <Tab title="Dashboards">
+    | Block Title                                | Data                                                                                                                        | Description                                                                      |
+    | :----------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
+    | 1. Project Progress Overview (Gantt Chart) | Displays all `Projects` on a timeline, showing their current status, start date, end date, and overall progress percentage. | Provides a high-level view of the entire project portfolio and timelines.        |
+    | 2. Department Workload                     | Groups `Tasks` by `Department` and `Assignee` to show the number of tasks in `TO DO` and `IN PROGRESS` status.              | Helps managers balance workload and identify potential bottlenecks within teams. |
+  </Tab>
+  <Tab title="Filters">
+    | Filter Name                  | Filter Criteria                                                 | Reminder                                            |
+    | :--------------------------- | :-------------------------------------------------------------- | :-------------------------------------------------- |
+    | 1. Overdue Tasks             | Status \!= "DONE" AND (Due Date is in the past).                | Daily @ 9:00 AM → `Assignee` and `Project Manager`. |
+    | 2. Projects Nearing Deadline | Status \!= "HANDOVER" AND (End Date is within the next 7 days). | Weekly, Monday @ 9:00 AM → `Project Manager` role.  |
+  </Tab>
+</Tabs>
+
+---
+
+## **ROLES & PERMISSIONS**
+
+- **Roles Used:** References the predefined **Global Roles**: `Project Manager`, `Designer`, `Construction Supervisor`.
+- **Permission Scheme:** Utilizes **Global Scheme 2: Collaborative Permissions**.
+- **Notification Scheme:** Utilizes **Global Scheme 2: Notify All Stakeholders**.
