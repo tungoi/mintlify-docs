@@ -9,15 +9,13 @@ title: "Marketing Campaigns Function"
 #### **OVERVIEW**
 
 <Frame>
-  
+  <img
+    src="/images/laika-mkt-l3-en.png"
+    alt="Laika Mkt L3 En Pn"
+    title="Laika Mkt L3 En Pn"
+    style={{ width:"98%" }}
+  />
 </Frame>
-
-<img
-  src="/images/laika-mkt-l3-en.png"
-  alt="Laika Mkt L3 En Pn"
-  title="Laika Mkt L3 En Pn"
-  style={{ width:"98%" }}
-/>
 
 **General Description**
 
@@ -45,11 +43,13 @@ title: "Marketing Campaigns Function"
   ![mermaid-diagram-2025-08-18-115911.png](/images/mermaid-diagram-2025-08-18-115911.png)
 </Frame>
 
+![mermaid-diagram-2025-08-18-115911.png](/images/mermaid-diagram-2025-08-18-115911.png)
+
 | Status        | Available Transitions                                                               |
 | :------------ | :---------------------------------------------------------------------------------- |
 | **PLANNING**  | `Start Campaign` → MOVES TO `RUNNING`                                               |
-| **RUNNING**   | `Pause Campaign` → MOVES TO `PAUSED` \<br\> `End Campaign` → MOVES TO `COMPLETED`   |
-| **PAUSED**    | `Resume Campaign` → MOVES TO `RUNNING` \<br\> `End Campaign` → MOVES TO `COMPLETED` |
+| **RUNNING**   | `Pause Campaign` → MOVES TO `PAUSED` <br /> `End Campaign` → MOVES TO `COMPLETED`   |
+| **PAUSED**    | `Resume Campaign` → MOVES TO `RUNNING` <br /> `End Campaign` → MOVES TO `COMPLETED` |
 | **COMPLETED** | (End Status)                                                                        |
 
 **Data Fields**
@@ -78,9 +78,9 @@ title: "Marketing Campaigns Function"
 | Status       | Available Transitions                                                |
 | :----------- | :------------------------------------------------------------------- |
 | **DRAFT**    | `Submit for Approval` → MOVES TO `PENDING`                           |
-| **PENDING**  | `Approve` → MOVES TO `APPROVED` \<br\> `Reject` → MOVES TO `DRAFT`   |
+| **PENDING**  | `Approve` → MOVES TO `APPROVED` <br /> `Reject` → MOVES TO `DRAFT`   |
 | **APPROVED** | `Go Live` → MOVES TO `LIVE`                                          |
-| **LIVE**     | `Pause Ad` → MOVES TO `PAUSED` \<br\> `Stop Ad` → MOVES TO `STOPPED` |
+| **LIVE**     | `Pause Ad` → MOVES TO `PAUSED` <br /> `Stop Ad` → MOVES TO `STOPPED` |
 | **PAUSED**   | `Go Live` → MOVES TO `LIVE`                                          |
 | **STOPPED**  | (End Status)                                                         |
 
@@ -127,15 +127,61 @@ title: "Marketing Campaigns Function"
 - **Permission Scheme:** Utilizes **Global Scheme 3: Moderate Permissions**.
 - **Notification Scheme:** Utilizes **Global Scheme 2: Notify All Stakeholders**.
 
----
+<Tabs>
+  <Tab title="1. Marketing Campaign (Standard Object)">
+    - **Process Description**: Manages Facebook advertising campaigns to attract potential customers interested in interior design.
+    - **Example**: "Nordic Style Living" campaign targeting customers interested in interior design. "Modern Design 2025" campaign.
 
-#### **INSTALLATION ESTIMATE (INTERNAL)**
+    **Workflow: Campaign Lifecycle**
 
-| Element              | Quantity | Unit Points | Total Points |
-| :------------------- | :------- | :---------- | :----------- |
-| Object Types         | 2        | 3           | 6            |
-| Data Fields          | 12       | 0.5         | 6            |
-| Internal Automations | 2        | 2           | 4            |
-| Dashboards           | 2        | 1.5         | 3            |
-| Filters              | 2        | 1           | 2            |
-| **TOTAL**            |          |             | **21**       |
+    <Frame>
+      ![mermaid-diagram-2025-08-18-115911.png](https://mintlify.s3.us-west-1.amazonaws.com/luklak-28b92ec5/images/mermaid-diagram-2025-08-18-115911.png)
+    </Frame>
+    | Status        | Available Transitions                                                               |
+    | :------------ | :---------------------------------------------------------------------------------- |
+    | **PLANNING**  | `Start Campaign` → MOVES TO `RUNNING`                                               |
+    | **RUNNING**   | `Pause Campaign` → MOVES TO `PAUSED` <br /> `End Campaign` → MOVES TO `COMPLETED`   |
+    | **PAUSED**    | `Resume Campaign` → MOVES TO `RUNNING` <br /> `End Campaign` → MOVES TO `COMPLETED` |
+    | **COMPLETED** | (End Status)                                                                        |
+
+    **Data Fields**
+
+    | Field Name    | Field Type | Description                                    |
+    | :------------ | :--------- | :--------------------------------------------- |
+    | Campaign Name | Short Text | The official name of the campaign.             |
+    | Target Budget | Number     | The expected budget for the campaign.          |
+    | Actual Spend  | Number     | The actual amount spent, updated from reports. |
+    | Target Leads  | Number     | The target number of leads to generate.        |
+    | Actual Leads  | Number     | The actual number of leads generated.          |
+    | Target CPL    | Formula    | `Target Budget / Target Leads`                 |
+    | Actual CPL    | Formula    | `Actual Spend / Actual Leads`                  |
+  </Tab>
+  <Tab title="2. Ad (Sub-Object)">
+    - **Process Description**: Manages individual ads within a campaign.
+    - **Example**: Ad A for the "Nordic Style Living" campaign, targeting female audiences aged 25-35.
+
+    **Workflow: Ad Lifecycle**
+
+    <Frame>
+      ![mermaid-diagram-2025-08-18-120028.png](https://mintlify.s3.us-west-1.amazonaws.com/luklak-28b92ec5/images/mermaid-diagram-2025-08-18-120028.png)
+    </Frame>
+    | Status       | Available Transitions                                                |
+    | :----------- | :------------------------------------------------------------------- |
+    | **DRAFT**    | `Submit for Approval` → MOVES TO `PENDING`                           |
+    | **PENDING**  | `Approve` → MOVES TO `APPROVED` <br /> `Reject` → MOVES TO `DRAFT`   |
+    | **APPROVED** | `Go Live` → MOVES TO `LIVE`                                          |
+    | **LIVE**     | `Pause Ad` → MOVES TO `PAUSED` <br /> `Stop Ad` → MOVES TO `STOPPED` |
+    | **PAUSED**   | `Go Live` → MOVES TO `LIVE`                                          |
+    | **STOPPED**  | (End Status)                                                         |
+
+    **Data Fields**
+
+    | Field Name      | Field Type | Description                            |
+    | :-------------- | :--------- | :------------------------------------- |
+    | Ad Name         | Short Text | The name of the specific ad creative.  |
+    | Ad Content      | Long Text  | The text/copy used in the ad.          |
+    | Ad Image/Video  | Attachment | The visual creative for the ad.        |
+    | Target Audience | Long Text  | Description of the target demographic. |
+    | UTM Code        | Short Text | Automatically generated tracking code. |
+  </Tab>
+</Tabs>
