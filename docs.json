@@ -308,11 +308,40 @@
               {
             "group": "Use & Operate",
             "pages": [
-              "en/03-build/flagship-case-study/use-and-operate/connecting-functions-with-universal-automation"
+              "en/03-build/flagship-case-study/use-and-operate/connecting-functions-with-universal-automation",
+              "en/03-build/flagship-case-study/use-and-operate/monitoring-the-business-with-dashboards"
           
             ]
           }
           
+            ]
+          },
+          {
+            "group": "Common Solutions",
+            "pages": [
+              {
+            "group": "Group 1",
+            "pages": [
+              "en/03-build/solution-playbooks/agency-and-consulting-operations"
+          
+            ]
+          }
+            ]
+          },
+          {
+            "group": "Advanced Techniques",
+            "pages": [
+              {
+            "group": "Group 1",
+            "pages": [
+              "en/03-build/advanced-techniques/index",
+              "en/03-build/advanced-techniques/connecting-functions",
+              "en/03-build/advanced-techniques/advanced-uql-analysis",
+              "en/03-build/advanced-techniques/performance-optimization",
+              "en/03-build/advanced-techniques/change-management"
+          
+            ]
+          }
             ]
           }
         ]
@@ -351,7 +380,8 @@
             "group": "Overview",
             "pages": [
               "en/06-academy/index",
-              "en/06-academy/tab06-note"
+              "en/06-academy/tab06-note",
+              "en/06-academy/laika-universal-automation"
             ]
           }
         ]
