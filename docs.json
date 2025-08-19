@@ -325,7 +325,9 @@
             "group": "Use & Manage",
             "pages": [
               "en/04-use/tab04-note",
-              "en/04-use/index"
+              "en/04-use/index",
+              "en/04-use/the-first-day-experience/navigating-the-laika-workspace",
+              "en/04-use/the-first-day-experience/understanding-a-laika-object"
             ]
           }
         ]
