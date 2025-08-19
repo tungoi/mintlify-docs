@@ -1,0 +1,58 @@
+---
+title: "For Managers: How to Build a Simple Team Report"
+description: "Learn how to use the built-in reporting tools to create a simple chart or report to track your team's progress and workload."
+sidebarTitle: "Build a Simple Report"
+---
+
+**Getting a Quick Overview**
+
+<Info>
+Keeping track of your team's progress is essential for effective management. While full, cross-functional dashboards are powerful, sometimes you just need a quick, simple chart within your `⏹️ Space` to answer a specific question like, "What's the status of all our active work right now?"
+
+This guide will show you how to build a basic report directly within your team's workspace. We'll follow Manager Mai at LAIKA as she creates a pie chart to see the current status of all active `Design Concepts`.
+</Info>
+
+## **Creating a "Design Status Overview" Chart**
+
+Our goal is to create a live pie chart that automatically shows how many design tasks are in each stage of the workflow (`IN PROGRESS`, `IN REVIEW`, etc.).
+
+```guidejar
+# Tutorial: Building a Simple Chart
+
+## Section 1: Accessing the Reporting Area
+
+1.  **Navigate to Your `⏹️ Space`**: Start in the `Active Projects` `⏹️ Space` where your team does their work.
+
+2.  **Find or Create a Dashboard View**: In the list of `Workviews` for your space, look for a "Dashboard" or "Reporting" view. Click on it. If one doesn't exist, you can create a new `Workview` and select the "Dashboard" type.
+![Accessing the Dashboard view within a Space.](https://path/to/space-dashboard-view.png)
+
+## Section 2: Building Your Chart Gadget
+
+1.  **Add a Gadget**: On the dashboard screen, click the `+ Add Gadget` button. This is how you add new charts, tables, and metrics to your report.
+
+2.  **Select the "Chart" Gadget**: From the list of available gadgets, choose **Chart**.
+![Selecting the Chart gadget from the list.](https://path/to/select-chart-gadget.png)
+
+3.  **Configure the Data Source**:
+    - First, tell the chart what data to use. In the "Search for" field, select the `Design Concept` `🧊 Object`.
+
+4.  **Choose the Chart Type**:
+    - For this report, a **Pie Chart** is a great way to see the distribution of statuses. Select "Pie Chart" from the options.
+
+5.  **Set the "Group By" Field**:
+    - This is the most important step. In the configuration panel, find the "Group by" (or "Labels") field and select **`Status`**. This tells the chart to create a slice for each status in your workflow.
+![Configuring the Pie Chart to group the data by the Status field.](https://path/to/configure-pie-chart.png)
+
+6.  **Save the Gadget**: Give your chart a clear name like "Current Design Statuses" and click "Save".
+
+## Section 3: Viewing Your Live Report
+
+1.  **See Your Chart in Action**: That's it! Your dashboard now contains a live, interactive pie chart. It will update automatically in real-time as your team updates the status of their `Design Concepts`. You can hover over any slice to see the exact count.
+![The final dashboard showing the live pie chart of Design Concept statuses.](https://path/to/final-pie-chart.png)
+````
+
+**What's Next?**
+
+Now that you can build reports to see your team's progress, let's look at how you can actively manage their work and balance their workload.
+
+  - [Next: How to Manage Your Team's Workload](https://www.google.com/search?q=/04-user-guides/04-guides-for-managers/how-to-manage-team-tasks)

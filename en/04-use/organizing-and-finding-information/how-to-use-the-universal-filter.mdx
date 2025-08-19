@@ -1,0 +1,62 @@
+---
+title: "How to Perform an Advanced Search with the Universal Filter"
+description: "Learn how to use the Universal Filter to find work items based on any criteria, such as status, assignee, date, or any custom field."
+sidebarTitle: "Advanced Search (Filter)"
+---
+
+**Finding Exactly What You Need**
+
+<Info>
+What if you need to find work based on more than just its title? For example, "Show me all approved designs from last month" or "Find all projects assigned to me that are over budget."
+
+For these deeper, more specific questions, you'll use the **Universal Filter**. This guide will show you how to build a precise query to find exactly what you're looking for across your entire workspace.
+</Info>
+
+## **Finding All "Approved" Designs by a Specific Designer**
+
+Let's imagine a manager at LAIKA needs to find all the final, approved designs created by a specific team member, Duc.
+
+```guidejar
+# Tutorial: Using the Universal Filter
+
+## Section 1: Accessing the Universal Filter
+
+1.  **Open the Filter**: From the main Universal Search bar at the top of the screen, click the "Filter" icon to open the advanced search page.
+![The Universal Filter icon next to the main search bar.](https://path/to/universal-filter-icon.png)
+
+2.  **Start Your Query**: This will take you to the Universal Filter page, which allows you to build a query from scratch.
+
+## Section 2: Building Your Query
+
+1.  **Select the `Object` Type**: First, tell the system what you're looking for. From the "Search for" dropdown, select the `Design Concept` `🧊 Object`.
+![Selecting the Object Type to search for in the Universal Filter.](https://path/to/select-object-type-filter.png)
+
+2.  **Add Your First Condition**: Now, let's add the criteria. Click "Add Condition" and set it to:
+    `Status` **is** `APPROVED`.
+
+3.  **Add a Second Condition**: Click "Add Condition" again. Make sure the logic between the two conditions is set to **AND**. Set the new condition to:
+    `Assigned To` **is** `Designer Duc`.
+
+4.  **Execute the Search**: Click the "Search" button. The system will now display a list of every `Design Concept` `🧊 Object` in the entire workspace that matches **both** of your precise criteria.
+![The results page showing a filtered list of objects that match the specific criteria.](https://path/to/universal-filter-results.png)
+
+````
+
+### **When to Use Which Search Tool?**
+
+Now you know two ways to find information. Here’s a simple guide on when to use each one.
+
+<CardGroup cols={2}>
+<Card title="Use Universal Search (Quick Search)" icon="magnifying-glass" iconType="duotone">
+When you know the **title** or **ID** of the item you're looking for and want to jump directly to it. It's your fastest option for finding a specific, known item.
+</Card>
+<Card title="Use Universal Filter (Advanced Search)" icon="filter" iconType="duotone">
+When you need to find `🧊 Objects` based on their **properties**, like status, assignee, due date, budget, or any other custom field. It's your most powerful tool for discovery and reporting.
+</Card>
+</CardGroup>
+
+**What's Next?**
+
+You now have a complete toolkit for organizing your views and finding any information you need. The next section of guides is designed specifically for team managers.
+
+  - [Next: For Managers - How to Add Users to a Space](https://www.google.com/search?q=/04-user-guides/04-guides-for-managers/how-to-add-users-to-a-space)

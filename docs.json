@@ -351,12 +351,50 @@
         "tab": "User Guide",
         "groups": [
           {
-            "group": "Use & Manage",
+            "group": "Introduction",
             "pages": [
               "en/04-use/tab04-note",
-              "en/04-use/index",
-              "en/04-use/the-first-day-experience/navigating-the-laika-workspace",
-              "en/04-use/the-first-day-experience/understanding-a-laika-object"
+              "en/04-use/index"
+             
+            ]
+          },
+          {
+            "group": "The first day experience",
+            "pages": [
+               "en/04-use/the-first-day-experience/navigating-the-laika-workspace",
+              "en/04-use/the-first-day-experience/understanding-a-laika-object",
+             "en/04-use/the-first-day-experience/how-to-create-a-new-lead"
+              
+
+            ]
+          },
+          {
+            "group": "Daily Work & Collaboration",
+            "pages": [
+              "en/04-use/daily-work-and-collaboration/how-to-update-an-object-and-change-status",
+              "en/04-use/daily-work-and-collaboration/how-to-collaborate-using-chat",
+              "en/04-use/daily-work-and-collaboration/how-to-use-filters-and-saved-views",
+              "en/04-use/daily-work-and-collaboration/how-to-use-universal-search",
+              "en/04-use/daily-work-and-collaboration/how-to-use-the-universal-filter"
+              
+            ]
+          },
+          {
+            "group": "Organizing & Finding Information",
+            "pages": [
+               "en/04-use/organizing-and-finding-information/how-to-use-filters-and-saved-views",
+              "en/04-use/organizing-and-finding-information/how-to-use-universal-search",
+              "en/04-use/organizing-and-finding-information/how-to-use-the-universal-filter"
+            ]
+          },
+          {
+            "group": "Guides For Managers",
+            "pages": [
+               "en/04-use/guides-for-managers/how-to-add-users-to-a-space",
+              "en/04-use/guides-for-managers/how-to-build-a-basic-report",
+              "en/04-use/guides-for-managers/how-to-manage-your-teams-workload"
+              
+
             ]
           }
         ]
