@@ -1,0 +1,154 @@
+---
+title: "Customer Success Function"
+---
+
+<Info>
+  **Purpose:** This document defines the **internal** operational logic of the Customer Success `📋 Function`. It governs the process of receiving and resolving client feedback and issues during the post-handover and warranty period.
+</Info>
+
+## Why This Matters
+
+This `📋 Function` is dedicated to managing the client experience after project completion, ensuring a systematic and professional approach to all post-handover support. It provides a centralized system for tracking client issues from reception to resolution, which is critical for maintaining high client satisfaction and fostering long-term loyalty. Strategically, it transforms client feedback into a valuable data asset for improving service quality and identifying common product or service issues. For the support team, it ensures no request is lost and provides clear data on team performance and resolution times.
+
+## The Big Picture
+
+Architecturally, this `📋 Function` is activated during the warranty phase of a `🧊 Project`. It is built around the `🧊 Customer Success Ticket` as the standard object, which can be created automatically from external channels like a Zalo support account. Each ticket serves as a case file for a client's request. To manage the internal work required for a resolution, `🧊︎ Resolution Task` sub-objects are created and assigned to technical staff. This structure separates client communication (managed in the ticket) from the internal work needed to solve the issue (managed in the tasks).
+
+---
+
+## OBJECT TYPES & WORKFLOWS
+
+### 1. 🧊 Customer Success Ticket (Standard Object)
+
+- **Process Description**: Manages a single client request or issue from the moment it is received until it is fully resolved and closed.
+- **Example**: "Ticket #CS101: Kitchen cabinet hinge requires adjustment". "Ticket #CS102: Feedback on living room paint color".
+
+<Tabs>
+  <Tab title="Workflow">
+    **Ticket Workflow**
+
+    `NEW` → `IN PROGRESS` → `AWAITING FEEDBACK` → `RESOLVED` → `CLOSED`
+
+    _``A NEW ticket can also be marked as SPAM.``_
+  </Tab>
+  <Tab title="Status Details">
+    | Status               | Business Logic                                                                                               | Advanced Settings                                                                                                           |
+    | :------------------- | :----------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
+    | 1. NEW               | A new ticket is received from a client via Zalo or email and awaits assignment.                              | **Automation**: Assigns the ticket to a CS Staff member based on a round-robin system.                                      |
+    | 2. IN PROGRESS       | The ticket has been assigned and is being actively worked on. The team creates `Resolution Tasks` as needed. | **Permissions**: Assigned CS Staff.                                                                                         |
+    | 3. AWAITING FEEDBACK | The issue has been addressed, and the team is waiting for the client to confirm the resolution.              | **Automation**: Sends a notification to the client asking for confirmation.                                                 |
+    | 4. RESOLVED          | The client has confirmed that the issue is resolved to their satisfaction.                                   | **Automation**: After 24 hours, automatically moves the ticket to `CLOSED` and sends a Customer Satisfaction (CSAT) survey. |
+    | 5. CLOSED            | The ticket is complete and archived.                                                                         | **Permissions**: Read-only.                                                                                                 |
+    | 6. SPAM              | The ticket is identified as irrelevant or spam and is closed without action.                                 | **Input Screen**: Reason for marking as spam.                                                                               |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group                  | Field Name (Type)                                                                                                                               |
+    | :--------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **Ticket Information** | Ticket Code (Text), Client (Object Reference), Project (Object Reference), Ticket Type (Dropdown), Priority (Dropdown), Description (Paragraph) |
+    | **Resolution**         | Assignee (User), Resolution Summary (Paragraph), CSAT Score (Number)                                                                            |
+  </Tab>
+</Tabs>
+
+---
+
+### 2. 🧊︎ Resolution Task (Sub-Object)
+
+- **Process Description**: An internal, actionable task assigned to a team member to help resolve a parent `🧊 Customer Success Ticket`.
+- **Parent Object**: `🧊 Customer Success Ticket`
+- **Example**: "Task: Schedule a technician visit". "Task: Order replacement hinge".
+
+<Tabs>
+  <Tab title="Workflow">
+    `TO DO` → `DOING` → `DONE`
+  </Tab>
+  <Tab title="Status Details">
+    | Status   | Business Logic                                         | Advanced Settings                                                                |
+    | :------- | :----------------------------------------------------- | :------------------------------------------------------------------------------- |
+    | 1. TO DO | The task has been created but not yet started.         | -                                                                                |
+    | 2. DOING | The task is currently being worked on by the assignee. | -                                                                                |
+    | 3. DONE  | The task has been completed.                           | **Automation**: Notifies the parent ticket's assignee that the task is complete. |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group            | Field Name (Type)                                                             |
+    | :--------------- | :---------------------------------------------------------------------------- |
+    | **Task Details** | Task Name (Text), Assignee (User), Due Date (Date), Estimated Cost (Currency) |
+  </Tab>
+</Tabs>
+
+---
+
+## OBJECT RELATIONSHIPS
+
+| Relationship                                         | Type         | Description                                                                                          |
+| :--------------------------------------------------- | :----------- | :--------------------------------------------------------------------------------------------------- |
+| `🧊 Customer Success Ticket` → `🧊︎ Resolution Task` | Parent-Child | Each ticket can be broken down into one or more internal tasks required for its resolution.          |
+| `🧊 Customer Success Ticket` → `Project`             | Reference    | Each ticket is linked to the specific project it relates to, providing context for the support team. |
+| `🧊 Customer Success Ticket` → `Customer`            | Reference    | Each ticket is linked to the client who submitted it.                                                |
+
+---
+
+## AUTOMATIONS
+
+| Rule                            | Trigger                                                         | Action                                                                                                          |
+| :------------------------------ | :-------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------- |
+| 1. **Create Ticket from Zalo**  | A message is received in the Zalo support channel.              | An N8N workflow creates a new `🧊 Customer Success Ticket` with the message content and sender's information.   |
+| 2. **Auto-Assign Ticket**       | A ticket is created and in the `NEW` status.                    | Automatically assigns the ticket to a `CS Staff` member using a round-robin algorithm and sends a notification. |
+| 3. **Send CSAT Survey**         | A `🧊 Customer Success Ticket` is moved to the `CLOSED` status. | Sends an automated email to the client with a link to a satisfaction survey.                                    |
+| 4. **Escalate Overdue Tickets** | An automation runs daily.                                       | Checks for tickets in `IN PROGRESS` status for more than 3 days and notifies the `Head of CS`.                  |
+
+---
+
+## WORKVIEWS & DASHBOARDS
+
+<Tabs>
+  <Tab title="Workviews">
+    | Workview                    | Description                                                                                   |
+    | :-------------------------- | :-------------------------------------------------------------------------------------------- |
+    | 1. **Ticket Kanban Board**  | A board view showing all `🧊 Customer Success Tickets`, organized in columns by their status. |
+    | 2. **Resolution Task List** | A detailed list view of all `🧊︎ Resolution Tasks`, filterable by assignee and due date.      |
+  </Tab>
+  <Tab title="Dashboards">
+    | Widget                          | Description                                                                                                  |
+    | :------------------------------ | :----------------------------------------------------------------------------------------------------------- |
+    | 1. **Ticket Resolution Time**   | A chart showing the average time it takes to move a ticket from `NEW` to `RESOLVED`.                         |
+    | 2. **Tickets by Type/Priority** | A pie chart breaking down the volume of tickets by their type (e.g., Warranty Claim, Feedback) and priority. |
+    | 3. **Average CSAT Score**       | A scorecard widget displaying the average Customer Satisfaction score based on survey responses.             |
+  </Tab>
+  <Tab title="Filters">
+    | Filter                    | Criteria                                              |
+    | :------------------------ | :---------------------------------------------------- |
+    | 1. **Unassigned Tickets** | `Status` is `NEW`.                                    |
+    | 2. **Overdue Tasks**      | `Status` is not `DONE` AND `Due Date` is in the past. |
+  </Tab>
+</Tabs>
+
+---
+
+## ROLES, PERMISSIONS & NOTIFICATIONS
+
+<Tabs>
+  <Tab title="Roles">
+    | Role                | Description                                                                                                     |
+    | :------------------ | :-------------------------------------------------------------------------------------------------------------- |
+    | **CS Staff**        | The primary user who communicates with clients, manages tickets, and creates resolution tasks.                  |
+    | **Head of CS**      | Manages the CS team, handles escalated tickets, and monitors team performance via dashboards.                   |
+    | **Technical Staff** | The user assigned to `Resolution Tasks` (e.g., a technician or designer) who performs the work to fix an issue. |
+  </Tab>
+  <Tab title="Permissions">
+    This `📋 Function` uses **Scheme 3 - Moderate Permissions**.
+
+    - **`View 🧊 Object`**: Only users assigned directly to the Object can view it.
+    - **`Update 🧊 Object`**: Only users assigned directly to the Object can update it.
+  </Tab>
+  <Tab title="Notifications">
+    This `📋 Function` uses **Scheme 2 - Notify Related People**.
+
+    - All notifications are sent only to the users directly assigned or involved in an object.
+  </Tab>
+</Tabs>
+
+---
+
+## What's Next?
+
+- [**Project Management Function**](https://claude.ai/chat/path/to/project-function): Review the function that manages the project during the construction and handover phases, which precedes the warranty period managed here.

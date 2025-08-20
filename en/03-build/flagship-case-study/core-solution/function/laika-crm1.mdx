@@ -1,0 +1,181 @@
+---
+title: "CRM (Business) Function"
+---
+
+<Info>
+  **Purpose:** This document defines the **internal** operational logic of the CRM (Business) `📋 Function`. It details the process from lead acquisition to deal closure and handover.
+</Info>
+
+## Why This Matters
+
+<Check>
+  This `📋 Function` transforms the lead management process from a manual, disconnected effort into a streamlined, automated revenue engine. From a strategic standpoint, it provides clear ROI tracking from ad spend to signed contracts. For the sales team, it eliminates guesswork by automating lead assignment, standardizing follow-up procedures, and integrating essential tools like Google Calendar, directly increasing conversion rates and team efficiency.
+</Check>
+
+## The Big Picture
+
+<Info>
+  Architecturally, this system is designed to capture leads from external webhooks (e.g., landing pages), process them through a structured pipeline using two core `🧊 Objects` (`🧊 Customer` and `🧊︎ Demo`), and then seamlessly hand off successful deals to downstream `📋 Functions` like Contracts and Site Surveys. It relies on both internal automations for efficiency and external API calls for calendar integration.
+</Info>
+
+---
+
+## OBJECT TYPES, WORKFLOWS & DATA FIELDS
+
+### 1. 🧊 Customer (Standard Object)
+
+- **Process Description**: Manages potential customers from the moment they are captured via a landing page webhook until they are converted into a signed contract. This includes automated assignment and progress tracking.
+- **Example**: A potential customer "Hoài An - 0384188881" is captured from the "MKT-236" ad campaign for Nordic-style interiors. Another lead from a "Modern Luxury" campaign has a prospective budget of \$25,000.
+
+<Tabs>
+  <Tab title="Workflow Diagram">
+    **Customer Pipeline**
+
+    `DEPLOYMENT` → `NEW LEAD` → `CONTACTING` → `SCHEDULING` → `DRAFTING CONTRACT` → `SUCCESS`
+
+    _`At any stage from NEW LEAD to DRAFTING CONTRACT, the process can move to a FAILURE status.`_
+  </Tab>
+  <Tab title="Status Details">
+    | Status               | Business Logic                                                                          | Advanced Settings                                                                                                                                                                                  |
+    | :------------------- | :-------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | 1. DEPLOYMENT        | New customer created from a landing page webhook, awaiting assignment.                  | **Automation**: Automatically assigns the lead to a sales representative based on a round-robin system and expertise. **Notification**: Sends a chat message to the Sales team about the new lead. |
+    | 2. NEW LEAD          | The customer has been assigned to a sales rep, who is preparing to make contact.        | **Permissions**: Assigned Sales Rep. **Data Input**: Initial assessment notes about the customer.                                                                                                  |
+    | 3. CONTACTING        | The sales rep has contacted and conducted a preliminary consultation with the customer. | **Permissions**: Assigned Sales Rep. **Data Input**: Call notes, specific needs, and interest level.                                                                                               |
+    | 4. SCHEDULING        | The customer has agreed to schedule a direct consultation.                              | **Automation**: Triggers the creation of a `🧊︎ Demo` child Object and a corresponding Google Calendar event. **Condition**: Customer shows clear interest and agrees to a meeting.                |
+    | 5. DRAFTING CONTRACT | The customer has agreed to proceed and is ready to sign a contract.                     | **Automation**: Creates a `🧊 Contract` and a `🧊 Site Survey`. **Condition**: Successful demo and clear intent to purchase.                                                                       |
+    | 6. SUCCESS           | The customer has successfully signed the contract.                                      | **Permissions**: Read-only. **Tracking**: The entire customer journey from ad source to signed contract is preserved.                                                                              |
+    | 7. FAILURE           | The customer is not interested or unsuitable at any stage.                              | **Permissions**: Assigned Sales Rep. **Data Input**: Reason for failure for future analysis and process improvement.                                                                               |
+  </Tab>
+  <Tab title="Data Fields">
+    **Data Field Groups**
+
+    | Group                                      | Field Name (Type)                                                                                                             | Notes                                            |
+    | :----------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------- |
+    | **Basic Information** _(6 Fields)_         | Full Name (Text), Phone Number (Phone), Email (Email), Address (Text), Preferred Style (Dropdown), Expected Budget (Currency) | Information captured from the landing page form. |
+    | **Tracking & Assignment** _(4 Fields)_     | Ad Source (Object Reference), UTM Tracking (Text), Assigned Rep (User), Received Date (DateTime)                              | Tracks lead origin and assignment.               |
+    | **Consultation & Evaluation** _(4 Fields)_ | Interest Level (Dropdown), Consultation Notes (Paragraph), Failure Reason (Dropdown), Last Contact Date (DateTime)            | Tracks the consultation process.                 |
+    | **Voucher & Incentives** _(3 Fields)_      | Next Purchase Voucher (Currency), Voucher Percentage (Percent), Voucher Expiry (Date)                                         | Incentives for returning customers.              |
+    | **Total: 17 Fields**                       |                                                                                                                               |                                                  |
+  </Tab>
+</Tabs>
+
+---
+
+### 2. 🧊︎ Demo (Sub-Object)
+
+- **Process Description**: Manages direct consultation appointments with customers, fully integrated with Google Calendar to synchronize schedules and send invitations.
+- **Example**: A demo titled "LAIKA x Hoài An - Interior Renovation Demo" is scheduled for June 18th at 2 PM, with designer Đức Minh and sales rep Manh Khôi.
+
+<Tabs>
+  <Tab title="Workflow Diagram">
+    **Demo Lifecycle**
+
+    `SCHEDULED` → `IN PROGRESS` → `COMPLETED`
+
+    _`From SCHEDULED, the demo can be CANCELLED. It can also be POSTPONED, which loops back to SCHEDULED.`_
+  </Tab>
+  <Tab title="Status Details">
+    | Status         | Business Logic                                                 | Advanced Settings                                                                                                                                |
+    | :------------- | :------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
+    | 1. SCHEDULED   | A consultation has been booked for a specific time.            | **Automation**: Creates a Google Calendar event and invites the customer, sales rep, and designer. **Data Input**: Time, location, participants. |
+    | 2. IN PROGRESS | The live consultation meeting is currently happening.          | **Permissions**: Sales Rep and Designer. **Data Input**: Notes taken during the consultation.                                                    |
+    | 3. COMPLETED   | The meeting has concluded with a clear outcome.                | **Data Input**: Consultation results, customer interest level, next steps. **Automation**: Updates the parent `🧊 Customer` status accordingly.  |
+    | 4. CANCELLED   | The appointment was cancelled due to unforeseen circumstances. | **Automation**: Updates the Google Calendar event and notifies all participants.                                                                 |
+    | 5. POSTPONED   | The appointment is deferred to a later date.                   | **Automation**: Updates the Google Calendar event. **Condition**: A new date must be set within 7 days.                                          |
+  </Tab>
+  <Tab title="Data Fields">
+    **Data Field Groups**
+
+    | Group                                    | Field Name (Type)                                                                                                                             | Notes                            |
+    | :--------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------- |
+    | **Appointment Information** _(6 Fields)_ | Demo Title (Text), Time (DateTime), Location (Text), Attending Designer (User), Google Calendar Event ID (Text), Consultation Type (Dropdown) | Basic details about the meeting. |
+    | **Results & Follow-up** _(4 Fields)_     | Interest Level (Dropdown), Consultation Notes (Paragraph), Next Steps (Text), Actual Duration (Decimal)                                       | Outcome and subsequent actions.  |
+    | **Total: 10 Fields**                     |                                                                                                                                               |                                  |
+  </Tab>
+</Tabs>
+
+---
+
+## OBJECT RELATIONSHIPS
+
+| Relationship Type    | Connection                                                | Description                                                                                                                                  |
+| :------------------- | :-------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Parent-Child**     | `🧊 Customer` → `🧊︎ Demo`                                | Each `🧊 Customer` can have multiple `🧊︎ Demo` appointments.                                                                                |
+| **Object Reference** | `🧊 Customer` (Ad Source field) → `🧊 Marketing Campaign` | Connects the lead to the specific ad campaign that generated it, enabling ROI tracking. Filter condition: Campaign status must be "RUNNING". |
+
+---
+
+## AUTOMATIONS
+
+| Rule                                  | Trigger                                                              | Action                                                                                                                                                                                                       |
+| :------------------------------------ | :------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. **Receive Lead from Landing Page** | A webhook is received when a customer submits the landing page form. | **`Create 🧊 Customer`**: Automatically creates a new `🧊 Customer` with form data, attaches the UTM source, and moves its status to `DEPLOYMENT`.                                                           |
+| 2. **Auto-Assign Sales Rep**          | `🧊 Customer` status changes to `DEPLOYMENT`.                        | **`Update 🧊 Customer`**: Assigns the lead to a sales rep via round-robin & expertise logic, changes status to `NEW LEAD`, and sends a chat notification to the Sales team.                                  |
+| 3. **Schedule Consultation**          | User clicks "Book Consultation" from the `🧊 Customer` menu.         | **`Create 🧊︎ Demo & GCal Event`**: A popup appears to enter appointment details, which then creates a `🧊︎ Demo` child Object and a Google Calendar event inviting the customer, sales rep, and a designer. |
+| 4. **Move to Contract Stage**         | `🧊 Customer` status is changed to `DRAFTING CONTRACT`.              | **`Create 🧊 Contract & 🧊 Site Survey`**: Automatically creates a `🧊 Contract` and a parallel `🧊 Site Survey`, pre-filled with customer information.                                                      |
+| 5. **Update Customer from Demo**      | `🧊︎ Demo` status is changed to `COMPLETED`.                         | **`Update Parent 🧊 Customer`**: Automatically updates the parent `🧊 Customer` status (e.g., to `DRAFTING CONTRACT` or `FAILURE`) based on the outcome recorded in the `🧊︎ Demo`.                          |
+| 6. **External: Google Calendar**      | HTTP Request via N8N.                                                | An API call is made to Google Calendar to create an event with details from the `🧊︎ Demo` and invite all participants.                                                                                      |
+| 7. **External: Landing Page**         | Webhook listener.                                                    | Receives form submission data and UTM parameters to trigger the creation of a new `🧊 Customer`.                                                                                                             |
+
+```guidejar
+# How to Schedule a Customer Demo
+This guide shows you how to book a new consultation for an existing customer lead, which will also create a Google Calendar event automatically.
+
+## Section 1: Find Your Customer
+! Important: Ensure the Customer is in the "CONTACTING" or a later stage before scheduling.
+
+1. Navigate to the main "Kanban Customer Pipeline" Workview.
+![Screenshot of the Kanban board with customer cards](path/to/kanban.png)
+
+2. Click on the 🧊 Customer you wish to schedule a demo for.
+* This will open the detailed view of the Customer.
+
+## Section 2: Book the Consultation
+1. In the 🧊 Customer detail view, click the "..." menu button in the top-right corner.
+![Screenshot of the Customer detail view with the menu button highlighted](path/to/customer-detail.png)
+
+2. Select "Book Consultation" from the dropdown menu.
+* A pop-up form will appear to enter the demo details.
+
+3. Fill in the required fields: Demo Title, Time, Location, and select an Attending Designer.
+![Screenshot of the demo booking pop-up form](path/to/popup.png)
+
+4. Click "Schedule".
+* This will create a new `🧊︎ Demo` Sub-Object and send a Google Calendar invitation to all participants.
+```
+
+---
+
+## **WORKVIEWS, DASHBOARDS & FILTERS**
+
+<Tabs>
+  <Tab title="Workviews">
+    | Workview                        | Description                                                                                    | Data Configuration                                                             |
+    | :------------------------------ | :--------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
+    | 1. **Kanban Customer Pipeline** | Displays customers as cards in columns representing each stage from `DEPLOYMENT` to `SUCCESS`. | All `🧊 Customer` Objects, grouped by status, sorted by received date.         |
+    | 2. **Demo Calendar**            | A monthly calendar view showing all scheduled consultation appointments.                       | All `🧊︎ Demo` Objects with a scheduled time, integrated with Google Calendar. |
+    | 3. **Customer List**            | A detailed table view of all customers with comprehensive information.                         | All `🧊 Customer` Objects, with filters for sales rep, ad source, and status.  |
+  </Tab>
+  <Tab title="Dashboards">
+    | Gadget                                | Data                                                                   | Description                                                             |
+    | :------------------------------------ | :--------------------------------------------------------------------- | :---------------------------------------------------------------------- |
+    | 1. **Conversion Funnel Chart**        | Conversion rate from Ad → Customer → Contract.                         | Analyzes the efficiency of the entire pipeline from Marketing to Sales. |
+    | 2. **Sales Rep Performance Counters** | Count of assigned Customers, Demos completed, and deal close rate.     | Evaluates the performance of individual sales representatives.          |
+    | 3. **2D Ad Source Statistics**        | Distribution of Customers based on the UTM tracking from ad campaigns. | Analyzes the ROI of each marketing campaign.                            |
+  </Tab>
+  <Tab title="Filters">
+    | Filter                   | Criteria                                                               | Reminder                                                 |
+    | :----------------------- | :--------------------------------------------------------------------- | :------------------------------------------------------- |
+    | 1. **Uncontacted Leads** | Status = "NEW LEAD" AND Received Date \> 24 hours ago.                 | Daily at 9:00 AM to the assigned Sales Rep.              |
+    | 2. **Upcoming Demos**    | Status = "SCHEDULED" AND Time is within the next 24 hours.             | Daily at 8:00 AM to the assigned Sales Rep and Designer. |
+    | 3. **Stale Leads**       | Status IN ("CONTACTING", "SCHEDULING") AND Last Updated \> 7 days ago. | Weekly on Monday at 9:00 AM to the Sales Manager.        |
+  </Tab>
+</Tabs>
+
+---
+
+**What's Next?**
+
+- [**Marketing Campaigns Function**](https://www.google.com/search?q=https://claude.ai/chat/path/to/marketing-function): Understand how leads are generated and tracked before they enter this CRM pipeline.
+- [**Contract & Invoice Function**](https://www.google.com/search?q=https://claude.ai/chat/path/to/contract-function): See the next step in the journey after a customer agrees to a deal.
+- [**Site Survey & Construction Function**](https://www.google.com/search?q=https://claude.ai/chat/path/to/survey-function): Learn how project details are captured and managed post-sale.

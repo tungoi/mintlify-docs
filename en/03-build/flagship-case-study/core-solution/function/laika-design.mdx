@@ -1,0 +1,220 @@
+---
+title: "Design Management Function"
+---
+
+<Info>
+  **Purpose:** This document defines the **internal** operational logic of the Design Management `📋 Function`. It manages the entire creative process, from initial concept development to final client approval and the handover of technical drawings to the project management team.
+</Info>
+
+## Why This Matters
+
+This `📋 Function` provides a structured and collaborative platform for the entire design lifecycle, ensuring that client feedback is systematically captured and design versions are meticulously tracked. It centralizes all design files, feedback, and approvals, preventing miscommunication and the use of outdated files. Strategically, this accelerates the approval process, creates a clear audit trail of design decisions, and ensures the final, approved designs are seamlessly integrated into the project execution plan.
+
+## The Big Picture
+
+Architecturally, this `📋 Function` operates in parallel with the early stages of the Project Management `📋 Function`. It is built upon an extensive hierarchical data model, starting with the `🧊 Design Drawing` as the main container, which links to a parent `🧊 Project`. This container is broken down through four levels of sub-objects: `🧊︎ Design Category`, `🧊︎ Design Space`, `🧊︎ Item in Space`, and finally, `🧊︎ File Version`. This deep structure allows for granular control and tracking of every single design element, from a high-level 3D render down to a specific version of a cabinet drawing.
+
+---
+
+## OBJECT TYPES & WORKFLOWS
+
+### 1. 🧊 Design Drawing (Standard Object)
+
+- **Process Description**: The top-level container for a complete design package for a client project. It groups all related design categories, spaces, and file versions.
+- **Example**: "DD-101: Design Package for Hoai An's Apartment".
+
+<Tabs>
+  <Tab title="Workflow">
+    **Design Drawing Workflow**
+
+    `INITIATED` → `DESIGNING` → `AWAITING FEEDBACK` → `FINALIZED` → `HANDED OVER`
+  </Tab>
+  <Tab title="Status Details">
+    | Status               | Business Logic                                                                                           | Advanced Settings                                                                                    |
+    | :------------------- | :------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- |
+    | 1. INITIATED         | The design brief has been received and the design package is being set up.                               | **Automation**: Creates the default framework of `Design Category` and `Design Space` sub-objects.   |
+    | 2. DESIGNING         | The design team is actively working on creating the concepts and drawings.                               | **Input Screen**: Designers upload `File Version` sub-objects.                                       |
+    | 3. AWAITING FEEDBACK | A version has been sent to the client and the team is waiting for review and comments.                   | **Automation**: Sends a notification to the Client that a new version is available for review.       |
+    | 4. FINALIZED         | The client has approved the overall design plan. No more creative changes are expected.                  | **Condition**: All child `Design Category` objects must be in a "Completed" status.                  |
+    | 5. HANDED OVER       | The finalized set of technical drawings has been delivered to the Project Management team for execution. | **Automation**: Copies the approved files to the related `Project`'s "Construction Drawings" folder. |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group                 | Field Name (Type)                                                                                     |
+    | :-------------------- | :---------------------------------------------------------------------------------------------------- |
+    | **Basic Information** | Design Code (Text), Related Project (Object Reference), Design Style (Dropdown), Lead Designer (User) |
+    | **Version Tracking**  | Current Version (Number), Last Feedback Date (Date), Approval Status (Text)                           |
+  </Tab>
+</Tabs>
+
+---
+
+### 2. 🧊︎ Design Category (Sub-Object)
+
+- **Process Description**: A high-level grouping of design deliverables, such as 3D visualizations or 2D technical drawings.
+- **Parent Object**: `🧊 Design Drawing`
+- **Example**: "3D Renders", "2D Technical Layouts".
+
+<Tabs>
+  <Tab title="Workflow">
+    `NOT STARTED` → `IN PROGRESS` → `COMPLETED`
+  </Tab>
+  <Tab title="Status Details">
+    | Status         | Business Logic                                                           |
+    | :------------- | :----------------------------------------------------------------------- |
+    | 1. NOT STARTED | Planning for this category is complete, but work has not begun.          |
+    | 2. IN PROGRESS | The team is actively creating the deliverables for this category.        |
+    | 3. COMPLETED   | All work for this category is finished and has been internally reviewed. |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group                | Field Name (Type)                                                  |
+    | :------------------- | :----------------------------------------------------------------- |
+    | **Category Details** | Category Type (Dropdown), Person in Charge (User), Due Date (Date) |
+  </Tab>
+</Tabs>
+
+---
+
+### 3. 🧊︎ Design Space (Sub-Object)
+
+- **Process Description**: Represents a specific room or area within the design, such as a living room or kitchen.
+- **Parent Object**: `🧊︎ Design Category`
+- **Example**: "Living Room 3D Renders", "Master Bedroom Technical Drawings".
+
+<Tabs>
+  <Tab title="Workflow">
+    `NOT STARTED` → `IN PROGRESS` → `COMPLETED`
+  </Tab>
+  <Tab title="Data Fields">
+    | Group             | Field Name (Type)                                     |
+    | :---------------- | :---------------------------------------------------- |
+    | **Space Details** | Space Name (Dropdown), Area (Number), Designer (User) |
+  </Tab>
+</Tabs>
+
+---
+
+### 4. 🧊︎ Item in Space (Sub-Object)
+
+- **Process Description**: Represents a specific piece of furniture or a fixture within a designed space.
+- **Parent Object**: `🧊︎ Design Space`
+- **Example**: "TV Cabinet", "Kitchen Island", "Wardrobe".
+
+<Tabs>
+  <Tab title="Workflow">
+    `NOT STARTED` → `IN PROGRESS` → `COMPLETED`
+  </Tab>
+  <Tab title="Data Fields">
+    | Group            | Field Name (Type)                                          |
+    | :--------------- | :--------------------------------------------------------- |
+    | **Item Details** | Item Name (Text), Description (Paragraph), BOQ Code (Text) |
+  </Tab>
+</Tabs>
+
+---
+
+### 5. 🧊︎ File Version (Sub-Object)
+
+- **Process Description**: Manages an individual file submission for a specific design item, tracking its review and approval workflow.
+- **Parent Object**: `🧊︎ Item in Space`
+- **Example**: "TV Cabinet - v1_draft.png", "TV Cabinet - v2_final.pdf".
+
+<Tabs>
+  <Tab title="Workflow">
+    `SKETCH` → `PENDING REVIEW` → `APPROVED` / `REJECTED`
+  </Tab>
+  <Tab title="Status Details">
+    | Status            | Business Logic                                                       | Advanced Settings                                                                        |
+    | :---------------- | :------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
+    | 1. SKETCH         | A new design file or revision is being prepared for submission.      | **Input Screen**: Upload file, add notes.                                                |
+    | 2. PENDING REVIEW | The file has been submitted to the client or a manager for feedback. | **Permissions**: Client & Manager. **Automation**: Sends a notification to the reviewer. |
+    | 3. APPROVED       | The file has been officially approved.                               | **Automation**: Updates the status of the parent `Item in Space`.                        |
+    | 4. REJECTED       | The file has been rejected and requires revision.                    | **Input Screen**: Reason for rejection.                                                  |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group            | Field Name (Type)                                                                              |
+    | :--------------- | :--------------------------------------------------------------------------------------------- |
+    | **File Details** | File (Attachment), Version Number (Number), Submission Date (Date), Feedback Notes (Paragraph) |
+  </Tab>
+</Tabs>
+
+---
+
+## OBJECT RELATIONSHIPS
+
+| Relationship                                | Type         | Description                                                     |
+| :------------------------------------------ | :----------- | :-------------------------------------------------------------- |
+| `🧊 Design Drawing` → `🧊︎ Design Category` | Parent-Child | A design package is split into major categories (e.g., 3D, 2D). |
+| `🧊︎ Design Category` → `🧊︎ Design Space`  | Parent-Child | Each category is organized by room or space.                    |
+| `🧊︎ Design Space` → `🧊︎ Item in Space`    | Parent-Child | Each space contains multiple design items.                      |
+| `🧊︎ Item in Space` → `🧊︎ File Version`    | Parent-Child | Each item has one or more file versions tracking its progress.  |
+| `🧊 Design Drawing` → `🧊 Project`          | Reference    | Each design package is linked to one master project.            |
+
+---
+
+## AUTOMATIONS
+
+| Rule                                | Trigger                                                    | Action                                                                                                                                   |
+| :---------------------------------- | :--------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. **Create Default Structure**     | A `🧊 Design Drawing` is created.                          | Automatically creates a standard set of sub-objects: `🧊︎ Design Category` (3D, 2D) and `🧊︎ Design Space` (Living Room, Bedroom, etc.). |
+| 2. **Notify Client of New Version** | A `🧊︎ File Version` is moved to `PENDING REVIEW`.         | Sends an automated email or portal notification to the client with a link to view the file and provide feedback.                         |
+| 3. **Update Parent Status**         | All `🧊︎ File Version` objects for an item are `APPROVED`. | Automatically changes the status of the parent `🧊︎ Item in Space` to `COMPLETED`. This rolls up the hierarchy.                          |
+
+---
+
+## WORKVIEWS & DASHBOARDS
+
+<Tabs>
+  <Tab title="Workviews">
+    | Workview                    | Description                                                                                                                          |
+    | :-------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+    | 1. **Design Tree View**     | A hierarchical list showing the nested structure from `🧊 Design Drawing` down to `🧊︎ File Version`, providing a complete overview. |
+    | 2. **File Version Gallery** | A visual gallery of all submitted `🧊︎ File Version` attachments, allowing for quick visual review and comparison.                   |
+  </Tab>
+  <Tab title="Dashboards">
+    | Widget                          | Description                                                                                                          |
+    | :------------------------------ | :------------------------------------------------------------------------------------------------------------------- |
+    | 1. **Design Progress Overview** | Charts showing the completion percentage of each `🧊︎ Design Category` and `🧊︎ Design Space`.                       |
+    | 2. **Feedback Cycle Time**      | A chart that measures the average time between a file moving to `PENDING REVIEW` and being `APPROVED` or `REJECTED`. |
+  </Tab>
+  <Tab title="Filters">
+    | Filter                      | Criteria                                                     |
+    | :-------------------------- | :----------------------------------------------------------- |
+    | 1. **Awaiting My Feedback** | `Status` is `PENDING REVIEW` AND `Assignee` is current user. |
+    | 2. **All Rejected Designs** | `Status` is `REJECTED`.                                      |
+  </Tab>
+</Tabs>
+
+---
+
+## ROLES, PERMISSIONS & NOTIFICATIONS
+
+<Tabs>
+  <Tab title="Roles">
+    | Role               | Description                                                                                                   |
+    | :----------------- | :------------------------------------------------------------------------------------------------------------ |
+    | **Design Manager** | Responsible for approving final designs, managing the design team's workload, and ensuring quality standards. |
+    | **Designer**       | Responsible for creating, revising, and submitting all design files and versions.                             |
+    | **Client**         | Responsible for providing timely feedback on submitted designs and giving final approval on `File Versions`.  |
+  </Tab>
+  <Tab title="Permissions">
+    This `📋 Function` uses **Scheme 4 - Extended Permissions**.
+
+    - **`View ⏹️ Space`**: All users with a role in the Space.
+    - **`View & Update 🧊 Object`**: All users who can view the Space.
+    - **`Create 🧊 Object`**: `Design Manager` and `Designer` roles only.
+    - **`Delete 🧊 Object`**: `Design Manager` role only.
+  </Tab>
+  <Tab title="Notifications">
+    This `📋 Function` uses **Scheme 3 - Balanced Notifications**.
+
+    - **Object Updates**: Notifications for creating or updating an Object are sent only to the assignee and the person who created the Object.
+    - **Messages**: Chat messages sent within an Object will notify all users who are following that Object.
+  </Tab>
+</Tabs>
+
+---
+
+## What's Next?
+
+- [**Project Management Function**](https://claude.ai/chat/path/to/project-function): Learn how the `HANDED OVER` designs are used to create tasks and manage the construction phase.
+- [**Contract & Invoice Function**](https://claude.ai/chat/path/to/contract-function): See how design milestones can trigger payment installments from the client.

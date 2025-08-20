@@ -1,0 +1,232 @@
+---
+title: "Construction Management Function"
+---
+
+<Info>
+  **Purpose:** This document defines the **internal** operational logic of the Construction Management `📋 Function`. It governs the on-site execution of project work, from planning and resource allocation to daily progress tracking and formal acceptance of completed work.
+</Info>
+
+## Why This Matters
+
+<Info>
+  This `📋 Function` brings structure and real-time visibility to the complexities of on-site construction. It focuses on operational excellence by tracking daily progress, managing resource allocation, and ensuring quality control through a formal acceptance process. Strategically, this provides managers with a clear view of on-the-ground progress against the master plan, enabling proactive issue resolution and ensuring adherence to budget and quality standards. For site supervisors and construction teams, it digitizes daily reporting, clarifies task ownership, and streamlines the processes for material requests and work acceptance.
+</Info>
+
+## The Big Picture
+
+<Info>
+  Architecturally, this `📋 Function` is the execution engine of the project lifecycle, taking inputs from the high-level `🧊 Project` and `🧊 Design Drawing`. It is centered around the `🧊 Construction Category` object, which represents a major phase of work (e.g., Electrical, Plumbing). This central object is supported by a `🧊︎ Construction Task` sub-object for granular work management. All other key processes, including `🧊 Construction Logs`, `🧊 Material Requests`, and `🧊 Acceptance Records`, are linked directly to a `🧊 Construction Category`, making it the operational hub for all on-site activities.
+</Info>
+
+---
+
+## OBJECT TYPES & WORKFLOWS
+
+### 1. 🧊 Construction Category (Standard Object)
+
+- **Process Description**: Manages a major package of construction work for a specific project, from preparation to final acceptance.
+- **Example**: "Electrical Installation for P-101". "Apartment Masonry Work for P-101".
+
+<Tabs>
+  <Tab title="Workflow">
+    **Construction Category Workflow**
+
+    `PREPARATION` → `IN PROGRESS` → `AWAITING ACCEPTANCE` → `COMPLETED`
+
+    _``An IN PROGRESS category can also be moved to a PAUSED status.``_
+  </Tab>
+  <Tab title="Status Details">
+    | Status                 | Business Logic                                                                    | Advanced Settings                                                                                     |
+    | :--------------------- | :-------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------- |
+    | 1. PREPARATION         | Planning, assigning resources, and preparing materials for this phase of work.    | -                                                                                                     |
+    | 2. IN PROGRESS         | The construction team is actively executing the tasks within this category.       | **Automation**: The start date is automatically recorded when moved to this status.                   |
+    | 3. PAUSED              | Work on this category has been temporarily stopped.                               | **Input Screen**: Reason for pausing.                                                                 |
+    | 4. AWAITING ACCEPTANCE | All tasks are complete, and the work is ready for formal inspection and sign-off. | **Automation**: Creates a new `Acceptance Record` and notifies the Project Director.                  |
+    | 5. COMPLETED           | The work has been formally accepted and is considered finished.                   | **Condition**: Can only be moved to this status after the related `Acceptance Record` is `COMPLETED`. |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group                | Field Name (Type)                                                                                                         |
+    | :------------------- | :------------------------------------------------------------------------------------------------------------------------ |
+    | **Category Details** | Category Name (Text), Related Project (Object Reference), Supervisor (User)                                               |
+    | **Scheduling**       | Planned Start Date (Date), Planned End Date (Date), Actual Start Date (Date), Actual End Date (Date), Progress % (Rollup) |
+  </Tab>
+</Tabs>
+
+---
+
+### 2. 🧊︎ Construction Task (Sub-Object)
+
+- **Process Description**: An individual, actionable task that must be completed as part of a `🧊 Construction Category`.
+- **Parent Object**: `🧊 Construction Category`
+- **Example**: "Install main electrical panel". "Plaster the master bedroom walls".
+
+<Tabs>
+  <Tab title="Workflow">
+    `TO DO` → `DOING` → `DONE`
+  </Tab>
+  <Tab title="Status Details">
+    | Status   | Business Logic                                 | Advanced Settings                                                                           |
+    | :------- | :--------------------------------------------- | :------------------------------------------------------------------------------------------ |
+    | 1. TO DO | The task has been created but not yet started. | -                                                                                           |
+    | 2. DOING | The task is currently being worked on.         | -                                                                                           |
+    | 3. DONE  | The task has been completed.                   | **Automation**: The completion percentage of the parent `Construction Category` is updated. |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group            | Field Name (Type)                                                       |
+    | :--------------- | :---------------------------------------------------------------------- |
+    | **Task Details** | Task Name (Text), Assignee (User), Due Date (Date), Priority (Dropdown) |
+  </Tab>
+</Tabs>
+
+---
+
+### 3. 🧊 Construction Log (Standard Object)
+
+- **Process Description**: A daily log to record on-site progress, issues, and activities for a specific `🧊 Construction Category`.
+- **Example**: "Daily log for Electrical Installation - 20/08/2025".
+
+<Tabs>
+  <Tab title="Workflow">
+    `DRAFT` → `SUBMITTED`
+  </Tab>
+  <Tab title="Status Details">
+    | Status       | Business Logic                                          | Advanced Settings                                                              |
+    | :----------- | :------------------------------------------------------ | :----------------------------------------------------------------------------- |
+    | 1. DRAFT     | The log entry is being prepared by the Site Supervisor. | -                                                                              |
+    | 2. SUBMITTED | The log has been finalized and submitted.               | **Automation**: Notifies the Project Director that the daily log is available. |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group           | Field Name (Type)                                                                                                    |
+    | :-------------- | :------------------------------------------------------------------------------------------------------------------- |
+    | **Log Details** | Log Date (Date), Supervisor (User), Progress Update (Paragraph), Issues Encountered (Paragraph), Photos (Attachment) |
+  </Tab>
+</Tabs>
+
+---
+
+### 4. 🧊 Material Request (Standard Object)
+
+- **Process Description**: Manages the process of requesting and approving materials needed for a `🧊 Construction Category`.
+- **Example**: "Request for 50m of electrical conduit".
+
+<Tabs>
+  <Tab title="Workflow">
+    `NEW` → `PENDING APPROVAL` → `APPROVED` → `DELIVERED` / `REJECTED`
+  </Tab>
+  <Tab title="Status Details">
+    | Status              | Business Logic                                                     | Advanced Settings                                                     |
+    | :------------------ | :----------------------------------------------------------------- | :-------------------------------------------------------------------- |
+    | 1. NEW              | A new request for materials has been created by a Site Supervisor. | -                                                                     |
+    | 2. PENDING APPROVAL | The request is awaiting approval from the Project Director.        | **Automation**: Notifies the Project Director of the pending request. |
+    | 3. APPROVED         | The request has been approved for purchase.                        | **Permissions**: Read-only after approval.                            |
+    | 4. DELIVERED        | The materials have been delivered to the site.                     | -                                                                     |
+    | 5. REJECTED         | The request has been rejected.                                     | **Input Screen**: Reason for rejection.                               |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group               | Field Name (Type)                                                                                |
+    | :------------------ | :----------------------------------------------------------------------------------------------- |
+    | **Request Details** | Material Name (Text), Quantity (Number), Unit (Text), Supplier (Text), Estimated Cost (Currency) |
+  </Tab>
+</Tabs>
+
+---
+
+### 5. 🧊 Acceptance Record (Standard Object)
+
+- **Process Description**: A formal record to document the inspection and acceptance of a completed `🧊 Construction Category`.
+- **Example**: "Acceptance Record for P-101 Electrical Work".
+
+<Tabs>
+  <Tab title="Workflow">
+    `DRAFT` → `AWAITING SIGNATURE` → `COMPLETED`
+  </Tab>
+  <Tab title="Status Details">
+    | Status                | Business Logic                                                   | Advanced Settings                                                                        |
+    | :-------------------- | :--------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
+    | 1. DRAFT              | The acceptance record is being prepared with inspection details. | **Input Screen**: Inspection date, participants, result, and notes.                      |
+    | 2. AWAITING SIGNATURE | The record is complete and has been sent for digital signature.  | -                                                                                        |
+    | 3. COMPLETED          | The record has been signed by all parties and is finalized.      | **Automation**: Updates the status of the parent `Construction Category` to `COMPLETED`. |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group              | Field Name (Type)                                                                                                                                       |
+    | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+    | **Record Details** | Record Code (Text), Related Category (Object Reference), Inspection Date (Date), Result (Dropdown), Participants (Text), Digital Signature (Attachment) |
+  </Tab>
+</Tabs>
+
+---
+
+## OBJECT RELATIONSHIPS
+
+| Relationship                                         | Type         | Description                                                                |
+| :--------------------------------------------------- | :----------- | :------------------------------------------------------------------------- |
+| `🧊 Construction Category` → `🧊︎ Construction Task` | Parent-Child | A category is broken down into specific tasks for the construction team.   |
+| `🧊 Construction Log` → `🧊 Construction Category`   | Reference    | Daily logs are recorded against a specific, active work category.          |
+| `🧊 Material Request` → `🧊 Construction Category`   | Reference    | Materials are requested for a specific work category.                      |
+| `🧊 Acceptance Record` → `🧊 Construction Category`  | Reference    | A formal acceptance record is created to sign off on a completed category. |
+
+---
+
+## AUTOMATIONS
+
+| Rule                               | Trigger                                            | Action                                                                                                               |
+| :--------------------------------- | :------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------- |
+| 1. **Daily Progress Reminder**     | Every day at 4:00 PM.                              | Sends a notification to all `Construction Supervisors` to submit their `Construction Log` for the day.               |
+| 2. **Notify on Acceptance Result** | An `🧊 Acceptance Record` is moved to `COMPLETED`. | Sends a notification to the Site Supervisor and the client with the result of the inspection.                        |
+| 3. **Escalate Overdue Tasks**      | An automation runs daily.                          | Checks for `🧊︎ Construction Tasks` that are past their `Due Date` but not `DONE` and notifies the Project Director. |
+
+---
+
+## WORKVIEWS & DASHBOARDS
+
+<Tabs>
+  <Tab title="Workviews">
+    | Workview                    | Description                                                                                                    |
+    | :-------------------------- | :------------------------------------------------------------------------------------------------------------- |
+    | 1. **Category Gantt Chart** | A timeline view of all `🧊 Construction Categories` for a project, showing their planned and actual durations. |
+    | 2. **Daily Task Kanban**    | A board view showing all `🧊︎ Construction Tasks` for the day, organized by status (`TO DO`, `DOING`, `DONE`). |
+  </Tab>
+  <Tab title="Dashboards">
+    | Widget                          | Description                                                                                                                            |
+    | :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------- |
+    | 1. **Overall Project Progress** | A chart that rolls up the completion percentage of all `🧊 Construction Categories` to show the project's real-time physical progress. |
+    | 2. **Resource Workload**        | A view showing the number of active tasks assigned to each member of the `Construction Team`.                                          |
+  </Tab>
+  <Tab title="Filters">
+    | Filter                                    | Criteria                           |
+    | :---------------------------------------- | :--------------------------------- |
+    | 1. **Categories Awaiting Acceptance**     | `Status` is `AWAITING ACCEPTANCE`. |
+    | 2. **Material Requests Pending Approval** | `Status` is `PENDING APPROVAL`.    |
+  </Tab>
+</Tabs>
+
+---
+
+## ROLES, PERMISSIONS & NOTIFICATIONS
+
+<Tabs>
+  <Tab title="Roles">
+    | Role                        | Description                                                                                             |
+    | :-------------------------- | :------------------------------------------------------------------------------------------------------ |
+    | **Project Director**        | Has overall responsibility for the project, approves material requests, and reviews acceptance records. |
+    | **Construction Supervisor** | Manages the on-site team, assigns tasks, submits daily logs, and requests materials.                    |
+    | **Construction Team**       | Executes the `Construction Tasks` assigned to them and updates their status.                            |
+  </Tab>
+  <Tab title="Permissions">
+    This `📋 Function` uses **Scheme 3 - Moderate Permissions**.
+
+    - **`View/Update 🧊 Object`**: Only users assigned directly to an object (e.g., the Supervisor of a Category, the Assignee of a Task) can view and update it.
+  </Tab>
+  <Tab title="Notifications">
+    This `📋 Function` uses **Scheme 2 - Notify Related People**.
+
+    - All notifications are sent only to the users directly involved in an object (e.g., the Project Director for an approval, the Supervisor for a daily reminder).
+  </Tab>
+</Tabs>
+
+---
+
+## What's Next?
+
+- [**Project Management Function**](https://claude.ai/chat/path/to/project-function): Understand the higher-level function that creates the master plan and budget which this Construction function executes against.
+- [**Design Management Function**](https://claude.ai/chat/path/to/design-function): See how the technical drawings used by the construction team are created and approved.

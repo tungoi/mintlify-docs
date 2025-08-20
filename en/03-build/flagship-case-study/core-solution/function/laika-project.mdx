@@ -1,0 +1,209 @@
+---
+title: "Project Management Function"
+---
+
+<Info>
+  **Purpose:** This document defines the **internal** operational logic of the Project Management `📋 Function`. It governs the entire project execution process, from initial setup after a contract is signed to final handover and warranty.
+</Info>
+
+## Why This Matters
+
+This `📋 Function` provides a unified, transparent, and structured environment for managing complex interior design and construction projects. It replaces scattered information across different tools with a single source of truth for project timelines, budgets, tasks, and communications. Strategically, this enables real-time project health monitoring, precise budget control, and improved client satisfaction through predictable delivery. For project managers and teams, it clarifies responsibilities, automates progress tracking, and ensures a consistent workflow for every project.
+
+## The Big Picture
+
+Architecturally, this `📋 Function` is the operational core of the business, activated once a deal is closed in the CRM `📋 Function`. It is built on a sophisticated data model involving five interconnected `🧊 Objects`. The structure is hierarchical, with the `🧊 Project` as the central container. `🧊 Construction Categories` and `🧊︎︎ Tasks` form a work breakdown structure, while `🧊 Materials` and `🧊 Construction Logs` are linked in to manage procurement and daily progress respectively. This interconnected system provides a comprehensive, 360-degree view of all project activities.
+
+---
+
+## OBJECT TYPES & WORKFLOWS
+
+### 1. 🧊 Project (Standard Object)
+
+- **Process Description**: The main container for all project-related activities, information, and financials, from the design phase through to the warranty period.
+- **Example**: "Project P-101: Hoai An's Apartment Renovation". "Project P-102: Modern Office Space for TechCorp".
+
+<Tabs>
+  <Tab title="Workflow">
+    **Project Workflow**
+
+    `PREPARATION` → `DESIGN` → `CONSTRUCTION` → `FINALIZATION` → `HANDOVER` → `WARRANTY` → `CLOSED`
+  </Tab>
+  <Tab title="Status Details">
+    | Status          | Business Logic                                                        |
+    | :-------------- | :-------------------------------------------------------------------- |
+    | 1. PREPARATION  | Initial project setup, including contract review and team assignment. |
+    | 2. DESIGN       | The 3D design and technical drawing phase is underway.                |
+    | 3. CONSTRUCTION | On-site construction and installation are in progress.                |
+    | 4. FINALIZATION | Financial settlement and final paperwork are being completed.         |
+    | 5. HANDOVER     | The completed project is officially handed over to the client.        |
+    | 6. WARRANTY     | The project is in the post-handover warranty period.                  |
+    | 7. CLOSED       | The warranty period has ended and the project is officially closed.   |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group                   | Field Name (Type)                                                                                    |
+    | :---------------------- | :--------------------------------------------------------------------------------------------------- |
+    | **Project Information** | Project Code (Text), Project Name (Text), Client (Object Reference), Address (Text)                  |
+    | **Financials**          | Contract Value (Currency), Total Cost (Rollup), Profit Margin (Formula)                              |
+    | **Timelines**           | Planned Start Date (Date), Planned End Date (Date), Actual Start Date (Date), Actual End Date (Date) |
+  </Tab>
+</Tabs>
+
+---
+
+### 2. 🧊︎ Construction Category (Sub-Object)
+
+- **Process Description**: Manages a major work package within a `🧊 Project`, such as electrical, plumbing, or furniture installation. It groups related tasks together.
+- **Parent Object**: `🧊 Project`
+- **Example**: "Electrical Work" for Project P-101. "Furniture & Decor" for Project P-101.
+
+<Tabs>
+  <Tab title="Workflow">
+    `PLANNING` → `IN PROGRESS` → `ACCEPTANCE` → `COMPLETED`
+  </Tab>
+  <Tab title="Status Details">
+    | Status         | Business Logic                                                       |
+    | :------------- | :------------------------------------------------------------------- |
+    | 1. PLANNING    | Tasks and resources for this category are being planned.             |
+    | 2. IN PROGRESS | Work on the tasks within this category has started.                  |
+    | 3. ACCEPTANCE  | The work is complete and awaiting quality inspection and acceptance. |
+    | 4. COMPLETED   | The category has been inspected and officially marked as complete.   |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group                | Field Name (Type)                                                       |
+    | :------------------- | :---------------------------------------------------------------------- |
+    | **Category Details** | Category Name (Text), Person in Charge (User), Budget (Currency)        |
+    | **Scheduling**       | Planned Start Date (Date), Planned End Date (Date), Progress % (Rollup) |
+  </Tab>
+</Tabs>
+
+---
+
+### 3. 🧊︎︎ Task (Sub-Object)
+
+- **Process Description**: Represents an individual, actionable work item that needs to be completed. It is the smallest unit of work tracking.
+- **Parent Object**: `🧊︎ Construction Category`
+- **Example**: "Install living room ceiling lights". "Assemble kitchen cabinets".
+
+<Tabs>
+  <Tab title="Workflow">
+    `TO DO` → `DOING` → `DONE`
+  </Tab>
+  <Tab title="Status Details">
+    | Status   | Business Logic                                 |
+    | :------- | :--------------------------------------------- |
+    | 1. TO DO | The task has been created but not yet started. |
+    | 2. DOING | The task is currently being worked on.         |
+    | 3. DONE  | The task has been completed.                   |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group            | Field Name (Type)                                                       |
+    | :--------------- | :---------------------------------------------------------------------- |
+    | **Task Details** | Task Name (Text), Assignee (User), Due Date (Date), Priority (Dropdown) |
+  </Tab>
+</Tabs>
+
+---
+
+### 4. 🧊 Material (Standard Object)
+
+- **Process Description**: Manages the procurement lifecycle of a specific material or piece of equipment required for a project.
+- **Example**: "Request for 20L of White Interior Paint". "Order for Nordic-style Sofa".
+
+<Tabs>
+  <Tab title="Workflow">
+    `REQUESTED` → `APPROVED` → `PURCHASED` → `DELIVERED` → `USED` / `CANCELLED`
+  </Tab>
+  <Tab title="Status Details">
+    | Status       | Business Logic                                            |
+    | :----------- | :-------------------------------------------------------- |
+    | 1. REQUESTED | A request for a material has been submitted.              |
+    | 2. APPROVED  | The request has been approved by the project manager.     |
+    | 3. PURCHASED | The material has been ordered and paid for.               |
+    | 4. DELIVERED | The material has been delivered to the construction site. |
+    | 5. USED      | The material has been consumed in the project.            |
+    | 6. CANCELLED | The material request has been cancelled.                  |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group                    | Field Name (Type)                                                                                                   |
+    | :----------------------- | :------------------------------------------------------------------------------------------------------------------ |
+    | **Material Information** | Material Name (Text), Quantity (Number), Unit (Text), Unit Price (Currency), Total Price (Formula), Supplier (Text) |
+  </Tab>
+</Tabs>
+
+---
+
+### 5. 🧊 Construction Log (Standard Object)
+
+- **Process Description**: A daily log entry to record progress, issues, and activities on the construction site.
+- **Example**: "Log for 2025-08-20: Completed wall painting for master bedroom. Heavy rain caused minor delay."
+
+<Tabs>
+  <Tab title="Workflow">
+    `DRAFT` → `SUBMITTED`
+  </Tab>
+  <Tab title="Status Details">
+    | Status       | Business Logic                                                            |
+    | :----------- | :------------------------------------------------------------------------ |
+    | 1. DRAFT     | The log entry is being written by the site supervisor.                    |
+    | 2. SUBMITTED | The log has been finalized and submitted for the official project record. |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group           | Field Name (Type)                                                                                                                    |
+    | :-------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+    | **Log Details** | Log Date (Date), Author (User), Weather (Dropdown), Progress Update (Paragraph), Issues Encountered (Paragraph), Photos (Attachment) |
+  </Tab>
+</Tabs>
+
+---
+
+## OBJECT RELATIONSHIPS
+
+| Relationship                               | Type         | Description                                                 |
+| :----------------------------------------- | :----------- | :---------------------------------------------------------- |
+| `🧊 Project` → `🧊︎ Construction Category` | Parent-Child | A project is broken down into major work categories.        |
+| `🧊︎ Construction Category` → `🧊︎︎ Task`  | Parent-Child | Each category is further broken down into specific tasks.   |
+| `🧊 Material` → `🧊 Project`               | Reference    | Materials are requested and tracked for a specific project. |
+| `🧊 Construction Log` → `🧊 Project`       | Reference    | Daily logs are recorded against a specific project.         |
+
+---
+
+## AUTOMATIONS
+
+| Rule                              | Trigger                           | Action                                                                                                                                                    |
+| :-------------------------------- | :-------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. **Create Default Categories**  | A `🧊 Project` is created.        | Automatically creates a standard set of `🧊︎ Construction Category` sub-objects (e.g., Demolition, Electrical, Plumbing) based on a template.             |
+| 2. **Calculate Project Progress** | A `🧊︎︎ Task` is moved to `DONE`. | Rolls up the completion status to the parent `🧊︎ Construction Category` and `🧊 Project`, updating their respective `Progress %` fields.                 |
+| 3. **Daily Summary Notification** | Every day at 6:00 PM.             | Sends a summary notification to the Project Manager listing all `🧊︎︎ Tasks` completed that day and any new issues recorded in the `🧊 Construction Log`. |
+
+---
+
+## WORKVIEWS & DASHBOARDS
+
+<Tabs>
+  <Tab title="Workviews">
+    | Workview                   | Description                                                                                                                 |
+    | :------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
+    | 1. **Project Gantt Chart** | A timeline view of all projects and their `🧊︎ Construction Categories`, showing dependencies and overall project schedule. |
+    | 2. **Task Kanban Board**   | A board view showing all `🧊︎︎ Tasks` for a selected project, organized by status (`TO DO`, `DOING`, `DONE`).               |
+  </Tab>
+  <Tab title="Dashboards">
+    | Widget                         | Description                                                                                                              |
+    | :----------------------------- | :----------------------------------------------------------------------------------------------------------------------- |
+    | 1. **Project Health Overview** | A dashboard with counters and charts showing the status of all active projects, budget variance, and schedule adherence. |
+    | 2. **Resource Allocation**     | A view showing how many tasks are assigned to each user across all projects to manage workload.                          |
+  </Tab>
+  <Tab title="Filters">
+    | Filter                      | Criteria                                              |
+    | :-------------------------- | :---------------------------------------------------- |
+    | 1. **Overdue Tasks**        | `Status` is not `DONE` AND `Due Date` is in the past. |
+    | 2. **Projects Over Budget** | `Total Cost` (Rollup) \> `Contract Value`.            |
+  </Tab>
+</Tabs>
+
+---
+
+## What's Next?
+
+- [**Contract & Invoice Function**](https://claude.ai/chat/path/to/contract-function): Understand how the initial `Contract Value` is determined and how client invoicing is managed alongside project progress.
+- [**CRM (Business) Function**](https://claude.ai/chat/path/to/crm-function): See the preceding stage where the client relationship and initial project scope are defined before being handed over to this function.

@@ -59,7 +59,7 @@ This section details the specific business logic, workflows, statuses, and data 
     **Workflow (Luồng tiến trình):**
     `NEW` → `DRAFTING` → `SALES REVIEW` → `CLIENT SUBMISSION` → `COMPLETED`
     \
-     └── `REVISIONS` → `SALES REVIEW`
+    └── `REVISIONS` → `SALES REVIEW`
 
     **Status Details (Chi tiết các Trạng thái):**
 
@@ -171,35 +171,35 @@ This section details the specific business logic, workflows, statuses, and data 
 This section defines the three ways `Object Types` in the Design Function connect with each other and with other functions: hierarchical parent-child links, peer-to-peer connections, and specific field-level references.
 
 <Tabs>
-<Tab title="Parent-Child Relationships">
-<p>This defines the hierarchical structure where creative deliverables are nested under a main `Design` Object.</p>
+  <Tab title="Parent-Child Relationships">
+    <p>
+    This defines the hierarchical structure where creative deliverables are nested under a main Design Object.</p>
 
-| Parent-Child Relationship | Description |
-| :--- | :--- |
-| `Design` => `Concept` | The Concept is the first stage of the overall design process. |
-| `Design` => `3D` | 3D development begins after the Concept is completed. |
-| `Design` => `2D` | 2D technical drawings are derived from the 3D model. |
-| `Design` => `Revision` | Revisions and adjustments are based on client feedback. |
+    | Parent-Child Relationship | Description                                                   |
+    | :------------------------ | :------------------------------------------------------------ |
+    | `Design` =\> `Concept`    | The Concept is the first stage of the overall design process. |
+    | `Design` =\> `3D`         | 3D development begins after the Concept is completed.         |
+    | `Design` =\> `2D`         | 2D technical drawings are derived from the 3D model.          |
+    | `Design` =\> `Revision`   | Revisions and adjustments are based on client feedback.       |
+  </Tab>
+  <Tab title="Object Connections">
+    <p>
+    These are direct, peer-to-peer connections that link the Design Function to other key business functions.</p>
 
-</Tab>
-<Tab title="Object Connections">
-<p>These are direct, peer-to-peer connections that link the `Design` Function to other key business functions.</p>
+    | Connection Type                                | Description                                                                                             |
+    | :--------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+    | **Design Support:** `Design` - `Site Survey`   | The `Design` Object receives critical information from the results of a completed `Site Survey` Object. |
+    | **Design Collaboration:** `Design` - `Project` | The `Design` Object is a key component of the overall `Project` management process.                     |
+  </Tab>
+  <Tab title="Object Fields">
+    <p>
+    These are specific Data Fields that allow users to link individual Objects together, with filtering conditions to ensure data accuracy.</p>
 
-| Connection Type | Description |
-| :--- | :--- |
-| **Design Support:** `Design` <=> `Site Survey` | The `Design` Object receives critical information from the results of a completed `Site Survey` Object. |
-| **Design Collaboration:** `Design` <=> `Project` | The `Design` Object is a key component of the overall `Project` management process. |
-
-</Tab>
-<Tab title="Object Fields">
-<p>These are specific `Data Fields` that allow users to link individual `Objects` together, with filtering conditions to ensure data accuracy.</p>
-
-| Field | Reference Details | Description |
-| :--- | :--- | :--- |
-| _Design_ / **Related Survey** | **References:** `Site Survey` Object <br/> **Displays Fields:** `Type`, `Location`, `Survey Results` <br/> **Filter Condition:** `Status = "COMPLETED"` | References the completed site survey to pull in key information for the design process. |
-| _Design_ / **Main Project** | **References:** `Project` Object <br/> **Displays Fields:** `Project Name`, `Client`, `Timeline` <br/> **Filter Condition:** `Status != "CANCELLED"` | Links the design work to the main project for overall progress tracking. |
-
-</Tab>
+    | Field                         | Reference Details                                                                                                                                         | Description                                                                             |
+    | :---------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- |
+    | _Design_ / **Related Survey** | **References:** `Site Survey` Object <br /> **Displays Fields:** `Type`, `Location`, `Survey Results` <br /> **Filter Condition:** `Status = "COMPLETED"` | References the completed site survey to pull in key information for the design process. |
+    | _Design_ / **Main Project**   | **References:** `Project` Object <br /> **Displays Fields:** `Project Name`, `Client`, `Timeline` <br /> **Filter Condition:** `Status != "CANCELLED"`    | Links the design work to the main project for overall progress tracking.                |
+  </Tab>
 </Tabs>
 
 ### **Reports & Analytics (Báo cáo & Phân tích)**

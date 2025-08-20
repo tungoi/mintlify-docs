@@ -1,0 +1,185 @@
+---
+title: "Contract & Invoice Function"
+---
+
+<Info>
+  **Purpose:** This document defines the **internal** operational logic of the Contract & Invoice `📋 Function`. It governs the company's entire commercial process, from contract drafting and approval to managing payment schedules and issuing VAT invoices.
+</Info>
+
+## Why This Matters
+
+This `📋 Function` is the financial backbone of the project lifecycle, ensuring every commercial agreement is accurately documented, tracked, and executed. It provides strict control over the revenue stream, from client signature to final payment. Strategically, this enables precise cash flow forecasting, mitigates financial risk by tracking all payment obligations, and maintains a professional standard for all client financial interactions. For the accounting and sales teams, it automates payment reminders, standardizes contract management, and creates a clear, auditable trail for all transactions.
+
+## The Big Picture
+
+Architecturally, this `📋 Function` is triggered by a successful deal in the CRM `📋 Function`. It is centered around the `🧊 Contract` standard object, which serves as the primary record for the commercial agreement. The `🧊 Contract` has a hierarchical relationship with its sub-objects, `🧊︎ Payment Installment` and `🧊︎︎ VAT Invoice`, which manage the payment schedule and tax documentation respectively. This function has key connections, receiving client data from CRM and linking its financial milestones to the `🧊 Project` in the Project Management `📋 Function`.
+
+---
+
+## OBJECT TYPES & WORKFLOWS
+
+### 1. 🧊 Contract (Standard Object)
+
+- **Process Description**: Manages the entire lifecycle of a client contract, from the initial draft to final liquidation after all obligations are met.
+- **Example**: "CT-101: Full Interior Design & Build for Hoai An's Apartment".
+
+<Tabs>
+  <Tab title="Workflow">
+    **Contract Workflow**
+
+    `DRAFT` → `PENDING APPROVAL` → `SENT TO CLIENT` → `SIGNED` → `IN PROGRESS` → `COMPLETED` → `LIQUIDATED`
+
+    _`At early stages, the contract can be CANCELLED.`_
+  </Tab>
+  <Tab title="Status Details">
+    | Status              | Business Logic                                                                    | Advanced Settings                                                                                                                                    |
+    | :------------------ | :-------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | 1. DRAFT            | The contract is being prepared by the Sales Rep.                                  | **Permissions**: Sales Rep.                                                                                                                          |
+    | 2. PENDING APPROVAL | The draft has been submitted to the Sales Manager for internal review.            | **Automation**: Notifies Sales Manager to review.                                                                                                    |
+    | 3. SENT TO CLIENT   | The approved contract has been sent to the client for their review and signature. | **Automation**: Sends an email to the client with the contract attached.                                                                             |
+    | 4. SIGNED           | The client has signed the contract.                                               | **Automation**: Creates the corresponding `Project` and `Design Drawing` objects. Creates the `Payment Installment` schedule based on payment terms. |
+    | 5. IN PROGRESS      | The project is underway and payment installments are being tracked.               | **Condition**: Cannot move to this status until the first payment installment is `PAID`.                                                             |
+    | 6. COMPLETED        | All project work is finished, and all payments have been received.                | **Condition**: All `Payment Installment` sub-objects must be `PAID`.                                                                                 |
+    | 7. LIQUIDATED       | The contract has been finalized, and a liquidation document has been signed.      | **Input Screen**: Upload the signed liquidation document.                                                                                            |
+    | 8. CANCELLED        | The contract has been voided before work commenced.                               | **Input Screen**: Reason for cancellation.                                                                                                           |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group                    | Field Name (Type)                                                                                                               |
+    | :----------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
+    | **Contract Information** | Contract Code (Text), Client (Object Reference), Related Project (Object Reference), Signing Date (Date), Effective Date (Date) |
+    | **Financials**           | Total Value (Currency), Pre-tax Value (Formula), VAT Amount (Formula), Amount Paid (Rollup), Remaining Balance (Formula)        |
+    | **Documents**            | Contract File (Attachment), Liquidation Record (Attachment)                                                                     |
+  </Tab>
+</Tabs>
+
+---
+
+### 2. 🧊︎ Payment Installment (Sub-Object)
+
+- **Process Description**: Tracks an individual payment milestone as defined in the contract's payment schedule.
+- **Parent Object**: `🧊 Contract`
+- **Example**: "Installment 1 - 30% Deposit". "Final Installment - 10% upon Handover".
+
+<Tabs>
+  <Tab title="Workflow">
+    `NOT DUE` → `DUE` → `PAID` / `OVERDUE`
+  </Tab>
+  <Tab title="Status Details">
+    | Status     | Business Logic                                              | Advanced Settings                                                                                             |
+    | :--------- | :---------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
+    | 1. NOT DUE | The payment due date is in the future.                      | -                                                                                                             |
+    | 2. DUE     | The payment is now due.                                     | **Automation**: Sends a payment reminder notification to the client and the Accountant.                       |
+    | 3. PAID    | The client has completed the payment for this installment.  | **Automation**: When moved to `PAID`, triggers a rollup to update the `Amount Paid` on the parent `Contract`. |
+    | 4. OVERDUE | The due date has passed, and payment has not been received. | **Automation**: Sends an overdue payment notification.                                                        |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group                   | Field Name (Type)                                                                      |
+    | :---------------------- | :------------------------------------------------------------------------------------- |
+    | **Installment Details** | Installment Name (Text), Due Date (Date), Amount (Currency), Payment Method (Dropdown) |
+  </Tab>
+</Tabs>
+
+---
+
+### 3. 🧊︎︎ VAT Invoice (Sub-Object)
+
+- **Process Description**: Manages the request and issuance of an official VAT invoice for a specific payment.
+- **Parent Object**: `🧊︎ Payment Installment`
+- **Example**: "VAT Invoice for Installment 1".
+
+<Tabs>
+  <Tab title="Workflow">
+    `REQUESTED` → `ISSUED`
+  </Tab>
+  <Tab title="Status Details">
+    | Status       | Business Logic                                             | Advanced Settings                                                               |
+    | :----------- | :--------------------------------------------------------- | :------------------------------------------------------------------------------ |
+    | 1. REQUESTED | A request to issue a VAT invoice has been made.            | **Automation**: Notifies the Accountant role.                                   |
+    | 2. ISSUED    | The VAT invoice has been generated and sent to the client. | **Input Screen**: Enter Invoice Number, Issue Date, and upload the invoice PDF. |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group               | Field Name (Type)                                                                      |
+    | :------------------ | :------------------------------------------------------------------------------------- |
+    | **Invoice Details** | Invoice Number (Text), Issue Date (Date), Amount (Currency), Invoice File (Attachment) |
+  </Tab>
+</Tabs>
+
+---
+
+## OBJECT RELATIONSHIPS
+
+| Relationship                                   | Type         | Description                                                                          |
+| :--------------------------------------------- | :----------- | :----------------------------------------------------------------------------------- |
+| `🧊 Contract` → `🧊︎ Payment Installment`      | Parent-Child | Each contract is broken down into a schedule of payment installments.                |
+| `🧊︎ Payment Installment` → `🧊︎︎ VAT Invoice` | Parent-Child | A VAT invoice can be issued for each payment installment.                            |
+| `🧊 Contract` → `CRM.Customer`                 | Reference    | The contract is linked to the customer record that originated in the CRM.            |
+| `🧊 Contract` → `Project`                      | Reference    | The contract is linked to the project it governs in the Project Management function. |
+
+---
+
+## AUTOMATIONS
+
+| Rule                               | Trigger                                               | Action                                                                                                                                                    |
+| :--------------------------------- | :---------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. **Create Installment Schedule** | A `🧊 Contract` is moved to `SIGNED`.                 | Reads the payment terms and automatically creates the required number of `🧊︎ Payment Installment` sub-objects with correct due dates and amounts.        |
+| 2. **Send Payment Reminders**      | An automation runs daily.                             | Checks for any `🧊︎ Payment Installment` where the `Due Date` is today and the `Status` is `NOT DUE`. It changes the status to `DUE` and sends reminders. |
+| 3. **Update Contract Status**      | The `Remaining Balance` on a `🧊 Contract` becomes 0. | Automatically changes the `🧊 Contract` status to `COMPLETED`.                                                                                            |
+
+---
+
+## WORKVIEWS & DASHBOARDS
+
+<Tabs>
+  <Tab title="Workviews">
+    | Workview                | Description                                                                                                      |
+    | :---------------------- | :--------------------------------------------------------------------------------------------------------------- |
+    | 1. **Contract List**    | A detailed list view of all contracts, filterable by status (e.g., PENDING APPROVAL, IN PROGRESS).               |
+    | 2. **Payment Timeline** | A timeline or calendar view showing all upcoming and overdue payment installment due dates across all contracts. |
+  </Tab>
+  <Tab title="Dashboards">
+    | Widget                     | Description                                                                                                   |
+    | :------------------------- | :------------------------------------------------------------------------------------------------------------ |
+    | 1. **Cash Flow Forecast**  | A chart projecting incoming revenue based on the due dates and amounts of all `NOT DUE` payment installments. |
+    | 2. **Accounts Receivable** | A counter showing the total value of all contracts currently in an `OVERDUE` status.                          |
+  </Tab>
+  <Tab title="Filters">
+    | Filter                            | Criteria                        |
+    | :-------------------------------- | :------------------------------ |
+    | 1. **Contracts Pending Approval** | `Status` is `PENDING APPROVAL`. |
+    | 2. **Overdue Payments**           | `Status` is `OVERDUE`.          |
+  </Tab>
+</Tabs>
+
+---
+
+## ROLES, PERMISSIONS & NOTIFICATIONS
+
+<Tabs>
+  <Tab title="Roles">
+    | Role              | Description                                                                                               |
+    | :---------------- | :-------------------------------------------------------------------------------------------------------- |
+    | **Accountant**    | Manages payments, issues VAT invoices, and tracks financial status. Has full access within this function. |
+    | **Sales Manager** | Approves contract drafts before they are sent to the client. Can view all contracts.                      |
+    | **Sales Rep**     | Drafts contracts for their clients. Can only view and edit contracts they are assigned to.                |
+  </Tab>
+  <Tab title="Permissions">
+    This `📋 Function` uses a **Custom Permission Scheme**.
+
+    - **`View 🧊 Contract`**: `Accountant` and `Sales Manager` can view all. `Sales Rep` can only view assigned.
+    - **`Edit 🧊 Contract`**: `Accountant` can edit all. `Sales Rep` can only edit assigned contracts in `DRAFT` status.
+    - **`Create 🧊︎ Payment Installment`**: System automation only.
+    - **`Manage 🧊︎︎ VAT Invoice`**: `Accountant` role only.
+  </Tab>
+  <Tab title="Notifications">
+    This `📋 Function` uses **Scheme 2 - Notify Related People**.
+
+    - All notifications are sent only to the users directly assigned or involved in an object (e.g., the assigned Sales Rep on a contract, the Accountant for payments).
+  </Tab>
+</Tabs>
+
+---
+
+## What's Next?
+
+- [**CRM (Business) Function**](https://claude.ai/chat/path/to/crm-function): Understand the preceding step where the customer is acquired and the initial deal is made.
+- [**Project Management Function**](https://claude.ai/chat/path/to/project-function): See how a `SIGNED` contract triggers the creation of a project and how project milestones are managed.

@@ -299,9 +299,13 @@
             "pages": [
               "en/03-build/flagship-case-study/core-solution/cross-function/laika-global-3",
               
-              "en/03-build/flagship-case-study/core-solution/function/laika-mkt-1",
-              "en/03-build/flagship-case-study/core-solution/function/building-laika-crm",
-              "en/03-build/flagship-case-study/core-solution/function/product-delivery"
+              "en/03-build/flagship-case-study/core-solution/function/laikamkt-1.1",
+              "en/03-build/flagship-case-study/core-solution/function/laika-crm1",
+              "en/03-build/flagship-case-study/core-solution/function/laika-project",
+              "en/03-build/flagship-case-study/core-solution/function/laika-design",
+              "en/03-build/flagship-case-study/core-solution/function/laika-build",
+              "en/03-build/flagship-case-study/core-solution/function/laika-contract",
+              "en/03-build/flagship-case-study/core-solution/function/laika-cs"
           
             ]
           },

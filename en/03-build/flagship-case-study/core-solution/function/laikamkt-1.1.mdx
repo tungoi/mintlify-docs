@@ -1,0 +1,144 @@
+---
+title: "Marketing Campaigns Function"
+---
+
+<Info>
+  **Purpose:** This document defines the **internal** operational logic of the Marketing Campaigns `📋 Function`. It covers the management of campaigns and ads to generate and qualify leads before handing them over to the Sales `📋 Function`.
+</Info>
+
+## Why This Matters
+
+<Info>
+  This `📋 Function` establishes a standardized and measurable process for managing all advertising activities. It ensures every ad is tracked consistently with automated UTM generation, providing clear data on campaign performance. Strategically, this allows for the precise calculation of lead costs and the overall return on investment for marketing spend. For the marketing team, it streamlines the ad creation and approval process, reducing manual work and enabling a focus on campaign effectiveness.
+</Info>
+
+
+## The Big Picture
+
+<Info>
+  Architecturally, this `📋 Function` serves as the starting point of the customer journey. It is built around two core `🧊 Objects`: the `🧊 Marketing Campaign` and its child, the `🧊︎ Ad`. Its primary output is a qualified lead, which triggers the creation of a `🧊 Customer` in the downstream CRM `📋 Function` via an automated rule. This creates a seamless data flow from the first ad impression to the final sale.
+</Info>
+
+---
+
+## OBJECT TYPES & WORKFLOWS
+
+### 1. 🧊 Marketing Campaign (Standard Object)
+
+- **Process Description**: Manages high-level advertising campaigns, including budget, duration, and overall performance goals.
+- **Example**: "LAIKA Interior Fair 2025" campaign with a budget of 500M VND. "Year-End Modern Style Promotion" campaign.
+
+<Tabs>
+  <Tab title="Workflow">
+    **Campaign Workflow**
+
+    ![Mermaid Diagram 2025 08 18 115911 Pn](/images/mermaid-diagram-2025-08-18-115911.png)
+
+    `PLANNING` → `RUNNING` → `COMPLETED`
+
+    _`A RUNNING campaign can also be moved to a PAUSED status.`_
+  </Tab>
+  <Tab title="Status Details">
+    | Status       | Business Logic                                                                                                             | Advanced Settings                                                                                                  |
+    | :----------- | :------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+    | 1. PLANNING  | The campaign is being defined, including budget, targets, and content strategy. All child `🧊︎ Ad` Objects are in `DRAFT`. | **Data Input**: Budget, Target Leads, Target CPL (Cost Per Lead).                                                  |
+    | 2. RUNNING   | The campaign is active, and its ads are live.                                                                              | **Automation**: Performance metrics like Actual Spend and Actual Leads are aggregated from child `🧊︎ Ad` Objects. |
+    | 3. PAUSED    | The campaign has been temporarily stopped, and all its ads are inactive.                                                   | **Condition**: Can be resumed by moving back to `RUNNING`.                                                         |
+    | 4. COMPLETED | The campaign has finished and is archived for reporting.                                                                   | **Permissions**: Read-only. All child `🧊︎ Ad` Objects are `STOPPED`.                                              |
+  </Tab>
+  <Tab title="Data Fields">
+    **Data Field Groups**
+
+    | Group                                 | Field Name (Type)                                                                                                                                                      | Notes                                             |
+    | :------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ |
+    | **Basic Information** _(4 Fields)_    | Campaign Name (Text), Start Date (Date), End Date (Date), Status (Status)                                                                                              | Core identifying information for the campaign.    |
+    | **Budget & Performance** _(7 Fields)_ | Target Budget (Currency), Actual Spend (Currency), Target Leads (Number), Actual Leads (Number), Target CPL (Formula), Actual CPL (Formula), Budget Variance (Formula) | Tracks financial and lead generation performance. |
+    | **Total: 11 Fields**                  |                                                                                                                                                                        |                                                   |
+  </Tab>
+</Tabs>
+
+---
+
+### 2. 🧊︎ Ad (Sub-Object)
+
+- **Process Description**: Manages individual ad creatives within a parent `🧊 Marketing Campaign`. Each ad has its own content, target audience, and tracking code.
+- **Example**: Ad "MKT-236" targeting young couples interested in Nordic design. Ad "MKT-241" showcasing luxury apartment renovations.
+
+<Tabs>
+  <Tab title="Workflow">
+    **Ad Workflow**
+
+    ![Mermaid Diagram 2025 08 18 120028 Pn](/images/mermaid-diagram-2025-08-18-120028.png)
+
+    `DRAFT` → `PENDING APPROVAL` → `APPROVED` → `ACTIVE` → `STOPPED`
+
+    _`An ACTIVE ad can also be moved to a PAUSED status.`_
+  </Tab>
+  <Tab title="Status Details">
+    | Status              | Business Logic                                                           | Advanced Settings                                                     |
+    | :------------------ | :----------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+    | 1. DRAFT            | The ad's content and targeting are being prepared.                       | **Data Input**: Ad copy, visuals, target audience details.            |
+    | 2. PENDING APPROVAL | The ad has been submitted and is awaiting review by a Marketing Manager. | **Automation**: Notifies the Marketing Manager role to review the ad. |
+    | 3. APPROVED         | The ad has been approved and is ready to go live.                        | **Condition**: Cannot be edited unless moved back to `DRAFT`.         |
+    | 4. ACTIVE           | The ad is currently running and gathering performance data.              | **Data Input**: Performance data (spend, leads) is updated regularly. |
+    | 5. PAUSED           | The ad has been temporarily deactivated.                                 | **Condition**: Can be reactivated by moving back to `ACTIVE`.         |
+    | 6. STOPPED          | The ad has permanently finished running.                                 | **Permissions**: Read-only.                                           |
+  </Tab>
+  <Tab title="Data Fields">
+    **Data Field Groups**
+
+    | Group                                   | Field Name (Type)                                                                  | Notes                                              |
+    | :-------------------------------------- | :--------------------------------------------------------------------------------- | :------------------------------------------------- |
+    | **Ad Content** _(4 Fields)_             | Ad Title (Text), Ad Copy (Paragraph), Visuals (Attachment), Landing Page URL (URL) | The creative components of the ad.                 |
+    | **Tracking & Performance** _(4 Fields)_ | UTM Code (Text), Actual Spend (Currency), Leads Generated (Number), CPL (Formula)  | Tracks the performance and ROI of the specific ad. |
+    | **Total: 8 Fields**                     |                                                                                    |                                                    |
+  </Tab>
+</Tabs>
+
+---
+
+## OBJECT RELATIONSHIPS
+
+| Relationship Type | Connection                         | Description                                                         |
+| :---------------- | :--------------------------------- | :------------------------------------------------------------------ |
+| **Parent-Child**  | `🧊 Marketing Campaign` → `🧊︎ Ad` | Each `🧊 Marketing Campaign` can contain multiple `🧊︎ Ad` Objects. |
+
+---
+
+## AUTOMATIONS
+
+| Rule                          | Trigger                                                | Action                                                                                                                                                                               |
+| :---------------------------- | :----------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. **Generate UTM Code**      | An `🧊︎ Ad` is created.                                | **`Update 🧊︎ Ad`**: Automatically generates a unique UTM tracking code based on the parent campaign name and the ad title, ensuring consistent tracking.                            |
+| 2. **Aggregate Ad Spend**     | The `Actual Spend` field on an `🧊︎ Ad` is updated.    | **`Update Parent 🧊 Marketing Campaign`**: The value is automatically added to the `Actual Spend` field of the parent `🧊 Marketing Campaign`, providing a real-time budget summary. |
+| 3. **Handover Lead to Sales** | A user clicks the "Create Lead" action on an `🧊︎ Ad`. | **`Create 🧊 Customer`**: Triggers the creation of a new `🧊 Customer` in the CRM `📋 Function`, automatically passing along the Ad Source and UTM information.                      |
+
+---
+
+## WORKVIEWS & DASHBOARDS
+
+<Tabs>
+  <Tab title="Workviews">
+    | Workview                  | Description                                                                                                  | Data Configuration                                                |
+    | :------------------------ | :----------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------- |
+    | 1. **Kanban Ad Pipeline** | Displays all `🧊︎ Ad` Objects as cards, organized in columns by their status (Draft, Pending, Active, etc.). | All `🧊︎ Ad` Objects, grouped by status, sorted by creation date. |
+  </Tab>
+  <Tab title="Dashboards">
+    | Widget                            | Data                                                                                                   | Description                                                                                 |
+    | :-------------------------------- | :----------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------ |
+    | 1. **Lead Conversion Funnel**     | Tracks the conversion rate from ad impressions to leads generated to contracts signed (data from CRM). | Analyzes the end-to-end effectiveness of the marketing and sales pipeline.                  |
+    | 2. **Campaign Performance Chart** | Bar chart comparing the `Actual CPL` (Cost Per Lead) of all `RUNNING` campaigns.                       | Provides a clear comparison of which campaigns are most cost-effective at generating leads. |
+  </Tab>
+  <Tab title="Filters">
+    | Filter                           | Criteria                                                            | Reminder                                         |
+    | :------------------------------- | :------------------------------------------------------------------ | :----------------------------------------------- |
+    | 1. **Underperforming Campaigns** | Status = "RUNNING" AND Actual CPL \> Target CPL.                    | Daily at 9:00 AM to the Marketing Manager role.  |
+    | 2. **Ads Pending Review**        | Status = "PENDING APPROVAL" AND has been in status for \> 24 hours. | Daily at 10:00 AM to the Marketing Manager role. |
+  </Tab>
+</Tabs>
+
+---
+
+## What's Next?
+
+- [**CRM (Business) Function**](https://claude.ai/chat/path/to/crm-function): See what happens in the next stage after this function generates a qualified lead.
