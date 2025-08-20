@@ -21,6 +21,40 @@ icon: "handshake"
 
 ---
 
+``` expandable
+  🏢 LAIKA (Organization)
+  │
+  ├── 📂 MARKETING (Area)
+  │   └── ⏹️ Marketing Campaigns (Space)
+  │
+  ├── 📂 SALES (Area)
+  │   └── ⏹️ Sales & CRM (Space)  //You are here
+  │       └── 📋 Function: CRM
+  │           └── 🧊 Customer
+  │               └── 🧊︎ Demo (Sub-Object)
+  │
+  ├── 📂 ACCOUNTING (Area)
+  │   └── ⏹️ Contracts & Invoices (Space)
+  ├── 📂 DESIGN & CONSTRUCTION (Area)
+  │   ├── ⏹️ Project Management (Space)
+  │   ├── ⏹️ Design (Space)
+  │   └── ⏹️ Interior Construction (Space)
+  └── 📂 CUSTOMER SUCCESS (Area)
+      └── ⏹️ Customer Success (Space)
+   
+```
+
+## OBJECT RELATIONSHIPS
+
+![Laika Crm ER En Pn](/images/laika-crm-ER-en.png)
+
+| Relationship Type    | Connection                                                | Description                                                                                                                                  |
+| :------------------- | :-------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Parent-Child**     | `🧊 Customer` → `🧊︎ Demo`                                | Each `🧊 Customer` can have multiple `🧊︎ Demo` appointments.                                                                                |
+| **Object Reference** | `🧊 Customer` (Ad Source field) → `🧊 Marketing Campaign` | Connects the lead to the specific ad campaign that generated it, enabling ROI tracking. Filter condition: Campaign status must be "RUNNING". |
+
+---
+
 ## OBJECT TYPES, WORKFLOWS & DATA FIELDS
 
 ### 1. 🧊 Customer (Standard Object)
@@ -101,15 +135,6 @@ icon: "handshake"
 
 ---
 
-## OBJECT RELATIONSHIPS
-
-| Relationship Type    | Connection                                                | Description                                                                                                                                  |
-| :------------------- | :-------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Parent-Child**     | `🧊 Customer` → `🧊︎ Demo`                                | Each `🧊 Customer` can have multiple `🧊︎ Demo` appointments.                                                                                |
-| **Object Reference** | `🧊 Customer` (Ad Source field) → `🧊 Marketing Campaign` | Connects the lead to the specific ad campaign that generated it, enabling ROI tracking. Filter condition: Campaign status must be "RUNNING". |
-
----
-
 ## AUTOMATIONS
 
 <Tip>
@@ -119,7 +144,6 @@ icon: "handshake"
 <Frame>
   ![Laika Crm Sequence Pn](/images/laika-flagship-images/function-blueprint/laika-crm-sequence.png)
 </Frame>
-
 
 | Rule                                  | Trigger                                                              | Action                                                                                                                                                                                                       |
 | :------------------------------------ | :------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
