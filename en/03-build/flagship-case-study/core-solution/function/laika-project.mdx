@@ -22,24 +22,30 @@ Architecturally, this `📋 Function` is the operational core of the business, a
 ### 1. 🧊 Project (Standard Object)
 
 - **Process Description**: The main container for all project-related activities, information, and financials, from the design phase through to the warranty period.
-- **Example**: "Project P-101: Hoai An's Apartment Renovation". "Project P-102: Modern Office Space for TechCorp".
+- **Example**: The project for the main client is named "Project - Sarah & Michael Westbrook". Another example from the list is "Project - Boutique Hotel Riviera".
 
 <Tabs>
   <Tab title="Workflow">
     **Project Workflow**
 
-    `PREPARATION` → `DESIGN` → `CONSTRUCTION` → `FINALIZATION` → `HANDOVER` → `WARRANTY` → `CLOSED`
+    ```
+    KICK OFF → DESIGN → CONSTRUCTION → COMPLETED → WARRANTY → CLOSED
+                          └───┬───┘
+                              ↓
+                      ON HOLD / CANCELLED
+    ```
   </Tab>
   <Tab title="Status Details">
-    | Status          | Business Logic                                                        | Advanced Settings                                                                             |
-    | :-------------- | :-------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- |
-    | 1. PREPARATION  | Initial project setup, including contract review and team assignment. | **Automation**: Creates a default set of `Construction Category` sub-objects from a template. |
-    | 2. DESIGN       | The 3D design and technical drawing phase is underway.                | **Connection**: Changes the corresponding status for the related `Design Drawing` object.     |
-    | 3. CONSTRUCTION | On-site construction and installation are in progress.                | **Condition**: The related `Design Drawing` must be in `HANDED OVER` status.                  |
-    | 4. FINALIZATION | Financial settlement and final paperwork are being completed.         | **Condition**: The related `Contract` must be `COMPLETED`.                                    |
-    | 5. HANDOVER     | The completed project is officially handed over to the client.        | **Automation**: Notifies the Customer Success team to prepare for client care.                |
-    | 6. WARRANTY     | The project is in the post-handover warranty period.                  | -                                                                                             |
-    | 7. CLOSED       | The warranty period has ended and the project is officially closed.   | -                                                                                             |
+    | Status              | Business Logic                                                                                                    | Advanced Settings                                                                                                   |
+    | :------------------ | :---------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------ |
+    | **1. KICK OFF**     | The project has been officially created and assigned to a Project Manager following the customer's first payment. | **Automation**: Triggers the creation of a linked `Design & Build/🧊 Design` Object for the design team.            |
+    | **2. DESIGN**       | The interior design and technical drawing phase is underway.                                                      | **Transition Permissions**: Project Manager, Lead Architect.                                                        |
+    | **3. CONSTRUCTION** | On-site construction and installation are in progress. This corresponds to the `UNDER CONS` status in the video.  | **Condition**: Requires the main `Design` Object to be in an `APPROVED` state before starting.                      |
+    | **4. ON HOLD**      | The project has been temporarily paused for any reason (e.g., awaiting client feedback, supply chain issues).     | **Condition**: Can be moved back to `DESIGN` or `CONSTRUCTION` to resume work.                                      |
+    | **5. COMPLETED**    | All construction and installation work is finished, and the project has been handed over to the client.           | **Automation**: Triggers the `After-Sales Workflows` (updates `Voucher` in CRM, creates `After-Sales Care` Object). |
+    | **6. WARRANTY**     | The project is in the post-handover warranty period.                                                              | **Data Input**: Warranty expiration date is set.                                                                    |
+    | **7. CLOSED**       | The warranty period has ended, and the project is officially closed and archived.                                 | **This is a terminal success status.**                                                                              |
+    | **8. CANCELLED**    | The project was terminated prematurely before completion.                                                         | **This is a terminal failure status.**                                                                              |
   </Tab>
   <Tab title="Data Fields">
     | Group                   | Field Name (Type)                                                                                    |
@@ -51,6 +57,18 @@ Architecturally, this `📋 Function` is the operational core of the business, a
 </Tabs>
 
 ---
+
+<Info>
+  **Pro Tip: Expanding Your Project Blueprint**
+
+  The current Project Management blueprint is streamlined for clarity. As your operational complexity grows, you can easily expand it by adding more specialized `🧊 Objects` to manage finer details. For example, you could add:
+
+  - `🧊︎ Construction Category` and `🧊︎︎ Task` sub-objects to create a detailed work breakdown structure (WBS) for each project.
+  - `🧊 Material` objects to track the procurement lifecycle for all necessary equipment and supplies.
+  - `🧊 Construction Log` objects for daily on-site progress and issue tracking.
+
+  This modular approach allows you to build a system that is as simple or as detailed as your business requires.
+</Info>
 
 ### 2. 🧊︎ Construction Category (Sub-Object)
 
@@ -171,11 +189,38 @@ Architecturally, this `📋 Function` is the operational core of the business, a
 
 ## AUTOMATIONS
 
-| Rule                              | Trigger                           | Action                                                                                                                                                    |
-| :-------------------------------- | :-------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1. **Create Default Categories**  | A `🧊 Project` is created.        | Automatically creates a standard set of `🧊︎ Construction Category` sub-objects (e.g., Demolition, Electrical, Plumbing) based on a template.             |
-| 2. **Calculate Project Progress** | A `🧊︎︎ Task` is moved to `DONE`. | Rolls up the completion status to the parent `🧊︎ Construction Category` and `🧊 Project`, updating their respective `Progress %` fields.                 |
-| 3. **Daily Summary Notification** | Every day at 6:00 PM.             | Sends a summary notification to the Project Manager listing all `🧊︎︎ Tasks` completed that day and any new issues recorded in the `🧊 Construction Log`. |
+<Tabs>
+  <Tab title="Within-Function">
+    #### Internal Automations (`⏹️ Project Management`)
+
+    These rules run entirely within the `Project Management` Space to provide project visibility and automate calculations.
+
+    | Sequence | ID        | Rule Name                 | Trigger                         | Action                   | Description                                                                                                                                                              |
+    | :------- | :-------- | :------------------------ | :------------------------------ | :----------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **4**    | **IP-01** | Update Project Health     | **Time-based**: Daily check     | **Update**: `🧊 Project` | A daily automation checks key metrics (budget variance, schedule delays) to update a `Project Health` field (e.g., On Track, At Risk), providing at-a-glance status.     |
+    | **5**    | **IP-02** | Calculate Schedule Delays | **Update**: `Launch Date` field | **Update**: `🧊 Project` | When the `Launch Date` is changed, a formula automatically calculates the difference against a `Planned End Date` to update the `Delays (days)` field seen in the video. |
+  </Tab>
+  <Tab title="Cross-Function">
+    #### Cross-Function Automations (Project Management Handoffs)
+
+    These rules describe the critical handoffs between the `Project Management` `⏹️ Space` and other functions.
+
+    | Sequence | ID        | Direction  | Rule Name                     | Trigger                                                      | Action                                                                                                                                                         |
+    | :------- | :-------- | :--------- | :---------------------------- | :----------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1**    | **CF-06** | `Incoming` | Project Kick-off              | **Status Change**: `Contract & Invoice/🧊 Invoice` to "PAID" | Creates a new `Project Management/🧊 Project` Object to officially begin the implementation phase. _This happens for Sarah's project after her first payment._ |
+    | **2**    | **CF-07** | `Outgoing` | Assign Design Work            | **Create**: `🧊 Project`                                     | Creates a linked `Design & Build/🧊 Design` Object, pre-loading it with all historical data for the designer, Max.                                             |
+    | **6**    | **CF-09** | `Outgoing` | Trigger After-Sales Workflows | **Status Change**: `🧊 Project` to "COMPLETE"                | Updates the `Sales & CRM/🧊 Customer` with a loyalty voucher. <br /> Creates a `Customer Success/🧊 After-Sales Care` Object.                                  |
+  </Tab>
+  <Tab title="Cross-System Automations">
+    #### Cross-System Automations (Project Management Interface)
+
+    This rule connects the Project Management function with external collaboration platforms.
+
+    | Sequence | ID        | Rule Name                   | Trigger                  | Action                             | Description                                                                                                                                                                    |
+    | :------- | :-------- | :-------------------------- | :----------------------- | :--------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **3**    | **CS-03** | Create Shared Client Folder | **Create**: `🧊 Project` | **Http Request**: n8n/Google Drive | When a new project for a client is created, the system automatically generates a shared Google Drive folder for all project documents and links it to the `🧊 Project` Object. |
+  </Tab>
+</Tabs>
 
 ---
 
