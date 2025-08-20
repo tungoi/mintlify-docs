@@ -1,6 +1,5 @@
 ---
 title: "Project Management Function"
-icon: "chart-network"
 ---
 
 <Info>
@@ -31,15 +30,15 @@ Architecturally, this `📋 Function` is the operational core of the business, a
     `PREPARATION` → `DESIGN` → `CONSTRUCTION` → `FINALIZATION` → `HANDOVER` → `WARRANTY` → `CLOSED`
   </Tab>
   <Tab title="Status Details">
-    | Status          | Business Logic                                                        |
-    | :-------------- | :-------------------------------------------------------------------- |
-    | 1. PREPARATION  | Initial project setup, including contract review and team assignment. |
-    | 2. DESIGN       | The 3D design and technical drawing phase is underway.                |
-    | 3. CONSTRUCTION | On-site construction and installation are in progress.                |
-    | 4. FINALIZATION | Financial settlement and final paperwork are being completed.         |
-    | 5. HANDOVER     | The completed project is officially handed over to the client.        |
-    | 6. WARRANTY     | The project is in the post-handover warranty period.                  |
-    | 7. CLOSED       | The warranty period has ended and the project is officially closed.   |
+    | Status          | Business Logic                                                        | Advanced Settings                                                                             |
+    | :-------------- | :-------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- |
+    | 1. PREPARATION  | Initial project setup, including contract review and team assignment. | **Automation**: Creates a default set of `Construction Category` sub-objects from a template. |
+    | 2. DESIGN       | The 3D design and technical drawing phase is underway.                | **Connection**: Changes the corresponding status for the related `Design Drawing` object.     |
+    | 3. CONSTRUCTION | On-site construction and installation are in progress.                | **Condition**: The related `Design Drawing` must be in `HANDED OVER` status.                  |
+    | 4. FINALIZATION | Financial settlement and final paperwork are being completed.         | **Condition**: The related `Contract` must be `COMPLETED`.                                    |
+    | 5. HANDOVER     | The completed project is officially handed over to the client.        | **Automation**: Notifies the Customer Success team to prepare for client care.                |
+    | 6. WARRANTY     | The project is in the post-handover warranty period.                  | -                                                                                             |
+    | 7. CLOSED       | The warranty period has ended and the project is officially closed.   | -                                                                                             |
   </Tab>
   <Tab title="Data Fields">
     | Group                   | Field Name (Type)                                                                                    |
@@ -63,12 +62,12 @@ Architecturally, this `📋 Function` is the operational core of the business, a
     `PLANNING` → `IN PROGRESS` → `ACCEPTANCE` → `COMPLETED`
   </Tab>
   <Tab title="Status Details">
-    | Status         | Business Logic                                                       |
-    | :------------- | :------------------------------------------------------------------- |
-    | 1. PLANNING    | Tasks and resources for this category are being planned.             |
-    | 2. IN PROGRESS | Work on the tasks within this category has started.                  |
-    | 3. ACCEPTANCE  | The work is complete and awaiting quality inspection and acceptance. |
-    | 4. COMPLETED   | The category has been inspected and officially marked as complete.   |
+    | Status         | Business Logic                                                       | Advanced Settings                                                   |
+    | :------------- | :------------------------------------------------------------------- | :------------------------------------------------------------------ |
+    | 1. PLANNING    | Tasks and resources for this category are being planned.             | -                                                                   |
+    | 2. IN PROGRESS | Work on the tasks within this category has started.                  | **Automation**: Automatically updates the `Actual Start Date`.      |
+    | 3. ACCEPTANCE  | The work is complete and awaiting quality inspection and acceptance. | **Automation**: Creates an `Acceptance Record`.                     |
+    | 4. COMPLETED   | The category has been inspected and officially marked as complete.   | **Condition**: The related `Acceptance Record` must be `COMPLETED`. |
   </Tab>
   <Tab title="Data Fields">
     | Group                | Field Name (Type)                                                       |
@@ -116,14 +115,14 @@ Architecturally, this `📋 Function` is the operational core of the business, a
     `REQUESTED` → `APPROVED` → `PURCHASED` → `DELIVERED` → `USED` / `CANCELLED`
   </Tab>
   <Tab title="Status Details">
-    | Status       | Business Logic                                            |
-    | :----------- | :-------------------------------------------------------- |
-    | 1. REQUESTED | A request for a material has been submitted.              |
-    | 2. APPROVED  | The request has been approved by the project manager.     |
-    | 3. PURCHASED | The material has been ordered and paid for.               |
-    | 4. DELIVERED | The material has been delivered to the construction site. |
-    | 5. USED      | The material has been consumed in the project.            |
-    | 6. CANCELLED | The material request has been cancelled.                  |
+    | Status       | Business Logic                                            | Advanced Settings                                                  |
+    | :----------- | :-------------------------------------------------------- | :----------------------------------------------------------------- |
+    | 1. REQUESTED | A request for a material has been submitted.              | -                                                                  |
+    | 2. APPROVED  | The request has been approved by the project manager.     | **Automation**: Sends a notification to the purchasing department. |
+    | 3. PURCHASED | The material has been ordered and paid for.               | **Input Screen**: Upload invoice and related documents.            |
+    | 4. DELIVERED | The material has been delivered to the construction site. | -                                                                  |
+    | 5. USED      | The material has been consumed in the project.            | -                                                                  |
+    | 6. CANCELLED | The material request has been cancelled.                  | -                                                                  |
   </Tab>
   <Tab title="Data Fields">
     | Group                    | Field Name (Type)                                                                                                   |
