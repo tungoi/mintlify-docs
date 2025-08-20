@@ -149,15 +149,40 @@ icon: "handshake"
   ![Laika Crm Sequence Pn](/images/laika-flagship-images/function-blueprint/laika-crm-sequence.png)
 </Frame>
 
-| Rule                                  | Trigger                                                              | Action                                                                                                                                                                                                       |
-| :------------------------------------ | :------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1. **Receive Lead from Landing Page** | A webhook is received when a customer submits the landing page form. | **`Create 🧊 Customer`**: Automatically creates a new `🧊 Customer` with form data, attaches the UTM source, and moves its status to `DEPLOYMENT`.                                                           |
-| 2. **Auto-Assign Sales Rep**          | `🧊 Customer` status changes to `DEPLOYMENT`.                        | **`Update 🧊 Customer`**: Assigns the lead to a sales rep via round-robin & expertise logic, changes status to `NEW LEAD`, and sends a chat notification to the Sales team.                                  |
-| 3. **Schedule Consultation**          | User clicks "Book Consultation" from the `🧊 Customer` menu.         | **`Create 🧊︎ Demo & GCal Event`**: A popup appears to enter appointment details, which then creates a `🧊︎ Demo` child Object and a Google Calendar event inviting the customer, sales rep, and a designer. |
-| 4. **Move to Contract Stage**         | `🧊 Customer` status is changed to `DRAFTING CONTRACT`.              | **`Create 🧊 Contract & 🧊 Site Survey`**: Automatically creates a `🧊 Contract` and a parallel `🧊 Site Survey`, pre-filled with customer information.                                                      |
-| 5. **Update Customer from Demo**      | `🧊︎ Demo` status is changed to `COMPLETED`.                         | **`Update Parent 🧊 Customer`**: Automatically updates the parent `🧊 Customer` status (e.g., to `DRAFTING CONTRACT` or `FAILURE`) based on the outcome recorded in the `🧊︎ Demo`.                          |
-| 6. **External: Google Calendar**      | HTTP Request via N8N.                                                | An API call is made to Google Calendar to create an event with details from the `🧊︎ Demo` and invite all participants.                                                                                      |
-| 7. **External: Landing Page**         | Webhook listener.                                                    | Receives form submission data and UTM parameters to trigger the creation of a new `🧊 Customer`.                                                                                                             |
+<Tabs>
+  <Tab title="Internal Automations">
+    #### Internal Automations (`⏹️ Sales & CRM`)
+
+    These rules run entirely within the `Sales & CRM` Space to enhance sales efficiency and ensure process consistency.
+
+    | Sequence | ID        | Rule Name                     | Trigger                            | Action                    | Description                                                                                                                                                                                            |
+    | :------- | :-------- | :---------------------------- | :--------------------------------- | :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **3**    | **IC-01** | Calculate Lead Score          | **Create/Update**: `🧊 Customer`   | **Update**: `🧊 Customer` | When a new `🧊 Customer` is created or key data is updated, a formula runs to update the `Lead Score` field. _For example, Sarah's lead was automatically given a score of 87._                        |
+    | **4**    | **IC-02** | Create Initial Follow-up Task | **Update**: `🧊 Customer` assigned | **Create**: `☑️ Task`     | When a `🧊 Customer` is assigned to a sales rep, a `☑️ Task` Sub-Object is automatically created and assigned to them, due within 24 hours. _e.g., Assigning a task to David to call Sarah Westbrook._ |
+  </Tab>
+  <Tab title="Cross-Function Automations">
+    #### Cross-Function Automations (CRM Handoffs & Updates)
+
+    These rules describe the critical handoffs of data and tasks between the `Sales & CRM` `⏹️ Space` and other functions.
+
+    | Sequence | ID        | Direction  | Rule Name                          | Trigger                                                          | Action                                                                                                                                                                  |
+    | :------- | :-------- | :--------- | :--------------------------------- | :--------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **2**    | **CF-01** | `Incoming` | Link Lead to Source Ad             | **Create**: `🧊 Customer` (from CS-01)                           | Links the new `🧊 Customer` with its source `Marketing/🧊 Ad`. _For example, linking Sarah's new lead to the "Scandinavian Simplicity" ad._                             |
+    | **6**    | **CF-03** | `Outgoing` | Handoff to Production & Accounting | **Status Change**: `🧊 Customer` to "CONTRACT PREP"              | Creates a `Design & Build/🧊 Site Survey` Object for Tony. <br /> Creates a `Contract & Invoice/🧊 Contract` Object for the finance team.                               |
+    | **7**    | **CF-05** | `Incoming` | Receive Payment Notification       | **Status Change**: `Contract & Invoice/🧊 Invoice` to "PAID"     | Sends an automatic message to the `Sales & CRM` Space chat. _e.g., Notifying David that Sarah's \$11,500 deposit has been paid._                                        |
+    | **8**    | **CF-09** | `Incoming` | Update Loyalty Voucher             | **Status Change**: `Project Management/🧊 Project` to "COMPLETE" | Automatically calculates and updates the `Voucher` field in the original `🧊 Customer`. _e.g., Adding a \$500 voucher to Sarah's record after her project is finished._ |
+  </Tab>
+  <Tab title="Cross-System Automations">
+    #### Cross-System Automations (CRM Interface)
+
+    These rules connect the CRM function with platforms outside of Luklak.
+
+    | Sequence | ID        | Rule Name                      | Trigger                              | Action                               | Description                                                                                                                                                       |
+    | :------- | :-------- | :----------------------------- | :----------------------------------- | :----------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1**    | **CS-01** | Receive Lead from Landing Page | **Webhook**: Website form submitted  | **Create**: `Sales & CRM/🧊Customer` | A form submission triggers a webhook that creates a new `🧊 Customer` Object. _This is how Sarah Westbrook's inquiry became a new lead in the system._            |
+    | **5**    | **CS-02** | Create Google Calendar Event   | **Button Click**: "Schedule Meeting" | **HTTP Request**: Google Calendar    | A sales rep clicks a button to create a shared meeting invite. _e.g., Creating the "LAIKA x Sarah & Michael" event in Google Calendar for David, Max, and Sarah._ |
+  </Tab>
+</Tabs>
 
 ```guidejar
 # How to Schedule a Customer Demo

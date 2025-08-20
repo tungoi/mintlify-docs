@@ -35,32 +35,19 @@ icon: "bullhorn"
     ![Mermaid Diagram 2025 08 18 115911 Pn](/images/mermaid-diagram-2025-08-18-115911.png)
 
     ```
-                                     ┌──────────> COMPLETED (Success)
-                                     │
-    PLANNING → PREPARING → ACTIVE ↔ SCALING ┤
-                                     │
-                                     ├──────────> STOPPED (Halted)
-                                     │
-                                     └──────────> FAILED (Failure)
+    PREPARING → RUNNING ↔ PAUSED → COMPLETED
+                      │              ↓
+                      └──────────> FAILED
     ```
   </Tab>
   <Tab title="Status Details">
-    | Status           | Business Logic                                                                                                                   | Advanced Settings                                                                                    |
-    | ---------------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-    | **1. PLANNING**  | The campaign is being defined, including strategy, targets, and budget.                                                          | **Data Input**: All Strategy and Budget fields are set during this stage.                            |
-    | **2. PREPARING** | The campaign strategy is approved. Creatives are being finalized and technical setup is in progress before launch.               | **Permissions**: Budget and Strategy fields may be locked for editing.                               |
-    | **3. ACTIVE**    | The campaign is live and serving ads according to its initial plan. This is the standard operational status.                     | **Automation**: Performance metrics are actively aggregated from child `🧊︎ Ad` Objects.             |
-    | **4. SCALING**   | The campaign is performing well and has been moved to a high-spend or high-priority phase to maximize results.                   | **Condition**: Can be moved back to `ACTIVE` if performance changes. May have adjusted budget rules. |
-    | **5. COMPLETED** | The campaign has successfully finished its planned run after meeting its primary objectives.                                     | **Permissions**: The Object becomes read-only to preserve historical success data.                   |
-    | **6. STOPPED**   | The campaign was manually halted before its planned end date for strategic or budgetary reasons, not necessarily due to failure. | **Permissions**: The Object becomes read-only.                                                       |
-    | **7. FAILED**    | The campaign was terminated due to significant underperformance against its key performance indicators (KPIs).                   | **Permissions**: The Object becomes read-only to archive performance data for future analysis.       |
-
-    | Status       | Business Logic                                                                                                                                        | Advanced Settings                                                                                                      |
-    | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
-    | 1. PLANNING  | The campaign is being defined, including strategy, targets, and budget. All child `🧊︎ Ad` Objects are typically in `DRAFT`.                          | **Data Input**: All Strategy and Budget fields are set during this stage.                                              |
-    | 2. RUNNING   | The campaign is active, and its ads are live, generating leads and spend. The "Scandinavian Simplicity" campaign is an example of a Running campaign. | **Automation**: Performance metrics like `Actual Spend` and `Actual Leads` are aggregated from child `🧊︎ Ad` Objects. |
-    | 3. PAUSED    | The campaign has been temporarily stopped. All its child `🧊︎ Ad` Objects are set to an inactive status.                                              | **Condition**: Can be resumed by moving back to `RUNNING`. No new costs should be accrued.                             |
-    | 4. COMPLETED | The campaign has finished and is now archived for reporting purposes.                                                                                 | **Permissions**: The Object becomes read-only to preserve historical data.                                             |
+    | Status           | Business Logic                                                                                                       | Advanced Settings                                                                                                                                                                          |
+    | :--------------- | :------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1. PREPARING** | The campaign is in the planning phase, defining goals, budget, and preparing ad content.                             | **Transition Permissions**: Marketing Manager. <br /> **Input Screen**: Requires input in strategic fields (Goal, Budget, Start Date...).                                                  |
+    | **2. RUNNING**   | The campaign is active, and its child `🧊︎ Ad` objects are being served and collecting performance data.             | **Transition Permissions**: Marketing Manager, Marketing Lead. <br /> **Automation**: Metrics like Actual Spend and Actual Leads are automatically aggregated from child `🧊︎ Ad` objects. |
+    | **3. PAUSED**    | The campaign and its child ad objects are temporarily stopped for adjustments or optimization.                       | **Transition Permissions**: Marketing Manager, Marketing Lead. <br /> **Condition**: Can be moved back to the `RUNNING` status to resume the campaign.                                     |
+    | **4. COMPLETED** | The campaign has successfully finished according to its plan and has met its primary objectives.                     | **Transition Permissions**: Marketing Manager.                                                                                                                                             |
+    | **5. FAILED**    | The campaign was stopped ahead of schedule because its performance did not meet KPIs or for other strategic reasons. | **Transition Permissions**: Marketing Manager, Marketing Lead.                                                                                                                             |
   </Tab>
   <Tab title="Data Fields">
     **Data Field Groups**
@@ -86,19 +73,22 @@ icon: "bullhorn"
 
     ![Mermaid Diagram 2025 08 18 120028 Pn](/images/mermaid-diagram-2025-08-18-120028.png)
 
-    `DRAFT` → `PENDING APPROVAL` → `APPROVED` → `ACTIVE` → `STOPPED`
-
-    _`An ACTIVE ad can also be moved to a PAUSED status.`_
+    ```
+    DRAFT → PENDING APPROVAL → APPROVED → ACTIVE ↔ PAUSED ┐
+      ↑           ↓                                      ↓
+      └───────── REJECTED                              STOPPED
+    ```
   </Tab>
   <Tab title="Status Details">
-    | Status              | Business Logic                                                           | Advanced Settings                                                     |
-    | :------------------ | :----------------------------------------------------------------------- | :-------------------------------------------------------------------- |
-    | 1. DRAFT            | The ad's content and targeting are being prepared.                       | **Data Input**: Ad copy, visuals, target audience details.            |
-    | 2. PENDING APPROVAL | The ad has been submitted and is awaiting review by a Marketing Manager. | **Automation**: Notifies the Marketing Manager role to review the ad. |
-    | 3. APPROVED         | The ad has been approved and is ready to go live.                        | **Condition**: Cannot be edited unless moved back to `DRAFT`.         |
-    | 4. ACTIVE           | The ad is currently running and gathering performance data.              | **Data Input**: Performance data (spend, leads) is updated regularly. |
-    | 5. PAUSED           | The ad has been temporarily deactivated.                                 | **Condition**: Can be reactivated by moving back to `ACTIVE`.         |
-    | 6. STOPPED          | The ad has permanently finished running.                                 | **Permissions**: Read-only.                                           |
+    | Status                  | Business Logic                                                                                                | Advanced Settings                                                                                            |
+    | :---------------------- | :------------------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------- |
+    | **1. DRAFT**            | The ad is being created. The marketing specialist is preparing the copy, creatives, and targeting parameters. | **Transition Permissions**: Marketing Specialist (to submit for approval).                                   |
+    | **2. PENDING APPROVAL** | The ad has been submitted for internal review by a manager before it can be approved to run.                  | **Transition Permissions**: Marketing Manager (to approve or reject).                                        |
+    | **3. REJECTED**         | The ad was reviewed but did not meet requirements. It is sent back to `DRAFT` with feedback for revision.     | **Transition Permissions**: Marketing Specialist (to move back to `DRAFT` after edits).                      |
+    | **4. APPROVED**         | The ad has been approved by the manager and is now ready to be activated.                                     | **Transition Permissions**: Marketing Specialist (to move to `ACTIVE`).                                      |
+    | **5. ACTIVE**           | The ad is live and running in the campaign, actively spending its budget and gathering performance data.      | **Transition Permissions**: Marketing Specialist, Marketing Manager (to `PAUSE` or `STOP`).                  |
+    | **6. PAUSED**           | The ad has been temporarily deactivated, but can be resumed. No budget is being spent.                        | **Transition Permissions**: Marketing Specialist, Marketing Manager (to move back to `ACTIVE` or to `STOP`). |
+    | **7. STOPPED**          | The ad has permanently finished its run and is now an archived, read-only record.                             | **This is a terminal status and cannot be changed.**                                                         |
   </Tab>
   <Tab title="Data Fields">
     | Group                                 | Field Name (Type)                                                                                                                                                                        | Notes                                                                                                                               |
