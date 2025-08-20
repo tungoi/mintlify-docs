@@ -54,7 +54,7 @@ icon: "folder-tree"
     │   │       │   └── 🧊︎ 2D
     │   │       └── # Add other Objects like 🧊 Mood Boards, 🧊 Material Samples, etc.
     │   │
-    │   └── ⏹️ Interior Construction (Space)
+    │   └── ⏹️ Build (Space)
     │       └── 📋 Function: Site Survey & Construction
     │           ├── 🧊 Site Survey
     │           │   └── 🧊︎ Constraint (Sub-Object)
@@ -257,13 +257,13 @@ icon: "folder-tree"
     <Frame>
       ![Laika Cross System Pn](/images/laika-flagship-images/system-blueprint/laika-cross-system.png)
     </Frame>
-    | Rule #    | Rule Name                      | Business Description                                                                                                                                      |
-    | :-------- | :----------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | **CF-01** | Receive Lead from Landing Page | When a form is submitted on the website, a **Webhook** triggers the creation of a `CRM/🧊Customer` and links it to the source `Marketing Campaigns/🧊Ad`. |
-    | **CF-02** | Create Google Calendar Event   | A Sales user clicks a button on a `CRM/🧊Customer`, sending an **HTTP Request** via N8N to create an event in **Google Calendar**.                        |
-    | **CF-05** | Create Google Docs Contract    | An Accountant clicks a button, sending an **HTTP Request** via N8N to populate a **Google Docs** template with contract data.                             |
-    | **CF-06** | Log Payment from SEPAY         | **SEPAY** sends a **Webhook** upon payment, which finds the corresponding `Contract & Invoice/🧊Invoice` and updates its status.                          |
-    | **CF-10** | Send Concept Email to Customer | A Sales user clicks a button to automatically compose and send a personalized **Email** with design details to the customer.                              |
+    | Rule #    | Rule Name                      | Business Description                                                                                                                                     |
+    | --------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **CS-01** | Receive Lead from Website      | When a form is submitted on the website, a **Webhook** triggers the creation of a `Sales & CRM/🧊Customer` and links it to the source `Marketing/🧊Ad`.  |
+    | **CS-02** | Create Google Calendar Event   | A Sales user clicks a button on a `Sales & CRM/🧊Customer`, sending an **HTTP Request** via N8N to create an event in **Google Calendar**.               |
+    | **CS-04** | Create Google Docs Contract    | An Accountant clicks a button on a `Contract & Invoice/🧊Contract`, sending an **HTTP Request** to populate a **Google Docs** template with Object data. |
+    | **CS-05** | Log External Payment           | An external payment gateway sends a **Webhook** upon payment, which finds the corresponding `Contract & Invoice/🧊Invoice` and updates its status.       |
+    | **CS-08** | Send Concept Email to Customer | A Sales user clicks a button to automatically compose and send a personalized **Email** with design variables and links to the customer.                 |
   </Tab>
   <Tab title="Cross-Function Automation">
     <Info>
@@ -275,15 +275,12 @@ icon: "folder-tree"
     <Frame>
       ![Laika Cross System Pn](/images/laika-flagship-images/system-blueprint/laika-cross-function.png)
     </Frame>
-    | Rule #    | Rule Name                                       | Business Description                                                                                                                                    |
-    | :-------- | :---------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
-    | **CF-03** | Finalize Consultation, Create Contract & Survey | A status change on `CRM/🧊Customer` automatically creates a `Contract & Invoice/🧊Contract` and a `Site Survey & Construction/🧊Site Survey`.           |
-    | **CF-04** | Survey Complete, Notify Design Team             | A status change on `Site Survey & Construction/🧊Site Survey` automatically notifies the `Interior Design/🧊Design Package` team.                       |
-    | **CF-07** | First Payment Received, Kick-off Project        | A status change on `Contract & Invoice/🧊Invoice` (Milestone 1) automatically creates a new `Project Management/🧊Project`.                             |
-    | **CF-08** | Project Created, Assign Design Work             | A status change on `Project Management/🧊Project` automatically creates and links a new `Interior Design/🧊Design Package`.                             |
-    | **CF-09** | Design Draft Ready for Sales Review             | A status change on `Interior Design/🧊Concept` automatically sends a Chat @mention to the Sales team for an internal review.                            |
-    | **CF-11** | Project Complete, Hand-off to Customer Success  | A status change on `Project Management/🧊Project` to "Completed" automatically creates a `Customer Success/🧊Success Plan`.                             |
-    | **CF-12** | Project Complete, Calculate Loyalty Voucher     | A status change on `Project Management/🧊Project` automatically finds the related `CRM/🧊Customer` and updates a field with a calculated voucher value. |
+    | Rule #    | Rule Name                             | Business Description                                                                                                                                                                                                                     |
+    | --------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **CF-03** | Handoff from Sales to Production      | A status change on `Sales & CRM/🧊Customer` automatically creates a `Contract & Invoice/🧊Contract` and a `Design & Build/🧊Site Survey`.                                                                                                |
+    | **CF-06** | Payment Confirmed, Kick-off Project   | A status change on `Contract & Invoice/🧊Invoice` (triggered by rule CS-05) automatically creates a new `Project Management/🧊Project`.                                                                                                  |
+    | **CF-07** | Project Created, Assign Design Work   | The creation of a `Project Management/🧊Project` automatically creates and links a new `Design & Build/🧊Design` Object.                                                                                                                 |
+    | **CF-09** | Project Complete, Trigger After-Sales | A status change on `Project Management/🧊Project` to "Complete" triggers two actions: it creates a `Customer Success/🧊After-Sales Care` Object, and it updates the original `Sales & CRM/🧊Customer` with a calculated loyalty voucher. |
   </Tab>
 </Tabs>
 

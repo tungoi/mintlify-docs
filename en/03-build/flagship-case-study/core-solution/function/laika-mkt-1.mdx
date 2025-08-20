@@ -110,10 +110,33 @@ icon: "swatchbook"
 
 ## **INTERNAL AUTOMATIONS (WITHIN FUNCTION)**
 
-| ID        | Rule Name                        | Trigger                               | Action                 | Description                                                                                                                                        |
-| :-------- | :------------------------------- | :------------------------------------ | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **IM-01** | Generate UTM Code                | **Create**: A new `Ad` is created     | **Update**: `Ad`       | Automatically generates and assigns a unique UTM code to the `Ad` based on the parent Campaign Name and the Ad Name.                               |
-| **IM-02** | Consolidate Ad Spend to Campaign | **Update**: `Ad` Field `Actual Spend` | **Update**: `Campaign` | When the `Actual Spend` on an `Ad` is updated, this rule automatically aggregates the total spend to the parent `Campaign`'s `Actual Spend` field. |
+<Tabs>
+  <Tab title="Within Function">
+    <Info>
+      This table outlines the automations that run entirely within the `⏹️ Marketing` Space to manage campaign data and efficiency.
+    </Info>
+    | ID        | Rule Name                        | Trigger                                   | Action                    | Description                                                                                                                                                                                        |
+    | :-------- | :------------------------------- | :---------------------------------------- | :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **IN-01** | Generate Ad Key                  | **Create**: A new `🧊︎ Ad` is created     | **Update**: `🧊︎ Ad`      | Automatically generates and assigns a unique `ad_key` to the `🧊︎ Ad` used for external tracking. <br /><br />_`For example, the key MKT-236 was generated for the 'Scandinavian Simplicity' ad`_. |
+    | **IN-02** | Consolidate Ad Spend to Campaign | **Update**: `🧊︎ Ad` Field `Actual Spend` | **Update**: `🧊 Campaign` | When the `Actual Spend` on an `🧊︎ Ad` is updated, this rule automatically aggregates the total spend to the parent `🧊 Campaign`'s `Actual Spend` field.                                          |
+  </Tab>
+  <Tab title="Cross Function">
+    <Info>
+      This table shows the rule that connects an external system (the LAIKA website) to the Luklak platform, serving as the bridge between Marketing's efforts and a tangible lead.
+    </Info>
+    | ID        | Rule Name                             | Trigger                                | Action                               | Description                                                                                                                                                                                                                            |
+    | :-------- | :------------------------------------ | :------------------------------------- | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **CS-01** | Receive & Attribute Lead from Website | **Webhook**: Website form is submitted | **Create**: `Sales & CRM/🧊Customer` | A form submission on the website triggers the creation of a new `🧊 Customer` Object within the `⏹️ Sales & CRM` Space. The automation uses the `ad_key` captured from the URL to perform the handoff described in rule `CF-01` below. |
+  </Tab>
+  <Tab title="Cross System">
+    <Info>
+      This table describes the critical handoff of attribution data from the `⏹️ Marketing` Space to the `⏹️ Sales & CRM` Space, ensuring the sales team has full context.
+    </Info>
+    | ID        | Rule Name                  | Trigger                              | Action                               | Description                                                                                                                                                                                                                           |
+    | :-------- | :------------------------- | :----------------------------------- | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+    | **CF-01** | Link New Lead to Source Ad | **Create**: `Sales & CRM/🧊Customer` | **Update**: `Sales & CRM/🧊Customer` | Triggered by rule `CS-01`, this automation populates a field on the new `🧊 Customer` linking it to the source `Marketing/🧊 Ad`. _This is how Sarah's new lead Object was automatically linked to the 'Scandinavian Simplicity' ad_. |
+  </Tab>
+</Tabs>
 
 ---
 

@@ -25,8 +25,8 @@ icon: "bullhorn"
 
 ### 1. 🧊 Marketing Campaign (Standard Object)
 
-- **Process Description**: Manages high-level advertising campaigns, including budget, duration, and overall performance goals.
-- **Example**: "LAIKA Interior Fair 2025" campaign with a budget of 500M VND. "Year-End Modern Style Promotion" campaign.
+- **Process Description**: Serves as the master record for a strategic marketing initiative. It groups multiple `🧊︎ Ads`, defines high-level goals and budgets, and tracks the overall performance of the initiative across all channels.
+- **Example**: The _"Scandinavian Simplicity"_ campaign, designed to attract new leads for LAIKA's minimalist interior design services by showcasing warmth, functionality, and clean lines.
 
 <Tabs>
   <Tab title="Workflow">
@@ -34,17 +34,33 @@ icon: "bullhorn"
 
     ![Mermaid Diagram 2025 08 18 115911 Pn](/images/mermaid-diagram-2025-08-18-115911.png)
 
-    `PLANNING` → `RUNNING` → `COMPLETED`
-
-    _`A RUNNING campaign can also be moved to a PAUSED status.`_
+    ```
+                                     ┌──────────> COMPLETED (Success)
+                                     │
+    PLANNING → PREPARING → ACTIVE ↔ SCALING ┤
+                                     │
+                                     ├──────────> STOPPED (Halted)
+                                     │
+                                     └──────────> FAILED (Failure)
+    ```
   </Tab>
   <Tab title="Status Details">
-    | Status       | Business Logic                                                                                                             | Advanced Settings                                                                                                  |
-    | :----------- | :------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
-    | 1. PLANNING  | The campaign is being defined, including budget, targets, and content strategy. All child `🧊︎ Ad` Objects are in `DRAFT`. | **Data Input**: Budget, Target Leads, Target CPL (Cost Per Lead).                                                  |
-    | 2. RUNNING   | The campaign is active, and its ads are live.                                                                              | **Automation**: Performance metrics like Actual Spend and Actual Leads are aggregated from child `🧊︎ Ad` Objects. |
-    | 3. PAUSED    | The campaign has been temporarily stopped, and all its ads are inactive.                                                   | **Condition**: Can be resumed by moving back to `RUNNING`.                                                         |
-    | 4. COMPLETED | The campaign has finished and is archived for reporting.                                                                   | **Permissions**: Read-only. All child `🧊︎ Ad` Objects are `STOPPED`.                                              |
+    | Status           | Business Logic                                                                                                                   | Advanced Settings                                                                                    |
+    | ---------------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+    | **1. PLANNING**  | The campaign is being defined, including strategy, targets, and budget.                                                          | **Data Input**: All Strategy and Budget fields are set during this stage.                            |
+    | **2. PREPARING** | The campaign strategy is approved. Creatives are being finalized and technical setup is in progress before launch.               | **Permissions**: Budget and Strategy fields may be locked for editing.                               |
+    | **3. ACTIVE**    | The campaign is live and serving ads according to its initial plan. This is the standard operational status.                     | **Automation**: Performance metrics are actively aggregated from child `🧊︎ Ad` Objects.             |
+    | **4. SCALING**   | The campaign is performing well and has been moved to a high-spend or high-priority phase to maximize results.                   | **Condition**: Can be moved back to `ACTIVE` if performance changes. May have adjusted budget rules. |
+    | **5. COMPLETED** | The campaign has successfully finished its planned run after meeting its primary objectives.                                     | **Permissions**: The Object becomes read-only to preserve historical success data.                   |
+    | **6. STOPPED**   | The campaign was manually halted before its planned end date for strategic or budgetary reasons, not necessarily due to failure. | **Permissions**: The Object becomes read-only.                                                       |
+    | **7. FAILED**    | The campaign was terminated due to significant underperformance against its key performance indicators (KPIs).                   | **Permissions**: The Object becomes read-only to archive performance data for future analysis.       |
+
+    | Status       | Business Logic                                                                                                                                        | Advanced Settings                                                                                                      |
+    | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+    | 1. PLANNING  | The campaign is being defined, including strategy, targets, and budget. All child `🧊︎ Ad` Objects are typically in `DRAFT`.                          | **Data Input**: All Strategy and Budget fields are set during this stage.                                              |
+    | 2. RUNNING   | The campaign is active, and its ads are live, generating leads and spend. The "Scandinavian Simplicity" campaign is an example of a Running campaign. | **Automation**: Performance metrics like `Actual Spend` and `Actual Leads` are aggregated from child `🧊︎ Ad` Objects. |
+    | 3. PAUSED    | The campaign has been temporarily stopped. All its child `🧊︎ Ad` Objects are set to an inactive status.                                              | **Condition**: Can be resumed by moving back to `RUNNING`. No new costs should be accrued.                             |
+    | 4. COMPLETED | The campaign has finished and is now archived for reporting purposes.                                                                                 | **Permissions**: The Object becomes read-only to preserve historical data.                                             |
   </Tab>
   <Tab title="Data Fields">
     **Data Field Groups**
@@ -61,8 +77,8 @@ icon: "bullhorn"
 
 ### 2. 🧊︎ Ad (Sub-Object)
 
-- **Process Description**: Manages individual ad creatives within a parent `🧊 Marketing Campaign`. Each ad has its own content, target audience, and tracking code.
-- **Example**: Ad "MKT-236" targeting young couples interested in Nordic design. Ad "MKT-241" showcasing luxury apartment renovations.
+- **Process Description**: Represents a specific creative execution within a parent `🧊 Campaign`. This is the operational Object that holds the ad copy, visual assets, targeting parameters, and the unique tracking `ad_key` essential for lead attribution.
+- **Example**: A specific Facebook ad creative under the _"Scandinavian Simplicity"_ campaign, featuring a photo of a modern, light-filled living room. This `🧊︎ Ad` Object holds the unique identifier `ad_key: MKT-236`, which is embedded in its URL to track every lead it generates.
 
 <Tabs>
   <Tab title="Workflow">
@@ -85,15 +101,16 @@ icon: "bullhorn"
     | 6. STOPPED          | The ad has permanently finished running.                                 | **Permissions**: Read-only.                                           |
   </Tab>
   <Tab title="Data Fields">
-    **Data Field Groups**
-
-    | Group                                   | Field Name (Type)                                                                  | Notes                                              |
-    | :-------------------------------------- | :--------------------------------------------------------------------------------- | :------------------------------------------------- |
-    | **Ad Content** _(4 Fields)_             | Ad Title (Text), Ad Copy (Paragraph), Visuals (Attachment), Landing Page URL (URL) | The creative components of the ad.                 |
-    | **Tracking & Performance** _(4 Fields)_ | UTM Code (Text), Actual Spend (Currency), Leads Generated (Number), CPL (Formula)  | Tracks the performance and ROI of the specific ad. |
-    | **Total: 8 Fields**                     |                                                                                    |                                                    |
+    | Group                                 | Field Name (Type)                                                                                                                                                                        | Notes                                                                                                                               |
+    | :------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
+    | **Basic Information** _(4 Fields)_    | Campaign Name (Text), Status (Status), Start Date (Date), End Date (Date)                                                                                                                | Core identifying information for the campaign.                                                                                      |
+    | **Strategy** _(3 Fields)_             | Goal (Text), Channel (Select), Description (Rich Text)                                                                                                                                   | Defines the campaign's strategic objectives and the channels used for execution, as seen in the video.                              |
+    | **Budget & Performance** _(7 Fields)_ | Target Budget (Currency), Actual Spend (Currency, Roll-up), Target Leads (Number), Actual Leads (Number, Roll-up), Target CPL (Formula), Actual CPL (Formula), Budget Variance (Formula) | Tracks financial and lead-generation performance against targets. Spend and Leads are automatically rolled up from child `🧊︎ Ads`. |
+    | **Total: 14 Fields**                  |                                                                                                                                                                                          |                                                                                                                                     |
   </Tab>
 </Tabs>
+
+---
 
 ---
 
@@ -105,17 +122,39 @@ icon: "bullhorn"
 
 ---
 
-## AUTOMATIONS
+## **INTERNAL AUTOMATIONS (WITHIN FUNCTION)**
 
-| Rule                          | Trigger                                                | Action                                                                                                                                                                               |
-| :---------------------------- | :----------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1. **Generate UTM Code**      | An `🧊︎ Ad` is created.                                | **`Update 🧊︎ Ad`**: Automatically generates a unique UTM tracking code based on the parent campaign name and the ad title, ensuring consistent tracking.                            |
-| 2. **Aggregate Ad Spend**     | The `Actual Spend` field on an `🧊︎ Ad` is updated.    | **`Update Parent 🧊 Marketing Campaign`**: The value is automatically added to the `Actual Spend` field of the parent `🧊 Marketing Campaign`, providing a real-time budget summary. |
-| 3. **Handover Lead to Sales** | A user clicks the "Create Lead" action on an `🧊︎ Ad`. | **`Create 🧊 Customer`**: Triggers the creation of a new `🧊 Customer` in the CRM `📋 Function`, automatically passing along the Ad Source and UTM information.                      |
+<Tabs>
+  <Tab title="Within Function">
+    <Info>
+      This table outlines the automations that run entirely within the `⏹️ Marketing` Space to manage campaign data and efficiency.
+    </Info>
+    | ID        | Rule Name                        | Trigger                                   | Action                    | Description                                                                                                                                                                                        |
+    | :-------- | :------------------------------- | :---------------------------------------- | :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **IN-01** | Generate Ad Key                  | **Create**: A new `🧊︎ Ad` is created     | **Update**: `🧊︎ Ad`      | Automatically generates and assigns a unique `ad_key` to the `🧊︎ Ad` used for external tracking. <br /><br />_`For example, the key MKT-236 was generated for the 'Scandinavian Simplicity' ad`_. |
+    | **IN-02** | Consolidate Ad Spend to Campaign | **Update**: `🧊︎ Ad` Field `Actual Spend` | **Update**: `🧊 Campaign` | When the `Actual Spend` on an `🧊︎ Ad` is updated, this rule automatically aggregates the total spend to the parent `🧊 Campaign`'s `Actual Spend` field.                                          |
+  </Tab>
+  <Tab title="Cross Function">
+    <Info>
+      This table shows the rule that connects an external system (the LAIKA website) to the Luklak platform, serving as the bridge between Marketing's efforts and a tangible lead.
+    </Info>
+    | ID        | Rule Name                             | Trigger                                | Action                               | Description                                                                                                                                                                                                                            |
+    | :-------- | :------------------------------------ | :------------------------------------- | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **CS-01** | Receive & Attribute Lead from Website | **Webhook**: Website form is submitted | **Create**: `Sales & CRM/🧊Customer` | A form submission on the website triggers the creation of a new `🧊 Customer` Object within the `⏹️ Sales & CRM` Space. The automation uses the `ad_key` captured from the URL to perform the handoff described in rule `CF-01` below. |
+  </Tab>
+  <Tab title="Cross System">
+    <Info>
+      This table describes the critical handoff of attribution data from the `⏹️ Marketing` Space to the `⏹️ Sales & CRM` Space, ensuring the sales team has full context.
+    </Info>
+    | ID        | Rule Name                  | Trigger                              | Action                               | Description                                                                                                                                                                                                                           |
+    | :-------- | :------------------------- | :----------------------------------- | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+    | **CF-01** | Link New Lead to Source Ad | **Create**: `Sales & CRM/🧊Customer` | **Update**: `Sales & CRM/🧊Customer` | Triggered by rule `CS-01`, this automation populates a field on the new `🧊 Customer` linking it to the source `Marketing/🧊 Ad`. _This is how Sarah's new lead Object was automatically linked to the 'Scandinavian Simplicity' ad_. |
+  </Tab>
+</Tabs>
 
 ---
 
-## WORKVIEWS & DASHBOARDS
+## WORKVIEWS, DASHBOARDS, FILTERS & REMINDERS
 
 <Tabs>
   <Tab title="Workviews">
@@ -136,6 +175,12 @@ icon: "bullhorn"
     | 2. **Ads Pending Review**        | Status = "PENDING APPROVAL" AND has been in status for \> 24 hours. | Daily at 10:00 AM to the Marketing Manager role. |
   </Tab>
 </Tabs>
+
+## **ROLES, PERMISSIONS & NOTIFICATIONS**
+
+- **Roles Used:** References the predefined **Global Roles**: `Marketing Manager`, `Marketing Executive`.
+- **Permission Scheme:** Utilizes **Global Scheme 3: Moderate Permissions**.
+- **Notification Scheme:** Utilizes **Global Scheme 2: Notify All Stakeholders**.
 
 ---
 
