@@ -9,7 +9,7 @@ icon: "file-signature"
 
 ## Why This Matters
 
-This `📋 Function` is the financial backbone of the project lifecycle, ensuring every commercial agreement is accurately documented, tracked, and executed. It provides strict control over the revenue stream, from client signature to final payment. Strategically, this enables precise cash flow forecasting, mitigates financial risk by tracking all payment obligations, and maintains a professional standard for all client financial interactions. For the accounting and sales teams, it automates payment reminders, standardizes contract management, and creates a clear, auditable trail for all transactions. 
+This `📋 Function` is the financial backbone of the project lifecycle, ensuring every commercial agreement is accurately documented, tracked, and executed. It provides strict control over the revenue stream, from client signature to final payment. Strategically, this enables precise cash flow forecasting, mitigates financial risk by tracking all payment obligations, and maintains a professional standard for all client financial interactions. For the accounting and sales teams, it automates payment reminders, standardizes contract management, and creates a clear, auditable trail for all transactions.
 
 ## The Big Picture
 
@@ -28,21 +28,21 @@ Architecturally, this `📋 Function` is triggered by a successful deal in the C
   <Tab title="Workflow">
     **Contract Workflow**
 
-    `DRAFT` → `PENDING APPROVAL` → `SENT TO CLIENT` → `SIGNED` → `IN PROGRESS` → `COMPLETED` → `LIQUIDATED`
-
-    _`At early stages, the contract can be CANCELLED.`_
+    ```
+    DRAFTING → SIGNED → ACTIVE → COMPLETED → LIQUIDATED
+    ↓          ↓
+    CANCELLED  CANCELLED
+    ```
   </Tab>
   <Tab title="Status Details">
-    | Status              | Business Logic                                                                    | Advanced Settings                                                                                                                                    |
-    | :------------------ | :-------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | 1. DRAFT            | The contract is being prepared by the Sales Rep.                                  | **Permissions**: Sales Rep.                                                                                                                          |
-    | 2. PENDING APPROVAL | The draft has been submitted to the Sales Manager for internal review.            | **Automation**: Notifies Sales Manager to review.                                                                                                    |
-    | 3. SENT TO CLIENT   | The approved contract has been sent to the client for their review and signature. | **Automation**: Sends an email to the client with the contract attached.                                                                             |
-    | 4. SIGNED           | The client has signed the contract.                                               | **Automation**: Creates the corresponding `Project` and `Design Drawing` objects. Creates the `Payment Installment` schedule based on payment terms. |
-    | 5. IN PROGRESS      | The project is underway and payment installments are being tracked.               | **Condition**: Cannot move to this status until the first payment installment is `PAID`.                                                             |
-    | 6. COMPLETED        | All project work is finished, and all payments have been received.                | **Condition**: All `Payment Installment` sub-objects must be `PAID`.                                                                                 |
-    | 7. LIQUIDATED       | The contract has been finalized, and a liquidation document has been signed.      | **Input Screen**: Upload the signed liquidation document.                                                                                            |
-    | 8. CANCELLED        | The contract has been voided before work commenced.                               | **Input Screen**: Reason for cancellation.                                                                                                           |
+    | Status            | Business Logic                                                                                                                 | Advanced Settings                                                                                                                                            |
+    | :---------------- | :----------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1. DRAFTING**   | The contract's terms are being finalized by the sales and accounting teams. The document is generated during this stage.       | **Automation**: A button click triggers the `Generate Google Docs Contract` and `Create Invoice Installments` rules.                                         |
+    | **2. SIGNED**     | The client has signed the contract, making it a legally binding agreement.                                                     | **Transition Permissions**: Accounting Team. <br /> **Action**: The finance team is now authorized to issue the first invoice to the client for the deposit. |
+    | **3. ACTIVE**     | The first payment has been received, the project is underway, and subsequent payments are being tracked against this contract. | **Condition**: Cannot move to this status until the first `🧊︎ Invoice` is `PAID`. This status change triggers the `Project Kick-off` automation.            |
+    | **4. COMPLETED**  | All project work is finished, and all payment installments have been received.                                                 | **Condition**: All child `🧊︎ Invoice` sub-objects must be in `PAID` status.                                                                                 |
+    | **5. LIQUIDATED** | The contract has been financially closed out, and a final liquidation document has been signed by both parties.                | **Data Input**: A field to upload the signed liquidation document.                                                                                           |
+    | **6. CANCELLED**  | The contract has been voided before the project commenced.                                                                     | **Transition Permissions**: Sales Manager, Accounting. <br /> **Data Input**: A required field for the "Reason for Cancellation".                            |
   </Tab>
   <Tab title="Data Fields">
     | Group                    | Field Name (Type)                                                                                                               |
@@ -55,7 +55,7 @@ Architecturally, this `📋 Function` is triggered by a successful deal in the C
 
 ---
 
-### 2. 🧊︎ Payment Installment (Sub-Object)
+### 2. 🧊︎ Invoice (Sub-Object)
 
 - **Process Description**: Tracks an individual payment milestone as defined in the contract's payment schedule.
 - **Parent Object**: `🧊 Contract`
@@ -63,15 +63,21 @@ Architecturally, this `📋 Function` is triggered by a successful deal in the C
 
 <Tabs>
   <Tab title="Workflow">
-    `NOT DUE` → `DUE` → `PAID` / `OVERDUE`
+    ```
+    PENDING → PAID IN FULL
+    ↓          ↑
+    OVERDUE ───┘
+    ↓
+    VOID
+    ```
   </Tab>
   <Tab title="Status Details">
-    | Status     | Business Logic                                              | Advanced Settings                                                                                             |
-    | :--------- | :---------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
-    | 1. NOT DUE | The payment due date is in the future.                      | -                                                                                                             |
-    | 2. DUE     | The payment is now due.                                     | **Automation**: Sends a payment reminder notification to the client and the Accountant.                       |
-    | 3. PAID    | The client has completed the payment for this installment.  | **Automation**: When moved to `PAID`, triggers a rollup to update the `Amount Paid` on the parent `Contract`. |
-    | 4. OVERDUE | The due date has passed, and payment has not been received. | **Automation**: Sends an overdue payment notification.                                                        |
+    | Status              | Business Logic                                                                                                                 | Advanced Settings                                                                                                                                               |
+    | :------------------ | :----------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1. PENDING**      | The invoice has been created and sent to the client but is not yet due or paid. This is the initial status shown in the video. | **Automation**: A time-based rule will automatically change the status to `OVERDUE` if the `Due Date` passes and payment has not been received.                 |
+    | **2. OVERDUE**      | The due date has passed, and payment has not been received.                                                                    | **Automation**: Triggers a notification to be sent to the client and the internal accounting team.                                                              |
+    | **3. PAID IN FULL** | The client has completed the payment for this installment. This is the final success status shown in the video.                | **Automation**: Triggers the `Process Payment and Kick Off Project` rule (if it's the first invoice) and updates the `Amount Paid` on the parent `🧊 Contract`. |
+    | **4. VOID**         | The invoice has been cancelled and is no longer valid for payment.                                                             | **This is a terminal status.** The amount of this invoice will not be counted towards the total of the parent `🧊 Contract`.                                    |
   </Tab>
   <Tab title="Data Fields">
     | Group                   | Field Name (Type)                                                                      |
@@ -82,28 +88,17 @@ Architecturally, this `📋 Function` is triggered by a successful deal in the C
 
 ---
 
-### 3. 🧊︎︎ VAT Invoice (Sub-Object)
+<Info>
+  **Pro Tip: Expanding Your Financial Blueprint**
 
-- **Process Description**: Manages the request and issuance of an official VAT invoice for a specific payment.
-- **Parent Object**: `🧊︎ Payment Installment`
-- **Example**: "VAT Invoice for Installment 1".
+  The current blueprint focuses on the primary client contract and invoicing process. To build a more comprehensive financial management system, you can introduce additional `🧊 Objects` for greater control. For example, you could add:
 
-<Tabs>
-  <Tab title="Workflow">
-    `REQUESTED` → `ISSUED`
-  </Tab>
-  <Tab title="Status Details">
-    | Status       | Business Logic                                             | Advanced Settings                                                               |
-    | :----------- | :--------------------------------------------------------- | :------------------------------------------------------------------------------ |
-    | 1. REQUESTED | A request to issue a VAT invoice has been made.            | **Automation**: Notifies the Accountant role.                                   |
-    | 2. ISSUED    | The VAT invoice has been generated and sent to the client. | **Input Screen**: Enter Invoice Number, Issue Date, and upload the invoice PDF. |
-  </Tab>
-  <Tab title="Data Fields">
-    | Group               | Field Name (Type)                                                                      |
-    | :------------------ | :------------------------------------------------------------------------------------- |
-    | **Invoice Details** | Invoice Number (Text), Issue Date (Date), Amount (Currency), Invoice File (Attachment) |
-  </Tab>
-</Tabs>
+  - `🧊︎ Change Order` sub-objects to formally document and approve any modifications to the project's scope, timeline, or budget after the initial contract is signed.
+  - `🧊 Purchase Order` objects to manage and track procurement from external suppliers, linking specific costs directly back to a project.
+  - `🧊 Vendor` objects to maintain a central database of your suppliers, their contact details, and performance history.
+
+  This allows you to scale from simple project billing to full-fledged financial and procurement management as your business grows.
+</Info>
 
 ---
 
@@ -120,11 +115,32 @@ Architecturally, this `📋 Function` is triggered by a successful deal in the C
 
 ## AUTOMATIONS
 
-| Rule                               | Trigger                                               | Action                                                                                                                                                    |
-| :--------------------------------- | :---------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1. **Create Installment Schedule** | A `🧊 Contract` is moved to `SIGNED`.                 | Reads the payment terms and automatically creates the required number of `🧊︎ Payment Installment` sub-objects with correct due dates and amounts.        |
-| 2. **Send Payment Reminders**      | An automation runs daily.                             | Checks for any `🧊︎ Payment Installment` where the `Due Date` is today and the `Status` is `NOT DUE`. It changes the status to `DUE` and sends reminders. |
-| 3. **Update Contract Status**      | The `Remaining Balance` on a `🧊 Contract` becomes 0. | Automatically changes the `🧊 Contract` status to `COMPLETED`.                                                                                            |
+<Tabs>
+  <Tab title="Within-Function">
+    These rules run entirely within the `Contract & Invoice` Space to manage financial records and processes.
+
+    | Sequence | ID        | Rule Name                      | Trigger                                    | Action                                    | Description                                                                                                                                                                                                                                                 |
+    | :------- | :-------- | :----------------------------- | :----------------------------------------- | :---------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **3**    | **IC-03** | Create Invoice Installments    | **Button Click**: "Create Contract (Docs)" | **Create**: `🧊︎ Invoice`                 | Triggered by the same action that generates the contract doc, this rule automatically creates multiple `🧊︎ Invoice` sub-objects based on the payment structure. _e.g., Creating three separate invoices for Sarah's 25%, 40%, and 35% payment milestones._ |
+    | **5**    | **IC-04** | Update Financials Upon Payment | **Webhook**: Payment Received (from CS-05) | **Update**: `🧊 Contract` & `🧊︎ Invoice` | When a payment is confirmed, this rule updates the `🧊︎ Invoice` status to `PAID` and recalculates the `Outstanding` balance on the parent `🧊 Contract` Object.                                                                                            |
+  </Tab>
+  <Tab title="Cross-Function Automations">
+    These rules manage the flow of work between the finance function and other departments.
+
+    | Sequence | ID        | Direction  | Rule Name                               | Trigger                                                         | Action                                                                                                                                                                                                         |
+    | :------- | :-------- | :--------- | :-------------------------------------- | :-------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1**    | **CF-03** | `Incoming` | Create Contract from Sales Handoff      | **Status Change**: `Sales & CRM/🧊 Customer` to "CONTRACT PREP" | A new, linked `🧊 Contract` Object is automatically created in the `Contract & Invoice` `⏹️ Space` for the finance team when Sales confirms the deal is ready.                                                 |
+    | **6**    | **CF-06** | `Outgoing` | Trigger Project Kick-off & Notify Sales | **Status Change**: `🧊︎ Invoice` to "PAID" (from CS-05)         | The first successful payment triggers two key actions: <br /> - Creates a new `Project Management/🧊 Project` Object. <br /> - Sends a "Payment Received\!" notification to the `Sales & CRM` `⏹️ Space` chat. |
+  </Tab>
+  <Tab title="Cross-System">
+    These rules connect the `Contract & Invoice` function with external financial and document platforms.
+
+    | Sequence | ID        | Rule Name                     | Trigger                                    | Action                    | Description                                                                                                                                                                                                                        |
+    | :------- | :-------- | :---------------------------- | :----------------------------------------- | :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **2**    | **CS-04** | Generate Google Docs Contract | **Button Click**: "Create Contract (Docs)" | **API Call**: Google Docs | An Accountant clicks a button to send an API request, automatically populating a Google Docs contract template with smart values from the `🧊 Contract` Object.                                                                    |
+    | **4**    | **CS-05** | Receive Payment Confirmation  | **Webhook**: From external payment gateway | **Update**: `🧊︎ Invoice` | A webhook from the payment gateway notifies the system that a payment has been made, finding the specific `🧊︎ Invoice` and triggering internal and cross-functional updates. _e.g., Confirming Sarah's \$11,500 deposit payment._ |
+  </Tab>
+</Tabs>
 
 ---
 

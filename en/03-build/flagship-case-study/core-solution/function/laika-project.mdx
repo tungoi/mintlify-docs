@@ -191,8 +191,6 @@ Architecturally, this `📋 Function` is the operational core of the business, a
 
 <Tabs>
   <Tab title="Within-Function">
-    #### Internal Automations (`⏹️ Project Management`)
-
     These rules run entirely within the `Project Management` Space to provide project visibility and automate calculations.
 
     | Sequence | ID        | Rule Name                 | Trigger                         | Action                   | Description                                                                                                                                                              |
@@ -201,8 +199,6 @@ Architecturally, this `📋 Function` is the operational core of the business, a
     | **5**    | **IP-02** | Calculate Schedule Delays | **Update**: `Launch Date` field | **Update**: `🧊 Project` | When the `Launch Date` is changed, a formula automatically calculates the difference against a `Planned End Date` to update the `Delays (days)` field seen in the video. |
   </Tab>
   <Tab title="Cross-Function">
-    #### Cross-Function Automations (Project Management Handoffs)
-
     These rules describe the critical handoffs between the `Project Management` `⏹️ Space` and other functions.
 
     | Sequence | ID        | Direction  | Rule Name                     | Trigger                                                      | Action                                                                                                                                                         |
@@ -212,8 +208,6 @@ Architecturally, this `📋 Function` is the operational core of the business, a
     | **6**    | **CF-09** | `Outgoing` | Trigger After-Sales Workflows | **Status Change**: `🧊 Project` to "COMPLETE"                | Updates the `Sales & CRM/🧊 Customer` with a loyalty voucher. <br /> Creates a `Customer Success/🧊 After-Sales Care` Object.                                  |
   </Tab>
   <Tab title="Cross-System Automations">
-    #### Cross-System Automations (Project Management Interface)
-
     This rule connects the Project Management function with external collaboration platforms.
 
     | Sequence | ID        | Rule Name                   | Trigger                  | Action                             | Description                                                                                                                                                                    |
@@ -248,6 +242,34 @@ Architecturally, this `📋 Function` is the operational core of the business, a
 </Tabs>
 
 ---
+
+## ROLES, PERMISSIONS & NOTIFICATIONS
+
+<Tabs>
+  <Tab title="Roles">
+    | Role                        | Description                                                      | Permissions & Notifications                                                                                                                    |
+    | :-------------------------- | :--------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1. Project Manager**      | Manages the overall project and coordinates the different teams. | **Permissions**: Full control over the `🧊 Project` and its roadmap. **Notifications**: Receives all notifications regarding project progress. |
+    | **2. Design Lead**          | Responsible for the design phase of the project.                 | **Permissions**: Can update the design roadmap. **Notifications**: Receives notifications for new design requests.                             |
+    | **3. Construction Manager** | Manages the on-site construction and installation phase.         | **Permissions**: Can update the construction roadmap. **Notifications**: Receives a notification when the design phase is complete.            |
+  </Tab>
+  <Tab title="Permissions">
+    **Approach Used**: Moderate Permissions
+
+    - **`View ⏹️ Space`**: All roles assigned to the project can view the Space.
+    - **`View & Update 🧊 Object`**: Only users directly assigned to a specific `🧊 Project` can view and update it.
+    - **Object Chat**: Anyone who can view the `🧊 Project` can participate in its chat.
+  </Tab>
+  <Tab title="Notifications">
+    #### General Notification Scheme
+
+    **Approach Used**: Notify Relevant People Only
+
+    - All actions on a `🧊 Project` will send a notification to the Project Manager and the assigned team.
+    - Roadmap updates send a notification to the assignee and the Project Manager.
+    - Milestone completions send a notification to the entire project team.
+  </Tab>
+</Tabs>
 
 ## What's Next?
 
