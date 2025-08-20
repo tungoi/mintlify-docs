@@ -12,13 +12,13 @@ This `📋 Function` streamlines the creative process by organizing all design d
 
 ## The Big Picture
 
-Architecturally, this `📋 Function` is initiated in parallel with a `🧊 Project`. The central object is the `🧊 Design Package`, which acts as the main container for the entire design scope. This package holds four distinct types of sub-objects: `🧊︎ Floor Plan`, `🧊︎ Concept`, `🧊︎ 3D`, and `🧊︎ 2D`, each representing a key deliverable. Each of these sub-objects follows its own lifecycle of creation, feedback, and approval, allowing for granular tracking of the entire design effort.
+Architecturally, this `📋 Function` is initiated in parallel with a `🧊 Project`. The central object is the `🧊 Design`, which acts as the main container for the entire design scope. This package holds four distinct types of sub-objects: `🧊︎ Floor Plan`, `🧊︎ Concept`, `🧊︎ 3D`, and `🧊︎ 2D`, each representing a key deliverable. Each of these sub-objects follows its own lifecycle of creation, feedback, and approval, allowing for granular tracking of the entire design effort.
 
 ---
 
 ## OBJECT TYPES & WORKFLOWS
 
-### 1. 🧊 Design Package (Standard Object)
+### 1. 🧊 Design (Standard Object)
 
 - **Process Description**: The top-level container for a complete design package for a client project. It groups all related deliverables like floor plans, concepts, and 3D/2D drawings.
 - **Example**: "DP-101: Design Package for Hoai An's Apartment".
@@ -27,16 +27,23 @@ Architecturally, this `📋 Function` is initiated in parallel with a `🧊 Proj
   <Tab title="Workflow">
     **Design Package Workflow**
 
-    `BRIEFING` → `IN PROGRESS` → `PENDING FINAL REVIEW` → `APPROVED` → `HANDED OVER`
+    ![Laika Design Workflow Pn](/images/laika-flagship-images/function-blueprint/laika-design/laika-design-workflow.png)
+
+    ```
+                             ┌─────> REVISION ─────┐
+                             │                      ↓
+    NEW → IN PROGRESS → PENDING APPROVAL → APPROVED → HANDED OVER
+    ```
   </Tab>
   <Tab title="Status Details">
-    | Status                  | Business Logic                                                                              | Advanced Settings                                                                                    |
-    | :---------------------- | :------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------- |
-    | 1. BRIEFING             | The design requirements are being gathered and the package is being set up.                 | -                                                                                                    |
-    | 2. IN PROGRESS          | The design team is actively working on the various deliverables (`Floor Plan`, `3D`, etc.). | -                                                                                                    |
-    | 3. PENDING FINAL REVIEW | All deliverables are complete and the entire package is awaiting final client sign-off.     | **Automation**: Notifies the Client for a final review.                                              |
-    | 4. APPROVED             | The client has approved the entire design package.                                          | **Condition**: All child deliverables must be in `APPROVED` status.                                  |
-    | 5. HANDED OVER          | The finalized assets have been delivered to the Project Management team.                    | **Automation**: Copies the approved files to the related `Project`'s "Construction Drawings" folder. |
+    | Status                  | Business Logic                                                                                                        | Advanced Settings                                                                                                                        |
+    | :---------------------- | :-------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1. NEW**              | The `Design` Object has been created and is in the initial briefing phase where requirements are gathered.            | **Automation**: A set of standard child `🧊︎ Deliverable` Objects (e.g., Floor Plan, Concept, 3D Render) can be created from a template. |
+    | **2. IN PROGRESS**      | The design team is actively working on the various deliverables within the design package.                            | **Transition Permissions**: Lead Designer.                                                                                               |
+    | **3. PENDING APPROVAL** | All individual deliverables are complete, and the entire package is awaiting final sign-off from the client.          | **Automation**: Can trigger a notification to the client and sales rep for the final review meeting.                                     |
+    | **4. REVISION**         | The client has requested changes, sending the design package back to the `IN PROGRESS` status for the team to action. | **Data Input**: A required field for "Revision Notes" should capture the client's feedback.                                              |
+    | **5. APPROVED**         | The client has formally approved the entire design package.                                                           | **Condition**: All child `🧊︎ Deliverable` Objects must be in `APPROVED` status before the parent package can be moved to `APPROVED`.    |
+    | **6. HANDED OVER**      | The finalized and approved design assets have been delivered to the Project Management and Construction teams.        | **This is the terminal status for the Design function's workflow.** It can trigger a status change on the parent `🧊 Project`.           |
   </Tab>
   <Tab title="Data Fields">
     | Group                 | Field Name (Type)                                                                                      |
@@ -57,7 +64,7 @@ The following four objects (`🧊︎ Floor Plan`, `🧊︎ Concept`, `🧊︎ 3D
 
     `TO DO` → `IN PROGRESS` → `PENDING REVIEW` → `APPROVED`
 
-    _``A deliverable in PENDING REVIEW can also be moved to a REVISION NEEDED status.``_
+    _`A deliverable in PENDING REVIEW can also be moved to a REVISION NEEDED status.`_
   </Tab>
   <Tab title="Shared Status Details">
     | Status             | Business Logic                                                     | Advanced Settings                                                                               |
@@ -79,13 +86,67 @@ The following four objects (`🧊︎ Floor Plan`, `🧊︎ Concept`, `🧊︎ 3D
 
 ## OBJECT RELATIONSHIPS
 
-| Relationship                           | Type         | Description                                                              |
-| :------------------------------------- | :----------- | :----------------------------------------------------------------------- |
-| `🧊 Design Package` → `🧊︎ Floor Plan` | Parent-Child | A design package contains one or more floor plan deliverables.           |
-| `🧊 Design Package` → `🧊︎ Concept`    | Parent-Child | A design package contains one or more concept deliverables.              |
-| `🧊 Design Package` → `🧊︎ 3D`         | Parent-Child | A design package contains one or more 3D render deliverables.            |
-| `🧊 Design Package` → `🧊︎ 2D`         | Parent-Child | A design package contains one or more 2D technical drawing deliverables. |
-| `🧊 Design Package` → `🧊 Project`     | Reference    | Each design package is linked to one master project.                     |
+| Relationship                   | Type         | Description                                                      |
+| :----------------------------- | :----------- | :--------------------------------------------------------------- |
+| `🧊 Design` → `🧊︎ Floor Plan` | Parent-Child | A design contains one or more floor plan deliverables.           |
+| `🧊 Design` → `🧊︎ Concept`    | Parent-Child | A design contains one or more concept deliverables.              |
+| `🧊 Design` → `🧊︎ 3D`         | Parent-Child | A design contains one or more 3D render deliverables.            |
+| `🧊 Design` → `🧊︎ 2D`         | Parent-Child | A design contains one or more 2D technical drawing deliverables. |
+| `🧊 Design ` → `🧊 Project`    | Reference    | Each design is linked to one master project.                     |
+
+---
+
+## WORKVIEWS, DASHBOARDS & FILTERS
+
+<Tabs>
+  <Tab title="Workviews">
+    | Workview                        | Description                                                                                                                      |
+    | :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------- |
+    | 1. **Deliverable Kanban Board** | A board view for tracking all `Design Deliverables` (`Floor Plans`, `3D`, etc.) through the workflow from `TO DO` to `APPROVED`. |
+    | 2. **Design Asset Gallery**     | A visual gallery of all submitted deliverable files, allowing for quick visual review and comparison.                            |
+  </Tab>
+  <Tab title="Dashboards">
+    | Widget                          | Description                                                                                                                            |
+    | :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------- |
+    | 1. **Design Progress Overview** | Charts showing the status breakdown of all deliverables within a `Design Package` (e.g., 5 Approved, 2 Pending Review, 3 To Do).       |
+    | 2. **Feedback Cycle Time**      | A chart that measures the average time a deliverable spends in the `PENDING REVIEW` status before being approved or sent for revision. |
+  </Tab>
+  <Tab title="Filters">
+    | Filter                              | Criteria                       |
+    | :---------------------------------- | :----------------------------- |
+    | 1. **Deliverables Awaiting Review** | `Status` is `PENDING REVIEW`.  |
+    | 2. **Designs Needing Revision**     | `Status` is `REVISION NEEDED`. |
+  </Tab>
+</Tabs>
+
+---
+
+## AUTOMATIONS
+
+<Tabs>
+  <Tab title="Within Function">
+    These rules operate within the `Design & Build` Space to facilitate collaboration between team members.
+
+    | Sequence | ID        | Rule Name                          | Trigger                                            | Action                                      | Description                                                                                                                                                                                                     |
+    | :------- | :-------- | :--------------------------------- | :------------------------------------------------- | :------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1**    | **ID-01** | Notify Designer of Site Limitation | **Create**: `🧊 Site limitation`                   | **Send Message**: `🧊 Site limitation` Chat | When a Site Worker creates a new `🧊 Site limitation` Object, the system automatically notifies the assigned Designer. [cite_start]_e.g., Alerting Max about the "Old Brick Wall Not Safe" issue found by Tony_ |
+    | **2**    | **ID-02** | Request Internal Sales Review      | **Status Change**: `🧊︎ Concept` to `SALES REVIEW` | **Send Message**: `🧊︎ Concept` Chat        | [cite_start]When a Designer changes a `🧊︎ Concept` status, the system automatically notifies the responsible Sales Rep. _e.g., Tagging @David for a review after Max completes the concept_                    |
+  </Tab>
+  <Tab title="Cross-Function Automations">
+    This rule describes how the Design function is initiated by the Project Management team.
+
+    | Sequence | ID        | Direction  | Rule Name                           | Trigger                                     | Action                                                                                                                                                         |
+    | :------- | :-------- | :--------- | :---------------------------------- | :------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1**    | **CF-07** | `Incoming` | Create Design from Project Kick-off | **Create**: `Project Management/🧊 Project` | [cite_start]A new, linked `🧊 Design` Object is automatically created in the `Design & Build` `⏹️ Space`, pre-loaded with all relevant history and survey data |
+  </Tab>
+  <Tab title="Cross-System">
+    This rule connects the Design function with external communication platforms to interact with the client.
+
+    | Sequence | ID        | Rule Name                                 | Trigger                              | Action                      | Description                                                                                                                                                                              |
+    | :------- | :-------- | :---------------------------------------- | :----------------------------------- | :-------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **3**    | **CS-08** | Send Personalized Concept Email to Client | **Button Click**: "Send 1st Concept" | **API Call**: Email Service | [cite_start]A user clicks a button to automatically draft and send a personalized email to the client, pulling in data like their name, style preferences, and a link to the design file |
+  </Tab>
+</Tabs>
 
 ---
 
