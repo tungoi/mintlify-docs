@@ -52,10 +52,10 @@ icon: "handshake"
 
 ![Laika Crm ER En Pn](/images/laika-crm-ER-en.png)
 
-| Relationship Type    | Connection                                                | Description                                                                                                                                  |
-| :------------------- | :-------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Parent-Child**     | `🧊 Customer` → `🧊︎ Demo`                                | Each `🧊 Customer` can have multiple `🧊︎ Demo` appointments.                                                                                |
-| **Object Reference** | `🧊 Customer` (Ad Source field) → `🧊 Marketing Campaign` | Connects the lead to the specific ad campaign that generated it, enabling ROI tracking. Filter condition: Campaign status must be "RUNNING". |
+| Relationship Type    | Connection                                | Description                                                                             |
+| :------------------- | :---------------------------------------- | :-------------------------------------------------------------------------------------- |
+| **Parent-Child**     | `🧊 Customer` → `🧊︎ Demo`                | Each `🧊 Customer` can have multiple `🧊︎ Demo` appointments.                           |
+| **Object Reference** | `🧊 Customer` (Ad Source field) → `🧊 Ad` | Connects the lead to the specific ad campaign that generated it, enabling ROI tracking. |
 
 ---
 
@@ -63,8 +63,8 @@ icon: "handshake"
 
 ### 1. 🧊 Customer (Standard Object)
 
-- **Process Description**: Manages potential customers from the moment they are captured via a landing page webhook until they are converted into a signed contract. This includes automated assignment and progress tracking.
-- **Example**: A potential customer "Hoài An - 0384188881" is captured from the "MKT-236" ad campaign for Nordic-style interiors. Another lead from a "Modern Luxury" campaign has a prospective budget of \$25,000.
+- **Process Description**: Manages potential customers from the moment they are captured via a landing page webhook until they are converted into a signed contract. This includes automated assignment and progress tracking through various statuses.
+- **Example**: A potential customer, "Sarah & Michael Westbrook," is captured from the "Scandinavian Simplicity" ad campaign, which has the ad key `MKT-236`. Their prospective budget is recorded as \$40,000 - \$55,000
 
 <Tabs>
   <Tab title="Workflow Diagram">
@@ -72,20 +72,22 @@ icon: "handshake"
 
     ![laika-crm-customer-workflow.png](/images/laika-crm-customer-workflow.png)
 
-    `DEPLOYMENT` → `NEW LEAD` → `CONTACTING` → `SCHEDULING` → `DRAFTING CONTRACT` → `SUCCESS`
-
-    _`At any stage from NEW LEAD to DRAFTING CONTRACT, the process can move to a FAILURE status.`_
+    ```
+    NEW LEAD → 1ST CALL → NEGOTIATION → PROPOSAL → CONTRACT PREP → CLOSED-WON
+       ↓          ↓           ↓             ↓              ↓
+    CLOSED-LOST CLOSED-LOST CLOSED-LOST CLOSED-LOST    CLOSED-LOST
+    ```
   </Tab>
   <Tab title="Status Details">
-    | Status               | Business Logic                                                                          | Advanced Settings                                                                                                                                                                                  |
-    | :------------------- | :-------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | 1. DEPLOYMENT        | New customer created from a landing page webhook, awaiting assignment.                  | **Automation**: Automatically assigns the lead to a sales representative based on a round-robin system and expertise. **Notification**: Sends a chat message to the Sales team about the new lead. |
-    | 2. NEW LEAD          | The customer has been assigned to a sales rep, who is preparing to make contact.        | **Permissions**: Assigned Sales Rep. **Data Input**: Initial assessment notes about the customer.                                                                                                  |
-    | 3. CONTACTING        | The sales rep has contacted and conducted a preliminary consultation with the customer. | **Permissions**: Assigned Sales Rep. **Data Input**: Call notes, specific needs, and interest level.                                                                                               |
-    | 4. SCHEDULING        | The customer has agreed to schedule a direct consultation.                              | **Automation**: Triggers the creation of a `🧊︎ Demo` child Object and a corresponding Google Calendar event. **Condition**: Customer shows clear interest and agrees to a meeting.                |
-    | 5. DRAFTING CONTRACT | The customer has agreed to proceed and is ready to sign a contract.                     | **Automation**: Creates a `🧊 Contract` and a `🧊 Site Survey`. **Condition**: Successful demo and clear intent to purchase.                                                                       |
-    | 6. SUCCESS           | The customer has successfully signed the contract.                                      | **Permissions**: Read-only. **Tracking**: The entire customer journey from ad source to signed contract is preserved.                                                                              |
-    | 7. FAILURE           | The customer is not interested or unsuitable at any stage.                              | **Permissions**: Assigned Sales Rep. **Data Input**: Reason for failure for future analysis and process improvement.                                                                               |
+    | Status               | Business Logic                                                                                      | Advanced Settings                                                                                                                                       |
+    | :------------------- | :-------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+    | **1. NEW LEAD**      | A new customer has been created from the website form and automatically assigned to a sales rep.    | **Transition Permissions**: Assigned Sales Rep. <br /> **Data Input**: The Object is pre-populated with data from the webform, including the ad source. |
+    | **2. 1ST CALL**      | The assigned sales rep has made initial contact and is in active consultation with the customer.    | **Transition Permissions**: Assigned Sales Rep. <br /> **Data Input**: Call notes, customer needs, and style preferences are recorded.                  |
+    | **3. NEGOTIATION**   | The customer has shown strong interest and is discussing specific terms, budget, and scope.         | **Transition Permissions**: Assigned Sales Rep. <br /> **Data Input**: Fields for specific terms and pricing adjustments are updated.                   |
+    | **4. PROPOSAL**      | A formal proposal has been sent to the customer for review.                                         | **Transition Permissions**: Assigned Sales Rep.                                                                                                         |
+    | **5. CONTRACT PREP** | The customer has verbally agreed to proceed. This status triggers the handoff to other departments. | **Automation**: Triggers the creation of a `Contract & Invoice/🧊Contract` and a `Design & Build/🧊Site Survey`.                                        |
+    | **6. CLOSED-WON**    | The contract has been signed and the first payment received. The deal is won.                       | **This is a terminal success status.**                                                                                                                  |
+    | **7. CLOSED-LOST**   | The customer is not moving forward with the project at this time.                                   | **Transition Permissions**: Assigned Sales Rep. <br /> **Data Input**: A "Reason for Loss" field should be required to improve sales analytics.         |
   </Tab>
   <Tab title="Data Fields">
     **Data Field Groups**
@@ -104,8 +106,8 @@ icon: "handshake"
 
 ### 2. 🧊︎ Demo (Sub-Object)
 
-- **Process Description**: Manages direct consultation appointments with customers, fully integrated with Google Calendar to synchronize schedules and send invitations.
-- **Example**: A demo titled "`LAIKA x Sarah & Michael Westbrook - Interior Renovation Demo`" is scheduled for `June 18th at 2 PM`, with `designer Max` and `sales rep David`
+- **Process Description**: Manages direct consultation appointments with customers, fully integrated with Google Calendar to synchronize schedules and send invitations to all participants.
+- **Example**: A demo titled "LAIKA x Sarah & Michael - Interior Renovation Demo" is scheduled for June 18th at 2:00 PM, with designer Max and sales rep David attending.
 
 <Tabs>
   <Tab title="Workflow Diagram">
@@ -113,18 +115,22 @@ icon: "handshake"
 
     ![laika-crm-demo.png](/images/laika-crm-demo.png)
 
-    `SCHEDULED` → `IN PROGRESS` → `COMPLETED`
-
-    _`From SCHEDULED, the demo can be CANCELLED. It can also be POSTPONED, which loops back to SCHEDULED.`_
+    ```
+    ┌──────────> POSTPONED ────────┐
+    │                               ↓
+    SCHEDULED → IN PROGRESS → COMPLETED
+    │
+    └──────────> CANCELLED
+    ```
   </Tab>
   <Tab title="Status Details">
-    | Status         | Business Logic                                                 | Advanced Settings                                                                                                                                |
-    | :------------- | :------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
-    | 1. SCHEDULED   | A consultation has been booked for a specific time.            | **Automation**: Creates a Google Calendar event and invites the customer, sales rep, and designer. **Data Input**: Time, location, participants. |
-    | 2. IN PROGRESS | The live consultation meeting is currently happening.          | **Permissions**: Sales Rep and Designer. **Data Input**: Notes taken during the consultation.                                                    |
-    | 3. COMPLETED   | The meeting has concluded with a clear outcome.                | **Data Input**: Consultation results, customer interest level, next steps. **Automation**: Updates the parent `🧊 Customer` status accordingly.  |
-    | 4. CANCELLED   | The appointment was cancelled due to unforeseen circumstances. | **Automation**: Updates the Google Calendar event and notifies all participants.                                                                 |
-    | 5. POSTPONED   | The appointment is deferred to a later date.                   | **Automation**: Updates the Google Calendar event. **Condition**: A new date must be set within 7 days.                                          |
+    | Status             | Business Logic                                                    | Advanced Settings                                                                                                                                                          |
+    | :----------------- | :---------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1. SCHEDULED**   | A consultation has been booked for a specific time.               | **Automation**: Creates a Google Calendar event and invites the customer, sales rep, and designer. <br /> **Data Input**: Time, location, participants.                    |
+    | **2. IN PROGRESS** | The live consultation meeting is currently happening.             | **Transition Permissions**: Assigned Sales Rep, Designer. <br /> **Data Input**: Live notes are taken during the consultation.                                             |
+    | **3. COMPLETED**   | The meeting has concluded with a clear outcome.                   | **Transition Permissions**: Assigned Sales Rep. <br /> **Automation**: Can update the parent `🧊 Customer` status accordingly (e.g., to `NEGOTIATION` or `CONTRACT PREP`). |
+    | **4. CANCELLED**   | The appointment was cancelled by either the customer or the team. | **Transition Permissions**: Assigned Sales Rep. <br /> **Automation**: Updates the Google Calendar event and notifies all participants.                                    |
+    | **5. POSTPONED**   | The appointment has been deferred to a later, unconfirmed date.   | **Transition Permissions**: Assigned Sales Rep. <br /> **Condition**: Should loop back to `SCHEDULED` once a new date is confirmed.                                        |
   </Tab>
   <Tab title="Data Fields">
     **Data Field Groups**
@@ -150,7 +156,7 @@ icon: "handshake"
 </Frame>
 
 <Tabs>
-  <Tab title="Internal Automations">
+  <Tab title="Within Function">
     #### Internal Automations (`⏹️ Sales & CRM`)
 
     These rules run entirely within the `Sales & CRM` Space to enhance sales efficiency and ensure process consistency.
@@ -160,7 +166,7 @@ icon: "handshake"
     | **3**    | **IC-01** | Calculate Lead Score          | **Create/Update**: `🧊 Customer`   | **Update**: `🧊 Customer` | When a new `🧊 Customer` is created or key data is updated, a formula runs to update the `Lead Score` field. _For example, Sarah's lead was automatically given a score of 87._                        |
     | **4**    | **IC-02** | Create Initial Follow-up Task | **Update**: `🧊 Customer` assigned | **Create**: `☑️ Task`     | When a `🧊 Customer` is assigned to a sales rep, a `☑️ Task` Sub-Object is automatically created and assigned to them, due within 24 hours. _e.g., Assigning a task to David to call Sarah Westbrook._ |
   </Tab>
-  <Tab title="Cross-Function Automations">
+  <Tab title="Cross-Function">
     #### Cross-Function Automations (CRM Handoffs & Updates)
 
     These rules describe the critical handoffs of data and tasks between the `Sales & CRM` `⏹️ Space` and other functions.
@@ -172,7 +178,7 @@ icon: "handshake"
     | **7**    | **CF-05** | `Incoming` | Receive Payment Notification       | **Status Change**: `Contract & Invoice/🧊 Invoice` to "PAID"     | Sends an automatic message to the `Sales & CRM` Space chat. _e.g., Notifying David that Sarah's \$11,500 deposit has been paid._                                        |
     | **8**    | **CF-09** | `Incoming` | Update Loyalty Voucher             | **Status Change**: `Project Management/🧊 Project` to "COMPLETE" | Automatically calculates and updates the `Voucher` field in the original `🧊 Customer`. _e.g., Adding a \$500 voucher to Sarah's record after her project is finished._ |
   </Tab>
-  <Tab title="Cross-System Automations">
+  <Tab title="Cross-System">
     #### Cross-System Automations (CRM Interface)
 
     These rules connect the CRM function with platforms outside of Luklak.
@@ -217,11 +223,11 @@ This guide shows you how to book a new consultation for an existing customer lea
 
 <Tabs>
   <Tab title="Workviews">
-    | Workview                        | Description                                                                                    | Data Configuration                                                             |
-    | :------------------------------ | :--------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
-    | 1. **Kanban Customer Pipeline** | Displays customers as cards in columns representing each stage from `DEPLOYMENT` to `SUCCESS`. | All `🧊 Customer` Objects, grouped by status, sorted by received date.         |
-    | 2. **Demo Calendar**            | A monthly calendar view showing all scheduled consultation appointments.                       | All `🧊︎ Demo` Objects with a scheduled time, integrated with Google Calendar. |
-    | 3. **Customer List**            | A detailed table view of all customers with comprehensive information.                         | All `🧊 Customer` Objects, with filters for sales rep, ad source, and status.  |
+    | Workview                        | Description                                                                                  | Data Configuration                                                             |
+    | :------------------------------ | :------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
+    | 1. **Kanban Customer Pipeline** | Displays customers as cards in columns representing each stage from `NEW LEAD` to `SUCCESS`. | All `🧊 Customer` Objects, grouped by status, sorted by received date.         |
+    | 2. **Demo Calendar**            | A monthly calendar view showing all scheduled consultation appointments.                     | All `🧊︎ Demo` Objects with a scheduled time, integrated with Google Calendar. |
+    | 3. **Customer List**            | A detailed table view of all customers with comprehensive information.                       | All `🧊 Customer` Objects, with filters for sales rep, ad source, and status.  |
   </Tab>
   <Tab title="Dashboards">
     | Gadget                                | Data                                                                   | Description                                                             |
@@ -240,6 +246,33 @@ This guide shows you how to book a new consultation for an existing customer lea
 </Tabs>
 
 ---
+
+## ROLES, PERMISSIONS & NOTIFICATIONS
+
+<Tabs>
+  <Tab title="Roles">
+    | Role                        | Description                                                                       | Permissions & Notifications                                                                                                                                                                                                                                            |
+    | :-------------------------- | :-------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1. Sales Representative** | Manages `🧊 Customer` Objects and conducts `🧊︎ Demo` consultations.              | **Permissions**: Full control over assigned `🧊 Customer` Objects and the ability to create/edit their child `🧊︎ Demo` Objects. <br /> **Notifications**: Receives a notification when a new `🧊 Customer` is assigned and a reminder 15 minutes before a `🧊︎ Demo`. |
+    | **2. Marketing Manager**    | Creates campaigns that generate leads for the CRM and monitors their performance. | **Permissions**: Read-only access to `🧊 Customer` Objects to track lead sources and conversion rates.<br />**Notifications**: Does not receive real-time notifications per lead, but uses the data for campaign performance reports.                                  |
+  </Tab>
+  <Tab title="Permissions">
+    #### General Permission Scheme
+
+    **Approach Used**: Option 3 - Moderate Permissions
+
+    - **`View ⏹️ Space`**: All members with a role in the Space can view it.
+    - **`View & Update 🧊 Object`**: Only users who are directly assigned to an `🧊 Object` can view and update it.
+    - **Object Chat**: Anyone who can view the `🧊 Object` can participate in its chat.
+  </Tab>
+  <Tab title="Notifications">
+    #### General Notification Scheme
+
+    **Approach Used**: Option 2 - Notify Relevant People Only
+
+    All actions performed on an `🧊 Object` will only send notifications to the users who are directly assigned to that specific `🧊 Object`.
+  </Tab>
+</Tabs>
 
 **What's Next?**
 
