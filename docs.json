@@ -286,6 +286,7 @@
             "pages": [
               {
             "group": "Challenges & Analysis",
+            "icon": "magnifying-glass-chart",
             "pages": [
               "en/03-build/flagship-case-study/master-plan/the-business-challenge",
               "en/03-build/flagship-case-study/master-plan/the-cross-function-system-blueprint",
@@ -296,6 +297,7 @@
               
                {
             "group": "Build",
+            "icon": "cube",
             "pages": [
               
               {
@@ -325,6 +327,7 @@
           },
               {
             "group": "Use & Operate",
+            "icon": "table-layout",
             "pages": [
               "en/03-build/flagship-case-study/use-and-operate/connecting-functions-with-universal-automation",
               "en/03-build/flagship-case-study/use-and-operate/monitoring-the-business-with-dashboards"
