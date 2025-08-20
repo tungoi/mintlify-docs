@@ -19,7 +19,55 @@ Architecturally, this `📋 Function` is activated during the warranty phase of 
 
 ## OBJECT TYPES & WORKFLOWS
 
-### 1. 🧊 Customer Success Ticket (Standard Object)
+### 1. 🧊 After Care (Standard Object)
+
+- **Process Description**: Manages the overall post-project relationship with a client, including scheduled check-ins, warranty support, and identifying potential new sales opportunities (upsells).
+- **Example**: "After-Sales Care for Sarah & Michael Westbrook".
+
+<Tabs>
+  <Tab title="Workflow">
+    **After-sale Care Workflow**
+
+    ![Laika After Sale Workflow Pn](/images/laika-flagship-images/function-blueprint/laika-cs/laika-after-sale-workflow.png)
+
+    ```
+          ┌──> SUPPORT
+          │
+    ACTIVE ───┤
+          │
+          └──> UPSELL OPPORTUNITY
+          ↓
+       DORMANT → CLOSED
+    ```
+  </Tab>
+  <Tab title="Status Details">
+    | Status                    | Business Logic                                                                                                                              | Advanced Settings                                                                                                |
+    | :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------- |
+    | **1. ACTIVE**             | The client is under warranty or in a period of active monitoring. Regular check-ins are scheduled and performed. This is the default state. | **Automation**: The `Schedule & Trigger Recurring Check-ins` rule is active.                                     |
+    | **2. SUPPORT**            | The client has an active support request or issue that needs resolution.                                                                    | **Transition Permissions**: CS Agent. <br /> **Condition**: A `🧊︎ Support Ticket` sub-object should be open.    |
+    | **3. UPSELL OPPORTUNITY** | A potential new sales opportunity has been identified during a check-in. This status is shown in the video.                                 | **Automation**: Can trigger a notification to the original Sales Representative in the `Sales & CRM` `⏹️ Space`. |
+    | **4. DORMANT**            | The active warranty and check-in period has ended. The client is now in a long-term, low-touch monitoring phase.                            | **Transition Permissions**: CS Agent, CS Manager.                                                                |
+    | **5. CLOSED**             | The relationship with the client has formally ended (e.g., they sold the property). The record is archived.                                 | **This is a terminal status.**                                                                                   |
+    | Markdown                  |                                                                                                                                             |                                                                                                                  |
+  </Tab>
+  <Tab title="Data Fields">
+    | Group                       | Field Name (Type)                  | Notes                                                                                     |
+    | :-------------------------- | :--------------------------------- | :---------------------------------------------------------------------------------------- |
+    | **Core Information**        | `Customer` (Object Connection)     | Links to the original `Sales & CRM/🧊 Customer` Object.                                   |
+    |                             | `Project` (Object Connection)      | Links to the completed `Project Management/🧊 Project` Object.                            |
+    |                             | `Status` (Status)                  | The current state of the after-sales relationship (e.g., `ACTIVE`, `UPSELL OPPORTUNITY`). |
+    | **Relationship Management** | `Assigned Agent` (User)            | The Customer Success agent responsible for the client (e.g., Grace).                      |
+    |                             | `Next Check-in` (Date)             | The date of the next scheduled follow-up.                                                 |
+    |                             | `Last Check-in` (Date)             | A record of the most recent completed check-in.                                           |
+    |                             | `Customer Health` (Select)         | A qualitative assessment of the client's satisfaction (e.g., Healthy, At Risk).           |
+    |                             | `Feedback` (Rich Text)             | A space to log notes and direct feedback from the client.                                 |
+    | **Linked Project Data**     | `Project Type` (Text, Lookup)      | Pulled from the linked `Project` Object (e.g., "Residential Full Home Renovation").       |
+    |                             | `Project Manager` (User, Lookup)   | The manager of the original project.                                                      |
+    |                             | `Warranty End Date` (Date, Lookup) | A critical date pulled from the `Contract` or `Project` for tracking support eligibility. |
+  </Tab>
+</Tabs>
+
+### 2. 🧊 Customer Success Ticket (Standard Object)
 
 - **Process Description**: Manages a single client request or issue from the moment it is received until it is fully resolved and closed.
 - **Example**: "Ticket #CS101: Kitchen cabinet hinge requires adjustment". "Ticket #CS102: Feedback on living room paint color".
@@ -28,51 +76,39 @@ Architecturally, this `📋 Function` is activated during the warranty phase of 
   <Tab title="Workflow">
     **Ticket Workflow**
 
-    `NEW` → `IN PROGRESS` → `AWAITING FEEDBACK` → `RESOLVED` → `CLOSED`
+    ![Laika Ticket Workflow Pn](/images/laika-flagship-images/function-blueprint/laika-cs/laika-ticket-workflow.png)
 
-    _`A NEW ticket can also be marked as SPAM.`_
+    ```
+    OPEN → IN PROGRESS ↔ PENDING RESPONSE → RESOLVED → CLOSED
+              ↓
+           CANCELLED
+    ```
   </Tab>
   <Tab title="Status Details">
-    | Status               | Business Logic                                                                                               | Advanced Settings                                                                                                           |
-    | :------------------- | :----------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
-    | 1. NEW               | A new ticket is received from a client via Zalo or email and awaits assignment.                              | **Automation**: Assigns the ticket to a CS Staff member based on a round-robin system.                                      |
-    | 2. IN PROGRESS       | The ticket has been assigned and is being actively worked on. The team creates `Resolution Tasks` as needed. | **Permissions**: Assigned CS Staff.                                                                                         |
-    | 3. AWAITING FEEDBACK | The issue has been addressed, and the team is waiting for the client to confirm the resolution.              | **Automation**: Sends a notification to the client asking for confirmation.                                                 |
-    | 4. RESOLVED          | The client has confirmed that the issue is resolved to their satisfaction.                                   | **Automation**: After 24 hours, automatically moves the ticket to `CLOSED` and sends a Customer Satisfaction (CSAT) survey. |
-    | 5. CLOSED            | The ticket is complete and archived.                                                                         | **Permissions**: Read-only.                                                                                                 |
-    | 6. SPAM              | The ticket is identified as irrelevant or spam and is closed without action.                                 | **Input Screen**: Reason for marking as spam.                                                                               |
+    | Status                  | Business Logic                                                                             | Advanced Settings                                                                                                                 |
+    | :---------------------- | :----------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
+    | **1. OPEN**             | A new ticket has been created and is awaiting assignment to a Customer Success agent.      | **Automation**: Notifies the CS team manager or queue about a new unassigned ticket.                                              |
+    | **2. IN PROGRESS**      | An agent has been assigned and is actively working on a resolution for the client's issue. | **Transition Permissions**: Assigned CS Agent.                                                                                    |
+    | **3. PENDING RESPONSE** | The agent has responded to the client and is awaiting further information or confirmation. | **Automation**: Can send an automatic reminder to the client after a set number of days.                                          |
+    | **4. RESOLVED**         | A solution has been provided to the client, and the agent believes the issue is fixed.     | **Automation**: Can automatically move the status to `CLOSED` if the client does not reply within a set timeframe (e.g., 7 days). |
+    | **5. CLOSED**           | The ticket is officially closed and archived. No further action is expected.               | **This is a terminal success status.**                                                                                            |
+    | **6. CANCELLED**        | The ticket was withdrawn by the client or deemed invalid.                                  | **This is a terminal failure status.**                                                                                            |
   </Tab>
   <Tab title="Data Fields">
-    | Group                  | Field Name (Type)                                                                                                                               |
-    | :--------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
-    | **Ticket Information** | Ticket Code (Text), Client (Object Reference), Project (Object Reference), Ticket Type (Dropdown), Priority (Dropdown), Description (Paragraph) |
-    | **Resolution**         | Assignee (User), Resolution Summary (Paragraph), CSAT Score (Number)                                                                            |
-  </Tab>
-</Tabs>
-
----
-
-### 2. 🧊︎ Resolution Task (Sub-Object)
-
-- **Process Description**: An internal, actionable task assigned to a team member to help resolve a parent `🧊 Customer Success Ticket`.
-- **Parent Object**: `🧊 Customer Success Ticket`
-- **Example**: "Task: Schedule a technician visit". "Task: Order replacement hinge".
-
-<Tabs>
-  <Tab title="Workflow">
-    `TO DO` → `DOING` → `DONE`
-  </Tab>
-  <Tab title="Status Details">
-    | Status   | Business Logic                                         | Advanced Settings                                                                |
-    | :------- | :----------------------------------------------------- | :------------------------------------------------------------------------------- |
-    | 1. TO DO | The task has been created but not yet started.         | -                                                                                |
-    | 2. DOING | The task is currently being worked on by the assignee. | -                                                                                |
-    | 3. DONE  | The task has been completed.                           | **Automation**: Notifies the parent ticket's assignee that the task is complete. |
-  </Tab>
-  <Tab title="Data Fields">
-    | Group            | Field Name (Type)                                                             |
-    | :--------------- | :---------------------------------------------------------------------------- |
-    | **Task Details** | Task Name (Text), Assignee (User), Due Date (Date), Estimated Cost (Currency) |
+    | Group                        | Field Name (Type)                             | Notes                                                                                           |
+    | :--------------------------- | :-------------------------------------------- | :---------------------------------------------------------------------------------------------- |
+    | **Core Information**         | `Ticket ID` (Auto-number)                     | A unique, sequential identifier for the support ticket.                                         |
+    |                              | `Subject` (Text)                              | A brief summary of the client's issue.                                                          |
+    |                              | `Status` (Status)                             | The current stage of the ticket in its lifecycle (e.g., `OPEN`, `IN PROGRESS`).                 |
+    |                              | `Parent After-Sales Care` (Object Connection) | Links the ticket back to the main client relationship Object.                                   |
+    | **Details & Classification** | `Description` (Rich Text)                     | The full, detailed description of the issue provided by the client.                             |
+    |                              | `Category` (Select)                           | A category to classify the ticket type (e.g., Electrical, Plumbing, Furniture, Warranty Claim). |
+    |                              | `Priority` (Select)                           | The urgency of the ticket (e.g., Low, Medium, High, Urgent).                                    |
+    |                              | `Attachments` (Files)                         | Allows for uploading photos or documents related to the issue.                                  |
+    | **Assignment & Timeline**    | `Assigned Agent` (User)                       | The CS Agent responsible for resolving the ticket.                                              |
+    |                              | `Date Created` (Date/Time)                    | An automatic timestamp for when the ticket was created.                                         |
+    |                              | `Date Resolved` (Date/Time)                   | An automatic timestamp for when the ticket status is changed to `RESOLVED`.                     |
+    | **Resolution**               | `Resolution Notes` (Rich Text)                | A final summary written by the agent explaining how the issue was resolved.                     |
   </Tab>
 </Tabs>
 
@@ -80,22 +116,42 @@ Architecturally, this `📋 Function` is activated during the warranty phase of 
 
 ## OBJECT RELATIONSHIPS
 
-| Relationship                                         | Type         | Description                                                                                          |
-| :--------------------------------------------------- | :----------- | :--------------------------------------------------------------------------------------------------- |
-| `🧊 Customer Success Ticket` → `🧊︎ Resolution Task` | Parent-Child | Each ticket can be broken down into one or more internal tasks required for its resolution.          |
-| `🧊 Customer Success Ticket` → `Project`             | Reference    | Each ticket is linked to the specific project it relates to, providing context for the support team. |
-| `🧊 Customer Success Ticket` → `Customer`            | Reference    | Each ticket is linked to the client who submitted it.                                                |
+| Relationship                                 | Type         | Description                                                                                                                              |
+| :------------------------------------------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| `🧊 After-Sales Care` → `🧊 Customer`        | Reference    | Each after-care record is linked to the master `Customer` object, providing a single source of truth for client information.             |
+| `🧊 After-Sales Care` → `🧊 Project`         | Reference    | Each record is linked to the specific `Project` that was completed, giving the CS team full historical context on the work performed.    |
+| `🧊 After-Sales Care` → `🧊︎ Support Ticket` | Parent-Child | Each after-care record can have one or more `Support Ticket` sub-objects to manage specific client issues or warranty requests.          |
+| `🧊︎ Support Ticket` → `🧊︎ Resolution Task` | Parent-Child | For complex issues, a single `Support Ticket` can be broken down into multiple actionable internal `Tasks` to coordinate the resolution. |
 
 ---
 
 ## AUTOMATIONS
 
-| Rule                            | Trigger                                                         | Action                                                                                                          |
-| :------------------------------ | :-------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------- |
-| 1. **Create Ticket from Zalo**  | A message is received in the Zalo support channel.              | An N8N workflow creates a new `🧊 Customer Success Ticket` with the message content and sender's information.   |
-| 2. **Auto-Assign Ticket**       | A ticket is created and in the `NEW` status.                    | Automatically assigns the ticket to a `CS Staff` member using a round-robin algorithm and sends a notification. |
-| 3. **Send CSAT Survey**         | A `🧊 Customer Success Ticket` is moved to the `CLOSED` status. | Sends an automated email to the client with a link to a satisfaction survey.                                    |
-| 4. **Escalate Overdue Tickets** | An automation runs daily.                                       | Checks for tickets in `IN PROGRESS` status for more than 3 days and notifies the `Head of CS`.                  |
+<Tabs>
+  <Tab title="Within-Function">
+    These rules operate within the `Customer Success` Space to ensure proactive and consistent client relationship management.
+
+    | Sequence | ID         | Rule Name                              | Trigger                           | Action                                       | Description                                                                                                                                                                                                                          |
+    | :------- | :--------- | :------------------------------------- | :-------------------------------- | :------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **2**    | **ICS-01** | Schedule & Trigger Recurring Check-ins | **Create**: `🧊 After-Sales Care` | **Send Message**: `🧊 After-Sales Care` Chat | When an `🧊 After-Sales Care` Object is created, the system automatically schedules future check-ins. On the scheduled date, it notifies the assigned CS agent. [cite_start]_e.g., "@Grace 2nd check-in: It's time..."_ [cite: 1272] |
+    | **4**    | **ICS-02** | Generate Periodic Health Report        | **Time-based**: Monthly           | **Update**: `🧊 After-Sales Care`            | A monthly automation aggregates data (e.g., support tickets, check-in notes) to update a `Customer Health` field (e.g., Healthy, At Risk) for proactive monitoring.                                                                  |
+  </Tab>
+  <Tab title="Cross-Function">
+    This rule describes how the Customer Success function is initiated by the Project Management team.
+
+    | Sequence | ID        | Direction  | Rule Name                      | Trigger                                                          | Action                                                                                                                                                                     |
+    | :------- | :-------- | :--------- | :----------------------------- | :--------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1**    | **CF-09** | `Incoming` | Create After-Sales Care Object | **Status Change**: `Project Management/🧊 Project` to `COMPLETE` | [cite_start]A new `🧊 After-Sales Care` Object is automatically created in the `Customer Success` `⏹️ Space` and assigned to the responsible CS agent, Grace. [cite: 1247] |
+  </Tab>
+  <Tab title="Cross-System">
+    These rules connect the Customer Success function with external platforms for client feedback and support.
+
+    | Sequence | ID        | Rule Name                        | Trigger                                                                      | Action                            | Description                                                                                                                                                                             |
+    | :------- | :-------- | :------------------------------- | :--------------------------------------------------------------------------- | :-------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **3**    | **CS-10** | Send CSAT Survey                 | **Time-based**: 30 days after `Project` is `COMPLETE`                        | **API Call**: Email / Survey Tool | The system automatically sends an email to the client with a link to a Customer Satisfaction (CSAT) survey to gather feedback on the completed project.                                 |
+    | **5**    | **CS-11** | Create Support Ticket from Email | **Webhook**: Email received at [support@laika.com](mailto:support@laika.com) | **Create**: `🧊︎ Support Ticket`  | When a client sends an email to the support address, an integration automatically parses it and creates a new `🧊︎ Support Ticket` sub-object under their `🧊 After-Sales Care` Object. |
+  </Tab>
+</Tabs>
 
 ---
 
