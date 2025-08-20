@@ -6,56 +6,67 @@ icon: "folder-tree"
 
 ## **ORGANIZATION STRUCTURE & WORKSPACES**
 
+<Tip>
+  **This is a Scalable Example:** The structure shown here is for demonstration purposes. You can add, remove, or rename any `📂 Area`, `⏹️ Space`, `📋 Function`, or `🧊 Object` to perfectly tailor the system to your company's unique workflow. 
+</Tip>
+
 <Tabs>
   <Tab title="Unified Organization Structure">
     <Info>
       This diagram illustrates the clear hierarchy of functional units and business object types within the system. This format places the Function (the blueprint) directly under the Space (the instance) to clarify their relationship.
     </Info>
-    ```plaintext
+    ```
     🏢 LAIKA (Organization)
     │
     ├── 📂 MARKETING (Area)
     │   └── ⏹️ Marketing Campaigns (Space)
     │       └── 📋 Function: Marketing Campaigns
-    │           └── 🧊 Campaign
-    │               └── 🧊︎ Ad (Sub-Object)
-    │
+    │           ├── 🧊 Campaign
+    │           │   └── 🧊︎ Ad (Sub-Object)
+    │           └── # Add other Objects like 🧊 Events, etc.
+    │           
     ├── 📂 SALES (Area)
     │   └── ⏹️ Sales & CRM (Space)
     │       └── 📋 Function: CRM
-    │           └── 🧊 Customer
-    │               └── 🧊︎ Demo (Sub-Object)
+    │           ├── 🧊 Customer
+    │           │   └── 🧊︎ Demo (Sub-Object)
+    │           └── # Add other Objects like 🧊 Deal, 🧊 Proposal, etc.
     │
     ├── 📂 ACCOUNTING (Area)
     │   └── ⏹️ Contracts & Invoices (Space)
     │       └── 📋 Function: Contract & Invoice
-    │           └── 🧊 Contract
-    │               └── 🧊︎ Invoice (Sub-Object)
+    │           ├── 🧊 Contract
+    │           │   └── 🧊︎ Invoice (Sub-Object)
+    │           └── # Add other Objects like 🧊 Quotes, 🧊 Payment Records, etc.
     │
     ├── 📂 DESIGN & CONSTRUCTION (Area)
     │   ├── ⏹️ Project Management (Space)
     │   │   └── 📋 Function: Project Management
-    │   │       └── 🧊 Project
+    │   │       ├── 🧊 Project
+    │   │       └── # Add other Objects like 🧊 Milestones, 🧊 Tasks, etc.
     │   │
     │   ├── ⏹️ Design (Space)
     │   │   └── 📋 Function: Interior Design
-    │   │       └── 🧊 Design Package
-    │   │           ├── 🧊︎ Functional Layout
-    │   │           ├── 🧊︎ Concept
-    │   │           ├── 🧊︎ 3D
-    │   │           ├── 🧊︎ 2D
-    │   │           └── 🧊︎ Revisions
+    │   │       ├── 🧊 Design Package
+    │   │       │   ├── 🧊︎ Floor Plan
+    │   │       │   ├── 🧊︎ Concept
+    │   │       │   ├── 🧊︎ 3D
+    │   │       │   └── 🧊︎ 2D
+    │   │       └── # Add other Objects like 🧊 Mood Boards, 🧊 Material Samples, etc.
     │   │
     │   └── ⏹️ Interior Construction (Space)
     │       └── 📋 Function: Site Survey & Construction
     │           ├── 🧊 Site Survey
     │           │   └── 🧊︎ Constraint (Sub-Object)
-    │           └── 🧊 Construction
+    │           ├── 🧊 Construction
+    │           └── # Add other Objects like 🧊 Daily Logs, 🧊 Material Requests, etc.
     │
     └── 📂 CUSTOMER SUCCESS (Area)
         └── ⏹️ Customer Success (Space)
             └── 📋 Function: Customer Success
-                └── 🧊 After Care
+                ├── 🧊 After Care
+                ├── 🧊 Ticket
+                └── # Add other Objects like 🧊 Satisfaction Surveys, etc.
     ```
   </Tab>
   <Tab title="Workspace List">
