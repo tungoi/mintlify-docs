@@ -157,8 +157,6 @@ icon: "handshake"
 
 <Tabs>
   <Tab title="Within Function">
-    #### Internal Automations (`⏹️ Sales & CRM`)
-
     These rules run entirely within the `Sales & CRM` Space to enhance sales efficiency and ensure process consistency.
 
     | Sequence | ID        | Rule Name                     | Trigger                            | Action                    | Description                                                                                                                                                                                            |
@@ -167,8 +165,6 @@ icon: "handshake"
     | **4**    | **IC-02** | Create Initial Follow-up Task | **Update**: `🧊 Customer` assigned | **Create**: `☑️ Task`     | When a `🧊 Customer` is assigned to a sales rep, a `☑️ Task` Sub-Object is automatically created and assigned to them, due within 24 hours. _e.g., Assigning a task to David to call Sarah Westbrook._ |
   </Tab>
   <Tab title="Cross-Function">
-    #### Cross-Function Automations (CRM Handoffs & Updates)
-
     These rules describe the critical handoffs of data and tasks between the `Sales & CRM` `⏹️ Space` and other functions.
 
     | Sequence | ID        | Direction  | Rule Name                          | Trigger                                                          | Action                                                                                                                                                                  |
@@ -179,8 +175,6 @@ icon: "handshake"
     | **8**    | **CF-09** | `Incoming` | Update Loyalty Voucher             | **Status Change**: `Project Management/🧊 Project` to "COMPLETE" | Automatically calculates and updates the `Voucher` field in the original `🧊 Customer`. _e.g., Adding a \$500 voucher to Sarah's record after her project is finished._ |
   </Tab>
   <Tab title="Cross-System">
-    #### Cross-System Automations (CRM Interface)
-
     These rules connect the CRM function with platforms outside of Luklak.
 
     | Sequence | ID        | Rule Name                      | Trigger                              | Action                               | Description                                                                                                                                                       |
