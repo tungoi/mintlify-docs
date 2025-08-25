@@ -46,65 +46,63 @@ Once a user is on campus, **Item Access Control** determines which specific "bui
 
 ---
 
-## Putting It All Together: A Governance Matrix Example
+<Expandable title="Putting It All Together: A Governance Matrix Example">
+  ## Putting It All Together: A Governance Matrix Example
 
-<Info>
-  A user must have the correct permissions at **all three tiers** to perform an action. Let's use a real-world scenario to illustrate this.
+  <Info>
+    A user must have the correct permissions at **all three tiers** to perform an action. Let's use a real-world scenario to illustrate this.
 
-  **Scenario:** A highly confidential "Project Phoenix" M&A `⏹️ Space`.
-</Info>
+    **Scenario:** A highly confidential "Project Phoenix" M&A `⏹️ Space`.
+  </Info>
+  ### The Setup: A Tier-by-Tier Configuration
 
-### The Setup: A Tier-by-Tier Configuration
+  We will configure the permissions for four users: Alice (CEO), Bob (Project Manager), Carol (Legal Team), and David (Sales Team).
 
-We will configure the permissions for four users: Alice (CEO), Bob (Project Manager), Carol (Legal Team), and David (Sales Team).
+  **Tier 1 Setup: Business Privileges**\
+  First, we confirm each user's system-wide "Campus ID Badge."
 
-**Tier 1 Setup: Business Privileges**\
-First, we confirm each user's system-wide "Campus ID Badge."
+  | User      | Business Privilege | Description                   |
+  | :-------- | :----------------- | :---------------------------- |
+  | **Alice** | `Admin`            | Has high-level system power.  |
+  | **Bob**   | `Member`           | Standard user for daily work. |
+  | **Carol** | `Member`           | Standard user for daily work. |
+  | **David** | `Member`           | Standard user for daily work. |
 
-| User      | Business Privilege | Description                   |
-| :-------- | :----------------- | :---------------------------- |
-| **Alice** | `Admin`            | Has high-level system power.  |
-| **Bob**   | `Member`           | Standard user for daily work. |
-| **Carol** | `Member`           | Standard user for daily work. |
-| **David** | `Member`           | Standard user for daily work. |
+  **Tier 2 Setup: Item Access on the 'Project Phoenix' ⏹️ Space**
+  Next, we grant the "Keys to the Building" for this specific `Space`.
 
-**Tier 2 Setup: Item Access on the 'Project Phoenix' ⏹️ Space**
-Next, we grant the "Keys to the Building" for this specific `Space`.
+  | User or Group              | Assigned Item Access Level | Reason                                                                                         |
+  | :------------------------- | :------------------------- | :--------------------------------------------------------------------------------------------- |
+  | **Executive Team (Alice)** | `Admin`                    | The executive team needs full control over the `Space`'s settings and access list.             |
+  | **Bob**                    | `Manager`                  | As the project manager, Bob needs to manage the `Space`'s content but not its access controls. |
+  | **M&A Legal (Carol)**      | `Member`                   | The legal team needs to view and use the `Space` but not change its settings.                  |
 
-| User or Group              | Assigned Item Access Level | Reason                                                                                         |
-| :------------------------- | :------------------------- | :--------------------------------------------------------------------------------------------- |
-| **Executive Team (Alice)** | `Admin`                    | The executive team needs full control over the `Space`'s settings and access list.             |
-| **Bob**                    | `Manager`                  | As the project manager, Bob needs to manage the `Space`'s content but not its access controls. |
-| **M&A Legal (Carol)**      | `Member`                   | The legal team needs to view and use the `Space` but not change its settings.                  |
+  <Warning>
+    Note: David and the Sales Team are not on this list, so they have no key to this Space.
+  </Warning>
+  **Tier 3 Setup: Role Assignment within the 'Project Phoenix' ⏹️ Space**
+  Finally, we assign the users who can get inside a specific "Role" which was designed in the `Permission Scheme` of the source `Function`.
 
-<Warning>
-  Note: David and the Sales Team are not on this list, so they have no key to this Space.
-</Warning>
+  | User      | Assigned Role   | (Role is defined in the `Permission Scheme` for this `Space`)             |
+  | :-------- | :-------------- | :------------------------------------------------------------------------ |
+  | **Bob**   | `Project Lead`  | This Role has permissions to `Create`, `Edit`, and `Delete` `🧊 Objects`. |
+  | **Carol** | `Legal Counsel` | This Role has permissions to `View` `🧊 Objects` and `Add Comments` only. |
 
-**Tier 3 Setup: Role Assignment within the 'Project Phoenix' ⏹️ Space**
-Finally, we assign the users who can get inside a specific "Role" which was designed in the `Permission Scheme` of the source `Function`.
+  <Warning>
+    Note: Alice was not assigned a specific Role for working with the data inside.
+  </Warning>
+  ### The Outcome
 
-| User      | Assigned Role   | (Role is defined in the `Permission Scheme` for this `Space`)             |
-| :-------- | :-------------- | :------------------------------------------------------------------------ |
-| **Bob**   | `Project Lead`  | This Role has permissions to `Create`, `Edit`, and `Delete` `🧊 Objects`. |
-| **Carol** | `Legal Counsel` | This Role has permissions to `View` `🧊 Objects` and `Add Comments` only. |
-
-<Warning>
-  Note: Alice was not assigned a specific Role for working with the data inside.
-</Warning>
-
-### The Outcome
-
-<Note>
-  This table shows the **effective permissions** for each user, demonstrating how the tiers combine to prevent security loopholes.
-</Note>
-
-| User      | Tier 1 (Privilege) | Tier 2 (Can Enter Space?)               | Tier 3 (Role Inside) | Final Result: Can they...                                                                                                                                                                                              |
-| :-------- | :----------------- | :-------------------------------------- | :------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Alice** | `Admin`            | ✅ **Yes** (as part of `Executive Team`) | _(No Role assigned)_ | **Can:** Manage the `Space` settings, add/remove members (as `Admin` of the Item).<br />**Cannot:** See `🧊 Objects` inside, unless a `Permission Scheme` rule grants access to Admins.                                |
-| **Bob**   | `Member`           | ✅ **Yes** (as `Manager` of the Item)    | `Project Lead`       | **Can:** Enter the `Space`, manage `Space` content, and perform all actions granted to the `Project Lead` Role (e.g., `Create`, `Edit`, `Delete` `🧊 Objects`).<br />**Cannot:** Change the `Space`'s access controls. |
-| **Carol** | `Member`           | ✅ **Yes** (as part of `M&A Legal`)      | `Legal Counsel`      | **Can:** Enter the `Space` and perform actions granted to the `Legal Counsel` Role (e.g., `View` `🧊 Objects`, `Add Comments`).<br />**Cannot:** `Delete` `🧊 Objects` if the Role doesn't permit it.                  |
-| **David** | `Member`           | ❌ **No**                                | _(Not Applicable)_   | **Cannot do anything.** Even though David is a `Member` of the business, he was never granted `Item Access` to this specific `Space`. The security model stops him at Tier 2.                                          |
+  <Note>
+    This table shows the **effective permissions** for each user, demonstrating how the tiers combine to prevent security loopholes.
+  </Note>
+  | User      | Tier 1 (Privilege) | Tier 2 (Can Enter Space?)               | Tier 3 (Role Inside) | Final Result: Can they...                                                                                                                                                                                              |
+  | :-------- | :----------------- | :-------------------------------------- | :------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | **Alice** | `Admin`            | ✅ **Yes** (as part of `Executive Team`) | _(No Role assigned)_ | **Can:** Manage the `Space` settings, add/remove members (as `Admin` of the Item).<br />**Cannot:** See `🧊 Objects` inside, unless a `Permission Scheme` rule grants access to Admins.                                |
+  | **Bob**   | `Member`           | ✅ **Yes** (as `Manager` of the Item)    | `Project Lead`       | **Can:** Enter the `Space`, manage `Space` content, and perform all actions granted to the `Project Lead` Role (e.g., `Create`, `Edit`, `Delete` `🧊 Objects`).<br />**Cannot:** Change the `Space`'s access controls. |
+  | **Carol** | `Member`           | ✅ **Yes** (as part of `M&A Legal`)      | `Legal Counsel`      | **Can:** Enter the `Space` and perform actions granted to the `Legal Counsel` Role (e.g., `View` `🧊 Objects`, `Add Comments`).<br />**Cannot:** `Delete` `🧊 Objects` if the Role doesn't permit it.                  |
+  | **David** | `Member`           | ❌ **No**                                | _(Not Applicable)_   | **Cannot do anything.** Even though David is a `Member` of the business, he was never granted `Item Access` to this specific `Space`. The security model stops him at Tier 2.                                          |
+</Expandable>
 
 ## What's Next?
 
