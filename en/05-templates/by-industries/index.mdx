@@ -1,9 +1,17 @@
 ---
 title: "ZENITH ENGLISH - GLOBAL CONFIGURATION BLUEPRINT"
 description: "Build a unified & universal system that works for your business, not the other way around."
+icon: "graduation-cap"
+sidebarTitle: "Zenith - English Center"
 ---
 
-## **ORGANIZATION STRUCTURE & WORKSPACES**
+<Info>
+  **The Business**: Zenith English is a growing English language center managing the complete student lifecycle, from initial marketing campaigns and admissions to academic management and student support.
+
+  **The Challenge**: As Zenith expanded, its operational data became fragmented across different departments. Marketing couldn't track lead quality, Admissions struggled to coordinate with Finance on tuition, and Academic staff lacked a unified view of a student's journey. This created data silos, manual handoffs, and a disconnected experience for both staff and students. This blueprint was designed to solve that by creating a single, unified system for the entire operation.
+</Info>
+
+## \*\*ORGANIZATION STRUCTURE & WORKSPACES \*\*
 
 <Tip>
   **This is a Scalable Example:** The structure shown here is for demonstration purposes. You can add, remove, or rename any `📂 Area`, `⏹️ Space`, `📋 Function`, or `🧊 Object` to perfectly tailor the system to your company's unique workflow.
@@ -212,6 +220,76 @@ description: "Build a unified & universal system that works for your business, n
     | :-------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- | :--------------- | :------------------------------------------- |
     | **Upcoming Invoice Due Reminder** | **Source:** `Finance/🧊Invoice`<br />**Logic:** `Due Date` is within the next 7 days AND `Status` IS NOT "Paid".                        | Daily at 9:00 AM | - `Accountant`<br />- `Admissions Counselor` |
     | **Inactive Lead Follow-up**       | **Source:** `Admissions/🧊Lead`<br />**Logic:** `Last Modified Date` is more than 14 days ago AND `Status` IS NOT "Enrolled" OR "Lost". | Daily at 8:30 AM | - `Admissions Counselor`                     |
+  </Tab>
+</Tabs>
+
+---
+
+## **GLOBAL LOGIC & AUTOMATION**
+
+<Tabs>
+  <Tab title="Cross-System Automation">
+    <Info>
+      Rules that connect Luklak with external applications and services (e.g., Website, Google Calendar, Payment Gateways, Email).
+    </Info>
+    | Sequence | Rule #    | Rule Name                            | Business Description                                                                                                                                             |
+    | :------- | :-------- | :----------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | 1        | **CS-01** | **Receive Lead from Website**        | When a form is submitted on the website, a **Webhook** triggers the creation of an `Admissions/🧊Lead` and links it to the source `Marketing/🧊Ad`.              |
+    | 2        | **CS-02** | **Schedule Test in Google Calendar** | An Admissions Counselor clicks a button on a `🧊Lead`, sending an **HTTP Request** to create an event in **Google Calendar** for the placement test.             |
+    | 4        | **CS-03** | **Generate Agreement from Template** | An Accountant clicks a button on an `🧊Enrollment Agreement`, sending an **HTTP Request** to populate a **Google Docs** template with student and course data.   |
+    | 6        | **CS-04** | **Log Payment from Gateway**         | An external **Payment Gateway** sends a **Webhook** upon successful payment, which finds the corresponding `Finance/🧊Invoice` and updates its status to "Paid". |
+    | 7        | **CS-05** | **Send Welcome Email**               | When an `🧊Enrollment Agreement` status changes to "Signed", an automated **Email** is sent to the student with a welcome package and initial instructions.      |
+  </Tab>
+  <Tab title="Cross-Function Automation">
+    <Info>
+      Rules that orchestrate and transfer work between different departments _inside_ the Luklak platform.
+    </Info>
+    | Sequence | Rule #    | Rule Name                                       | Business Description                                                                                                                                                         |
+    | :------- | :-------- | :---------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | 3        | **CF-01** | **Lead Passed Test -\> Create Agreement**       | A status change on `Admissions/🧊Lead` to "Test Passed" automatically creates a new `Finance/🧊Enrollment Agreement` and links it to the lead.                               |
+    | 5        | **CF-02** | **Agreement Signed -\> Create Student Record**  | A status change on `Finance/🧊Enrollment Agreement` to "Signed" automatically creates a new `Student Affairs/🧊Student Record`, officially converting the lead to a student. |
+    | 8        | **CF-03** | **First Payment Received -\> Notify Academics** | A status change on the first `Finance/🧊Invoice` to "Paid" automatically sends a Chat @mention to the `Academic Manager` role to arrange class placement.                    |
+    | 9        | **CF-04** | **Student Added to Class -\> Update Record**    | When a `🧊Student Record` is linked to an `Academics/🧊Class`, a rule automatically updates the `Enrolled Classes` field on the `🧊Student Record` object.                   |
+    | 10       | **CF-05** | **Class Completed -\> Create Progress Reports** | A status change on `Academics/🧊Class` to "Completed" automatically creates a new `Student Affairs/🧊Progress Report` for each student, assigned to the Teacher.             |
+  </Tab>
+</Tabs>
+
+---
+
+## **ACCESS & GOVERNANCE**
+
+<Tabs>
+  <Tab title="Tier 1: Business Privilege">
+    <Info>
+      This is the highest level of permissions, acting as the "entry ticket" to the entire system and defining a user's maximum potential authority.
+    </Info>
+    | Privilege Level | Assigned to (at Zenith English)                                   | Permission Description                                                                                      |
+    | :-------------- | :---------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
+    | **Owner**       | CEO                                                               | The highest level. Manages billing, can transfer ownership, and holds all Admin privileges.                 |
+    | **Admin**       | Center Director, System Administrator                             | Can configure everything in the system, from Global Settings to user management.                            |
+    | **App Manager** | Heads of Departments (e.g., Head of Admissions, Academic Manager) | A specialized role that can design, edit, and manage Functions 📋.                                          |
+    | **Member**      | All remaining employees (Counselors, Teachers, Accountants, etc.) | The standard privilege for most users, allowing them to work within the Spaces ⏹️ they are given access to. |
+  </Tab>
+  <Tab title="Tier 2: Item Access">
+    <Info>
+      These principles act as a guide for Administrators when assigning access to the "containers" of work and shared assets.
+    </Info>
+    | Item Type                  | Permission Principle                                                                                                                             | Rationale & Benefit                                                                                                                              |
+    | :------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **📂 Areas**               | - **Admin:** CEO, Center Director<br />- **Manager:** Head of the respective Area<br />- **Member:** The respective department's Group           | Creates a focused work environment for each department, reducing clutter and improving navigation efficiency.                                    |
+    | **👥 Groups**              | - **Manager:** Head of the respective department<br />- **Member:** All members of the Group                                                     | Empowers department heads to manage their own team membership, increasing agility and reducing the load on System Admins.                        |
+    | **📊Dashboards & Filters** | - **Admin:** The creator, CEO, Center Director<br />- **Manager:** Relevant Heads of Areas<br />- **Member:** Shared-with Groups or individuals  | Ensures that aggregated data and sensitive business metrics are shared only with the intended audience.                                          |
+    | **📋 Functions**           | - **Admin:** System Administrator, CEO, Center Director<br />- **Manager:** Users with `App Manager` privilege<br />- **Member:** Most employees | Tightly governs core business processes while allowing department heads the flexibility to refine them and enabling all employees to apply them. |
+    | **⏹️ Spaces**              | - **Admin:** Team Lead or Manager (e.g., Academic Manager)<br />- **Member:** All invited members                                                | Ensures the person with primary responsibility for a workspace (like class management) has full control over it.                                 |
+  </Tab>
+  <Tab title="Tier 3: Permission & Notification Schemes">
+    <Info>
+      This is the most granular layer of control, defining "who can do what" and "who gets notified about what" for each individual Object within a Space.
+    </Info>
+    | Scheme Type             | Selected Scheme for Zenith English           | Description & Rationale                                                                                                                                                                               |
+    | :---------------------- | :------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **Permission Scheme**   | **"Moderate restriction"**                   | **Balances security and collaboration:** Everyone in a Space can see that work exists, but only directly assigned users can view details and make updates, protecting sensitive student data.         |
+    | **Notification Scheme** | **"Notify key actions to direct assignees"** | **Reduces notification noise:** Only important events (status changes, @mentions) trigger alerts for directly involved users, helping staff like teachers and counselors focus on actionable updates. |
   </Tab>
 </Tabs>
 
