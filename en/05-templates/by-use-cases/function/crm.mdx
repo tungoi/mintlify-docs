@@ -1,0 +1,291 @@
+---
+title: "B2B CRM FUNCTION BLUEPRINT"
+---
+
+<Info>
+  **Purpose**: To structure and manage the entire business-to-business sales lifecycle, from identifying corporate prospects and engaging key contacts to closing complex deals and forecasting revenue.
+</Info>
+
+## Why This Matters
+
+<Check>
+  **Business Impact**: This `📋 Function` provides a single source of truth for all client and prospect interactions. It streamlines the sales process, improves forecast accuracy, enhances team collaboration, and provides clear visibility into pipeline health and individual performance.
+</Check>
+
+## The Big Picture
+
+<Info>
+  The B2B CRM function is built around three core entities: Companies, Contacts, and Deals.
+
+  1. **Account Management**: A central repository of all client and prospect organizations (`🧊 Company` object) is maintained. All activities and data points related to an organization are stored here.
+  2. **Contact Management**: Key decision-makers and influencers within each `🧊 Company` are managed as `🧊︎ Contact` records, linked to their parent organization.
+  3. **Opportunity Pipeline**: Each potential sale is tracked as a `🧊︎ Deal` object, which moves through a structured sales pipeline from initial qualification to final closure. Each `🧊︎ Deal` is linked to a `🧊 Company`.
+
+  This structure allows for a 360-degree view of the customer, ensuring that sales representatives have all the necessary context to manage relationships and close deals effectively.
+</Info>
+
+---
+
+### Sneak peek <Icon icon="eyes" />
+
+```expandable
+🏢 ACME Corporation (Organization)
+│
+├── 📂 MARKETING (Area)
+│   └── ⏹️ Lead Generation (Space)
+│
+├── 📂 SALES (Area)
+│   └── ⏹️ B2B Sales Pipeline (Space)  // You are here
+│       └── 📋 Function: B2B CRM
+│           └── 🧊 Company
+│               ├── 🧊︎ Contact (Sub-Object)
+│               └── 🧊︎ Deal (Sub-Object)
+│
+├── 📂 DELIVERY (Area)
+│   └── ⏹️ Project Management (Space)
+```
+
+## PART 2: OBJECT TYPES & WORKFLOWS
+
+### 1. 🧊 Company (Standard Object)
+
+- **Business Process Description**: This object acts as the master record for any organization the business interacts with. It holds firmographic data and serves as the anchor for all related contacts and deals.
+- **Example**: "Innovatech Solutions Inc.", a tech firm with 500-1000 employees in the FinTech industry, is added as a new `Prospect`. The Account Executive is assigned as David Miller.
+
+<Tabs>
+  <Tab title="Workflow Diagram">
+    **Company Workflow**
+
+    ```
+    PROSPECT → ACTIVE CLIENT → DORMANT → CHURNED
+    ```
+  </Tab>
+  <Tab title="Status Details">
+    | Status               | Business Logic                                             | Advanced Settings                                                                                       |
+    | :------------------- | :--------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+    | **1. PROSPECT**      | A potential customer that is being actively pursued.       | **Permissions**: Assigned AE/SDR.                                                                       |
+    | **2. ACTIVE CLIENT** | A current customer with at least one "CLOSED-WON" Deal.    | **Permissions**: Assigned AE. <br /> **Automation**: Can be triggered automatically when a Deal is won. |
+    | **3. DORMANT**       | A past client with no active deals for over 12 months.     | **Permissions**: Assigned AE. <br /> **Automation**: Triggered if Last Activity Date \> 365 days.       |
+    | **4. CHURNED**       | A client who has formally ended the business relationship. | **Terminal status**. <br /> **Input**: Churn Reason (Required).                                         |
+  </Tab>
+  <Tab title="Data Fields">
+    **Data Field Groups**
+
+    | Group                                 | Fields                                                                                                                                                          | Notes                                    |
+    | :------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------- |
+    | **Company Profile** _(7 fields)_      | Company Name _(Text)_, Website _(URL)_, Industry _(Dropdown)_, Employee Size _(Dropdown)_, Annual Revenue _(Currency)_, Timezone _(Dropdown)_, Address _(Text)_ | Core firmographic data.                  |
+    | **Ownership & Tracking** _(4 fields)_ | Account Owner _(User)_, Lead Source _(Dropdown)_, Created Date _(DateTime)_, Last Activity Date _(DateTime)_                                                    | Internal assignment and tracking fields. |
+    | **Total: 11 fields**                  |                                                                                                                                                                 |                                          |
+  </Tab>
+</Tabs>
+
+---
+
+### 2. 🧊︎ Contact (Sub-Object)
+
+- **Business Process Description**: Manages individuals at a parent `Company`. This allows tracking of roles, contact information, and engagement history for key stakeholders.
+- **Example**: Jane Doe, CTO at Innovatech Solutions, is added as a `Contact` linked to the company record. Her email is `jane.doe@innovatech.com` and phone is `555-0102`.
+
+<Tabs>
+  <Tab title="Workflow Diagram">
+    **Contact Workflow**
+
+    ```
+    ACTIVE → INACTIVE
+      ↑       ↓
+      └───────┘
+    ```
+  </Tab>
+  <Tab title="Status Details">
+    | Status          | Business Logic                                                           | Advanced Settings                                                           |
+    | :-------------- | :----------------------------------------------------------------------- | :-------------------------------------------------------------------------- |
+    | **1. ACTIVE**   | The contact is currently employed at the company and engaged.            | **Permissions**: Assigned AE/SDR.                                           |
+    | **2. INACTIVE** | The contact has left the company or is no longer a relevant stakeholder. | **Permissions**: Assigned AE. <br /> **Input**: Inactive Reason (Dropdown). |
+  </Tab>
+  <Tab title="Data Fields">
+    **Data Field Groups**
+
+    | Group                                | Fields                                                                                                                                   | Notes                                    |
+    | :----------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------- |
+    | **Contact Information** _(6 fields)_ | Full Name _(Text)_, Title _(Text)_, Email _(Email)_, Phone _(Phone)_, LinkedIn Profile _(URL)_, Reports To _(Object Reference: Contact)_ | Standard contact details.                |
+    | **Role & Status** _(3 fields)_       | Role _(Dropdown: e.g., Decision Maker, Influencer)_, Is Primary Contact _(Checkbox)_, Do Not Contact _(Checkbox)_                        | Defines their role in the sales process. |
+    | **Total: 9 fields**                  |                                                                                                                                          |                                          |
+  </Tab>
+</Tabs>
+
+---
+
+### 3. 🧊︎ Deal (Sub-Object)
+
+- **Business Process Description**: This is the core pipeline object, tracking an opportunity from discovery to closure. It contains all commercial information, such as deal value and expected close date.
+- **Example**: A deal named "Innovatech - Q4 Platform Upgrade" is created with a value of \$75,000 and an expected close date of December 15, 2025.
+
+<Tabs>
+  <Tab title="Workflow Diagram">
+    **Deal Workflow**
+
+    ```
+    QUALIFICATION → NEEDS ANALYSIS → PROPOSAL → NEGOTIATION → CLOSED-WON
+          ↓               ↓               ↓               ↓
+      CLOSED-LOST     CLOSED-LOST     CLOSED-LOST     CLOSED-LOST
+    ```
+  </Tab>
+  <Tab title="Status Details">
+    | Status                | Business Logic                                                                                | Advanced Settings                                                                                                           |
+    | :-------------------- | :-------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
+    | **1. QUALIFICATION**  | Initial stage to determine if the prospect is a good fit (budget, authority, need, timeline). | **Automation**: IC-01 (Set Probability to 10%).                                                                             |
+    | **2. NEEDS ANALYSIS** | Deep-dive discovery calls to understand client pain points and requirements.                  | **Conditions**: Key contacts must be identified. <br /> **Automation**: IC-01 (Set Probability to 30%).                     |
+    | **3. PROPOSAL**       | A formal proposal or quote has been created and sent to the client.                           | **Conditions**: Deal Amount must be \> 0. <br /> **Automation**: IC-01 (Set Probability to 60%).                            |
+    | **4. NEGOTIATION**    | Active discussion on contract terms, pricing, and scope.                                      | **Automation**: IC-01 (Set Probability to 80%).                                                                             |
+    | **5. CLOSED-WON**     | Verbal/written agreement received, contract is signed.                                        | **Terminal status**. <br /> **Automation**: CF-01 (Create Contract Record), CF-02 (Update Company Status to Active Client). |
+    | **6. CLOSED-LOST**    | The deal will not proceed.                                                                    | **Terminal status**. <br /> **Input**: Lost Reason (Required Dropdown).                                                     |
+  </Tab>
+  <Tab title="Data Fields">
+    **Data Field Groups**
+
+    | Group                               | Fields                                                                                                                                                   | Notes                                        |
+    | :---------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------- |
+    | **Deal Overview** _(6 fields)_      | Deal Name _(Text)_, Deal Owner _(User)_, Amount _(Currency)_, Est. Close Date _(Date)_, Probability _(Percent)_, Type _(Dropdown: New Business, Upsell)_ | Core deal information for forecasting.       |
+    | **Stakeholders** _(2 fields)_       | Primary Contact _(Object Reference: Contact)_, Involved Contacts _(Multi-Object Reference: Contact)_                                                     | Links to key people from the parent Company. |
+    | **Tracking & Outcome** _(4 fields)_ | Next Step _(Text)_, Last Activity Date _(DateTime)_, Lost Reason _(Dropdown)_, Win/Loss Notes _(Paragraph)_                                              | For sales process management and analysis.   |
+    | **Total: 12 fields**                |                                                                                                                                                          |                                              |
+  </Tab>
+</Tabs>
+
+---
+
+## OBJECT RELATIONSHIPS
+
+<Tabs>
+  <Tab title="Parent-Child Relationships">
+    <Info>
+      A built-in, strict hierarchy where a "child" object is a component of a "parent" object. This is ideal for work breakdown structures.
+    </Info>
+    | Relationship                   | Description                                                                   |
+    | :----------------------------- | :---------------------------------------------------------------------------- |
+    | **`🧊 Company → 🧊︎ Contact`** | Each `🧊 Company` can have multiple `🧊︎ Contact` records associated with it. |
+    | **`🧊 Company → 🧊︎ Deal`**    | Each `🧊 Company` can have multiple `🧊︎ Deals` over its lifetime.            |
+  </Tab>
+  <Tab title="Object Connections">
+    <Info>
+      Reusable, bidirectional relationship types that standardize the meaning of the connection between different types of objects.
+    </Info>
+    | Connection Name      | Objects                    | Business Purpose                                                                                     |
+    | :------------------- | :------------------------- | :--------------------------------------------------------------------------------------------------- |
+    | **Deal to Contract** | `🧊︎ Deal` ↔ `🧊 Contract` | Links a closed-won `🧊︎ Deal` to its corresponding legal `🧊 Contract` for execution and management. |
+  </Tab>
+  <Tab title="Object Reference Fields">
+    <Info>
+      A field that allows one object to link to another, implementing the relationships defined in "Object Connections".
+    </Info>
+    | Field Location | Field Name         | References            | Purpose                                                                 |
+    | :------------- | :----------------- | :-------------------- | :---------------------------------------------------------------------- |
+    | `🧊︎ Deal`     | `Primary Contact`  | `B2B CRM/🧊︎ Contact` | Identifies the main point of contact for a specific deal.               |
+    | `🧊 Contract`  | `Originating Deal` | `B2B CRM/🧊︎ Deal`    | Links the legal contract back to the sales opportunity that created it. |
+  </Tab>
+  <Tab title="Data Table Fields">
+    <Info>
+      This function does not use Data Table Fields to maintain simplicity. Line items could be added to the Deal object in a future version if required.
+    </Info>
+  </Tab>
+</Tabs>
+
+---
+
+## AUTOMATION RULES
+
+<Tabs>
+  <Tab title="Within-Function Automation">
+    <Info>
+      These rules run entirely within the B2B Sales Pipeline `⏹️ Space` to enhance sales efficiency and ensure process consistency.
+    </Info>
+    | ID        | Rule Name               | Trigger                                | Action                                                         | Description                                                                        |
+    | :-------- | :---------------------- | :------------------------------------- | :------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
+    | **IC-01** | Update Deal Probability | `🧊︎ Deal` status changes              | Update `Probability` field based on the new status.            | Ensures forecast data is always consistent with the deal's pipeline stage.         |
+    | **IC-02** | Log Activity Date       | `🧊︎ Deal` or `🧊︎ Contact` is updated | Update `Last Activity Date` on the parent `🧊 Company` to now. | Provides an at-a-glance view of the last engagement with any aspect of an account. |
+  </Tab>
+  <Tab title="Cross-Function Automation">
+    <Info>
+      These rules describe the critical handoffs of data and tasks between the `B2B Sales Pipeline` `⏹️ Space` and other functions.
+    </Info>
+    | ID        | Rule Name             | Trigger                        | Action                                                                          | Description                                                                     |
+    | :-------- | :-------------------- | :----------------------------- | :------------------------------------------------------------------------------ | :------------------------------------------------------------------------------ |
+    | **CF-01** | Handoff to Legal      | `🧊︎ Deal` status → CLOSED-WON | Create a `Contract` in the Legal function, copying over company and deal value. | Automates the handoff from Sales to Legal, eliminating manual data entry.       |
+    | **CF-02** | Update Company Status | `🧊︎ Deal` status → CLOSED-WON | Set parent `🧊 Company` status to "Active Client".                              | Automatically converts a prospect to a client upon their first successful deal. |
+  </Tab>
+  <Tab title="Cross-System Automation">
+    <Info>
+      These rules connect the B2B CRM function with platforms outside of Luklak.
+    </Info>
+    | ID        | Rule Name            | Trigger                                               | Action                                                                       | Description                                                                      |
+    | :-------- | :------------------- | :---------------------------------------------------- | :--------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
+    | **CS-01** | Log Sales Emails     | Inbound email to a forwarding address                 | Parse email and create a comment on the related `🧊︎ Contact` or `🧊︎ Deal`. | Automatically logs email communication, creating a complete interaction history. |
+    | **CS-02** | Major Deal Won Alert | `🧊︎ Deal` Amount \> \$50,000 AND status → CLOSED-WON | Send a Zalo message to the "#sales-wins" channel.                            | Celebrates major wins and keeps the wider company informed of sales success.     |
+  </Tab>
+</Tabs>
+
+---
+
+## INTERFACE & REPORTING
+
+<Tabs>
+  <Tab title="Workviews">
+    | #     | Name               | Type   | Purpose                                                                   | Data Configuration                                                                        |
+    | :---- | :----------------- | :----- | :------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------- |
+    | **1** | Sales Pipeline     | Kanban | To visualize and manage all active deals by their current stage.          | All `🧊︎ Deals` with status not in (CLOSED-WON, CLOSED-LOST), grouped by Status.          |
+    | **2** | My Accounts        | Table  | A list of all companies owned by the current user for account management. | All `🧊 Companies` where `Account Owner` = Current User.                                  |
+    | **3** | Team Activity Feed | List   | A chronological view of recent updates across all objects.                | All `🧊 Companies`, `🧊︎ Contacts`, `🧊︎ Deals` sorted by Last Updated Date (Descending). |
+  </Tab>
+  <Tab title="Dashboards">
+    <Info>
+      **Dashboard: Sales Performance Dashboard**
+    </Info>
+    | #     | Gadget Name             | Type          | Data Source                                          | Metrics                                                             |
+    | :---- | :---------------------- | :------------ | :--------------------------------------------------- | :------------------------------------------------------------------ |
+    | **1** | Quarterly Forecast      | Bar Chart     | `🧊︎ Deals` grouped by Est. Close Date               | Sum of (Amount \* Probability) for deals closing this quarter.      |
+    | **2** | Sales Funnel            | Funnel Chart  | Count of `🧊︎ Deals` entering each status over time. | Shows conversion rates from one stage to the next.                  |
+    | **3** | AE Leaderboard          | 2D Statistics | `🧊︎ Deals` (Status = CLOSED-WON) by Deal Owner.     | Ranks sales reps by total value of deals closed this month/quarter. |
+    | **4** | New Business vs. Upsell | Pie Chart     | `🧊︎ Deals` (Status = CLOSED-WON) by Type.           | Shows the revenue mix from new clients versus existing clients.     |
+  </Tab>
+  <Tab title="Filters & Reminders">
+    | #     | Filter Name              | Criteria                                                                      | Reminder Schedule       | Recipients                |
+    | :---- | :----------------------- | :---------------------------------------------------------------------------- | :---------------------- | :------------------------ |
+    | **1** | Stale Deals              | Status NOT IN (CLOSED-WON, CLOSED-LOST) AND Last Activity Date \> 14 days ago | Every Monday at 9:00 AM | Deal Owner, Sales Manager |
+    | **2** | Deals Closing This Month | Status NOT IN (CLOSED-WON, CLOSED-LOST) AND Est. Close Date is this month     | Every Monday at 8:30 AM | Deal Owner                |
+  </Tab>
+</Tabs>
+
+---
+
+## PART 6: PERMISSIONS & NOTIFICATIONS
+
+<Tabs>
+  <Tab title="Function-Level Roles">
+    <Info>
+      These roles define the specific responsibilities and access levels within the B2B CRM function.
+    </Info>
+    | Role                            | Responsibilities                                                               | Permissions & Notifications                                                                                                      |
+    | :------------------------------ | :----------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
+    | **Sales Development Rep (SDR)** | Identifies and qualifies new `🧊 Companies` and `🧊︎ Contacts`.                | Can create and edit `🧊 Companies` and `🧊︎ Contacts`. Read-only on `🧊︎ Deals`. Notified on @mentions.                          |
+    | **Account Executive (AE)**      | Manages the full sales cycle for `🧊︎ Deals`. Owns `🧊 Company` relationships. | Full control over their assigned `🧊 Companies`, `🧊︎ Contacts`, and `🧊︎ Deals`. Notified on new assignments and deal progress. |
+    | **Sales Manager**               | Oversees team performance, manages territories, and approves discounts.        | View all objects in the function. Edit rights on all `🧊︎ Deals`. Receives weekly pipeline summary and stale deal alerts.        |
+  </Tab>
+  <Tab title="Permission Scheme">
+    <Info>
+      **Selected Scheme: Moderate Restriction - User can only view/edit their own records**
+    </Info>
+    - **Rationale**: This is the standard for sales teams. It protects the integrity of an AE's pipeline while allowing managers to have oversight.
+    - **Implementation**: AEs can only view/edit `Companies` and `Deals` where they are the owner. Managers are granted override access.
+    - **Benefits**: Fosters individual accountability and prevents accidental changes to colleagues' records.
+  </Tab>
+  <Tab title="Notification Scheme">
+    <Info>
+      **Selected Scheme: Notify Key Actions to Direct Assignees**
+    </Info>
+    - **Rationale**: Prevents notification overload by focusing only on important events relevant to the user.
+    - **Implementation**: Users are notified of new assignments, status changes on their owned records, and @mentions.
+    - **Benefits**: Ensures critical information is delivered without creating "alert fatigue".
+  </Tab>
+</Tabs>
+
+---
