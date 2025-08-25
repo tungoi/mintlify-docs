@@ -427,23 +427,24 @@
           {
             "group": "Function Templates",
             "pages": [
-              "en/05-templates/index",
+              "en/05-templates/index"
+           
               
-              {
+            ]
+          },
+          {
             "group": "By Industries",
             "pages": [
              "en/05-templates/by-industries/index"
             ]
           },
-              {
+          {
             "group": "By Use Cases",
             "pages": [
              "en/05-templates/by-use-cases/hrm"
             ]
           }
              
-            ]
-          }
         ]
       },
       {
