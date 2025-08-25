@@ -1,0 +1,63 @@
+---
+title: "Item Access vs. Permission Schemes: A Guide to Permissions"
+description: "A clear explanation of the two levels of permissions in Luklak: Item Access (controlling access to containers like Spaces) and Permission Schemes (controlling actions on Objects within them)."
+sidebarTitle: "Permissions Explained"
+---
+
+## Two Levels of Security
+
+<Info>
+  To build secure, well-governed systems in Luklak, it's crucial to understand the two distinct and complementary layers of security: **Item Access Control** and **Permission Schemes**.
+</Info>
+
+While they both manage "who can do what," they operate at different levels.
+
+- **Item Access** controls access to the **container** (the workspace, the dashboard, the blueprint).
+- A **Permission Scheme** controls actions **inside** the container.
+
+## The Analogy: The Building and the Safe
+
+The easiest way to understand the difference is with an analogy of a secure building.
+
+### Item Access Control is the Key to the Building
+
+This is the first layer of security. It determines if you are allowed to enter a specific "building" (like a `⏹️ Space` or a `Dashboard`). If you don't have Item Access, you can't even see that the building exists or open its door.
+
+**It answers the question: "Can I get in the door?"**
+
+### Permission Scheme is the Clearance for the Safe
+
+Once you are inside the building, the Permission Scheme determines what you are allowed to _do_ inside. It's your security clearance level for the contents of the building (the `🧊 Objects`).
+
+<Note>
+  Are you allowed to view the documents on the table (`View Objects`)? Can you create new documents (`Create Objects`)? Or do you have the high-level clearance needed to open the safe (`Delete Objects`) or approve a document (`Transition Status`)?
+</Note>
+
+**It answers the question: "What can I do now that I'm inside?"**
+
+[Image Placeholder: A diagram showing a user using an 'Item Access Key' to open the door to a building labeled 'Space'. Inside the building, there's a safe labeled 'Objects', and the user needs a separate 'Permission Scheme Clearance' card to open it.]
+
+## Side-by-Side Comparison
+
+| Feature                     | `Item Access Control`                                      | `Permission Scheme`                                                         |
+| :-------------------------- | :--------------------------------------------------------- | :-------------------------------------------------------------------------- |
+| **What it Controls**        | **Containers** (the tools)                                 | **`Actions on 🧊 Objects`** (the data inside the tools)                     |
+| **Examples of "Items"**     | `⏹️ Spaces`, `📋 Functions`, `Dashboards`, `Saved Filters` | `View`, `Create`, `Edit`, `Delete`, `Transition Status` for `🧊 Objects`    |
+| **Where it's Configured**   | **On the Item itself** (e.g., in the `Space` settings)     | **`Inside a 📋 Function`** (as a reusable blueprint)                        |
+| **Who it's Assigned To**    | Directly to `Users` or `Groups`.                           | To `Roles` (e.g., `Manager`, `Member`). Users are then assigned to `Roles`. |
+| **The Question it Answers** | "Can I **access** this `Space`?"                           | "What can I **do** inside this `Space`?"                                    |
+
+## How They Work Together: A Practical Example
+
+1. **Granting Item Access:** An administrator gives the "Sales Team" `Group` **Member access** to the "Q4 Sales Pipeline" `⏹️ Space`. Now, all users in that group, including Jane and John, can see and enter this `Space`.
+2. **Assigning Roles:** The `Permission Scheme` for this `Space` (designed in its `Function`) has two `Roles`: `Manager` and `Member`.
+   - Jane, a senior salesperson, is assigned the **`Manager Role`**.
+   - John, a junior salesperson, is assigned the **`Member Role`**.
+3. **The Result:** Even though both Jane and John can enter the `Space` (thanks to Item Access), their abilities inside are different. The `Permission Scheme` might allow Jane (`Manager` Role) to `Delete` objects within the function, like`🧊 Deals`, while John (`Member` Role) can only `Create` and `Edit` them.
+
+## What's Next?
+
+Understanding these two permission layers is fundamental to designing secure and scalable solutions in Luklak.
+
+- [**Return to the Platform Overview**](/platform)
+- [**Learn more about setup in Phase 1: Establishing Your Foundation**](/platform/foundation)
