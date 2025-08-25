@@ -435,7 +435,16 @@
           {
             "group": "By Industries",
             "pages": [
-             "en/05-templates/by-industries/index"
+              {
+            "group": "Education",
+            "pages": [
+              "en/05-templates/by-industries/education/zenith-english",
+              "en/05-templates/by-industries/education/academic-management"
+           
+              
+            ]
+          }
+      
             ]
           },
           {
