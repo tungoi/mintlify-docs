@@ -451,7 +451,8 @@
             "group": "By Use Cases",
             "pages": [
              "en/05-templates/by-use-cases/hrm",
-              "en/05-templates/by-use-cases/function/crm"
+              "en/05-templates/by-use-cases/function/crm",
+              "en/05-templates/by-use-cases/function/asset-mgnt"
             ]
           }
              

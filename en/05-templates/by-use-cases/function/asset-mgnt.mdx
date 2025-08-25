@@ -1,0 +1,236 @@
+---
+title: "OFFICE ASSET MANAGEMENT FUNCTION BLUEPRINT"
+description: "Description of your new file."
+icon: "barcode-read"
+sidebarTitle: "Office Asset Management Function"
+---
+
+📍 **Organization Location**
+
+```
+🏢 LAIKA (Organization)
+│
+├── 📂 OPERATIONS (Area)
+│   └── ⏹️ Office Management (Space)  // You are here
+│       └── 📋 Function: Office Asset Management
+│           └── 🧊 Asset
+│               └── 🧊︎ Maintenance Request (Sub-Object)
+│
+├── 📂 HUMAN RESOURCES (Area)
+│   └── ⏹️ Employee Lifecycle (Space)
+│
+├── 📂 PROCUREMENT (Area)
+│   └── ⏹️ Purchase Requests (Space)
+│
+└── 📂 FINANCE (Area)
+    └── ⏹️ Accounting (Space)
+```
+
+🎯 **Purpose**: To systematically track and manage the entire lifecycle of company assets, from procurement and assignment to maintenance and retirement, using physical QR codes for rapid identification.
+
+💡 **Business Impact**: Provides complete visibility over company property, reduces asset loss, and streamlines maintenance. This function transforms the procure-to-retire lifecycle by integrating with **Procurement**, **Finance**, and **HR** to automate handoffs, ensure financial compliance, and simplify employee onboarding/offboarding.
+
+---
+
+<Tabs>
+  <Tab title="Business Logic">
+    This function provides a centralized system for managing all company-owned physical assets. The process is as follows:
+
+    1. **Procurement Integration**: An approved purchase in the **Procurement** function automatically creates a new **Asset** record here.
+    2. **Registration & Labeling**: The IT Admin completes the asset details. The system generates a unique **QR Code URL**. A physical QR label is printed and affixed to the asset. It starts in the 'In Stock' status.
+    3. **Assignment**: The IT Admin assigns the **Asset** to an employee, which can be done instantly by scanning the QR code and updating the `Assigned To` field.
+    4. **Maintenance**: If an asset requires service, any employee can scan its QR code to quickly create a **Maintenance Request**. The **Asset's** status is automatically updated to 'Under Maintenance'.
+    5. **Resolution & Handoffs**: Once maintenance is complete, the **Asset** returns to a usable status. If retired or lost, the **Finance** function is automatically notified for depreciation and write-off procedures.
+  </Tab>
+  <Tab title="Object Relationships">
+    | Object Type                 | Purpose                                                                                   | Key Relationships              |
+    | :-------------------------- | :---------------------------------------------------------------------------------------- | :----------------------------- |
+    | **🧊 Asset**                | The primary record for any piece of company property, identifiable by a physical QR code. | Parent to Maintenance Request. |
+    | **🧊︎ Maintenance Request** | A record tracking a specific repair or service ticket for an asset.                       | Child of Asset.                |
+  </Tab>
+  <Tab title="Roles & Permissions">
+    | Role         | Responsibilities                                                                         | Permissions & Notifications                                                                                                 |
+    | :----------- | :--------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
+    | **IT Admin** | Manages the full lifecycle of all assets. Prints and applies QR labels.                  | Full control over all Assets and Maintenance Requests. Notified of all new requests.                                        |
+    | **Employee** | Views their assigned assets and can submit Maintenance Requests by scanning the QR code. | Can create Maintenance Requests for their assigned assets. Can view their assets. Notified when their request is completed. |
+    | **Manager**  | Views assets assigned to their direct reports for oversight and budget purposes.         | Read-only access to assets assigned to team members. Receives a weekly report on team assets needing repair.                |
+  </Tab>
+</Tabs>
+
+## OBJECT TYPES & WORKFLOWS
+
+### 2.1 🧊 Asset (Standard Object)
+
+- **Process Description**: This object represents a single, trackable piece of company property. It holds all information related to its purchase, value, current user, and condition. Each asset is physically tagged with a QR code that links directly to its record in Luklak.
+- **Example**: A "Dell UltraSharp U2723QE Monitor" is approved in Procurement, automatically creating an Asset record. The IT Admin adds its serial number, prints the generated QR code, and sticks it on the back of the monitor.
+
+<Tabs>
+  <Tab title="Workflow Diagram">
+    **Asset Workflow**
+
+    ```
+                 ┌───────────────────┐
+                 ↓                   │
+    IN STOCK ↔ ASSIGNED → UNDER MAINTENANCE → RETIRED
+                 ↓
+               LOST
+    ```
+  </Tab>
+  <Tab title="Status Details">
+    | Status                   | Business Logic                                                 | Advanced Settings                                                                                                                         |
+    | :----------------------- | :------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1. IN STOCK**          | Asset is new or returned, available for assignment.            | **Permissions**: IT Admin. <br /> **Automation**: IC-01 (Generate QR Code URL on creation).                                               |
+    | **2. ASSIGNED**          | Asset is currently in use by an employee.                      | **Permissions**: IT Admin. <br /> **Input**: Assigned To (User), Assignment Date (Date). <br /> **Automation**: IC-03 (Update last user). |
+    | **3. UNDER MAINTENANCE** | Asset is with the IT team or an external vendor for repair.    | **Permissions**: IT Admin. <br /> **Automation**: IC-02 (Create Maintenance Request).                                                     |
+    | **4. RETIRED**           | Asset has reached its end-of-life and is no longer in service. | **Terminal status**. <br /> **Input**: Retirement Date, Reason. <br /> **Automation**: CF-03 (Notify Finance for Write-off).              |
+    | **5. LOST**              | Asset is lost or stolen and has been written off.              | **Terminal status**. <br /> **Input**: Date Lost, Police Report #. <br /> **Automation**: CF-03 (Notify Finance for Write-off).           |
+  </Tab>
+  <Tab title="Data Fields">
+    **Data Field Groups**
+
+    | Group                                   | Fields                                                                                                                                   | Notes                                                                                 |
+    | :-------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------ |
+    | **Basic Information** _(6 fields)_      | Asset Name _(Text)_, Asset Code _(Text)_, **QR Code URL** _(Text)_, Category _(Dropdown)_, Manufacturer _(Text)_, Serial Number _(Text)_ | **QR Code URL** is auto-generated and used to create the physical label for scanning. |
+    | **Purchase Details** _(4 fields)_       | Purchase Date _(Date)_, Purchase Price _(Currency)_, Supplier _(Text)_, Warranty Expiry _(Date)_                                         | Financial and warranty tracking.                                                      |
+    | **Assignment Information** _(4 fields)_ | Assigned To _(User Picker)_, Department _(Formula from User)_, Assignment Date _(Date)_, Last User _(User Picker)_                       | Tracks current and previous ownership.                                                |
+    | **Total: 14 fields**                    |                                                                                                                                          |                                                                                       |
+  </Tab>
+</Tabs>
+
+---
+
+### 2.2 🧊︎ Maintenance Request (Sub-Object)
+
+- **Business Process Description**: A ticket to track the process of repairing a faulty asset. It is always linked to a parent Asset object and can be easily created by scanning the asset's QR code.
+- **Example**: An employee scans the QR code on their faulty monitor, which opens a pre-filled form to create a maintenance request instantly.
+
+<Tabs>
+  <Tab title="Workflow Diagram">
+    **Maintenance Request Workflow**
+
+    ```
+    NEW → IN PROGRESS → COMPLETED
+     ↓
+    CANCELLED
+    ```
+  </Tab>
+  <Tab title="Status Details">
+    | Status             | Business Logic                                       | Advanced Settings                                                                                                                        |
+    | :----------------- | :--------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1. NEW**         | A new repair request has been submitted.             | **Permissions**: IT Admin, Employee. <br /> **Input**: Issue Description.                                                                |
+    | **2. IN PROGRESS** | The IT Admin is actively working on the repair.      | **Permissions**: IT Admin. <br /> **Input**: IT Notes.                                                                                   |
+    | **3. COMPLETED**   | The repair is finished, and the asset is functional. | **Permissions**: IT Admin. <br /> **Automation**: IC-04 (Update Parent Asset Status). <br /> **Input**: Resolution Details, Repair Cost. |
+    | **4. CANCELLED**   | The request was withdrawn or deemed unnecessary.     | **Terminal status**.                                                                                                                     |
+  </Tab>
+  <Tab title="Data Fields">
+    **Data Field Groups**
+
+    | Group                               | Fields                                                                                                      | Notes                                    |
+    | :---------------------------------- | :---------------------------------------------------------------------------------------------------------- | :--------------------------------------- |
+    | **Request Details** _(4 fields)_    | Title _(Text)_, Submitted By _(User Picker)_, Submission Date _(DateTime)_, Issue Description _(Paragraph)_ | Core request information.                |
+    | **Resolution Details** _(4 fields)_ | IT Notes _(Paragraph)_, Resolution _(Paragraph)_, Repair Cost _(Currency)_, Completion Date _(DateTime)_    | Details on the fix and associated costs. |
+    | **Total: 8 fields**                 |                                                                                                             |                                          |
+  </Tab>
+</Tabs>
+
+---
+
+## OBJECT RELATIONSHIPS
+
+### 3.1 Parent-Child Relationships
+
+| Relationship                        | Description                                                                                                                      |
+| :---------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| **Asset** → **Maintenance Request** | Each asset can have multiple maintenance requests over its lifetime, creating a full service history accessible via its QR code. |
+
+_(Other relationship sections are not applicable for this function.)_
+
+---
+
+## AUTOMATION RULES
+
+<Tabs>
+  <Tab title="Within-Function">
+    These rules run entirely within the `Asset Management` Space to streamline internal processes.
+
+    | ID        | Rule Name                           | Trigger                                           | Action                                                      | Description                                                                                |
+    | :-------- | :---------------------------------- | :------------------------------------------------ | :---------------------------------------------------------- | :----------------------------------------------------------------------------------------- |
+    | **IC-01** | Generate QR Code URL                | `Asset` is created                                | Update `QR Code URL` field with a unique link to the object | Creates the link used for generating the physical QR code label for tracking.              |
+    | **IC-02** | Create Maintenance on Status Change | Asset status updated to "UNDER MAINTENANCE"       | Create a new `Maintenance Request` sub-object               | Automatically opens a repair ticket when an asset is flagged for maintenance.              |
+    | **IC-03** | Log Last User                       | `Assigned To` field is changed on an Asset        | Copy the previous user value to the `Last User` field       | Maintains a history of who last used the asset before it was returned or reassigned.       |
+    | **IC-04** | Close Out Maintenance               | Maintenance Request status updated to "COMPLETED" | Update parent `Asset` status to "ASSIGNED"                  | Automatically returns the asset to a usable state in the system once repairs are finished. |
+  </Tab>
+  <Tab title="Cross-Function">
+    These rules manage the handoffs between Asset Management and other departments.
+
+    | ID        | Rule Name                          | Trigger                                                                                | Action                                                           | Description                                                                   |
+    | :-------- | :--------------------------------- | :------------------------------------------------------------------------------------- | :--------------------------------------------------------------- | :---------------------------------------------------------------------------- |
+    | **CF-01** | Asset Retrieval for Offboarding    | Employee status changes to "Offboarding" in **HR/Employee** function                   | Create a task for IT Admin to retrieve assigned assets           | Ensures no company property is lost when an employee leaves.                  |
+    | **CF-02** | Create Asset from Purchase         | `Purchase Request` status changes to "Approved & Received" in **Procurement** function | Create a new `Asset` object in "IN STOCK" status                 | Automates asset registration the moment it's procured, reducing manual entry. |
+    | **CF-03** | Notify Finance for Asset Write-off | `Asset` status changes to "RETIRED" or "LOST"                                          | Create a `Write-off Task` in the **Finance/Accounting** function | Ensures financial records are updated for asset depreciation and disposal.    |
+  </Tab>
+  <Tab title="Cross-System">
+    _(Not applicable for this function to maintain simplicity as a template.)_
+  </Tab>
+</Tabs>
+
+---
+
+## WORKVIEWS, DASHBOARDS, FILTERS & REMINDERS
+
+<Tabs>
+  <Tab title="Workviews">
+    | Workview                      | Description                                                                               | Data Configuration                                                                                   |
+    | :---------------------------- | :---------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- |
+    | 1. **Asset Status Board**     | Displays assets as cards in columns representing each stage from `IN STOCK` to `RETIRED`. | All `🧊 Asset` Objects, grouped by status.                                                           |
+    | 2. **All Assets Master List** | A detailed table view of all assets with comprehensive information for auditing.          | All `🧊 Asset` Objects, with filters for category, department, and status.                           |
+    | 3. **Maintenance Queue**      | A prioritized list for the IT team to manage all active repair tickets.                   | All `🧊︎ Maintenance Request` objects with status "NEW" or "IN PROGRESS", sorted by submission date. |
+  </Tab>
+  <Tab title="Dashboards">
+    | Gadget                           | Data                                                                               | Description                                                        |
+    | :------------------------------- | :--------------------------------------------------------------------------------- | :----------------------------------------------------------------- |
+    | 1. **Assets by Category Chart**  | Distribution of assets across different categories (e.g., Laptops, Monitors).      | Analyzes the composition of the company's asset inventory.         |
+    | 2. **Asset Value by Department** | Sum of `Purchase Price` for all assets, grouped by the assigned user's department. | Tracks the financial value of assets allocated to each department. |
+    | 3. **Warranties Expiring Soon**  | Count of assets with `Warranty Expiry` in the next 90 days.                        | Proactively manages asset lifecycle and potential replacements.    |
+  </Tab>
+  <Tab title="Filters">
+    | Filter                               | Criteria                                                                     | Reminder                                       |
+    | :----------------------------------- | :--------------------------------------------------------------------------- | :--------------------------------------------- |
+    | 1. **New Maintenance Requests**      | `Maintenance Request` status = "NEW".                                        | Daily at 9:00 AM to the IT Admin.              |
+    | 2. **Assets with Expiring Warranty** | `Asset` status \!= "RETIRED" AND Warranty Expiry is within the next 90 days. | Monthly on the 1st to the IT Admin.            |
+    | 3. **Overdue Asset Returns**         | An asset assigned to a user whose `Employee` status is "Offboarded".         | Weekly on Monday at 9:00 AM to the IT Manager. |
+  </Tab>
+</Tabs>
+
+---
+
+## PERMISSIONS & NOTIFICATIONS
+
+<Tabs>
+  <Tab title="Roles">
+    | Role            | Description                                                                              | Permissions & Notifications                                                                                                                                                                                                |
+    | :-------------- | :--------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **1. IT Admin** | Manages the full lifecycle of all assets. Prints and applies QR labels.                  | **Permissions**: Full control over all `🧊 Asset` and `🧊︎ Maintenance Request` Objects. <br /> **Notifications**: Receives a notification when a new `🧊︎ Maintenance Request` is submitted.                              |
+    | **2. Employee** | Views their assigned assets and can submit Maintenance Requests by scanning the QR code. | **Permissions**: Can create `🧊︎ Maintenance Request` Objects for their assigned assets. Can view their assigned `🧊 Asset` Objects. <br /> **Notifications**: Notified when their `🧊︎ Maintenance Request` is completed. |
+    | **3. Manager**  | Views assets assigned to their direct reports for oversight and budget purposes.         | **Permissions**: Read-only access to `🧊 Asset` Objects assigned to their team members. <br /> **Notifications**: Receives a weekly report summarizing assets currently `UNDER MAINTENANCE` within their team.             |
+  </Tab>
+  <Tab title="Permissions">
+    #### General Permission Scheme
+
+    **Approach Used**: Option 3 - Moderate Permissions
+
+    - **`View ⏹️ Space`**: All members with a role in the Space can view it.
+    - **`View & Update 🧊 Object`**:
+      - **IT Admins** can view and update all `🧊 Asset` and `🧊︎ Maintenance Request` Objects.
+      - **Employees** can only view the `🧊 Asset` Objects assigned to them.
+      - **Managers** have read-only access to `🧊 Asset` Objects assigned to their direct reports.
+    - **Object Chat**: Anyone who can view the `🧊 Object` can participate in its chat.
+  </Tab>
+  <Tab title="Notifications">
+    #### General Notification Scheme
+
+    **Approach Used**: Option 2 - Notify Relevant People Only
+
+    All actions performed on an `🧊 Object` will only send notifications to the users who are directly assigned to that specific `🧊 Object` or have a defined role-based notification rule (e.g., IT Admin receiving all new maintenance requests).
+  </Tab>
+</Tabs>
