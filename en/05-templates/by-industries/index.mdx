@@ -1,5 +1,218 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "ZENITH ENGLISH - GLOBAL CONFIGURATION BLUEPRINT"
+description: "Build a unified & universal system that works for your business, not the other way around."
 ---
 
+## **ORGANIZATION STRUCTURE & WORKSPACES**
+
+<Tip>
+  **This is a Scalable Example:** The structure shown here is for demonstration purposes. You can add, remove, or rename any `📂 Area`, `⏹️ Space`, `📋 Function`, or `🧊 Object` to perfectly tailor the system to your company's unique workflow.
+</Tip>
+
+<Tabs>
+  <Tab title="Unified Organization Structure">
+    <Info>
+      This diagram illustrates the clear hierarchy of functional units and business object types within the system. This format places the Function (the blueprint) directly under the Space (the instance) to clarify their relationship.
+    </Info>
+    ```
+    🏢 ZENITH ENGLISH (Organization)
+    │
+    ├── 📂 MARKETING (Area)
+    │   └── ⏹️ Marketing Campaigns (Space)
+    │       └── 📋 Function: Marketing Campaigns
+    │           └── 🧊 Campaign
+    │               └── 🧊︎ Ad (Sub-Object)
+    │
+    ├── 📂 ADMISSIONS (Area)
+    │   └── ⏹️ Admissions & CRM (Space)
+    │       └── 📋 Function: CRM
+    │           └── 🧊 Lead
+    │               └── 🧊︎ Placement Test (Sub-Object)
+    │
+    ├── 📂 FINANCE (Area)
+    │   └── ⏹️ Tuition & Invoicing (Space)
+    │       └── 📋 Function: Invoicing
+    │           └── 🧊 Enrollment Agreement
+    │               └── 🧊︎ Invoice (Sub-Object)
+    │
+    ├── 📂 ACADEMICS (Area)
+    │   └── ⏹️ Class Management (Space)
+    │       └── 📋 Function: Academic Management
+    │           └── 🧊 Course
+    │               └── 🧊︎ Class (Sub-Object)
+    │
+    └── 📂 STUDENT AFFAIRS (Area)
+        └── ⏹️ Student Support (Space)
+            └── 📋 Function: Student Affairs
+                └── 🧊 Student Record
+                    └── 🧊︎ Progress Report (Sub-Object)
+    ```
+  </Tab>
+  <Tab title="Workspace List">
+    <Info>
+      Virtual workspaces designed to serve specific user groups or objectives, helping to focus on relevant work by aggregating necessary items.
+    </Info>
+    | Workspace Name          | Design Rationale                                                                                                 | Items Included (Dashboards, Filters, Spaces)                                                                                                        |
+    | :---------------------- | :--------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **Executive Workspace** | Aggregates key metrics on student enrollment, revenue, and academic performance for the leadership team.         | - **Dashboard**: Center Performance Overview<br />- **Filter**: High-Value Courses<br />- **Space (Read-only)**: Admissions & CRM, Class Management |
+    | **Admissions Hub**      | A shared environment for Marketing and Admissions teams to track the entire lead-to-enrollment funnel.           | - **Space**: Marketing Campaigns, Admissions & CRM, Tuition & Invoicing<br />- **Filter**: Leads Pending Placement Test                             |
+    | **Academic Operations** | A central hub for Academic Managers, Teachers, and Student Affairs staff to manage classes and student progress. | - **Space**: Class Management, Student Support                                                                                                      |
+  </Tab>
+</Tabs>
+
+---
+
+## **USER MANAGEMENT**
+
+<Tabs>
+  <Tab title="Account Management">
+    <Info>
+      The system uses two types of accounts to clearly distinguish between human actions and automated system processes.
+    </Info>
+    | Account Type           | Description                                                                                                                  | Application at Zenith English                                                                      |
+    | :--------------------- | :--------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------- |
+    | **User Account**       | The standard account for team members, associated with a specific person who logs into the platform to work and collaborate. | For all Zenith English employees.                                                                  |
+    | **Functional Account** | A special, non-login account used exclusively for Universal Automation to ensure a clear audit trail.                        | A single account, `automation@zenith.com`, will be created to execute all global automation rules. |
+  </Tab>
+  <Tab title="Global Groups">
+    <Info>
+      A group is a collection of user accounts, used to efficiently assign access permissions and notifications at scale.
+    </Info>
+    | Group Name             | Description & Example Members                                              |
+    | :--------------------- | :------------------------------------------------------------------------- |
+    | `Marketing Department` | Includes all members of the Marketing department.                          |
+    | `Admissions Team`      | Includes all admissions counselors and their manager.                      |
+    | `Finance Department`   | Includes all accounting and finance staff.                                 |
+    | `Academic Board`       | Includes Academic Managers and senior teachers responsible for curriculum. |
+    | `Teaching Staff`       | Includes all full-time and part-time teachers.                             |
+    | `Student Affairs Team` | Includes all student support officers.                                     |
+    | `Board of Directors`   | Includes the CEO, Center Director, and senior management.                  |
+  </Tab>
+  <Tab title="Global Roles">
+    <Info>
+      A Role is an abstract placeholder or title (e.g., "Teacher") not tied to a specific user or group. Permissions are assigned to the Role, and then actual users/groups are mapped to that Role within each specific Space.
+    </Info>
+    | Role Name                 | Core Responsibilities                                                     |
+    | :------------------------ | :------------------------------------------------------------------------ |
+    | `Marketing Manager`       | Manages campaigns, advertising budgets, and lead generation performance.  |
+    | `Admissions Counselor`    | Consults with leads, administers placement tests, and handles enrollment. |
+    | `Academic Manager`        | Manages courses, schedules classes, and oversees teaching quality.        |
+    | `Teacher`                 | Delivers lessons, assesses student performance, and provides feedback.    |
+    | `Accountant`              | Manages tuition payments, invoicing, and other financial matters.         |
+    | `Student Affairs Officer` | Manages student care, tracks progress, and handles support requests.      |
+  </Tab>
+</Tabs>
+
+---
+
+## **OBJECT RELATIONSHIP MODEL**
+
+<Tabs>
+  <Tab title="Parent-Child Relationships">
+    <Info>
+      A built-in, strict hierarchy between a standard `Object` and its `Sub-Objects`. This method is best for work breakdown structures.
+    </Info>
+    **Application at Zenith English:**
+
+    | Parent Object                      | Child Object(s)                      | Architectural Rationale                                                                                                                                            |
+    | :--------------------------------- | :----------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `Marketing/🧊Campaign`             | `Marketing/🧊︎Ad`                    | **Work Breakdown Structure:** Each `🧊Campaign` is a major plan that is executed through multiple specific `🧊︎Ads`.                                               |
+    | `Admissions/🧊Lead`                | `Admissions/🧊︎Placement Test`       | **Process Breakdown Structure:** A `🧊Lead` must complete a `🧊︎Placement Test` to determine their proficiency level before enrollment.                            |
+    | `Finance/🧊Enrollment Agreement`   | `Finance/🧊︎Invoice`                 | **Financial Breakdown Structure:** An `🧊Enrollment Agreement`'s total tuition is broken down into multiple `🧊︎Invoices` for installment payments.                |
+    | `Academics/🧊Course`               | `Academics/🧊︎Class`                 | **Academic Breakdown Structure:** A `🧊Course` (e.g., IELTS 7.0) is the curriculum blueprint, which is delivered via multiple `🧊︎Classes` (e.g., Class I7A, I7B). |
+    | `Student Affairs/🧊Student Record` | `Student Affairs/🧊︎Progress Report` | **Performance Tracking Structure:** A `🧊Student Record` contains a chronological series of `🧊︎Progress Reports` documenting academic performance over time.      |
+  </Tab>
+  <Tab title="Global Connections">
+    <Info>
+      A centrally-managed library of reusable relationship _types_ that standardize the _meaning_ of bidirectional relationships across the entire system.
+    </Info>
+    **Application at Zenith English:** This defines the core student journey between departments.
+
+    | Connection Type                 | Object A                         | A → B Relationship | Object B                           | B → A Relationship |
+    | :------------------------------ | :------------------------------- | :----------------- | :--------------------------------- | :----------------- |
+    | **Marketing → Admissions**      | `Marketing/🧊Ad`                 | Generates          | `Admissions/🧊Lead`                | Sourced from       |
+    | **Admissions ↔ Finance**        | `Admissions/🧊Lead`              | Signs              | `Finance/🧊Enrollment Agreement`   | For                |
+    | **Finance → Student Affairs**   | `Finance/🧊Enrollment Agreement` | Initiates          | `Student Affairs/🧊Student Record` | Created from       |
+    | **Academics ↔ Student Affairs** | `Academics/🧊Class`              | Attended by        | `Student Affairs/🧊Student Record` | Enrolled in        |
+  </Tab>
+  <Tab title="Object Picker Fields">
+    <Info>
+      A flexible field that allows one `Object` to reference one or more other `Objects`. This is the tool used to _implement_ the relationships defined above.
+    </Info>
+    **Application at Zenith English:**
+
+    | Defined on Object                  | Field Name           | Reference Type                            | Purpose                                                                   |
+    | :--------------------------------- | :------------------- | :---------------------------------------- | :------------------------------------------------------------------------ |
+    | `Admissions/🧊Lead`                | `Ad Source`          | Select 1 `Marketing/🧊Ad`                 | To track the marketing channel that generated the lead for ROI analysis.  |
+    | `Finance/🧊Enrollment Agreement`   | `Student`            | Select 1 `Admissions/🧊Lead`              | To specify which lead this agreement is for.                              |
+    | `Student Affairs/🧊Student Record` | `Original Agreement` | Select 1 `Finance/🧊Enrollment Agreement` | To link the student's official record back to their financial agreement.  |
+    | `Student Affairs/🧊Student Record` | `Enrolled Classes`   | Select multiple `Academics/🧊Class`       | To track all classes a student is currently enrolled in or has completed. |
+  </Tab>
+  <Tab title="Data Table Fields">
+    <Info>
+      An embedded 'spreadsheet' within an `Object` to manage structured lists of data, ideal for modeling 'contained' one-to-many data.
+    </Info>
+    **Application at Zenith English:**
+
+    | Used on Object                   | Data Table Name    | Example Columns                                                  | Rationale & Benefit                                                                                                                                        |
+    | :------------------------------- | :----------------- | :--------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `Finance/🧊Enrollment Agreement` | `Payment Schedule` | `Installment`, `Amount`, `Due Date`, `Status`, `Related Invoice` | Provides a clear, structured overview of the entire payment plan on the agreement. Simplifies tracking of paid and outstanding tuition fees.               |
+    | `Academics/🧊Class`              | `Attendance Sheet` | `Date`, `Student Name`, `Status (Present/Absent)`, `Notes`       | Allows teachers to manage daily attendance directly within the class object, providing a centralized and easily auditable record of student participation. |
+  </Tab>
+</Tabs>
+
+---
+
+## **WORKVIEWS, DASHBOARDS, FILTERS & REMINDERS**
+
+<Info>
+  This section defines the tools for aggregating and presenting data from across all functions, helping users work efficiently and enabling leadership to make informed decisions based on a holistic view of the business.
+</Info>
+
+<Tabs>
+  <Tab title="Global Workviews">
+    <Info>
+      These are pre-saved work screens at the global level, consolidating work items from various Spaces for operational management purposes.
+    </Info>
+    | Workview Name          | View Type | Data Source & Filter Logic                                                                  | Audience                          |
+    | :--------------------- | :-------- | :------------------------------------------------------------------------------------------ | :-------------------------------- |
+    | **All Active Classes** | List View | **Source:** `Academics/🧊Class`<br />**Logic:** `Status` IS NOT "Completed" AND "Cancelled" | Academic Manager, Center Director |
+  </Tab>
+  <Tab title="Global Dashboards">
+    <Info>
+      This dashboard is placed in the "Executive Workspace" to provide a 360-degree view of business performance.
+    </Info>
+    | Dashboard Name                  | Purpose & Audience                                                                                                                        |
+    | :------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------- |
+    | **Center Performance Overview** | Provides a comprehensive overview of the admissions funnel, revenue, and class fill rates for the Board of Directors and Center Director. |
+
+    **Detailed Structure of the "Center Performance Overview" Dashboard:**
+
+    | # | Gadget Name                        | Chart Type            | Data Source (Functions & Objects)                              | Logic & Key Metrics                                                                                                            |
+    | :-- | :--------------------------------- | :-------------------- | :------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
+    | 1 | **Admissions Funnel**              | Funnel Chart          | `Admissions/🧊Lead`                                            | Counts the number of `🧊Leads` by `Status` (e.g., New, Contacted, Tested, Enrolled) to track conversion rates.                 |
+    | 2 | **Monthly Revenue & Pending**      | Counter & Calculation | `Finance/🧊Invoice`                                            | - **Revenue**: `SUM(Amount)` WHERE `Status` = "Paid" this month.<br />- **Pending**: `SUM(Amount)` WHERE `Status` = "Pending". |
+    | 3 | **Top Lead Sources by Enrollment** | Pie Chart             | `Finance/🧊Enrollment Agreement` linked to `Admissions/🧊Lead` | `COUNT(Enrollment Agreements)` grouped by the `Ad Source` field on the `🧊Lead` object.                                        |
+    | 4 | **Class Status Overview**          | Bar Chart             | `Academics/🧊Class`                                            | Counts the number of `🧊Classes` by `Status` (e.g., Recruiting, In Progress, Completed).                                       |
+  </Tab>
+  <Tab title="Global Saved Filters">
+    <Info>
+      Saved filters that allow users to quickly access critical lists of work items.
+    </Info>
+    | Filter Name                      | Data Source & Filter Logic                                                       | Purpose & Audience                                                                         |
+    | :------------------------------- | :------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- |
+    | **Leads Pending Placement Test** | **Source:** `Admissions/🧊Lead`<br />**Logic:** `Status` = "Pending Test"        | Helps Admissions Counselors to focus on and schedule tests for potential students.         |
+    | **High-Value Courses**           | **Source:** `Academics/🧊Course`<br />**Logic:** `Tuition Fee` \> 20,000,000 VND | Allows Marketing and Management to prioritize and track high-revenue educational programs. |
+  </Tab>
+  <Tab title="Filter Reminders">
+    <Info>
+      Automated notifications based on saved filters to ensure important tasks are not missed.
+    </Info>
+    | Reminder Name                     | Data Source & Filter Used                                                                                                               | Frequency & Time | Recipients (Roles/Groups)                    |
+    | :-------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- | :--------------- | :------------------------------------------- |
+    | **Upcoming Invoice Due Reminder** | **Source:** `Finance/🧊Invoice`<br />**Logic:** `Due Date` is within the next 7 days AND `Status` IS NOT "Paid".                        | Daily at 9:00 AM | - `Accountant`<br />- `Admissions Counselor` |
+    | **Inactive Lead Follow-up**       | **Source:** `Admissions/🧊Lead`<br />**Logic:** `Last Modified Date` is more than 14 days ago AND `Status` IS NOT "Enrolled" OR "Lost". | Daily at 8:30 AM | - `Admissions Counselor`                     |
+  </Tab>
+</Tabs>
+
+---
