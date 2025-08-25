@@ -46,6 +46,20 @@ Once a user is on campus, **Item Access Control** determines which specific "bui
 
 ---
 
+## Tier 3: Permission Schemes - The Rules Inside the Building
+
+Once inside a specific building (like a `⏹️ Space`), the **Permission Scheme** governs what a user can actually _do_ to the contents (the `🧊 Objects`) within. This is the most granular layer of control.
+
+Implementing Tier 3 security is a two-step process that separates **design** from **operation**:
+
+### Step 1: Design the Scheme (in the `Function`)
+
+First, as an architect, you design the `Permission Scheme` as a blueprint inside a `📋 Function`. This is where you create your `Roles` (e.g., "Project Lead," "Team Member") and define the rules: which `Role` can perform which `Action` (e.g., `View Object`, `Edit Object`, `Delete Object`). This scheme is automatically inherited by every `⏹️ Space` created from this `Function`, ensuring a consistent set of rules.
+
+### Step 2: Assign Roles (in the `Space`)
+
+Then, in a live `⏹️ Space`, a manager assigns specific `Users` or `Groups` to the `Roles` that were defined in the `Function`'s blueprint. This provides ultimate flexibility: the rules are standardized, but _who plays which role_ can be different for each individual `Space`.
+
 <Expandable title="Putting It All Together: A Governance Matrix Example">
   ## Putting It All Together: A Governance Matrix Example
 
