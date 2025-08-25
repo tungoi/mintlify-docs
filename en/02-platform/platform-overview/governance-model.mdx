@@ -1,0 +1,87 @@
+---
+title: "The Ground Layer: Governance and Access Control"
+description: "A detailed guide to Luklak's Ground Layer, covering the 3 Tiers of Governance: system-wide Business Privileges, component-level Item Access, and granular Permission Schemes."
+sidebarTitle: "The Ground Layer"
+---
+
+## The Foundation of Your Headquarters
+
+<Note>
+  As introduced in our [Platform Architecture overview](/platform), the **Ground Layer** provides the secure, governed foundation upon which your entire digital headquarters is built. It is the land and the law.
+</Note>
+
+<Info>
+  This layer consists of a sophisticated, **3-tier governance model** that gives you precise control over who can see and do what. To understand it, think of your Luklak instance as a secure corporate campus where a user must pass through three distinct security checks to perform any action.
+</Info>
+
+[Image Placeholder: A diagram showing a funnel with three sections labeled Tier 1, Tier 2, and Tier 3. An icon of a user is at the top, passing through each layer to reach an icon of an Object at the bottom.]
+
+---
+
+## Tier 1: Business Privilege - Your Campus ID Badge
+
+This is the highest level of access. A user's **Business Privilege** determines if they are allowed onto the campus at all and defines their maximum potential authority. It's the first gate everyone must pass.
+
+<CardGroup cols={2}>
+  <Card title="Owner" icon="crown" iconType="duotone">
+    The highest level. Manages billing and holds all Admin privileges. Can add or remove everyone, including Admins.
+  </Card>
+  <Card title="Admin" icon="user-gear" iconType="duotone">
+    Can configure everything in the system, from users to global settings, but cannot remove the Owner.
+  </Card>
+  <Card title="App Manager" icon="map" iconType="duotone">
+    A specialized role that can design and manage `📋 Functions`.
+  </Card>
+  <Card title="Member" icon="user" iconType="duotone">
+    The standard privilege for most users to work within `⏹️ Spaces`.
+  </Card>
+</CardGroup>
+
+---
+
+## Tier 2: Item Access - The Keys to the Buildings
+
+Once a user is on campus, **Item Access Control** determines which specific "buildings" they can enter. These "Items" are high-level containers like a `📋 Function`, a `Dashboard`, or a `⏹️ Space`. This tier answers the question: "Which workspaces and tools can you access?"
+
+---
+
+## Tier 3: Permission Schemes - The Rules Inside the Building
+
+Once inside a specific building (like a `⏹️ Space`), the **Permission Scheme** governs what a user can actually _do_ to the contents (the `🧊 Objects`) within. This is the most granular layer, controlling actions like `View`, `Create`, `Edit`, and `Delete`.
+
+---
+
+## Putting It All Together: The Governance Matrix
+
+A user must have the correct permissions at **all three tiers** to perform an action. Let's use a real-world example to illustrate this.
+
+**Scenario:** A highly confidential "Project Phoenix" M&A `⏹️ Space`.
+
+### The Setup
+
+| Category                    | Item                                            | Configuration                                                                             |
+| :-------------------------- | :---------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| **Users**                   | Alice, Bob, Carol, David                        | Standard user accounts.                                                                   |
+| **Groups**                  | `Executive Team`, `M&A Legal`                   | Alice is in `Executive Team`. Carol is in `M&A Legal`.                                    |
+| **Roles**                   | `Project Lead`, `Legal Counsel`                 | These are defined in the `Permission Scheme` for the project.                             |
+| **Tier 1: Privilege**       | Alice: `Admin`<br />Bob, Carol, David: `Member` | Alice has system-wide power. The others are standard users.                               |
+| **Tier 2: Item Access**     | On the "Project Phoenix" `⏹️ Space`             | `Executive Team` -\> `Admin`<br />Bob -\> `Manager`<br />`M&A Legal` -\> `Member`         |
+| **Tier 3: Role Assignment** | Within the "Project Phoenix" `⏹️ Space`         | Bob is assigned the `Project Lead` Role.<br />Carol is assigned the `Legal Counsel` Role. |
+
+### The Outcome
+
+This table shows the **effective permissions** for each user, demonstrating how the tiers combine to prevent security loopholes.
+
+| User      | Tier 1 (Privilege) | Tier 2 (Can Enter Space?)               | Tier 3 (Role Inside) | Final Result: Can they...                                                                                                                                                                                              |
+| :-------- | :----------------- | :-------------------------------------- | :------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Alice** | `Admin`            | ✅ **Yes** (as part of `Executive Team`) | _(No Role assigned)_ | **Can:** Manage the `Space` settings, add/remove members (as `Admin` of the Item).<br />**Cannot:** See `🧊 Objects` inside, unless a `Permission Scheme` rule grants access to Admins.                                |
+| **Bob**   | `Member`           | ✅ **Yes** (as `Manager` of the Item)    | `Project Lead`       | **Can:** Enter the `Space`, manage `Space` content, and perform all actions granted to the `Project Lead` Role (e.g., `Create`, `Edit`, `Delete` `🧊 Objects`).<br />**Cannot:** Change the `Space`'s access controls. |
+| **Carol** | `Member`           | ✅ **Yes** (as part of `M&A Legal`)      | `Legal Counsel`      | **Can:** Enter the `Space` and perform actions granted to the `Legal Counsel` Role (e.g., `View` `🧊 Objects`, `Add Comments`).<br />**Cannot:** `Delete` `🧊 Objects` if the Role doesn't permit it.                  |
+| **David** | `Member`           | ❌ **No**                                | _(Not Applicable)_   | **Cannot do anything.** Even though David is a `Member` of the business, he was never granted `Item Access` to this specific `Space`. The security model stops him at Tier 2.                                          |
+
+## What's Next?
+
+You now have a comprehensive understanding of the 3-tier governance model. To learn how to start building your solutions on this secure foundation, explore the Build Layer.
+
+- [**Ready to build? Explore the Build Layer in Detail**](/platform/build-layer)
+- [**Go back to the main overview: Platform Architecture**](/platform)
