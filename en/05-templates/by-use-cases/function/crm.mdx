@@ -1,9 +1,3 @@
----
-title: "B2B CRM FUNCTION BLUEPRINT"
-sidebarTitle: "B2B CRM"
-icon:"bullseye-arrow"
----
-
 <Info>
   **Purpose**: To structure and manage the entire business-to-business sales lifecycle, from identifying corporate prospects and engaging key contacts to closing complex deals and forecasting revenue.
 </Info>
@@ -46,6 +40,46 @@ icon:"bullseye-arrow"
 ├── 📂 DELIVERY (Area)
 │   └── ⏹️ Project Management (Space)
 ```
+
+---
+
+## OBJECT RELATIONSHIPS
+
+<Tabs>
+  <Tab title="Parent-Child Relationships">
+    <Info>
+      A built-in, strict hierarchy where a "child" object is a component of a "parent" object. This is ideal for work breakdown structures.
+    </Info>
+    | Relationship                   | Description                                                                   |
+    | :----------------------------- | :---------------------------------------------------------------------------- |
+    | **`🧊 Company → 🧊︎ Contact`** | Each `🧊 Company` can have multiple `🧊︎ Contact` records associated with it. |
+    | **`🧊 Company → 🧊︎ Deal`**    | Each `🧊 Company` can have multiple `🧊︎ Deals` over its lifetime.            |
+  </Tab>
+  <Tab title="Object Connections">
+    <Info>
+      Reusable, bidirectional relationship types that standardize the meaning of the connection between different types of objects.
+    </Info>
+    | Connection Name      | Objects                    | Business Purpose                                                                                     |
+    | :------------------- | :------------------------- | :--------------------------------------------------------------------------------------------------- |
+    | **Deal to Contract** | `🧊︎ Deal` ↔ `🧊 Contract` | Links a closed-won `🧊︎ Deal` to its corresponding legal `🧊 Contract` for execution and management. |
+  </Tab>
+  <Tab title="Object Reference Fields">
+    <Info>
+      A field that allows one object to link to another, implementing the relationships defined in "Object Connections".
+    </Info>
+    | Field Location | Field Name         | References            | Purpose                                                                 |
+    | :------------- | :----------------- | :-------------------- | :---------------------------------------------------------------------- |
+    | `🧊︎ Deal`     | `Primary Contact`  | `B2B CRM/🧊︎ Contact` | Identifies the main point of contact for a specific deal.               |
+    | `🧊 Contract`  | `Originating Deal` | `B2B CRM/🧊︎ Deal`    | Links the legal contract back to the sales opportunity that created it. |
+  </Tab>
+  <Tab title="Data Table Fields">
+    <Info>
+      This function does not use Data Table Fields to maintain simplicity. Line items could be added to the Deal object in a future version if required.
+    </Info>
+  </Tab>
+</Tabs>
+
+---
 
 ## PART 2: OBJECT TYPES & WORKFLOWS
 
@@ -151,44 +185,6 @@ icon:"bullseye-arrow"
     | **Stakeholders** _(2 fields)_       | Primary Contact _(Object Reference: Contact)_, Involved Contacts _(Multi-Object Reference: Contact)_                                                     | Links to key people from the parent Company. |
     | **Tracking & Outcome** _(4 fields)_ | Next Step _(Text)_, Last Activity Date _(DateTime)_, Lost Reason _(Dropdown)_, Win/Loss Notes _(Paragraph)_                                              | For sales process management and analysis.   |
     | **Total: 12 fields**                |                                                                                                                                                          |                                              |
-  </Tab>
-</Tabs>
-
----
-
-## OBJECT RELATIONSHIPS
-
-<Tabs>
-  <Tab title="Parent-Child Relationships">
-    <Info>
-      A built-in, strict hierarchy where a "child" object is a component of a "parent" object. This is ideal for work breakdown structures.
-    </Info>
-    | Relationship                   | Description                                                                   |
-    | :----------------------------- | :---------------------------------------------------------------------------- |
-    | **`🧊 Company → 🧊︎ Contact`** | Each `🧊 Company` can have multiple `🧊︎ Contact` records associated with it. |
-    | **`🧊 Company → 🧊︎ Deal`**    | Each `🧊 Company` can have multiple `🧊︎ Deals` over its lifetime.            |
-  </Tab>
-  <Tab title="Object Connections">
-    <Info>
-      Reusable, bidirectional relationship types that standardize the meaning of the connection between different types of objects.
-    </Info>
-    | Connection Name      | Objects                    | Business Purpose                                                                                     |
-    | :------------------- | :------------------------- | :--------------------------------------------------------------------------------------------------- |
-    | **Deal to Contract** | `🧊︎ Deal` ↔ `🧊 Contract` | Links a closed-won `🧊︎ Deal` to its corresponding legal `🧊 Contract` for execution and management. |
-  </Tab>
-  <Tab title="Object Reference Fields">
-    <Info>
-      A field that allows one object to link to another, implementing the relationships defined in "Object Connections".
-    </Info>
-    | Field Location | Field Name         | References            | Purpose                                                                 |
-    | :------------- | :----------------- | :-------------------- | :---------------------------------------------------------------------- |
-    | `🧊︎ Deal`     | `Primary Contact`  | `B2B CRM/🧊︎ Contact` | Identifies the main point of contact for a specific deal.               |
-    | `🧊 Contract`  | `Originating Deal` | `B2B CRM/🧊︎ Deal`    | Links the legal contract back to the sales opportunity that created it. |
-  </Tab>
-  <Tab title="Data Table Fields">
-    <Info>
-      This function does not use Data Table Fields to maintain simplicity. Line items could be added to the Deal object in a future version if required.
-    </Info>
   </Tab>
 </Tabs>
 
