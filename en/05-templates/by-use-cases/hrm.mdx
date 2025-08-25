@@ -1,0 +1,267 @@
+---
+title: "ACME HR System Blueprint"
+description: "A unified system for streamlined human resource management."
+---
+
+## **ORGANIZATION STRUCTURE & WORKSPACES**
+
+<Tip>
+  **This is a Scalable Example:** The structure shown here is for demonstration purposes. You can add, remove, or rename any `📂 Area`, `⏹️ Space`, `📋 Function`, or `🧊 Object` to perfectly tailor the system to your company's unique workflow.
+</Tip>
+
+<Tabs>
+  <Tab title="Unified Organization Structure">
+    <Info>
+      This diagram illustrates how the HR-related functions are logically organized within a dedicated Area, enabling centralized management and security.
+    </Info>
+    ```
+    🏢 ACME Corporation (Organization)
+    │
+    └── 📂 Human Resources (Area)
+        ├── ⏹️ Employee Records (Space)
+        │   └── 📋 Function: HR Information System
+        │       └── 🧊 Employee
+        │
+        ├── ⏹️ Recruitment (Space)
+        │   └── 📋 Function: Recruitment Management
+        │       └── 🧊 Candidate
+        │
+        ├── ⏹️ Onboarding & Offboarding (Space)
+        │   └── 📋 Function: Employee Onboarding/Offboarding
+        │       ├── 🧊 Onboarding
+        │       └── 🧊 Offboarding
+        │
+        └── ⏹️ HR Requests (Space)
+            └── 📋 Function: HR Request
+                └── 🧊 Request
+    ```
+  </Tab>
+  <Tab title="Workspace List">
+    <Info>
+      These are virtual work environments, designed to serve different user groups by helping them focus on relevant tasks and data.
+    </Info>
+    | Workspace Name            | Purpose & Design Rationale                                                                                                         | Items Included (Dashboards, Filters, Spaces)                                                                                   |
+    | :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
+    | **HR Team Workspace**     | A centralized workspace for the entire HR team to perform their daily operational duties.                                          | - **Spaces**: Employee Records, Recruitment, Onboarding & Offboarding, HR Requests<br />- **Dashboard**: HR Overview Dashboard |
+    | **Manager's Workspace**   | Provides department heads and managers with an interface to approve employee requests and view basic information about their team. | - **Space**: HR Requests<br />- **Filter**: "Requests pending my approval"                                                     |
+    | **Employee Self-Service** | A common portal for all employees where they can submit requests and track their status.                                           | - **Space**: HR Requests<br />- **Filter**: "My Requests"                                                                      |
+  </Tab>
+</Tabs>
+
+---
+
+## **USER MANAGEMENT**
+
+<Tabs>
+  <Tab title="Account Management">
+    <Info>
+      The system will utilize two types of accounts to distinguish between actions taken by employees and those performed by automated processes.
+    </Info>
+    | Account Type           | Description                                                                                                                                       | Application at ACME Corp                                                                                          |
+    | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------- |
+    | **User Account**       | A standard account for team members who log in to the platform to perform their work and collaborate.                                             | For all ACME Corporation employees.                                                                               |
+    | **Functional Account** | A special, non-login account used exclusively by the automation engine to execute rules, ensuring a clear audit trail and consistent permissions. | A single account, `hr.automation@acme.com`, will be created to execute all cross-functional HRM automation rules. |
+  </Tab>
+  <Tab title="Global Groups">
+    <Info>
+      Groups are collections of user accounts that simplify permission and notification management.
+    </Info>
+    | Group Name           | Description & Example Members                                                                 |
+    | :------------------- | :-------------------------------------------------------------------------------------------- |
+    | `HR Department`      | Includes all members of the Human Resources department.                                       |
+    | `IT Department`      | Includes IT staff responsible for provisioning/de-provisioning accounts and hardware.         |
+    | `Finance Department` | Includes payroll and accounting staff involved in onboarding and offboarding.                 |
+    | `Hiring Managers`    | A dynamic group of managers who are actively involved in recruitment processes.               |
+    | `Board of Directors` | Includes senior leadership for access to high-level reports.                                  |
+    | `All Employees`      | A system-managed group containing every user, used for company-wide access and notifications. |
+  </Tab>
+  <Tab title="Global Roles">
+    <Info>
+      Roles are abstract titles used within permission schemes. Specific users or groups are assigned to these roles within each Space.
+    </Info>
+    | Role Name        | Core Responsibilities                                                                                  |
+    | :--------------- | :----------------------------------------------------------------------------------------------------- |
+    | `HR Manager`     | Oversees all HR functions, manages escalations, and views comprehensive reports.                       |
+    | `Recruiter`      | Manages the full recruitment lifecycle, from posting jobs to communicating with candidates.            |
+    | `Hiring Manager` | Reviews and provides feedback on candidates for their specific team/department.                        |
+    | `IT Staff`       | Fulfills technical tasks during onboarding (e.g., create email) and offboarding (e.g., revoke access). |
+    | `Finance Staff`  | Handles payroll setup and final payments during onboarding and offboarding.                            |
+    | `Employee`       | The standard role for all staff, primarily for submitting and tracking their own HR requests.          |
+  </Tab>
+</Tabs>
+
+---
+
+## **OBJECT RELATIONSHIP MODEL**
+
+<Tabs>
+  <Tab title="Parent-Child Relationships">
+    <Info>
+      This creates a strict, hierarchical link where a "child" object is a component of a "parent" object. It is ideal for breaking down a large piece of work into smaller, manageable tasks.
+    </Info>
+    **Application at ACME Corp:**
+
+    | Parent Object            | Child Object(s)        | Architectural Rationale                                                                                                                                                                                                          |
+    | :----------------------- | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `🧊 Onboarding Process`  | `🧊︎ Onboarding Task`  | **Work Breakdown:** An `🧊 Onboarding Process` is a complex procedure. Breaking it down into individual `🧊︎ Onboarding Tasks` (e.g., "Prepare Laptop," "Set up Payroll") allows for clear assignment and tracking of sub-items. |
+    | `🧊 Offboarding Process` | `🧊︎ Offboarding Task` | **Work Breakdown:** Similar to onboarding, the offboarding process is broken down into distinct tasks (e.g., "Return Assets," "Revoke System Access") for accountability.                                                        |
+  </Tab>
+  <Tab title="Global Connections">
+    <Info>
+      These are reusable, bidirectional relationship types (e.g., "relates to," "is caused by") managed at the global level. They standardize the _meaning_ of the connection between any two objects in the system.
+    </Info>
+    **Application at ACME Corp:**
+
+    | Connection Type            | Object A                | A → B Relationship | Object B                 | B → A Relationship |
+    | :------------------------- | :---------------------- | :----------------- | :----------------------- | :----------------- |
+    | **Hiring → Onboarding**    | `🧊 Candidate`          | Is onboarded via   | `🧊 Onboarding Process`  | Is for candidate   |
+    | **Onboarding → Employee**  | `🧊 Onboarding Process` | Creates            | `🧊 Employee`            | Created from       |
+    | **Employee ↔ Request**     | `🧊 Employee`           | Submits            | `🧊 Request`             | Submitted by       |
+    | **Employee ↔ Offboarding** | `🧊 Employee`           | Is offboarded via  | `🧊 Offboarding Process` | Is for employee    |
+  </Tab>
+  <Tab title="Object Picker Fields">
+    <Info>
+      This field type is the practical implementation of a relationship, allowing a user to select one or more objects from another function and link them to the current object.
+    </Info>
+    **Application at ACME Corp:**
+
+    | Field Created on Object  | Field Name          | Field Type                       | Purpose                                                                                   |
+    | :----------------------- | :------------------ | :------------------------------- | :---------------------------------------------------------------------------------------- |
+    | `🧊 Onboarding Process`  | `Candidate`         | Select 1 `🧊 Candidate`          | To link the onboarding process back to the hired candidate from the recruitment pipeline. |
+    | `🧊 Employee`            | `Source Onboarding` | Select 1 `🧊 Onboarding Process` | To maintain a record of the onboarding process that resulted in this employee record.     |
+    | `🧊 Request`             | `Requester`         | Select 1 `🧊 Employee`           | To automatically identify and link the employee who is submitting the HR request.         |
+    | `🧊 Offboarding Process` | `Employee`          | Select 1 `🧊 Employee`           | To specify which employee the offboarding process applies to.                             |
+  </Tab>
+  <Tab title="Data Table Fields">
+    <Info>
+      A special field that functions like an embedded spreadsheet within an object. It is perfect for managing structured lists of items like order lines, checklists, or logs.
+    </Info>
+    **Application at ACME Corp:**
+
+    | Used on Object                                    | Data Table Name              | Example Columns                                                                        | Rationale & Benefit                                                                                                                                                                                     |
+    | :------------------------------------------------ | :--------------------------- | :------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+    | `🧊 Onboarding Process`, `🧊 Offboarding Process` | `Cross-Department Checklist` | `Task Name`, `Responsible Dept` (e.g., IT, Finance), `Status`, `Completed By`, `Notes` | This allows the HR team to manage and track tasks that must be completed by other departments (IT, Finance) directly within the main on/offboarding record, providing complete visibility in one place. |
+  </Tab>
+</Tabs>
+
+---
+
+## **WORKVIEWS, DASHBOARDS, FILTERS & REMINDERS**
+
+<Info>
+  This section defines the cross-functional reporting and data aggregation tools. These components will provide HR staff, managers, and leadership with the necessary insights to make informed decisions.
+</Info>
+
+<Tabs>
+  <Tab title="Global Workviews">
+    <Info>
+      Workviews are pre-configured screens for day-to-day operational management, consolidating work items from various sources.
+    </Info>
+    | Workview Name            | View Type | Data Source & Filter Logic                                                                    | Audience      |
+    | :----------------------- | :-------- | :-------------------------------------------------------------------------------------------- | :------------ |
+    | **All Open HR Requests** | List View | **Source:** `HR Request/🧊Request`<br />**Logic:** `Status` IS NOT "Completed" AND "Rejected" | HR Department |
+  </Tab>
+  <Tab title="Global Dashboards">
+    <Info>
+      This dashboard provides a high-level, 360-degree view of all HR-related activities.
+    </Info>
+    | Dashboard Name                | Purpose & Audience                                                                                                                                    |
+    | :---------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **HR & Recruitment Overview** | To provide the Head of HR and company leadership with a comprehensive overview of the recruitment pipeline, request workload, and employee headcount. |
+
+    **Detailed Structure of the "HR & Recruitment Overview" Dashboard:**
+
+    | # | Gadget Name                     | Chart Type            | Data Source (Functions & Objects)          | Logic & Key Metrics                                                                   |
+    | :-- | :------------------------------ | :-------------------- | :----------------------------------------- | :------------------------------------------------------------------------------------ |
+    | 1 | **Recruitment Funnel**          | Pie Chart             | `Recruitment Management/🧊Candidate`       | `COUNT(Candidates)` grouped by `Status` (e.g., Applied, Screening, Interview, Offer). |
+    | 2 | **Time to Hire (Avg)**          | Counter & Calculation | `Recruitment Management/🧊Candidate`       | `AVERAGE(Hired Date - Application Date)` for candidates with `Status` = "Hired".      |
+    | 3 | **Open Requests by Type**       | Bar Chart             | `HR Request/🧊Request`                     | `COUNT(Requests)` grouped by `Request Type` where `Status` is open.                   |
+    | 4 | **Headcount by Department**     | 2D Statistics         | `HR Information System/🧊Employee`         | **X-Axis:** `Department`. **Y-Axis:** `Job Title`. **Value:** `COUNT(Employees)`.     |
+    | 5 | **Active Onboarding Processes** | Object List           | `Employee Onboarding/🧊Onboarding Process` | Lists all onboarding processes where `Status` is not "Completed".                     |
+  </Tab>
+  <Tab title="Global Saved Filters">
+    <Info>
+      Saved filters provide quick access to critical lists of work items for specific user groups.
+    </Info>
+    | Filter Name                    | Data Source & Filter Logic                                                                                                      | Purpose & Audience                                                         |
+    | :----------------------------- | :------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------- |
+    | **My Team's Pending Requests** | **Source:** `HR Request/🧊Request`<br />**Logic:** `Requester.Manager` = CurrentUser AND `Status` = "Pending Approval"          | For managers to quickly see and act on requests from their direct reports. |
+    | **Candidates Awaiting Review** | **Source:** `Recruitment Management/🧊Candidate`<br />**Logic:** `Status` = "Manager Review" AND `Hiring Manager` = CurrentUser | For hiring managers to easily find candidates that require their feedback. |
+  </Tab>
+  <Tab title="Filter Reminders">
+    <Info>
+      Automated notifications based on saved filters to ensure timely action on important tasks.
+    </Info>
+    | Reminder Name                        | Data Source & Filter Used                                                                                                           | Frequency & Time | Recipients (Roles/Groups) |
+    | :----------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------- | :--------------- | :------------------------ |
+    | **SLA Warning: Overdue HR Requests** | **Source:** `HR Request/🧊Request`<br />**Logic:** `Status` IS "Pending Approval" AND `Created Date` is older than 2 business days. | Daily at 9:00 AM | `HR Department` Group     |
+  </Tab>
+</Tabs>
+
+## **GLOBAL LOGIC & AUTOMATION**
+
+<Info>
+  This section details the automation rules that connect the HRM functions, now ordered chronologically to represent the entire employee journey.
+</Info>
+
+<Tabs>
+  <Tab title="Cross-System Automation">
+    <Info>
+      These rules connect Luklak with external applications and your company website.
+    </Info>
+    | Sequence | Rule # | Rule Name                         | Business Rationale                                                                                                                                                                                                                                                |
+    | :------- | :----- | :-------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | 1        | CS-01  | **Post Job Opening to Website**   | A user clicks a button on a job opening record in the Recruitment space, which sends a **Webhook** to your company's website CMS to automatically publish the job listing on the careers page.                                                                    |
+    | 2        | CS-02  | **Receive Candidate Application** | When a candidate applies via the company website or a connected job board (e.g., LinkedIn), a **Webhook** sends the application data to Luklak, automatically creating a new `Recruitment/🧊Candidate` object with the status "New," including their attached CV. |
+  </Tab>
+  <Tab title="Cross-Function Automation">
+    <Info>
+      These rules orchestrate the processes between the different HRM functions and other departments _inside_ Luklak.
+    </Info>
+    | Sequence | Rule # | Rule Name                                         | Business Description                                                                                                                                                                       |
+    | :------- | :----- | :------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | 3        | CF-01  | **Candidate Hired → Start Onboarding**            | A status change on `Recruitment/🧊Candidate` to "Hired" automatically creates a new `Onboarding & Offboarding/🧊Onboarding Process` and copies relevant candidate information.             |
+    | 4        | CF-02  | **Start Onboarding → Create IT & Finance Tasks**  | A status change on `Onboarding & Offboarding/🧊Onboarding Process` automatically creates `🧊︎Onboarding Task` sub-objects and assigns them to the IT and Finance departments.              |
+    | 5        | CF-03  | **Onboarding Complete → Create Employee Record**  | A status change on `Onboarding & Offboarding/🧊Onboarding Process` to "Completed" automatically creates the official `HRIS/🧊Employee` record with all verified information.               |
+    | 6        | CF-04  | **Employee Terminated → Start Offboarding**       | A status change on `HRIS/🧊Employee` to "Terminated" automatically creates a new `Onboarding & Offboarding/🧊Offboarding Process`.                                                         |
+    | 7        | CF-05  | **Start Offboarding → Create IT & Finance Tasks** | The creation of an `Onboarding & Offboarding/🧊Offboarding Process` automatically creates `🧊︎Offboarding Task` sub-objects and assigns them to the IT and Finance departments for action. |
+  </Tab>
+</Tabs>
+
+---
+
+## **ACCESS & GOVERNANCE**
+
+<Tabs>
+  <Tab title="Tier 1: Business Privilege">
+    <Info>
+      This is the highest level of permission, defining a user's maximum potential authority within the system.
+    </Info>
+    | Privilege Level | Assigned To (at ACME Corp)       | Permission Description                                                                       |
+    | :-------------- | :------------------------------- | :------------------------------------------------------------------------------------------- |
+    | **Owner**       | CEO                              | Has complete control over the entire organization, including billing and ownership transfer. |
+    | **Admin**       | Head of HR, System Administrator | Can configure all system-wide settings, manage users, and access all data.                   |
+    | **App Manager** | Senior HR Process Specialist     | Can design, edit, and manage the four core HRM Functions (the blueprints).                   |
+    | **Member**      | All other employees              | The standard privilege for users to work within the Spaces they are granted access to.       |
+  </Tab>
+  <Tab title="Tier 2: Item Access">
+    <Info>
+      These principles guide administrators in granting access to the "containers" of work and data (Areas, Spaces, Dashboards, etc.).
+    </Info>
+    | Item Type                  | Permission Principle                                                                                                                                                                                       | Rationale & Benefit                                                                                                                                     |
+    | :------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+    | **📂 Areas**               | The **Human Resources Area** is accessible exclusively by the `HR Department` group.                                                                                                                       | This creates a secure boundary, ensuring that all sensitive employee data contained within the HR Spaces is isolated from the rest of the organization. |
+    | **📊Dashboards & Filters** | The **HR Overview Dashboard** is shared only with the `HR Department` and `Board of Directors` groups.                                                                                                     | Protects sensitive, aggregated HR metrics while providing leadership with necessary oversight.                                                          |
+    | **📋 Functions**           | Editing rights for the four HRM Functions are restricted to users with the **App Manager** privilege.                                                                                                      | Protects the integrity of core business processes, ensuring only authorized specialists can modify the underlying logic of the HRM system.              |
+    | **⏹️ Spaces**              | **Recruitment, Employee Records, Onboarding & Offboarding** are restricted to the `HR Department` group. **HR Requests** is accessible to `All Employees` (to create) and the `HR Department` (to manage). | Provides the HR team with a secure work environment while allowing all employees to access the self-service request portal.                             |
+  </Tab>
+  <Tab title="Tier 3: Permission & Notification Schemes">
+    <Info>
+      This is the most granular tier, defining the default rules for what users can do with individual work items (`Objects`).
+    </Info>
+    | Scheme Type             | Selected Scheme for ACME Corp                | Description & Rationale                                                                                                                                                                                                                                                                                        |
+    | :---------------------- | :------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **Permission Scheme**   | **"Strict Restriction"**                     | Balances security with the need for privacy. In this scheme, users in a Space can see that items exist, but only users who are directly assigned (e.g., Recruiter, Hiring Manager for a specific Candidate) can view the full details and make updates. This is essential for protecting confidential HR data. |
+    | **Notification Scheme** | **"Notify key actions to direct assignees"** | Reduces notification noise. Only important events (like status changes or @mentions) trigger alerts, and only for the users directly involved with that specific item. This helps the HR team focus on actionable updates without being overwhelmed.                                                           |
+  </Tab>
+</Tabs>
