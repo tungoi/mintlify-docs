@@ -76,7 +76,8 @@
                       "en/02-platform/use-and-operate/index"
 					]
 				},
-              "en/02-platform/platform-overview/the-ground-layer"   
+              "en/02-platform/platform-overview/the-ground-layer"
+          
               
               
               
@@ -206,7 +207,8 @@
                       "en/02-platform/platform-overview/permissions-and-notifications/users-groups-roles",
                       "en/02-platform/platform-overview/permissions-and-notifications/item-access-management",
                       "en/02-platform/platform-overview/permissions-and-notifications/permission-schemes",
-                      "en/02-platform/platform-overview/permissions-and-notifications/notification-schemes"
+                      "en/02-platform/platform-overview/permissions-and-notifications/notification-schemes",
+                      "en/02-platform/function-design/item-access-vs-permission-scheme"
 					]
 				}
             ]
