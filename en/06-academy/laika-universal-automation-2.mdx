@@ -1,0 +1,120 @@
+**Why This Matters**
+
+Your business doesn't run on apps; it runs on value flows. But today, that value is trapped, frozen between siloed systems never built to speak the same language. Sales captures critical feedback that Design never sees. Innovations die in project management tools before Marketing can launch them. This isn't a tooling problem—it's a growth problem. Traditional systems create silos, then sell you expensive, fragile "bridges" to connect them. Luklak eliminates the silos altogether. This guide will show you how to build a truly frictionless value flow, turning departmental handoffs into a seamless, automated journey.
+
+**The Scenario: A Customer Journey Without Friction**
+
+Let's walk through a real-world example. A new customer, LAIKA, needs a construction project managed from initial contact to final invoice. In a typical company, this involves a dozen apps, countless emails, and manual data entry. In Luklak, it's one continuous flow.
+
+<Tabs>
+  <Tab title="1. Marketing & Sales">
+    **From First Touch to Qualified Deal**
+
+    1. **Lead Capture:** A `🧊 Lead Object` is created in the Marketing `⏹️ Space` when LAIKA fills out a web form.
+    2. **Automatic Handoff:** Once the marketing team qualifies the lead, they change its status to "Sales Ready."
+    3. **The Magic:** `Universal Automation` instantly triggers. It:
+       - Creates a new `🧊 Deal Object` in the Sales CRM `⏹️ Space`.
+       - Creates a `🧊 Customer Object` for LAIKA.
+       - Uses `Object Connection` to link the new `Deal` and `Customer` back to the original `Lead`.
+       - Assigns the `Deal` to the appropriate sales representative.
+
+    <Info>
+      **Result:** The sales team gets a complete, context-rich view of the new deal instantly. No data re-entry, no lost information.
+    </Info>
+  </Tab>
+  <Tab title="2. Sales & Project Management">
+    **From "Closed Won" to Project Kickoff**
+
+    1. **Deal Won:** The sales rep closes the deal, changing the `🧊 Deal Object` status to "Closed Won."
+    2. **Automatic Handoff:** This status change is the trigger for the next phase.
+    3. **The Magic:** `Universal Automation` instantly:
+       - Creates a `🧊 Project Object` in the Project Management `⏹️ Space`.
+       - Connects the `Project` to the `Deal` and `Customer` `Objects`.
+       - Pulls key data (scope, budget, contacts) directly from the `Deal` and populates the fields in the `Project`.
+       - Notifies the Head of Projects that a new project is ready for assignment.
+
+    <Info>
+      **Result:** The project team can start work immediately with all necessary information. The typical one-week delay for internal kickoff meetings is eliminated.
+    </Info>
+  </Tab>
+  <Tab title="3. Project Management & Finance">
+    **From Project Completion to Invoicing**
+
+    1. **Project Complete:** The project manager marks the final task complete, changing the `🧊 Project Object` status to "Ready for Invoicing."
+    2. **Automatic Handoff:** The finance team is brought into the flow automatically.
+    3. **The Magic:** `Universal Automation` instantly:
+       - Creates an `🧊 Invoice Object` in the Finance `⏹️ Space`.
+       - Connects the `Invoice` back to the `Project` and `Customer`.
+       - Populates the `Invoice` with the customer's details and the project's final value.
+       - Assigns the `Invoice` to an accountant to send to the client.
+
+    <Info>
+      **Result:** Invoicing happens the moment a project is finished, dramatically reducing the billing cycle time and improving cash flow.
+    </Info>
+  </Tab>
+</Tabs>
+
+**The Logic Behind It: Build Your First Value Flow**
+
+Reading about a seamless flow is one thing. Building it is another. This tutorial will guide you through creating a simple, two-stage automation that hands off a qualified lead from Marketing to Sales.
+
+```guidejar
+# Tutorial: Create a Marketing-to-Sales Handoff
+This guide shows you how to automatically create a 'Deal' Object in your Sales Space the moment a 'Lead' is qualified by your Marketing team.
+
+## Section 1: Setup Your Core Components
+! Important: Ensure you have two `⏹️ Spaces`: one for "Marketing & Leads" and one for "Sales CRM". Both should be created from `📋 Functions` that contain the necessary `🧊 Object` types ('Lead' and 'Deal').
+
+1. Navigate to your "Marketing & Leads" `⏹️ Space`.
+![Navigate to the correct Space](https://i.imgur.com/example-image.png)
+
+2. Click on the settings icon and select "Automation" to open the automation builder.
+* Tip: You can create automations at the `⏹️ Space` level for specific workflows or at the `📋 Function` level to apply to all `⏹️ Spaces` using that blueprint.
+
+## Section 2: Configure the Trigger
+1.  Click "New Automation Rule". Name it "Marketing to Sales Handoff".
+2.  For the **Trigger**, select "When an Object is updated".
+3.  Choose the `🧊 Lead Object` as the target.
+4.  Set the **Condition** to fire only when the "Status" field changes to "Qualified".
+![Configure the Trigger and Condition](https://i.imgur.com/example-image.png)
+* This ensures the rule only runs at the precise moment of handoff.
+
+## Section 3: Define the Action
+1.  In the **Action** block, select "Create a new Object".
+2.  Choose the "Sales CRM" `⏹️ Space` as the destination.
+3.  Select the `🧊 Deal Object` to be created.
+4.  Now, map the fields. Pull data from the `🧊 Lead Object` (the trigger) to populate the fields of the new `🧊 Deal Object`.
+    * `Deal Name` -> `Trigger Object's Name`
+    * `Contact Email` -> `Trigger Object's Email Field`
+    * `Value` -> `Trigger Object's Budget Field`
+![Map the data fields between Objects](https://i.imgur.com/example-image.png)
+* Tip: This field mapping is the key to transferring context without manual work.
+
+5.  Save and activate the rule. You've just bridged two departments without writing a single line of code.
+```
+
+**The Universal Secret: How This Is All Possible**
+
+This seamless flow isn't magic—it's a fundamental architectural advantage. Traditional software creates disconnected "islands" of data and then relies on fragile, third-party "bridges" (integrations) to connect them. Luklak is built on a unified foundation from the ground up.
+
+<CardGroup cols={2}>
+  <Card>
+    title="🧊 The Universal Object"
+    body="Everything in Luklak—a sales lead, a project task, a customer invoice—is a version of the same foundational LEGO piece: the Object. This shared DNA means every department's data speaks the same native language."
+  </Card>
+  <Card>
+    title="🔌 Object Connection"
+    body="Because everything is an Object, any Object can be natively linked to any other. There's no need to build a 'bridge' between your CRM and your project tool, because the relationship is part of the core platform fabric."
+  </Card>
+  <Card>
+    title="🤖 Universal Automation"
+    body="This is the platform's central nervous system. It can listen for events and trigger actions on any Object, in any Space, across the entire organization. It's not an add-on; it's the engine that drives the unified workflow."
+  </Card>
+  One system, one language, one logic. The result is zero friction and a truly scalable operating system for your business.
+</CardGroup>
+
+**What's Next?**
+
+- **Deep Dive:** Explore the architecture of the [Universal Object](https://www.google.com/search?q=https://claude.ai/chat/path/to/universal-object-article), the core concept that makes this possible.
+- **Get Building:** Browse our library of pre-built [Function Templates](https://www.google.com/search?q=https://claude.ai/chat/path/to/function-templates) to deploy powerful workflows in minutes.
+- **Become an Expert:** Master complex workflow patterns in our [Advanced Automation Masterclass](https://www.google.com/search?q=https://claude.ai/chat/path/to/advanced-automation-masterclass).

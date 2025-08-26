@@ -5,82 +5,122 @@ sidebarTitle: "Universal Automation Showcase"
 
 This guide provides a high-level overview of a fully automated workflow at LAIKA DESIGN. It highlights the key automation principles that connect every department into a single, fluid operating system.
 
-**Why This Matters**
+## **Trap of silos**
 
 <Info>
   In most companies, value gets trapped between disconnected apps. This operational friction leads to manual data entry, lost context, and costly delays. Universal Automation eliminates these silos, creating a single source of truth that allows your teams to operate with unprecedented speed and intelligence.
 </Info>
 
-**The Big Picture**
+## **The answer: Luklak Universal Automation**
 
 <Tip>
-  This entire workflow is powered by Luklak's core architecture. Every piece of information—a customer, a contract, a site survey—is a version of the `🧊 Universal Object`. Because they share the same fundamental DNA, they can interact and trigger workflows across different `⏹️ Spaces` (departments) natively.
+  This entire automation series is powered by Luklak's core architecture. Every piece of information—a customer, a contract, a site survey—is a version of the `🧊 Universal Object`. Because they share the same fundamental DNA, they can interact and trigger automation across different `⏹️ Spaces` (departments) natively.
 </Tip>
 
 ---
+
 <iframe src="https://www.guidejar.com/embed/2g7ub0Jzke28vejowzNk?type=1&controls=on" width="100%" height="500px" allowfullscreen="true" frameborder="0" />
 
-## **From Ad Click to Assigned Lead**
+### **A Customer Journey Without Friction**
 
-The journey begins when a prospect, **Sarah**, submits an inquiry form from a **Maddy**'s marketing ad.
+<Accordion title="From Ad Click to Assigned Lead" icon="sparkles">
+  The journey begins when a prospect, **Sarah**, submits an inquiry form from a **Maddy**'s marketing ad.
 
-<Card title="Automated Lead Capture & Routing">
-  An ad click is instantly converted into a fully contextualized `🧊 Customer` in the Sales `⏹️ Space` and automatically assigned to the right salesperson, **David**, based on pre-set rules.
-</Card>
+  <Card title="Automated Lead Capture & Routing">
+    An ad click is instantly converted into a fully contextualized `🧊 Customer` in the Sales `⏹️ Space` and automatically assigned to the right salesperson, **David**, based on pre-set rules.
+  </Card>
+  ### **Frictionless Scheduling**
 
-### **Frictionless Scheduling**
+  A custom action button in the `🧊 Customer` triggers an automated calendar invitation to all stakeholders: the client **Sarah**, **David** from Sales, and **Max** the Designer.
 
-A custom action button in the `🧊 Customer` triggers an automated calendar invitation to all stakeholders: the client **Sarah**, **David** from Sales, and **Max** the Designer.
+  <Tip>
+    This eliminates the back-and-forth of scheduling and ensures every stakeholder has the right context and meeting link without ever leaving Luklak.
+  </Tip>
+  ### **The Trigger Effect: One Action, Multiple Workflows**
+
+  A single status change from "Consultation" to "Contract Prep" by **David** on the `🧊 Customer` kicks off two parallel workflows simultaneously.
+
+  <Info>
+    - **Workflow 1:** A `🧊 Site Survey` is created and assigned to **Tony** in the field.
+    - **Workflow 2:** A `🧊 Contract` is created and assigned to **Emma** in Accounting.
+  </Info>
+  ### **Real-Time Field Intelligence**
+
+  <Card title="Connecting Field Operations to Central Command">
+    On-site, **Tony** scans a QR code to open the `🧊 Site Survey` on his phone. He documents a structural issue with a live photo, creating a `🧊︎ Constraint`. This real-time data instantly notifies **Max** (Designer) and **Emma** (Accounting) so they can proactively adjust plans and pricing.
+  </Card>
+</Accordion>
+
+<Accordion title="Collaborative, Automated Contracting" icon="sparkles">
+  The `🧊 Contract` becomes the single source of truth for generating legal documents.
+
+  <Tip>
+    With one click, a Google Docs contract is generated from a template. The system uses "smart values" to pull all data directly from the `🧊 Contract`, ensuring accuracy and eliminating manual entry.
+  </Tip>
+</Accordion>
+
+<Accordion title="The Payment That Launches a Project" icon="sparkles">
+  <Card title="Payment as a Workflow Catalyst">
+    A single deposit payment from **Sarah** triggers a massive chain reaction across the entire platform:
+
+    - A "Payment Received\!" notification is sent to the Sales chat.
+    - The `🧊︎ Payment` is marked as "Paid."
+    - The remaining debt on the `🧊 Contract` is automatically recalculated.
+    - The master `🧊 Project` is created, officially kicking off all design and build work.
+  </Card>
+</Accordion>
+
+<Accordion title="Seamless Design & Review Cycles" icon="sparkles">
+  <Info>
+    Status changes on the `🧊 Design` trigger automated communication. The system automatically tags **David** for internal review and, with one click, sends a highly personalized email to the client, **Sarah**, pulling design links and details directly from the `🧊 Design`.
+  </Info>
+</Accordion>
+
+<Accordion title="From Project Completion to Customer for Life" icon="sparkles">
+  <Card title="Automating Long-Term Value">
+    Changing the final project status to "Complete" triggers the after-care workflow. The system automatically calculates a loyalty voucher for **Sarah** and creates a new `🧊 After-Sales Care` for **Grace**, scheduling recurring check-ins to nurture the customer relationship.
+  </Card>
+</Accordion>
+
+## **The Logic Behind It: A principle you already understand**
+
+The seamless handoffs in this 7-department journey aren't custom code; they are simple, powerful rules built on a "Trigger -\> Condition -\> Action" principle. Here’s how the "Sales to Design" automation is constructed logically inside Luklak.
+
+<CardGroup cols={3}>
+  <Card title="1. The Trigger (The 'If')" icon="bolt" iconType="duotone">
+    Every automation begins with a **Trigger**—a specific event that Luklak listens for. In our example, the trigger is: 'When an Object is updated'. Specifically, when the 'Status' field of any `🧊 Deal Object` changes.
+  </Card>
+  <Card title="2. The Condition (The 'Only When')" icon="filter" iconType="duotone">
+    The **Condition** adds precision, ensuring the automation only runs when certain criteria are met. Here, the condition is: 'The new status is Closed Won'. This prevents the rule from firing for any other status change.
+  </Card>
+  <Card title="3. The Action (The 'Then')" icon="wand-magic-sparkles" iconType="duotone">
+    The **Action** is what the automation does. The action is declarative: 'Create a new `🧊︎ Design Concept Sub-Object`, connect it to the trigger `Project`, and assign it to the Design `⏹️ Space`.'
+  </Card>
+</CardGroup>
 
 <Tip>
-  This eliminates the back-and-forth of scheduling and ensures every stakeholder has the right context and meeting link without ever leaving Luklak.
+  This **"Trigger -\> Condition -\> Action"** model is universal across the platform. By combining these simple parts, you can map and automate your most complex business processes without writing a single line of code.
 </Tip>
 
-### **The Trigger Effect: One Action, Multiple Workflows**
+## **The Universal Secret: How This Is All Possible**
 
-A single status change from "Consultation" to "Contract Prep" by **David** on the `🧊 Customer` kicks off two parallel workflows simultaneously.
+This seamless flow isn't magic—it's a fundamental architectural advantage. Traditional software creates disconnected "islands" of data and then relies on fragile, third-party "bridges" (integrations) to connect them. Luklak is built on a unified foundation from the ground up.
 
-<Info>
-  - **Workflow 1:** A `🧊 Site Survey` is created and assigned to **Tony** in the field.
-  - **Workflow 2:** A `🧊 Contract` is created and assigned to **Emma** in Accounting.
-</Info>
-
-### **Real-Time Field Intelligence**
-
-<Card title="Connecting Field Operations to Central Command">
-  On-site, **Tony** scans a QR code to open the `🧊 Site Survey` on his phone. He documents a structural issue with a live photo, creating a `🧊︎ Constraint`. This real-time data instantly notifies **Max** (Designer) and **Emma** (Accounting) so they can proactively adjust plans and pricing.
-</Card>
-
-## **Collaborative, Automated Contracting**
-
-The `🧊 Contract` becomes the single source of truth for generating legal documents.
+<CardGroup cols={3}>
+  <Card title="The Universal Object" icon="cube" iconType="duotone">
+    Everything in Luklak—a sales lead, a project task, a customer invoice—is a version of the same foundational LEGO piece: the `🧊 Object`. This shared DNA means every department's data speaks the same native language.
+  </Card>
+  <Card title="Object Connection" icon="link" iconType="duotone">
+    Because everything is an `🧊 Object`, any `Object` can be natively linked to any other. There's no need to build a 'bridge' between your CRM and your project tool, because the relationship is part of the core platform fabric.
+  </Card>
+  <Card title="Universal Automation" icon="robot" iconType="duotone">
+    This is the platform's central nervous system. It can listen for events and trigger actions on any `🧊 Object`, in any `⏹️ Space`, across the entire organization. It's not an add-on; it's the engine that drives the unified workflow.
+  </Card>
+</CardGroup>
 
 <Tip>
-  With one click, a Google Docs contract is generated from a template. The system uses "smart values" to pull all data directly from the `🧊 Contract`, ensuring accuracy and eliminating manual entry.
+  One system, one language, one logic. The result is zero friction and a truly scalable operating system for your business.
 </Tip>
-
-## **The Payment That Launches a Project**
-
-<Card title="Payment as a Workflow Catalyst">
-  A single deposit payment from **Sarah** triggers a massive chain reaction across the entire platform:
-
-  - A "Payment Received\!" notification is sent to the Sales chat.
-  - The `🧊︎ Payment` is marked as "Paid."
-  - The remaining debt on the `🧊 Contract` is automatically recalculated.
-  - The master `🧊 Project` is created, officially kicking off all design and build work.
-</Card>
-
-## **Seamless Design & Review Cycles**
-
-<Info>
-  Status changes on the `🧊 Design` trigger automated communication. The system automatically tags **David** for internal review and, with one click, sends a highly personalized email to the client, **Sarah**, pulling design links and details directly from the `🧊 Design`.
-</Info>
-
-## **From Project Completion to Customer for Life**
-
-<Card title="Automating Long-Term Value">
-  Changing the final project status to "Complete" triggers the after-care workflow. The system automatically calculates a loyalty voucher for **Sarah** and creates a new `🧊 After-Sales Care` for **Grace**, scheduling recurring check-ins to nurture the customer relationship.
-</Card>
 
 ---
 

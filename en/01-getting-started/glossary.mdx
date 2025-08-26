@@ -1,152 +1,112 @@
----
-title: "The Luklak Glossary: A Complete Guide to System Terminology"
-description: "A comprehensive glossary of all key terms in the Luklak platform, organized by architectural concept from the Foundation to daily Operations."
-sidebarTitle: "Glossary"
----
+**Why This Matters**
 
 <Info>
-  Welcome to the official Luklak Glossary. This document is the single source of truth for all terminology used across the platform. Understanding these concepts is the key to mastering Luklak's unique and powerful architecture.
+  Your business doesn't run on apps; it runs on value flows. But today, that value is trapped, frozen between siloed systems never built to speak the same language. Sales captures critical feedback that Design never sees. Innovations die in project management tools before Marketing can launch them. This isn't a tooling problem—it's a growth problem. Traditional systems create silos, then sell you expensive, fragile "bridges" to connect them. Luklak eliminates the silos altogether. This guide will show you how to build a truly frictionless value flow, turning departmental handoffs into a seamless, automated journey.
 </Info>
 
-## Phase 1: The Foundation (Global & Governance)
+**The Scenario: A Customer Journey Without Friction**
 
-These terms relate to the system-wide setup and permission layers that form the bedrock of your Luklak instance. They are typically managed in **Global Settings**.
+Let's walk through a real-world example. A new customer, LAIKA, needs a construction project managed from initial contact to final invoice. In a typical company, this involves a dozen apps, countless emails, and manual data entry. In Luklak, it's one continuous flow.
+
+<Tabs>
+  <Tab title="1. Marketing → Sales">
+    **From First Touch to Qualified Deal**
+
+    A `🧊 Lead Object` is created in the **Marketing** `⏹️ Space` from a web form. Once qualified, a status change to "Sales Ready" automatically triggers the creation of a `🧊 Deal Object` and a `🧊 Customer Object` in the **Sales** CRM `⏹️ Space`. All marketing context is perfectly preserved and linked.
+
+    <Info>
+      **Result:** Sales gets a rich, complete view of the new deal instantly. Zero data re-entry, zero lost information.
+    </Info>
+  </Tab>
+  <Tab title="2. Sales → Design">
+    **From "Closed Won" to Concept Kickoff**
+
+    The sales rep changes the `🧊 Deal Object` status to "Closed Won." This triggers an automation that creates a main `🧊 Project Object` and immediately assigns a `🧊︎ Design Concept Sub-Object` to the **Design** `⏹️ Space`. The design team gets all the client requirements from the linked `Deal` and can start work immediately.
+
+    <Info>
+      **Result:** The creative process begins the moment a deal is signed, eliminating administrative delays and ensuring designers work from the original source of truth.
+    </Info>
+  </Tab>
+  <Tab title="3. Design → Project Management">
+    **From Approved Design to Project Plan**
+
+    When the `🧊︎ Design Concept` is approved by the client, its status change triggers the next handoff. The main `🧊 Project Object` is automatically moved to the "Execution" stage and assigned to the **Project Management** `⏹️ Space`. The system auto-populates the project plan with key tasks based on the approved design scope.
+
+    <Info>
+      **Result:** Project managers receive a fully-contextualized project ready for execution, complete with approved designs and client history.
+    </Info>
+  </Tab>
+  <Tab title="4. PM → Operations">
+    **From Project Plan to On-Site Tasks**
+
+    The Project Manager breaks down the plan into on-site tasks. An automation assigns these `🧊︎ Site Work Sub-Objects` directly to the **Operations** team's `⏹️ Space`. Field workers (`Site workers`) can view and update task status directly from their mobile devices, with progress rolling up to the main `Project Object` in real-time.
+
+    <Info>
+      **Result:** Perfect alignment between the central plan and field execution. Management has a live view of on-site progress without chasing updates.
+    </Info>
+  </Tab>
+  <Tab title="5. Operations → Finance">
+    **From Project Completion to Invoicing**
+
+    The moment the final `🧊︎ Site Work` task is marked "Complete" by the Operations team, the main `🧊 Project Object` status automatically updates to "Ready for Invoicing." This triggers the creation of an `🧊 Invoice Object` in the **Finance** `⏹️ Space`, pre-filled with the customer's details and the project's final value.
+
+    <Info>
+      **Result:** Invoicing happens the instant a project is finished, dramatically shortening the billing cycle and improving cash flow.
+    </Info>
+  </Tab>
+  <Tab title="6. Finance → Customer Service">
+    **From Paid Invoice to Ongoing Support**
+
+    When the Finance team marks the `🧊 Invoice` as "Paid," the final automation in the chain kicks in. A `🧊︎ Support Contract Object` is created and assigned to the **Customer Service** `⏹️ Space`, officially beginning the post-project support and warranty period.
+
+    <Info>
+      **Result:** The customer is seamlessly transitioned to the support team with their full project history intact, ensuring a world-class post-sale experience.
+    </Info>
+  </Tab>
+</Tabs>
+
+**The Logic Behind It: How an Automation Rule is Born**
+
+The seamless handoffs in the LAIKA example aren't custom code; they are simple, powerful rules built on a "Trigger -\> Condition -\> Action" principle. Here’s how the "Sales to Project Management" automation is constructed logically inside Luklak.
 
 <CardGroup cols={3}>
-  <Card title="User Account" icon="user" iconType="duotone">
-    An account for an individual person who can sign in and perform work.
+  <Card title="1. The Trigger (The 'If')" icon="bolt" iconType="duotone">
+    Every automation begins with a **Trigger**—a specific event that Luklak listens for. In our example, the trigger is: 'When an Object is updated'. Specifically, when the 'Status' field of any `🧊 Deal Object` changes.
   </Card>
-  <Card title="Functional Account" icon="robot" iconType="duotone">
-    A non-human technical account used exclusively for running `Universal Automation` rules securely.
+  <Card title="2. The Condition (The 'Only When')" icon="filter" iconType="duotone">
+    The **Condition** adds precision, ensuring the automation only runs when certain criteria are met. Here, the condition is: 'The new status is Closed Won'. This prevents the rule from firing for any other status change.
   </Card>
-  <Card title="Group" icon="users" iconType="duotone">
-    A collection of `User Accounts` (e.g., "Sales Team") used for efficient permission management.
-  </Card>
-  <Card title="Role" icon="user-tag" iconType="duotone">
-    A named definition of a user's function within a process (e.g., Approver, Manager). Roles are used in Permission Schemes to define what a user can do.
-  </Card>
-  <Card title="Business Privilege" icon="crown" iconType="duotone">
-    A user's system-wide authority level; their "entry ticket." The four levels are **Owner**, **Admin**, **App Manager**, and **Member**.
-  </Card>
-  <Card title="Item Access Control" icon="key" iconType="duotone">
-    The granular permission system that controls who can view, use, edit, or manage a specific "Item" (like a `Function` or `Dashboard`).
-  </Card>
-  <Card title="Global Settings" icon="gear" iconType="duotone">
-    The central administration area for configuring system-wide settings like users, groups, and global components.
+  <Card title="3. The Action (The 'Then')" icon="wand-magic-sparkles" iconType="duotone">
+    The **Action** is what the automation does. The action here is complex, but declarative: 'Create a new `🧊 Project Object` in the Project Management `⏹️ Space`, and populate its fields with data from the trigger `🧊 Deal Object`.'
   </Card>
 </CardGroup>
 
-## Phase 2: The 3 Tiers of Construction
+<Tip>
+  This **"Trigger -\> Condition -\> Action"** model is universal across the platform. By defining these three simple parts, you can construct sophisticated, cross-functional workflows that perfectly mirror your business processes without writing a single line of code.
+</Tip>
 
-These terms relate to the architectural components used in the process of building your business solutions. 
+**The Universal Secret: How This Is All Possible**
 
-### Tier 1: Core Blocks (The Raw Materials)
-
-These are the fundamental "LEGO Pieces" that you, the architect, assemble to create any business process.
+This seamless flow isn't magic—it's a fundamental architectural advantage. Traditional software creates disconnected "islands" of data and then relies on fragile, third-party "bridges" (integrations) to connect them. Luklak is built on a unified foundation from the ground up.
 
 <CardGroup cols={3}>
-  <Card title="Universal Object" icon="cube" iconType="duotone">
-    ![Universal Object.png](/images/UniversalObject.png)
-
-    The DNA of your business. Define any entity—customers, projects, candidates, assets—to create one source of truth.
-  </Card>
-  <Card title="Workflow" icon="arrow-progress" iconType="duotone">
-    ![Universal Workflow.png](/images/UniversalWorkflow.png)
-
-    Standardize your operations with visual process maps. Define the exact stages for any task, from `IDEA` to `LAUNCH`.
-  </Card>
-  <Card title="Data Fields" icon="pen-field" iconType="duotone">
-    ![data-screen.png](/images/data-screen.png)
-
-    Capture the exact data you need for any business entity. Ensure data consistency for everything you track.
+  <Card title="The Universal Object" icon="cube" iconType="duotone">
+    Everything in Luklak—a sales lead, a project task, a customer invoice—is a version of the same foundational LEGO piece: the `🧊 Object`. This shared DNA means every department's data speaks the same native language.
   </Card>
   <Card title="Object Connection" icon="link" iconType="duotone">
-    ![Object Connection.png](/images/ObjectConnection.png)
-
-    Your relationship map. Visualize how customers, projects, and support tickets are all interconnected in real-time.
-  </Card>
-  <Card title="Workview & Dashboard" icon="table-columns" iconType="duotone">
-    ![Universal Dashboard.png](/images/UniversalDashboard.png)
-
-    Your command center. Allow every team to see the same underlying data in the layout that best suits their work.
-  </Card>
-  <Card title="Universal Query Language (UQL)" icon="magnifying-glass" iconType="duotone">
-    ![Universal Query Language.png](/images/UniversalQueryLanguage.png)
-
-    Your business brain. Ask complex, cross-functional questions in natural language and get answers instantly.
+    Because everything is an `🧊 Object`, any `Object` can be natively linked to any other. There's no need to build a 'bridge' between your CRM and your project tool, because the relationship is part of the core platform fabric.
   </Card>
   <Card title="Universal Automation" icon="robot" iconType="duotone">
-    ![Universal Automation.png](/images/UniversalAutomation.png)
-
-    Your operational nervous system. Connect every process automatically, eliminating manual handoffs and friction.
-  </Card>
-  <Card title="Unified Live Chat" icon="comments" iconType="duotone">
-    ![download.png](/images/download.png)
-
-    Your collaboration fabric. Keep all conversations in the context of the work itself, ending scattered communication.
-  </Card>
-  <Card title="Permission & Notification" icon="user-shield" iconType="duotone">
-    ![permission-scheme.png](/images/permission-scheme.png)
-
-    Your governance layer. Scale with confidence, knowing the right people always have the right access.
+    This is the platform's central nervous system. It can listen for events and trigger actions on any `🧊 Object`, in any `⏹️ Space`, across the entire organization. It's not an add-on; it's the engine that drives the unified workflow.
   </Card>
 </CardGroup>
 
-### Tier 2: Function Design (The Blueprints)
+<Tip>
+  One system, one language, one logic. The result is zero friction and a truly scalable operating system for your business.
+</Tip>
 
-<CardGroup cols={1}>
-  <Card title="Function" icon="map" iconType="duotone">
-    A reusable, no-code **blueprint** for a complete business solution. It is a container that packages `Object Types`, `Workflows`, `Data Screens`, `Workviews`,  `Automations`, `Roles`, `Permissions & Notifications`
-  </Card>
-</CardGroup>
+**What's Next?**
 
-### Tier 3: Usage & Operation (The Live Instances)
-
-<CardGroup cols={3}>
-  <Card title="Object" icon="cube" iconType="duotone">
-    A single, live **instance** of an `Object Type`. This is the actual work item (e.g., the specific "Q4 Sales Deal").
-  </Card>
-  <Card title="Status" icon="flag" iconType="duotone">
-    A specific step or stage in a `Workflow` (e.g., `IN PROGRESS`). Always written in `UPPERCASE`.
-  </Card>
-  <Card title="Transition" icon="arrows-left-right" iconType="duotone">
-    The defined, one-way path between two `Statuses` in a `Workflow`.
-  </Card>
-</CardGroup>
-
-## The Work Environment (Operational Concepts)
-
-These terms describe the interfaces and tools users interact with on a daily basis.
-
-<CardGroup cols={3}>
-  <Card title="Area" icon="folder-tree" iconType="duotone">
-    A container for grouping related `Spaces`, forming the high-level structure of your organization (e.g., "Sales Department Area").
-  </Card>
-  <Card title="Space" icon="draw-square" iconType="duotone">
-    A live, dedicated **workspace** created from a `Function`. This is where teams collaborate and work on `Objects`.
-  </Card>
-  <Card title="Workspace" icon="table-layout" iconType="duotone">
-    A **personal, customizable hub** for managers to pull in different `Spaces` and reports from across the organization.
-  </Card>
-  <Card title="Personal Home" icon="house-user" iconType="duotone">
-    An **automatic, personal dashboard** for every user, aggregating all their assigned `Objects` and notifications.
-  </Card>
-  <Card title="Smart Value" icon="wand-magic-sparkles" iconType="duotone">
-    A placeholder (e.g., `{{object.name}}`) used in `Universal Automation` to dynamically pull data from `Objects` into actions.
-  </Card>
-  <Card title="Filter" icon="filter-list" iconType="duotone">
-    A set of criteria, powered by `UQL`, used to find specific `Objects`. Can be a `Quick Filter` or a `Saved Filter`.
-  </Card>
-</CardGroup>
-
-## Key Distinctions at a Glance
-
-This table clarifies some of the most important and commonly confused concepts.
-
-| We Say...                | We Mean...            | Not to be confused with... | The Core Difference                                                                                                 |
-| :----------------------- | :-------------------- | :------------------------- | :------------------------------------------------------------------------------------------------------------------ |
-| **`📋 Function`**        | The **Blueprint**     | **`⏹️ Space`**             | A Function is the design; a Space is the live workspace created from that design.                                   |
-| **`Object Type`**        | The **Blueprint**     | **`🧊 Object`**            | An Object Type is the template (e.g., "Sales Deal"); an Object is the actual instance (e.g., "The Acme Corp Deal"). |
-| **`Workview`**           | The **Workshop**      | **`Dashboard`**            | A Workview is for _executing_ work on individual Objects; a Dashboard is for _analyzing_ aggregated data.           |
-| **`Workspace`**          | The **Manager's Hub** | **`⏹️ Space`**             | A Space is an official team workspace; a Workspace is a personal dashboard for a manager to _view_ multiple Spaces. |
-| **`Business Privilege`** | The **Entry Ticket**  | **`Item Access`**          | Privilege gets you into the system; Item Access gives you the keys to specific things _inside_ the system.          |
+- **Deep Dive:** Explore the architecture of the [Universal Object](/platform/core-concepts/universal-object), the core concept that makes this possible.
+- **Get Building:** Browse our library of pre-built [Function Templates](/templates/function-templates) to deploy powerful workflows in minutes.
+- **Become an Expert:** Master complex workflow patterns in our [Advanced Automation Masterclass](/courses/masterclasses/advanced-automation).
