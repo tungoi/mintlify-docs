@@ -465,9 +465,7 @@
             "group": "Overview",
             "pages": [
               "en/06-academy/index",
-              "en/06-academy/tab06-note",
-              "en/06-academy/laika-universal-automation",
-              "en/06-academy/laika-value-flow"
+             "en/06-academy/laika-value-flow"
             ]
           }
         ]
