@@ -345,7 +345,7 @@
             "group": "Common Solutions",
             "pages": [
               {
-            "group": "Group 1",
+            "group": "Solution by industries",
             "pages": [
               "en/03-build/solution-playbooks/agency-and-consulting-operations"
           
@@ -357,7 +357,7 @@
             "group": "Advanced Techniques",
             "pages": [
               {
-            "group": "Group 1",
+            "group": "Advanced tips",
             "pages": [
               "en/03-build/advanced-techniques/index",
               "en/03-build/advanced-techniques/connecting-functions",
