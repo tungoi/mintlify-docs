@@ -1,0 +1,55 @@
+---
+title: "Standard Objects vs. Sub-Objects: Creating a Hierarchy"
+description: "Learn the difference between a top-level Standard Object and a nested Sub-Object, and understand when to use this structure to break down complex work."
+sidebarTitle: "Standard vs. Sub-Objects"
+---
+
+## The Two Levels of Objects
+
+Not all work is a flat to-do list. Some initiatives are large and complex, requiring multiple levels of detail. To model this, Luklak allows you to define two levels for your `Object Types`: **Standard** and **Sub-Object**.
+
+This structure is the foundation for creating the strict, built-in [Parent-Child Relationships](/platform/core-concepts/object-connections/parent-child-relationships) in your data model, which is the primary method for breaking down large pieces of work into smaller, manageable parts.
+
+## Defining the Levels
+
+<CardGroup cols={2}>
+  <Card title="🧊 Standard Object" icon="cube" iconType="duotone">
+    A **Standard Object** is a top-level, independent entity. It can exist on its own without needing a parent. Every hierarchy must start with a Standard Object.
+    <br/><br/>
+    **Examples:** `🧊 Project`, `🧊 Epic`, `🧊 Customer Request`.
+  </Card>
+  <Card title="🧊︎ Sub-Object" icon="cubes-stacked" iconType="duotone">
+    A **Sub-Object** is a child entity that is nested *under* a Standard Object. It cannot exist on its own and is always part of a parent-child relationship. Its purpose is to break down the parent's work.
+    <br/><br/>
+    **Examples:** `🧊 Task` (as a child of `🧊 Project`), `🧊 User Story` (as a child of `🧊 Epic`).
+  </Card>
+</CardGroup>
+
+## When to Use Sub-Objects: The Architect's Decision
+
+Choosing to structure your `Object Types` as a Standard/Sub-Object hierarchy is a key architectural decision. This pattern is the ideal choice when:
+
+- **The work has a natural hierarchy:** A `Project` is naturally composed of `Tasks`.
+- **The child item cannot exist alone:** A `Task` without a `Project` is meaningless in this context. The child is fundamentally a component *of* the parent.
+- **You need a true work breakdown structure:** This is the primary use case for tracking the completion of a larger initiative by measuring the progress of its constituent parts.
+
+[Image Placeholder: A diagram showing a 'Project' Object Type at the top (labeled 'Standard Object'). Below it are 'Task' and 'Milestone' Object Types, both nested under and pointing to the Project (labeled 'Sub-Objects').]
+
+## How It Works in Practice
+
+When you define this hierarchy in your `📋 Function`, it directly impacts the user experience in the `⏹️ Space`:
+
+- **Automatic Linking:** When a user creates a `🧊 Task` (Sub-Object) from within a `🧊 Project` (Standard Object), the two are automatically and permanently linked in a parent-child relationship.
+- **Dedicated UI:** The parent `🧊 Project` Object will have a built-in **"Sub-objects"** section in its detail view. This is where users can see, manage, and create all of its child `🧊 Tasks` in one convenient place.
+
+[Guidejar Placeholder: A tutorial showing a user viewing a 'Project' Object. They click on the 'Sub-objects' tab, which shows a list of existing 'Tasks'. They then click a '+ New Task' button within this section to create a new, automatically linked Sub-Object.]
+
+<Info>
+**Architect's Tip:** If the "child" item can and should exist independently, a flexible [Object Picker Field](/platform/core-concepts/object-connections/object-picker-fields) is a better choice for creating the relationship.
+</Info>
+
+## What's Next?
+
+You now understand how to create built-in hierarchies by defining Object levels. To learn about other, more flexible ways to connect your `Objects`, explore our complete guide to Object Connections.
+
+- [**See all relationship types: An Overview of Object Connections**](/en/02-platform/platform-overview/universal-object/object-vs-object-type)

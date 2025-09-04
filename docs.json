@@ -90,7 +90,7 @@
 					"group": "Universal Objects",
 					"icon": "cube",
 					"pages": [
-			          "en/02-platform/function-design/universal-object",
+			          "en/02-platform/platform-overview/universal-object/universal-object-overview",
               "en/02-platform/platform-overview/universal-object/what-is-universal-object",
               "en/02-platform/platform-overview/universal-object/object-vs-object-type",
               "en/02-platform/platform-overview/universal-object/creating-object-types"
