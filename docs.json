@@ -477,6 +477,7 @@
         "groups": [
           {
             "group": "Overview",
+            "icon": "robot",
             "pages": [
               "en/06-academy/index",
              "en/06-academy/laika-value-flow"
