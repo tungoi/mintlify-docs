@@ -208,7 +208,6 @@
 			         "en/02-platform/platform-overview/permissions-and-notifications/index",
                       {
 					"group": "3 tiers of access governance",
-					"icon": "user-shield",
 					"pages": [
                       "en/02-platform/platform-overview/permissions-and-notifications/business-privileges",
 			       "en/02-platform/platform-overview/permissions-and-notifications/item-access-management",
